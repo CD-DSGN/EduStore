@@ -1328,7 +1328,7 @@ function get_dyna_libs($theme, $tmp)
 {
     //begin, modified by chenggaoyuan for Strict standards: Only variables should be passed by reference
     $ext_temp = explode('.', $tmp);
-    $ext = end(ext_temp);
+    $ext = end($ext_temp);
     //end, modified by chenggaoyuan
     $tmp = basename($tmp,".$ext");
     $sql = 'SELECT region, library, sort_order, id, number, type' .
