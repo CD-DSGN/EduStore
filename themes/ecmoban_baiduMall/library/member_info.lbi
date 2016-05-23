@@ -1,0 +1,37 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+{if $user_info}
+
+<ul class="user-command active">
+	<li>{$lang.welcome}</li>
+    <li class="userinfo">
+    	<a target="_blank" href="user.php">
+			Hi，
+			<span class="username">{$user_info.username}</span>
+		</a>
+    </li>
+    <li class="logout"><a id="logout" href="user.php?act=logout"> 退出 </a></li>
+    <!--{if $navigator_list.top}-->
+    <!-- {foreach name=nav_top_list from=$navigator_list.top item=nav} -->
+    <li><a href="{$nav.url}" <!-- {if $nav.opennew eq 1} --> target="_blank" <!-- {/if} -->>{$nav.name}</a></li>
+    <!-- {/foreach} -->
+   	<!-- {/if} -->
+    <li><a href="user.php"> 个人中心 </a></li>
+</ul>
+ 
+  {else} 
+  
+<ul class="user-command">
+	<li>{$lang.welcome}</li>
+    <li class="login"><a class="login" href="user.php"> 请登录 </a></li>
+    <li class="register"><a name="register" href="user.php?act=register"> 免费注册 </a></li>
+    <!--{if $navigator_list.top}-->
+    <!-- {foreach name=nav_top_list from=$navigator_list.top item=nav} -->
+    <li><a href="{$nav.url}" <!-- {if $nav.opennew eq 1} --> target="_blank" <!-- {/if} -->>{$nav.name}</a></li>
+    <!-- {/foreach} -->
+   	<!-- {/if} -->
+    <li><a href="user.php"> 个人中心 </a></li>
+</ul>
+ 
+ 
+ {/if}
