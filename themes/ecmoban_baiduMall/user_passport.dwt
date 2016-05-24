@@ -32,7 +32,7 @@
    <form name="formLogin" action="user.php" method="post" onSubmit="return userLogin()">
         <table width="100%" border="0" align="left" cellpadding="3" cellspacing="5">
           <tr>
-            <td width="25%" align="right">{$lang.label_username}</td>
+            <td width="25%" align="right">{$lang.label_username_or_telephone}</td>
             <td width="65%"><input name="username" type="text" size="25" class="inputBg" /></td>
           </tr>
           <tr>
