@@ -352,7 +352,12 @@ elseif ($action == 'act_login')
             show_message($_LANG['invalid_captcha'], $_LANG['relogin_lnk'], 'user.php', 'error');
         }
     }
-
+    if(isMobile($username))
+    {
+        $sql ="select user_name from ".$ecs->table('users')." where mobile_phone='".$username."'";
+        $username_e = $db->getOne($sql);
+        if($username_e) $username=$username_e;
+    }
     if ($user->login($username, $password,isset($_POST['remember'])))
     {
         update_user_info();
@@ -2753,4 +2758,18 @@ elseif ($action == 'clear_history')
 {
     setcookie('ECS[history]',   '', 1);
 }
+/*begin, add by chenggaoyuan for judging a telephone number*/
+function is_telephone($phone){
+    $chars = "/^13[0-9]{1}[0-9]{8}$|15[0-9]{1}[0-9]{8}$|18[0-9]{1}[0-9]{8}$/";
+    if (preg_match($chars, $phone)){
+        return true;
+    }
+}
+function isMobile($mobile) {
+    if (!is_numeric($mobile)) {
+        return false;
+    }
+    return preg_match('#^13[\d]{9}$|^14[5,7]{1}\d{8}$|^15[^4]{1}\d{8}$|^17[0,6,7,8]{1}\d{8}$|^18[\d]{9}$#', $mobile) ? true : false;
+}
+/*end, add by chenggaoyuan for judging a telephone number*/
 ?>
