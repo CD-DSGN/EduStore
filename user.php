@@ -289,20 +289,14 @@ elseif ($action == 'is_registered')
 elseif($action == 'check_email')
 {
     $email = trim($_GET['email']);
-    //begin zhangmengqi
-    if(empty($email)){
-        echo 'ok_empty';
-    }else{
-        if ($user->check_email($email))
-        {
-            echo 'false';
-        }
-        else
-        {
-            echo 'ok';
-        }
+    if ($user->check_email($email))
+    {
+        echo 'false';
     }
-    //end zhangmengqi
+    else
+    {
+        echo 'ok';
+    }
 }
 /* 用户登录界面 */
 elseif ($action == 'login')

@@ -396,10 +396,8 @@ function checkEmail(email)
   
   if (email == '')
   {
-    //begin zhangmengqi
-    // document.getElementById('email_notice').innerHTML = msg_email_blank;
-    // submit_disabled = true;
-    //end zhangmengqi
+    document.getElementById('email_notice').innerHTML = msg_email_blank;
+    submit_disabled = true;
   }
   else if (!Utils.isEmail(email))
   {
@@ -417,20 +415,16 @@ function checkEmail(email)
 
 function check_email_callback(result)
 {
-  //begin zhangmengqi
   if ( result == 'ok' )
   {
     document.getElementById('email_notice').innerHTML = msg_can_rg;
     document.forms['formUser'].elements['Submit'].disabled = '';
-  }else if( result == 'ok_empty'){
-    document.getElementById('email_notice').innerHTML = '';
   }
   else
   {
     document.getElementById('email_notice').innerHTML = msg_email_registered;
     document.forms['formUser'].elements['Submit'].disabled = 'disabled';
   }
-  //end zhangmengqi
 }
 
 /* *
@@ -471,9 +465,7 @@ function register()
 
   if (email.length == 0)
   {
-    //begin zhangmengqi
-    // msg += email_empty + '\n';
-    //end zhangmengqi
+    msg += email_empty + '\n';
   }
   else
   {

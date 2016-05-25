@@ -102,7 +102,7 @@
           <td align="right">{$lang.label_email}</td>
           <td>
           <input name="email" type="text" size="25" id="email" onblur="checkEmail(this.value);"  class="inputBg"/>
-            <span id="email_notice" style="color:#FF0000"> </span>
+            <span id="email_notice" style="color:#FF0000"> *</span>
           </td>
         </tr>
         <tr>
