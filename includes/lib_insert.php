@@ -120,7 +120,9 @@ function insert_cart_info()
         $amount = 0;
     }
 
-    $str = sprintf($GLOBALS['_LANG']['cart_info'], $number, price_format($amount, false));
+    //modified by chenggaoyuan
+    //$str = sprintf($GLOBALS['_LANG']['cart_info'], $number, price_format($amount, false));
+    $str = sprintf($GLOBALS['_LANG']['cart_info'], $number);
 
     return '<a href="flow.php" title="' . $GLOBALS['_LANG']['view_cart'] . '">' . $str . '</a>';
 }
