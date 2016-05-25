@@ -8,24 +8,23 @@
 {literal}
 <style type="text/css">
 #header-div {
-	background: #1b9ad5;
-	border-bottom: 1px solid #118ec9; height:83px;
+	background: #303030; height:76px;
 }
 
 #logo-div {
-	margin-left: 8px;
-	margin-top: 21px;
+	margin-left: 30px;
+	margin-top: 20px;
 	width: 262px;
 	height: 45px;
 	float: left;
 }
 
 #license-div {
-  height: 50px;
-  float: left;
-  text-align:center;
-  vertical-align:middle;
-  line-height:50px;
+	height: 50px;
+	float: left;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 50px;
 }
 
 #license-div a:visited, #license-div a:link {
@@ -46,7 +45,7 @@
 	width: 1000px;
 	position: absolute;
 	right: 0px;
-	height: 84px;
+	height: 75px;
 }
 
 #submenu-div ul {
@@ -59,12 +58,14 @@
 	float: right;
 	width: 82px;
 	height: 82px;
+	/*
 	border-left: 1px solid #27aae7;
 	border-right: 1px solid #0779ba;
+	*/
 }
 #submenu-div li a {
 	text-align: center;
-	height: 74px;
+	height: 67px;
 	width: 82px;
 	padding-top: 8px;
 	display: block;
@@ -72,7 +73,7 @@
 	color: #FFF;
 }
 #submenu-div li a:hover {
-	background: url(images/muneBG.JPG) repeat-x top center;
+	background:#404040;
 }
 #submenu-div li span {
 	margin-top: 6px;
@@ -81,11 +82,14 @@
 #submenu-div li img {
 	margin: auto;
 	display: block;
+	height:35px;
 }
 #menu-div {
-	background: #0e92d0;
-	height: 42px;
+	background: #575757;
+	height: 41px;
+	border-bottom:1px solid #212121;
 }
+
 #menu-div ul {
 	margin: 0px 0px 0px 15px;
 	padding: 0;
@@ -94,18 +98,18 @@
 #menu-div ul li {
 	float: left;
 	display: block;
-	height: 42px;
-	line-height: 42px;
+	height: 41px;
+	line-height: 41px;
 	position: relative;
 }
 .muneFG {
 	height: 13px;
 	width: 0px;
-	border-right: 1px solid #15aae3;
+	border-right: 1px solid #656565;
 	margin-top: 15px;
 *margin-top:-18px;
 	_margin-top: 0px;
-	border-left: 1px solid #08679f;
+	border-left: 1px solid #303030;
 	display: inline-block;
 }
 #menu-div ul li a {
@@ -142,7 +146,7 @@
 }
 #menu-div ul li:hover a {
 	color: #fff;
-	background: #1887bb;
+	background: #454545;
 }
 #menu-div ul li:hover ul {
 	display: block;
@@ -183,7 +187,7 @@
 	_width: 240px;
 }
 </style>
-{insert_scripts files="../js/transport.js"}
+{insert_scripts files="../js/transport_jquery.js"}
 <script type="text/javascript">
 // onload = function()
 // {
@@ -267,7 +271,7 @@ var adminId = "{$admin_id}";
 </head>
 <body>
 <div id="header-div">
-  <div id="logo-div" style="bgcolor:#000000;"><img src="images/topLogo.jpg" alt="ECSHOP - power for e-commerce" /></div>
+  <div id="logo-div" style="bgcolor:#000000;"><img src="images/topLogo.png" alt="ECSHOP - power for e-commerce" /></div>
   <div id="license-div" style="bgcolor:#000000;"></div>
   <div id="submenu-div">
     <ul>

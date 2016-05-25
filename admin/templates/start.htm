@@ -55,116 +55,96 @@
 <br />
 {/if}
 <!-- end personal message -->
-<!-- start order statistics -->
+
 <div class="list-div">
-<table cellspacing='1' cellpadding='3'>
-  <tr>
-    <th colspan="4" class="group-title">{$lang.order_stat}</th>
-  </tr>
-  <tr>
-    <td width="20%"><a href="order.php?act=list&composite_status={$status.await_ship}">{$lang.await_ship}</a></td>
-    <td width="30%"><strong style="color: red">{$order.await_ship}</strong></td>
-    <td width="20%"><a href="order.php?act=list&composite_status={$status.unconfirmed}">{$lang.unconfirmed}</a></td>
-    <td width="30%"><strong>{$order.unconfirmed}</strong></td>
-  </tr>
-  <tr>
-    <td><a href="order.php?act=list&composite_status={$status.await_pay}">{$lang.await_pay}</a></td>
-    <td><strong>{$order.await_pay}</strong></td>
-    <td><a href="order.php?act=list&composite_status={$status.finished}">{$lang.finished}</a></td>
-    <td><strong>{$order.finished}</strong></td>
-  </tr>
-  <tr>
-    <td><a href="goods_booking.php?act=list_all">{$lang.new_booking}</a></td>
-    <td><strong>{$booking_goods}</strong></td>
-    <td><a href="user_account.php?act=list&process_type=1&is_paid=0">{$lang.new_reimburse}</a></td>
-    <td><strong>{$new_repay}</strong></td>
-  </tr>
-  <tr>
-    <td><a href="order.php?act=list&composite_status={$status.shipped_part}">{$lang.shipped_part}</a></td>
-    <td><strong>{$order.shipped_part}</strong></td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-  </tr>
-</table>
+	<div class="important">
+    	<ul>
+        	<li class="item01">
+            	<div class="con_box">
+                	<img src="images/icon01.png" />
+                	<h2>今日销售总额</h2>
+                    <p><!--{if $today.formatted_money}-->{$today.formatted_money}<!--{else}-->0.00<!--{/if}--></p>
+                </div>
+            </li>
+            <li class="item02">
+            	<div class="con_box">
+                	<img src="images/icon02.png" />
+                	<h2>今日订单总数</h2>
+                    <p>{$today.order}</p>
+                </div>
+            </li>
+            <li class="item03">
+            	<div class="con_box">
+                	<img src="images/icon03.png" />
+                	<h2>今日注册会员</h2>
+                    <p>{$today.user}</p>
+                </div>
+            </li>
+            <li class="item04">
+            	<div class="con_box">
+                	<img src="images/icon04.png" />
+                	<h2>今日网站访问</h2>
+                    <p>{$today_visit}</p>
+                </div>
+            </li>
+        </ul>
+    </div>
+	<div class="console_detaile">
+    	<ul>
+        	<li class="item01">
+            	<div class="con_box clearfix">
+                    <div class="img"><img src="images/iconfont-weiqueren.png" width="30" height="30" /></div>
+                    <div class="text"><h2>{$lang.unconfirmed}</h2><p><a href="order.php?act=list&composite_status={$status.unconfirmed}">{$order.unconfirmed}</a></p></div>
+                </div>
+            </li><li class="item02">
+            	<div class="con_box clearfix">
+                    <div class="img"><img src="images/iconfont-daizhifu.png" width="30" height="30" /></div>
+                	<div class="text"><h2>{$lang.await_pay}</h2><p><a href="order.php?act=list&composite_status={$status.await_pay}">{$order.await_pay}</a></p></div>
+                </div>
+            </li><li class="item03">
+            	<div class="con_box clearfix">
+                    <div class="img"><img src="images/iconfont-daifahuo.png" width="30" height="30" /></div>
+                	<div class="text"><h2>{$lang.await_ship}</h2><p><a href="order.php?act=list&composite_status={$status.await_ship}">{$order.await_ship}</a></p></div>
+                </div>
+            </li><li class="item04">
+            	<div class="con_box clearfix">
+                    <div class="img"><img src="images/iconfont-iconsvggyiwancheng18.png" width="30" height="30" /></div>
+                	<div class="text"><h2>{$lang.finished}</h2><p><a href="order.php?act=list&composite_status={$status.finished}">{$order.finished}</a></p></div>
+                </div>
+            </li><li class="item05">
+            	<div class="con_box clearfix">
+                    <div class="img"><img src="images/iconfont-dengji.png" width="30" height="30" /></div>
+                	<div class="text clearfix"><h2>{$lang.new_booking}</h2><p><a href="goods_booking.php?act=list_all">{$booking_goods}</a></p></div>
+                </div>
+            </li><li class="item06">
+            	<div class="con_box">
+                    <div class="img"><img src="images/iconfont-yifahuo.png" width="30" height="30" /></div>
+                	<div class="text"><h2>{$lang.shipped_part}</h2><p><a href="order.php?act=list&composite_status={$status.shipped_part}">{$order.shipped_part}</a></p></div>
+                </div>
+            </li><li class="item07">
+            	<div class="con_box clearfix">
+                    <div class="img"><img src="images/iconfont-iconfeature.png" width="30" height="30" /></div>
+                	<div class="text"><h2>{$lang.new_reimburse}</h2><p><a href="user_account.php?act=list&process_type=1&is_paid=0">{$new_repay}</a></p></div>
+                </div>
+            </li>
+        </ul>
+    </div>
 </div>
-<!-- end order statistics -->
+
+<div class="list-div">
+	<div class="order_count">
+        <p style="position:absolute; margin:-1px 0 0 0;"><span class="tab_front" style="font-size:20px;"><strong>{$thismonth}月订单统计</strong></span></p>
+        <div style='height:400px;' id='order_chart_div'></div>
+    </div>
+</div>
 <br />
-<!-- start goods statistics -->
 <div class="list-div">
-<table cellspacing='1' cellpadding='3'>
-  <tr>
-    <th colspan="4" class="group-title">{$lang.goods_stat}</th>
-  </tr>
-  <tr>
-    <td width="20%">{$lang.goods_count}</td>
-    <td width="30%"><strong>{$goods.total}</strong></td>
-    <td width="20%"><a href="goods.php?act=list&stock_warning=1">{$lang.warn_goods}</a></td>
-    <td width="30%"><strong style="color: red">{$goods.warn}</strong></td>
-  </tr>
-  <tr>
-    <td><a href="goods.php?act=list&amp;intro_type=is_new">{$lang.new_goods}</a></td>
-    <td><strong>{$goods.new}</strong></td>
-    <td><a href="goods.php?act=list&amp;intro_type=is_best">{$lang.recommed_goods}</a></td>
-    <td><strong>{$goods.best}</strong></td>
-  </tr>
-  <tr>
-    <td><a href="goods.php?act=list&amp;intro_type=is_hot">{$lang.hot_goods}</a></td>
-    <td><strong>{$goods.hot}</strong></td>
-    <td><a href="goods.php?act=list&amp;intro_type=is_promote">{$lang.sales_count}</a></td>
-    <td><strong>{$goods.promote}</strong></td>
-  </tr>
-</table>
+	<div class="order_count">
+        <p style="position:absolute; margin:-1px 0 0 0;"><span class="tab_front" style="font-size:20px;"><strong>{$thismonth}月销售额统计</strong></span></p>
+        <div style='height:400px;' id='sales_chart_div'></div>
+    </div>
 </div>
-<br />
-<!-- Virtual Card -->
-<div class="list-div">
-<table cellspacing='1' cellpadding='3'>
-  <tr>
-    <th colspan="4" class="group-title">{$lang.virtual_card_stat}</th>
-  </tr>
-  <tr>
-    <td width="20%">{$lang.goods_count}</td>
-    <td width="30%"><strong>{$virtual_card.total}</strong></td>
-    <td width="20%"><a href="goods.php?act=list&amp;stock_warning=1&amp;extension_code=virtual_card">{$lang.warn_goods}</a></td>
-    <td width="30%"><strong style="color: red">{$virtual_card.warn}</strong></td>
-  </tr>
-  <tr>
-    <td><a href="goods.php?act=list&amp;intro_type=is_new&amp;extension_code=virtual_card">{$lang.new_goods}</a></td>
-    <td><strong>{$virtual_card.new}</strong></td>
-    <td><a href="goods.php?act=list&amp;intro_type=is_best&amp;extension_code=virtual_card">{$lang.recommed_goods}</a></td>
-    <td><strong>{$virtual_card.best}</strong></td>
-  </tr>
-  <tr>
-    <td><a href="goods.php?act=list&amp;intro_type=is_hot&amp;extension_code=virtual_card">{$lang.hot_goods}</a></td>
-    <td><strong>{$virtual_card.hot}</strong></td>
-    <td><a href="goods.php?act=list&amp;intro_type=is_promote&amp;extension_code=virtual_card">{$lang.sales_count}</a></td>
-    <td><strong>{$virtual_card.promote}</strong></td>
-  </tr>
-</table>
 </div>
-<!-- end order statistics -->
-<br />
-<!-- start access statistics -->
-<div class="list-div">
-<table cellspacing='1' cellpadding='3'>
-  <tr>
-    <th colspan="4" class="group-title">{$lang.acess_stat}</th>
-  </tr>
-  <tr>
-    <td width="20%">{$lang.acess_today}</td>
-    <td width="30%"><strong>{$today_visit}</strong></td>
-    <td width="20%">{$lang.online_users}</td>
-    <td width="30%"><strong>{$online_users}</strong></td>
-  </tr>
-  <tr>
-    <td><a href="user_msg.php?act=list_all">{$lang.new_feedback}</a></td>
-    <td><strong>{$feedback_number}</strong></td>
-    <td><a href="comment_manage.php?act=list">{$lang.new_comments}</a></td>
-    <td><strong>{$comment_number}</strong></td>
-  </tr>
-</table>
-</div>
-<!-- end access statistics -->
 <br />
 <!-- start system information -->
 <div class="list-div">
@@ -223,6 +203,13 @@
 </table>
 </div>
 {literal}
+{insert_scripts files="../js/echarts-all.js"}
+<script type="Text/Javascript" language="JavaScript">
+    var order_chart = echarts.init(document.getElementById('order_chart_div'));
+    order_chart.setOption({$orders_option});
+    var sales_chart = echarts.init(document.getElementById('sales_chart_div'));
+    sales_chart.setOption({$sales_option});
+</script>
 {insert_scripts files="../js/utils.js"}
 <script type="Text/Javascript" language="JavaScript">
 <!--

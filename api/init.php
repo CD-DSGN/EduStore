@@ -111,7 +111,7 @@ $sess       = new cls_session($db, $ecs->table('sessions'), $ecs->table('session
 $_CFG = load_config();
 
 /* 初始化用户插件 */
-$user =& init_users();
+$user = init_users();
 
 if ((DEBUG_MODE & 1) == 1)
 {

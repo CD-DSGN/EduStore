@@ -109,7 +109,7 @@ class integrate
         {
             $this->db_name = $GLOBALS['ecs']->db_name;
             $this->prefix = $GLOBALS['ecs']->prefix;
-            $this->db = &$GLOBALS['db'];
+            $this->db = $GLOBALS['db'];
         }
         else
         {

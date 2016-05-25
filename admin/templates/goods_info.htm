@@ -32,10 +32,15 @@
         <!-- 鏈€澶ф枃浠堕檺鍒 -->
         <input type="hidden" name="MAX_FILE_SIZE" value="2097152" />
         <!-- 閫氱敤淇℃伅 -->
-        <table width="90%" id="general-table" align="center">
+        <table width="90%" id="general-table" align="center" class="goods_info">
           <tr>
             <td class="label">{$lang.lab_goods_name}</td>
-            <td><input type="text" name="goods_name" value="{$goods.goods_name|escape}" style="float:left;color:{$goods_name_color};" size="30" /><div style="background-color:{$goods_name_color};float:left;margin-left:2px;" id="font_color" onclick="ColorSelecter.Show(this);"><img src="images/color_selecter.gif" style="margin-top:-1px;" /></div><input type="hidden" id="goods_name_color" name="goods_name_color" value="{$goods_name_color}" />&nbsp;
+            <td>
+            <input type="text" name="goods_name" value="{$goods.goods_name|escape}" style="float:left;color:{$goods_name_color};" size="30" />
+            <div style="background-color:{$goods_name_color};float:left;margin:10px 0 0 5px;" id="font_color" onclick="ColorSelecter.Show(this);">
+            <img src="images/color_selecter.gif" style="margin-top:-1px;" />
+            </div>
+            <input type="hidden" id="goods_name_color" name="goods_name_color" value="{$goods_name_color}" />&nbsp;
             <select name="goods_name_style">
               <option value="">{$lang.select_font}</option>
               {html_options options=$lang.font_styles selected=$goods_name_style}
@@ -106,7 +111,8 @@
             <td class="label"><a href="javascript:showNotice('noticeUserPrice');" title="{$lang.form_notice}"><img src="images/notice.gif" width="16" height="16" border="0" alt="{$lang.form_notice}"></a>{$lang.lab_user_price}</td>
             <td>
               {foreach from=$user_rank_list item=user_rank}
-              {$user_rank.rank_name}<span id="nrank_{$user_rank.rank_id}"></span><input type="text" id="rank_{$user_rank.rank_id}" name="user_price[]" value="{$member_price_list[$user_rank.rank_id]|default:-1}" onkeyup="if(parseInt(this.value)<-1){this.value='-1';};set_price_note({$user_rank.rank_id})" size="8" />
+              {$user_rank.rank_name}<span id="nrank_{$user_rank.rank_id}"></span> 
+              <input type="text" id="rank_{$user_rank.rank_id}" name="user_price[]" value="{$member_price_list[$user_rank.rank_id]|default:-1}" onkeyup="if(parseInt(this.value)<-1){this.value='-1';};set_price_note({$user_rank.rank_id})" size="8" class="input02" />
               <input type="hidden" name="user_rank[]" value="{$user_rank.rank_id}" />
               {/foreach}
               <br />
@@ -128,8 +134,8 @@
                      {else}
                        <a href="javascript:;" onclick="removeVolumePrice(this)">[-]</a>
                      {/if}
-                     {$lang.volume_number} <input type="text" name="volume_number[]" size="8" value="{$volume_price.number}"/>
-                     {$lang.volume_price} <input type="text" name="volume_price[]" size="8" value="{$volume_price.price}"/>
+                     {$lang.volume_number} <input type="text" name="volume_number[]" size="8" value="{$volume_price.number}" class="input02"/>
+                     {$lang.volume_price} <input type="text" name="volume_price[]" size="8" value="{$volume_price.price}" class="input02"/>
                   </td>
                 </tr>
                 {/foreach}
@@ -168,7 +174,7 @@
           <tr id="promote_4">
             <td class="label" id="promote_5">{$lang.lab_promote_date}</td>
             <td id="promote_6">
-              <input name="promote_start_date" type="text" id="promote_start_date" size="12" value='{$goods.promote_start_date}' readonly="readonly" /><input name="selbtn1" type="button" id="selbtn1" onclick="return showCalendar('promote_start_date', '%Y-%m-%d', false, false, 'selbtn1');" value="{$lang.btn_select}" class="button"/> - <input name="promote_end_date" type="text" id="promote_end_date" size="12" value='{$goods.promote_end_date}' readonly="readonly" /><input name="selbtn2" type="button" id="selbtn2" onclick="return showCalendar('promote_end_date', '%Y-%m-%d', false, false, 'selbtn2');" value="{$lang.btn_select}" class="button"/>
+              <input name="promote_start_date" type="text" id="promote_start_date" size="12" value='{$goods.promote_start_date}' readonly /><input name="selbtn1" type="button" id="selbtn1" onclick="return showCalendar('promote_start_date', '%Y-%m-%d', false, false, 'selbtn1');" value="{$lang.btn_select}" class="button"/> - <input name="promote_end_date" type="text" id="promote_end_date" size="12" value='{$goods.promote_end_date}' readonly /><input name="selbtn2" type="button" id="selbtn2" onclick="return showCalendar('promote_end_date', '%Y-%m-%d', false, false, 'selbtn2');" value="{$lang.btn_select}" class="button"/>
             </td>
           </tr>
           <tr>

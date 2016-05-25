@@ -42,15 +42,15 @@
     <img src="images/{if $list.is_open eq 1}yes{else}no{/if}.gif" onclick="listTable.toggle(this, 'toggle_show', {$list.article_id})" /></span>{else}<img src="images/yes.gif" alt="yes" />{/if}</td>
     <td align="center"><span>{$list.date}</span></td>
     <td align="center" nowrap="true"><span>
-      <a href="../article.php?id={$list.article_id}" target="_blank" title="{$lang.view}"><img src="images/icon_view.gif" border="0" height="21" width="21" /></a>&nbsp;
-      <a href="article.php?act=edit&id={$list.article_id}" title="{$lang.edit}"><img src="images/icon_edit.gif" border="0" height="21" width="21" /></a>&nbsp;
-     <!-- {if $list.cat_id > 0} --><a href="javascript:;" onclick="listTable.remove({$list.article_id}, '{$lang.drop_confirm}')" title="{$lang.remove}"><img src="images/icon_drop.gif" border="0" height="21" width="21"></a><!-- {/if} --></span>
+      <a href="../article.php?id={$list.article_id}" target="_blank" title="{$lang.view}"><img src="images/icon_view.gif" border="0" height="16" width="16" /></a>&nbsp;
+      <a href="article.php?act=edit&id={$list.article_id}" title="{$lang.edit}"><img src="images/icon_edit.gif" border="0" height="16" width="16" /></a>&nbsp;
+     <!-- {if $list.cat_id > 0} --><a href="javascript:;" onclick="listTable.remove({$list.article_id}, '{$lang.drop_confirm}')" title="{$lang.remove}"><img src="images/icon_drop.gif" border="0" height="16" width="16"></a><!-- {/if} --></span>
     </td>
    </tr>
    {foreachelse}
     <tr><td class="no-records" colspan="10">{$lang.no_article}</td></tr>
   {/foreach}
-  <tr>
+  <tr>&nbsp;
     <td align="right" nowrap="true" colspan="8">{include file="page.htm"}</td>
   </tr>
 </table>

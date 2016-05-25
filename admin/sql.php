@@ -10,7 +10,7 @@
  * 使用；不允许对程序代码以任何形式任何目的的再发布。
  * ============================================================================
  * $Author: liubo $
- * $Id: sql.php 17217 2011-01-19 06:29:08Z liubo  $
+ * $Id: sql.php 17217 2011-01-19 06:29:08Z liubo $
 */
 
 define('IN_ECS', true);
@@ -41,9 +41,6 @@ if ($_REQUEST['act'] == 'main')
 if ($_REQUEST['act'] == 'query')
 {
     admin_priv('sql_query');
-	//beign, deleted by chenggaoyuan for cancel limit below
-	//对ECSHOP后台的“SQL查询”功能做了限制，只允许执行 select 查询语句，除select之外的其他查询语句，
-	//诸如 alter, update, delete, truncate等之类的SQL语句都是被禁止执行的。
 /*     if(!empty($_POST['sql']))
     {
         preg_match_all("/(SELECT)/i", $_POST['sql'],$matches);
@@ -57,7 +54,7 @@ if ($_REQUEST['act'] == 'query')
             sys_msg("this sql May contain UPDATE,DELETE,TRUNCATE,ALTER,DROP,FLUSH,INSERT,REPLACE,SET,CREATE,CONCAT ");
         }
     } */
-	//end, deleted by chenggaoyuan
+
     assign_sql($_POST['sql']);
     assign_query_info();
     $smarty->assign('ur_here', $_LANG['04_sql_query']);

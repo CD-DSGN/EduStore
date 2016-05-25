@@ -111,9 +111,9 @@ class phpwind6 extends integrate
      *
      * @return void
      */
-    function set_cookie ($username="")
+    function set_cookie ($username = '', $remember = null)
     {
-        parent::set_cookie($username);
+        parent::set_cookie($username, $remember);
         $cookie_name = substr(md5($this->db_sitehash), 0, 5) . '_winduser';
         if (empty($username))
         {

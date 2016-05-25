@@ -191,7 +191,7 @@ class prism_message{
     function __construct($conn, $raw){
         $this->raw = $raw;
         $this->data = json_decode($raw);
-        $this->conn = &$conn;
+        $this->conn = $conn;
         if($this->data){
             $this->body = &$this->data->body;
             $this->tid = &$this->data->tag;

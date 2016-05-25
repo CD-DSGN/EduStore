@@ -69,14 +69,9 @@ class cls_sql_dump
      *
      * @return void
      */
-    function cls_sql_dump(&$db, $max_size=0)
+    function __construct(&$db, $max_size =0)
     {
-        $this->db = &$db;
-        if ($max_size > 0 )
-        {
-            $this->max_size = $max_size;
-        }
-
+        $this->cls_sql_dump($db, $max_size);
     }
 
     /**
@@ -87,9 +82,14 @@ class cls_sql_dump
      *
      * @return void
      */
-    function __construct(&$db, $max_size =0)
+    function cls_sql_dump($db, $max_size=0)
     {
-        $this->cls_sql_dump($db, $max_size);
+        $this->db = $db;
+        if ($max_size > 0 )
+        {
+            $this->max_size = $max_size;
+        }
+
     }
 
     /**
@@ -350,7 +350,7 @@ class cls_sql_dump
      *
      * @return  array       $arr        信息数组
      */
-    function get_head($path)
+    static function get_head($path)
     {
         /* 获取sql文件头部信息 */
         $sql_info = array('date'=>'', 'mysql_ver'=> '', 'php_ver'=>0, 'ecs_ver'=>'', 'vol'=>0);
@@ -475,7 +475,7 @@ class cls_sql_dump
      *
      * @return      string      $str    随机名称
      */
-    function get_random_name()
+    static function get_random_name()
     {
         $str = date('Ymd');
 

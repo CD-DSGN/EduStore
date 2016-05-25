@@ -68,10 +68,10 @@
     <tr>
       <td><div align="right"><strong>{$lang.label_time}</strong></div></td>
       <td>
-      <input type="text" name="start_time" maxlength="60" size="20" readonly="readonly" id="start_time_id" />
+      <input type="text" name="start_time" maxlength="60" size="20" readonly id="start_time_id" />
       <input name="start_time_btn" type="button" id="start_time_btn" onclick="return showCalendar('start_time_id', '%Y-%m-%d %H:%M', '24', false, 'start_time_btn');" value="{$lang.btn_select}" class="button"/>
       ~      
-      <input type="text" name="end_time" maxlength="60" size="20" readonly="readonly" id="end_time_id" />
+      <input type="text" name="end_time" maxlength="60" size="20" readonly id="end_time_id" />
       <input name="end_time_btn" type="button" id="end_time_btn" onclick="return showCalendar('end_time_id', '%Y-%m-%d %H:%M', '24', false, 'end_time_btn');" value="{$lang.btn_select}" class="button"/>  
       </td>
     </tr>
@@ -100,7 +100,7 @@
   </table>
 </form>
 </div>
-{insert_scripts files="../js/transport.js,../js/region.js"}
+{insert_scripts files="../js/transport_jquery.js,../js/region.js"}
 {literal}
 <script language="JavaScript">
 region.isAdmin = true;

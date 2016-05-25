@@ -379,14 +379,16 @@ function get_sysnav()
     $catlist = array_merge(cat_list(0, 0, false), array('-'), article_cat_list(0, 0, false));
     foreach($catlist as $key => $val)
     {
-        $val['view_name'] = $val['cat_name'];
-        for($i=0;$i<$val['level'];$i++)
-        {
-            $val['view_name'] = '&nbsp;&nbsp;&nbsp;&nbsp;' . $val['view_name'];
+        if (is_array($val)) {
+            $val['view_name'] = $val['cat_name'];
+            for($i=0;$i<$val['level'];$i++)
+            {
+                $val['view_name'] = '&nbsp;&nbsp;&nbsp;&nbsp;' . $val['view_name'];
+            }
+            $val['url'] = str_replace( '&amp;', '&', $val['url']);
+            $val['url'] = str_replace( '&', '&amp;', $val['url']);
         }
-        $val['url'] = str_replace( '&amp;', '&', $val['url']);
-        $val['url'] = str_replace( '&', '&amp;', $val['url']);
-        $sysmain[] = array($val['cat_name'], $val['url'], $val['view_name']);
+        @$sysmain[] = array($val['cat_name'], $val['url'], $val['view_name']);
     }
     return $sysmain;
 }

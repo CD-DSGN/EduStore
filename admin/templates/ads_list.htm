@@ -33,10 +33,10 @@
     <td align="right"><span>{$list.ad_stats}</span></td>
     <td align="right"><span>
       {if $list.position_id eq 0}
-      <a href="ads.php?act=add_js&type={$list.media_type}&id={$list.ad_id}" title="{$lang.add_js_code}"><img src="images/icon_js.gif" border="0" height="21" width="21" /></a>
+      <a href="ads.php?act=add_js&type={$list.media_type}&id={$list.ad_id}" title="{$lang.add_js_code}"><img src="images/icon_js.gif" border="0" height="16" width="16" /></a>
       {/if}
-      <a href="ads.php?act=edit&id={$list.ad_id}" title="{$lang.edit}"><img src="images/icon_edit.gif" border="0" height="21" width="21" /></a>
-      <a href="javascript:;" onclick="listTable.remove({$list.ad_id}, '{$lang.drop_confirm}')" title="{$lang.remove}"><img src="images/icon_drop.gif" border="0" height="21" width="21" /></a></span>
+      <a href="ads.php?act=edit&id={$list.ad_id}" title="{$lang.edit}"><img src="images/icon_edit.gif" border="0" height="16" width="16" /></a>
+      <a href="javascript:;" onclick="listTable.remove({$list.ad_id}, '{$lang.drop_confirm}')" title="{$lang.remove}"><img src="images/icon_drop.gif" border="0" height="16" width="16" /></a></span>
     </td>
   </tr>
   {foreachelse}

@@ -1,0 +1,33 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<div class="main-banner-wp">
+  <div class="block">
+    <div class="main-banner" id="slideBox">
+        <ul class="main-banner-hd hd">
+            <!--{foreach from=$flash name=myflash item=flash}-->
+            <li><img src="{$flash.src}" alt=""><span></span></li>
+            <!--{/foreach}-->
+        </ul>
+        <div class="bd">
+            <ul class="main-banner-bd">
+                <!--{foreach from=$flash name=myflash item=flash}-->
+                <li><a href="{$flash.url}" target="_blank"><img src="{$flash.src}" alt=""></a></li>
+                <!--{/foreach}-->
+            </ul>
+        </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  $("#slideBox").slide({
+    effect : "fold",
+    autoPlay : true,
+    mainCell : ".bd ul"
+  });
+  $(function(){
+    $("#slideBox").hover(function(){
+        $(this).find(".hd").stop().animate({opacity:1});
+    },function(){
+        $(this).find(".hd").stop().animate({opacity:0});
+    });
+  })
+</script>

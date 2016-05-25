@@ -31,7 +31,6 @@ if ($_REQUEST['act'] == '')
 /*------------------------------------------------------ */
 elseif ($_REQUEST['act'] == 'top')
 {
-
     // 获得管理员设置的菜单
     $lst = array();
     $nav = $db->GetOne('SELECT nav_list FROM ' . $ecs->table('admin_user') . " WHERE user_id = '" . $_SESSION['admin_id'] . "'");
@@ -328,6 +327,33 @@ elseif ($_REQUEST['act'] == 'main')
 
     /* 取得支持货到付款和不支持货到付款的支付方式 */
     $ids = get_pay_ids();
+			/* ecmoban start zhou */
+    $today_start=mktime(0,0,0,date('m'),date('d'),date('Y'));
+    $today_end=mktime(0,0,0,date('m'),date('d')+1,date('Y'))-1;
+    $month_start=mktime(0,0,0,date('m'),1,date('Y'));
+    $month_end=mktime(23,59,59,date('m'),date('t'),date('Y'));
+		$today = array();	
+
+		//今日销售总额
+		//付款金额
+		$sql = 'SELECT  SUM(money_paid) AS sales FROM ' .$ecs->table('order_info'). ' WHERE `add_time` BETWEEN '.$today_start.' AND '.$today_end.'  AND supplier_id=0  '.order_query_sql('queren');	
+    $today['money_paid_money'] = $db->GetOne($sql);
+		//余额金额
+		$sql = 'SELECT  SUM(surplus) AS sales FROM ' .$ecs->table('order_info'). ' WHERE `add_time` BETWEEN '.$today_start.' AND '.$today_end.'  AND supplier_id=0 '.order_query_sql('queren');	
+    $today['surplus_money'] = $db->GetOne($sql);	
+		//总金额
+	  $today['formatted_money'] = price_format($today['money_paid_money']+$today['surplus_money']);
+		$today['formatted_money'] = str_replace("¥", "", $today['formatted_money']);
+		//今日订单数
+		$today['order'] = $db->GetOne('SELECT COUNT(*) FROM ' .$ecs->table('order_info'). ' WHERE `add_time` BETWEEN '.$today_start.' AND '.$today_end.' AND supplier_id=0');
+		//今日注册会员
+		$sql = "SELECT COUNT(*) FROM " .$ecs->table('users'). " WHERE `reg_time` BETWEEN ".$today_start.' AND '.$today_end;		
+		$today['user'] = $db->GetOne($sql);
+		//当前月份
+		$thismonth=date('m');
+    $smarty->assign('thismonth',$thismonth);
+    $smarty->assign('today',$today);
+		/* ecmoban zhou */
 
     /* 已完成的订单 */
     $order['finished']     = $db->GetOne('SELECT COUNT(*) FROM ' . $ecs->table('order_info').
@@ -339,19 +365,19 @@ elseif ($_REQUEST['act'] == 'main')
     ' FROM ' .$ecs->table('order_info') .
     " WHERE 1 " . order_query_sql('await_ship'));
     $status['await_ship']  = CS_AWAIT_SHIP;
-
+    
     /* 待付款的订单： */
     $order['await_pay']    = $db->GetOne('SELECT COUNT(*)'.
     ' FROM ' .$ecs->table('order_info') .
     " WHERE 1 " . order_query_sql('await_pay'));
     $status['await_pay']   = CS_AWAIT_PAY;
 
-    /* “未确认”的订单 */
+    /* "未确认"的订单 */
     $order['unconfirmed']  = $db->GetOne('SELECT COUNT(*) FROM ' .$ecs->table('order_info').
     " WHERE 1 " . order_query_sql('unconfirmed'));
     $status['unconfirmed'] = OS_UNCONFIRMED;
 
-    /* “部分发货”的订单 */
+    /* "部分发货"的订单 */
     $order['shipped_part']  = $db->GetOne('SELECT COUNT(*) FROM ' .$ecs->table('order_info').
     " WHERE  shipping_status=" .SS_SHIPPED_PART);
     $status['shipped_part'] = OS_SHIPPED_PART;
@@ -493,6 +519,169 @@ elseif ($_REQUEST['act'] == 'main')
 
     /* 退款申请 */
     $smarty->assign('new_repay', $db->getOne('SELECT COUNT(*) FROM ' . $ecs->table('user_account') . ' WHERE process_type = ' . SURPLUS_RETURN . ' AND is_paid = 0 '));
+	    /* 每月数据统计 ecmoban start zhou*/
+    $froms_tooltip = array(
+                        'trigger'=>'item',
+                        'formatter'=>'{a} <br/>{b} : {c} ({d}%)');
+    $froms_legend = array(
+                        'orient'=>'vertical',
+                        'x'=>'left',
+                        'y'=>'20',
+                        'data'=>array());
+    $froms_toolbox = array(
+        'show'=>true,
+        'feature'=>array(
+            'magicType'=>array(
+                'show'=>true,
+                'type'=>array('pie','funnel')
+            ),
+            'restore'=>array('show'=>true),
+            'saveAsImage'=>array('show'=>true)
+        )
+    );
+    
+    $froms_calculable = true;
+    $froms_series = array(
+        array(
+            'type'=>'pie',
+            'radius'=>'55%',
+            'center'=>array('50%','60%')));
+    $froms_data = array();
+    $froms_options = array();
+    
+    $sql = 'SELECT `froms`, count(*) AS `count` FROM '.$ecs->table('order_info').' WHERE `add_time` BETWEEN '.$month_start.' AND '.$month_end. ' AND supplier_id=0 GROUP BY `froms` ORDER BY `count` DESC';
+    $result = $db->query($sql);
+    while($row = mysql_fetch_assoc($result))
+    {
+        $froms_data[] = array('value'=>$row['count'],'name'=>$row['froms']);
+        $froms_legend_data[]=$row['froms'];
+    }
+    $froms_legend['data'] = $froms_legend_data;
+    $froms_series[0]['data'] = $froms_data;
+    $froms_options['tooltip'] = $froms_tooltip;
+    $froms_options['legend'] = $froms_legend;
+    $froms_options['toolbox'] = $froms_toolbox;
+    $froms_options['calculabe'] = $froms_calculable;
+    $froms_options['series'] = $froms_series;
+    $smarty->assign('froms_option',json_encode($froms_options));
+    //当月每日订单数统计
+    $orders_tooltip = array('trigger'=>'axis');
+    $orders_legend = array('data'=>array());
+    $orders_toolbox = array(
+                        'show'=>true,
+                        'x'=>'right',
+                        'feature'=>array(
+                                    'magicType'=>array(
+                                                    'show'=>true,
+                                                    'type'=>array('line','bar')),
+                                    'restore'=>array(
+                                                    'show'=>true),
+                                    'saveAsImage'=>array(
+                                                    'show'=>true)
+                                    ));
+    $orders_calculable = true;
+    $orders_xAxis = array(
+                        'type'=>'category',
+                        'boundryGap'=>false,
+                        'data'=>array());
+    $orders_yAxis = array(
+                        'type'=>'value',
+                        'axisLabel'=>array(
+                                        'formatter'=>'{value}个'));
+    $orders_series = array(
+                        array(
+                            'name'=>'订单个数',
+                            'type'=>'line',
+                            'data'=>array(),
+                            'markPoint'=>array(
+                                            'data'=>array(
+                                                        array(
+                                                            'type'=>'max',
+                                                            'name'=>'最大值'),
+                                                        array(
+                                                            'type'=>'min',
+                                                            'name'=>'最小值')))));
+    $sql = 'SELECT DATE_FORMAT(FROM_UNIXTIME(`add_time`),"%d") AS day,COUNT(*) AS count,SUM(money_paid) AS money, SUM(money_paid)+SUM(surplus) AS superman FROM '.$ecs->table('order_info').' WHERE `add_time` BETWEEN '.$month_start.' AND '.$month_end. ' AND supplier_id=0 GROUP BY day ORDER BY day ASC ';
+
+    $result = $db->query($sql);
+    
+    while($row = mysql_fetch_assoc($result))
+    {
+        $orders_series_data[intval($row['day'])] = intval($row['count']);
+        $sales_series_data[intval($row['day'])] = floatval($row['money']);
+        $sales_series_data[intval($row['day'])] = floatval($row['superman']);
+    }
+    for($i = 1;$i<=date('d');$i++)
+    {
+        if(empty($orders_series_data[$i]))
+        {
+            $orders_series_data[$i] = 0;
+            $sales_series_data[$i] = 0;
+        }
+        $orders_xAxis_data[] = $i;
+        $sales_xAxis_data[] = $i;
+    }
+    $orders_xAxis['data'] = $orders_xAxis_data;
+    ksort($orders_series_data);
+    
+    $orders_series[0]['data'] = array_values($orders_series_data);
+    $orders_option['tooltip'] = $orders_tooltip;
+    $orders_option['legend'] = $orders_legend;
+    $orders_option['toolbox'] = $orders_toolbox;
+    $orders_option['calculable'] = $orders_calculable;
+    $orders_option['xAxis'] = $orders_xAxis;
+    $orders_option['yAxis'] = $orders_yAxis;
+    $orders_option['series'] = $orders_series;
+    $smarty->assign('orders_option',json_encode($orders_option));
+    
+    //当月每日销售额统计
+    $sales_tooltip = array('trigger'=>'axis');
+    $sales_legend = array('data'=>array());
+    $sales_toolbox = array(
+                        'show'=>true,
+                        'x'=>'right',
+                        'feature'=>array(
+                                    'magicType'=>array(
+                                                    'show'=>true,
+                                                    'type'=>array('line','bar')),
+                                    'restore'=>array(
+                                                    'show'=>true),
+                                    'saveAsImage'=>array(
+                                                    'show'=>true)
+                                    ));
+    $sales_calculable = true;
+    $sales_xAxis = array(
+                        'type'=>'category',
+                        'boundryGap'=>false,
+                        'data'=>array());
+    $sales_yAxis = array(
+                        'type'=>'value',
+                        'axisLabel'=>array(
+                                        'formatter'=>'{value}元'));
+    $sales_series = array(
+                        array(
+                            'name'=>'销售额',
+                            'type'=>'line',
+                            'data'=>array(),
+                            'markPoint'=>array(
+                                            'data'=>array(
+                                                        array(
+                                                            'type'=>'max',
+                                                            'name'=>'最大值'),
+                                                        array(
+                                                            'type'=>'min',
+                                                            'name'=>'最小值')))));
+    $sales_xAxis['data'] = $sales_xAxis_data;
+    ksort($sales_series_data);
+    $sales_series[0]['data'] = array_values($sales_series_data);
+    $sales_option['tooltip'] = $sales_tooltip;
+    $sales_option['toolbox'] = $sales_toolbox;
+    $sales_option['calculable'] = $sales_calculable;
+    $sales_option['xAxis'] = $sales_xAxis;
+    $sales_option['yAxis'] = $sales_yAxis;
+    $sales_option['series'] = $sales_series;
+    $smarty->assign('sales_option',json_encode($sales_option));
+    /* ecmoban end */
 
 
 
@@ -541,7 +730,9 @@ elseif ($_REQUEST['act'] == 'main_api')
 
         $t = new transport;
         $api_comment = $t->request('http://ecshop.ecmoban.com/checkver.php', $apiget);
-
+        $api_str = $api_comment["body"];
+        echo $api_str;
+        
         $f=ROOT_PATH . 'data/config.php'; 
         file_put_contents($f,str_replace("'API_TIME', '".API_TIME."'","'API_TIME', '".date('Y-m-d H:i:s',time())."'",file_get_contents($f)));
         
@@ -657,7 +848,7 @@ elseif ($_REQUEST['act'] == 'second')
     $shop_city = empty($_POST['shop_city']) ? '' : intval($_POST['shop_city']);
     $shop_address = empty($_POST['shop_address']) ? '' : $_POST['shop_address'] ;
     $shipping = empty($_POST['shipping']) ? '' : $_POST['shipping'];
-    $payment = empty($_POST['payment']) ? '' : preg_replace('/[\'|\/|\\\]/','',$_POST['payment']);
+    $payment = empty($_POST['payment']) ? '' : $_POST['payment'];
 
     if(!empty($shop_name))
     {
@@ -1301,6 +1492,7 @@ function license_check()
 
     // 取出网店 license
     $license = get_shop_license();
+
     // 检测网店 license
     if (!empty($license['certificate_id']) && !empty($license['token']) && !empty($license['certi']))
     {

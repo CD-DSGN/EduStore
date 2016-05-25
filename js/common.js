@@ -259,7 +259,6 @@ function bidResponse(result)
   }
 }
 
-
 /* *
  * 夺宝奇兵最新出价
  */
@@ -839,7 +838,6 @@ function docEle()
 //生成属性选择层
 function openSpeDiv(message, goods_id, parent) 
 {
-	
   var _id = "speDiv";
   var m = "mask";
   if (docEle(_id)) document.removeChild(docEle(_id));
@@ -868,7 +866,6 @@ function openSpeDiv(message, goods_id, parent)
   }
 
   // 新激活图层
-
   var newDiv = document.createElement("div");
   newDiv.id = _id;
   newDiv.style.position = "absolute";
@@ -963,7 +960,7 @@ function submit_div(goods_id, parentId)
   goods.number   = number;
   goods.parent   = (typeof(parentId) == "undefined") ? 0 : parseInt(parentId);
 
-  Ajax.call('flow.php?step=add_to_cart', 'goods=' + $.toJSON(goods), addToCartResponse, 'POST', 'JSON');
+  Ajax.call('flow.php?step=add_to_cart', 'goods=' + $.toJSON(package_info), addToCartResponse, 'POST', 'JSON');
 
   document.body.removeChild(docEle('speDiv'));
   document.body.removeChild(docEle('mask'));

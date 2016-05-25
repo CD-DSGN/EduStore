@@ -74,11 +74,16 @@ class ips
     *
     * @return void
     */
-
     function __construct()
     {
-        
+        $this->ips();
     }
+    
+    function ips()
+    {
+
+    }
+
 
     /**
     * 生成支付代码

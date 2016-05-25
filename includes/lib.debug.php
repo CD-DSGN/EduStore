@@ -300,7 +300,7 @@ if (USE_DEBUGLIB) {
                 $output .= '<span style="color:red;font-size:small;">print_a( empty array )</span>';
             }
 
-            $pa = &new Print_a_class;
+            $pa = new Print_a_class;
             $show_object_vars and $pa->show_object_vars = true;
             if( $limit ) {
                 $pa->limit = $limit;
@@ -577,7 +577,11 @@ if (USE_DEBUGLIB) {
     #
     function pre( $string, $return_mode = false, $tabwidth = 3 ) {
         $tab = str_repeat('&nbsp;', $tabwidth);
-        $string = preg_replace('/\t+/em', "str_repeat( ' ', strlen('\\0') * $tabwidth );", $string); /* replace all tabs with spaces */
+        if (!function_exists('version_compare') || version_compare(phpversion(), '5.3.0', '<')) {
+            $string = preg_replace('/\t+/em', "str_repeat( ' ', strlen('\\0') * $tabwidth );", $string); /* replace all tabs with spaces */
+        } else {
+            include(ROOT_PATH . 'includes' . DIRECTORY_SEPARATOR . 'patch' . DIRECTORY_SEPARATOR . 'includes_lib.debug_pre.php');
+        }
 
         $out = '<pre>'.$string."</pre>\n";
 

@@ -702,12 +702,12 @@ function get_same_attribute_goods($attr)
                 $lnk[$key]['goods'][$row['goods_id']]['goods_id']      = $row['goods_id'];
                 $lnk[$key]['goods'][$row['goods_id']]['goods_name']    = $row['goods_name'];
                 $lnk[$key]['goods'][$row['goods_id']]['short_name']    = $GLOBALS['_CFG']['goods_name_length'] > 0 ?
-                sub_str($row['goods_name'], $GLOBALS['_CFG']['goods_name_length']) : $row['goods_name'];
+                    sub_str($row['goods_name'], $GLOBALS['_CFG']['goods_name_length']) : $row['goods_name'];
                 $lnk[$key]['goods'][$row['goods_id']]['goods_thumb']     = (empty($row['goods_thumb'])) ? $GLOBALS['_CFG']['no_picture'] : $row['goods_thumb'];
                 $lnk[$key]['goods'][$row['goods_id']]['market_price']  = price_format($row['market_price']);
                 $lnk[$key]['goods'][$row['goods_id']]['shop_price']    = price_format($row['shop_price']);
                 $lnk[$key]['goods'][$row['goods_id']]['promote_price'] = bargain_price($row['promote_price'],
-                $row['promote_start_date'], $row['promote_end_date']);
+                    $row['promote_start_date'], $row['promote_end_date']);
                 $lnk[$key]['goods'][$row['goods_id']]['url']           = build_uri('goods', array('gid' => $row['goods_id']), $row['goods_name']);
             }
         }

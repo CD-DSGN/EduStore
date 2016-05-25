@@ -348,7 +348,7 @@ function msg_list()
            " WHERE parent_id = '0' " . $where;
     $filter['record_count'] = $GLOBALS['db']->getOne($sql);
 
-    /* 分页大小  */
+    /* 分页大小 */
     $filter = page_and_size($filter);
 
     $sql = "SELECT f.msg_id, f.user_name, f.msg_title, f.msg_type, f.order_id, f.msg_status, f.msg_time, f.msg_area, COUNT(r.msg_id) AS reply " .

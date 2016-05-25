@@ -75,12 +75,15 @@ class kuaiqian
      *
      * @return void
      */
-
-
     function __construct()
     {
-        
+        $this->kuaiqian();
     }
+    function kuaiqian()
+    {
+    }
+
+
 
    /**
      * 生成支付代码

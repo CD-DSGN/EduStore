@@ -775,7 +775,7 @@ function make_semiangle($str)
  */
 function compile_str($str)
 {
-    $arr = array('<' => '＜', '>' => '＞');
+    $arr = array('<' => '＜', '>' => '＞','"'=>'”',"'"=>'’');
 
     return strtr($str, $arr);
 }
@@ -1225,7 +1225,8 @@ function to_utf8_iconv($str)
  */
 function get_file_suffix($file_name, $allow_type = array())
 {
-    $file_suffix = strtolower(array_pop(explode('.', $file_name)));
+    $file_name_arr = explode('.', $file_name);
+    $file_suffix = strtolower(array_pop($file_name_arr));
     if (empty($allow_type))
     {
         return $file_suffix;

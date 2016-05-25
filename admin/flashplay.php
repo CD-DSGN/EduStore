@@ -89,7 +89,8 @@ elseif($_REQUEST['act']== 'del')
         }
     }
     put_flash_xml($temp);
-    set_flash_data($_CFG['flash_theme'], $error_msg = '');
+    $error_msg = '';
+    set_flash_data($_CFG['flash_theme'], $error_msg);
     ecs_header("Location: flashplay.php?act=list\n");
     exit;
 }
@@ -128,7 +129,8 @@ elseif ($_REQUEST['act'] == 'add')
             {
                 $name .= chr(mt_rand(97, 122));
             }
-            $name .= '.' . end(explode('.', $_FILES['img_file_src']['name']));
+            $img_file_src_name_arr = explode('.', $_FILES['img_file_src']['name']);
+            $name .= '.' . end($img_file_src_name_arr);
             $target = ROOT_PATH . DATA_DIR . '/afficheimg/' . $name;
             if (move_upload_file($_FILES['img_file_src']['tmp_name'], $target))
             {
@@ -180,7 +182,8 @@ elseif ($_REQUEST['act'] == 'add')
         unset($flashdb, $flashdb_sort);
 
         put_flash_xml($_flashdb);
-        set_flash_data($_CFG['flash_theme'], $error_msg = '');
+        $error_msg = '';
+        set_flash_data($_CFG['flash_theme'], $error_msg);
         $links[] = array('text' => $_LANG['go_url'], 'href' => 'flashplay.php?act=list');
         sys_msg($_LANG['edit_ok'], 0, $links);
     }
@@ -235,7 +238,8 @@ elseif ($_REQUEST['act'] == 'edit')
             {
                 $name .= chr(mt_rand(97, 122));
             }
-            $name .= '.' . end(explode('.', $_FILES['img_file_src']['name']));
+			$img_file_src_name_arr = explode('.', $_FILES['img_file_src']['name']);
+            $name .= '.' . end($img_file_src_name_arr);
             $target = ROOT_PATH . DATA_DIR . '/afficheimg/' . $name;
 
             if (move_upload_file($_FILES['img_file_src']['tmp_name'], $target))
@@ -282,7 +286,8 @@ elseif ($_REQUEST['act'] == 'edit')
         unset($flashdb, $flashdb_sort);
 
         put_flash_xml($_flashdb);
-        set_flash_data($_CFG['flash_theme'], $error_msg = '');
+        $error_msg = '';
+        set_flash_data($_CFG['flash_theme'], $error_msg);
         $links[] = array('text' => $_LANG['go_url'], 'href' => 'flashplay.php?act=list');
         sys_msg($_LANG['edit_ok'], 0, $links);
     }
@@ -447,7 +452,8 @@ elseif ($_REQUEST['act'] == 'custom_insert')
         {
             $name .= chr(mt_rand(97, 122));
         }
-        $name .= '.' . end(explode('.', $ad_img['ad_img']['name']));
+		$ad_img_name_arr = explode('.', $ad_img['ad_img']['name']);
+        $name .= '.' . end($ad_img_name_arr);
         $target = ROOT_PATH . DATA_DIR . '/afficheimg/' . $name;
 
         if (move_upload_file($ad_img['ad_img']['tmp_name'], $target))
@@ -674,7 +680,8 @@ elseif ($_REQUEST['act'] == 'custom_update')
         {
             $name .= chr(mt_rand(97, 122));
         }
-        $name .= '.' . end(explode('.', $ad_img['ad_img']['name']));
+		$ad_img_name_arr = explode('.', $ad_img['ad_img']['name']);
+        $name .= '.' . end($ad_img_name_arr);
         $target = ROOT_PATH . DATA_DIR . '/afficheimg/' . $name;
 
         if (move_upload_file($ad_img['ad_img']['tmp_name'], $target))
@@ -775,7 +782,8 @@ function put_flash_xml($flashdb)
 
 function get_url_image($url)
 {
-    $ext = strtolower(end(explode('.', $url)));
+	$url_arr = explode('.', $url);
+    $ext = strtolower(end($url_arr));
     if($ext != "gif" && $ext != "jpg" && $ext != "png" && $ext != "bmp" && $ext != "jpeg")
     {
         return $url;

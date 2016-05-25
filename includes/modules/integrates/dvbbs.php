@@ -193,9 +193,9 @@ class dvbbs extends integrate
      *
      * @return void
      */
-    function set_cookie ($username="")
+    function set_cookie ($username = '', $remember = null)
     {
-        parent::set_cookie($username);
+        parent::set_cookie($username, $remember);
         if (empty($username))
         {
             $time = time() - 3600;

@@ -43,8 +43,8 @@
       <td align="right">{$favourable.max_amount}</td>
       <td align="center"><span onclick="listTable.edit(this, 'edit_sort_order', {$favourable.act_id})">{$favourable.sort_order}</span></td>
       <td align="center">
-        <a href="favourable.php?act=edit&amp;id={$favourable.act_id}" title="{$lang.edit}"><img src="images/icon_edit.gif" border="0" height="21" width="21" /></a>
-        <a href="javascript:;" onclick="listTable.remove({$favourable.act_id},'{$lang.drop_confirm}')" title="{$lang.remove}"><img src="images/icon_drop.gif" border="0" height="21" width="21" /></a>      </td>
+        <a href="favourable.php?act=edit&amp;id={$favourable.act_id}" title="{$lang.edit}"><img src="images/icon_edit.gif" border="0" height="16" width="16" /></a>
+        <a href="javascript:;" onclick="listTable.remove({$favourable.act_id},'{$lang.drop_confirm}')" title="{$lang.remove}"><img src="images/icon_drop.gif" border="0" height="16" width="16" /></a>      </td>
     </tr>
     {foreachelse}
     <tr><td class="no-records" colspan="13">{$lang.no_records}</td></tr>

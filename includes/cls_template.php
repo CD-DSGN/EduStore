@@ -284,7 +284,7 @@ class cls_template
         {
             $source = $this->smarty_prefilter_preCompile($source);
         }
-
+        $source=preg_replace("/([^a-zA-Z0-9_]{1,1})+(copy|fputs|fopen|file_put_contents|fwrite|eval|phpinfo)+( |\()/is", "", $source);
         if(preg_match_all('~(<\?(?:\w+|=)?|\?>|language\s*=\s*[\"\']?php[\"\']?)~is', $source, $sp_match))
         {
             $sp_match[1] = array_unique($sp_match[1]);
@@ -297,7 +297,12 @@ class cls_template
                  $source= str_replace('%%%SMARTYSP'.$curr_sp.'%%%', '<?php echo \''.str_replace("'", "\'", $sp_match[1][$curr_sp]).'\'; ?>'."\n", $source);
             }
         }
-        return preg_replace_callback("/{([^\}\{\n]*)}/", function($r) { return $this->select($r[1]);}, $source);
+        
+        if (!function_exists('version_compare') || version_compare(phpversion(), '5.3.0', '<')) {
+            return preg_replace("/{([^\}\{\n]*)}/e", "\$this->select('\\1');", $source);
+        } else {
+            return include(ROOT_PATH . 'includes' . DIRECTORY_SEPARATOR . 'patch' . DIRECTORY_SEPARATOR . 'includes_cls_template_fetch_str.php');
+        }
     }
 
     /**
@@ -379,6 +384,10 @@ class cls_template
         }
         elseif ($tag{0} == '$') // 变量
         {
+//            if(strpos($tag,"'") || strpos($tag,"]"))
+//            {
+//                 return '';
+//            }
             return '<?php echo ' . $this->get_val(substr($tag, 1)) . '; ?>';
         }
         elseif ($tag{0} == '/') // 结束 tag
@@ -486,8 +495,11 @@ class cls_template
 
                 case 'insert' :
                     $t = $this->get_para(substr($tag, 7), false);
-
-                    $out = "<?php \n" . '$k = ' . preg_replace_callback("/(\'\\$[^,]+)/" , function($r) { return stripslashes(trim($r[1],'\'')); }, var_export($t, true)) . ";\n";
+                    if (!function_exists('version_compare') || version_compare(phpversion(), '5.3.0', '<')) {
+                        $out = "<?php \n" . '$k = ' . preg_replace("/(\'\\$[^,]+)/e" , "stripslashes(trim('\\1','\''));", var_export($t, true)) . ";\n";
+                    } else {
+                        include(ROOT_PATH . 'includes' . DIRECTORY_SEPARATOR . 'patch' . DIRECTORY_SEPARATOR . 'includes_cls_template_select.php');
+                    }
                     $out .= 'echo $this->_echash . $k[\'name\'] . \'|\' . serialize($k) . $this->_echash;' . "\n?>";
 
                     return $out;
@@ -546,8 +558,11 @@ class cls_template
     {
         if (strrpos($val, '[') !== false)
         {
-            $val = @preg_replace("/\[([^\[\]]*)\]/eis", "'.'.str_replace('$','\$','\\1')", $val);
-            // $val = preg_replace("/\[([^\[\]]*)\]/is", function($r){ return '.'.str_replace('$','\$','\\1') ;}, $val);
+            if (!function_exists('version_compare') || version_compare(phpversion(), '5.3.0', '<')) {
+                $val = preg_replace("/\[([^\[\]]*)\]/eis", "'.'.str_replace('$','\$','\\1')", $val);
+            } else {
+                include(ROOT_PATH . 'includes' . DIRECTORY_SEPARATOR . 'patch' . DIRECTORY_SEPARATOR . 'includes_cls_template_get_val.php');
+            }
         }
 
         if (strrpos($val, '|') !== false)
@@ -1064,11 +1079,13 @@ class cls_template
         if ($file_type == '.dwt')
         {
             /* 将模板中所有library替换为链接 */
-            // $pattern     = '/<!--\s#BeginLibraryItem\s\"\/(.*?)\"\s-->.*?<!--\s#EndLibraryItem\s-->/se';
-            // $replacement = "'{include file='.strtolower('\\1'). '}'";
-            // $source      = @preg_replace($pattern, $replacement, $source);
-            $pattern     = '/<!--\s#BeginLibraryItem\s\"\/(.*?)\"\s-->.*?<!--\s#EndLibraryItem\s-->/s';
-            $source      = preg_replace_callback($pattern, function($r){ return '{include file='.strtolower($r[1]). '}';}, $source);
+            if (!function_exists('version_compare') || version_compare(phpversion(), '5.3.0', '<')) {
+                $pattern     = '/<!--\s#BeginLibraryItem\s\"\/(.*?)\"\s-->.*?<!--\s#EndLibraryItem\s-->/se';
+                $replacement = "'{include file='.strtolower('\\1'). '}'";
+                $source      = preg_replace($pattern, $replacement, $source);
+            } else {
+                include(ROOT_PATH . 'includes' . DIRECTORY_SEPARATOR . 'patch' . DIRECTORY_SEPARATOR . 'includes_cls_template_smarty_prefilter_preCompile.php');
+            }
 
             /* 检查有无动态库文件，如果有为其赋值 */
             $dyna_libs = get_dyna_libs($GLOBALS['_CFG']['template'], $this->_current_file);

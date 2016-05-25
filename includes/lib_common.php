@@ -212,7 +212,7 @@ function get_shipping_config($area_id)
  * @access  public
  * @return  object
  */
-function &init_users()
+function init_users()
 {
     $set_modules = false;
     static $cls = null;

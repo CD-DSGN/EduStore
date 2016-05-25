@@ -41,7 +41,7 @@ function get_cat_recommend(rec_type, cat_id)
 
 function cat_rec_response(result)
 {
-    var res = result.parseJSON();
+    var res = $.evalJSON(result);
     if (res.type == 1)
     {
         var ele = document.getElementById("show_best_area");

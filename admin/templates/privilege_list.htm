@@ -22,10 +22,10 @@
     <td align="center">{$list.add_time}</td>
     <td align="center">{$list.last_login|default:N/A}</td>
     <td align="center">
-      <a href="privilege.php?act=allot&id={$list.user_id}&user={$list.user_name}" title="{$lang.allot_priv}"><img src="images/icon_priv.gif" border="0" height="21" width="21"></a>&nbsp;&nbsp;
-      <a href="admin_logs.php?act=list&id={$list.user_id}" title="{$lang.view_log}"><img src="images/icon_view.gif" border="0" height="21" width="21"></a>&nbsp;&nbsp;
-      <a href="privilege.php?act=edit&id={$list.user_id}" title="{$lang.edit}"><img src="images/icon_edit.gif" border="0" height="21" width="21"></a>&nbsp;&nbsp;
-      <a href="javascript:;" onclick="listTable.remove({$list.user_id}, '{$lang.drop_confirm}')" title="{$lang.remove}"><img src="images/icon_drop.gif" border="0" height="21" width="21"></a></td>
+      <a href="privilege.php?act=allot&id={$list.user_id}&user={$list.user_name}" title="{$lang.allot_priv}"><img src="images/icon_priv.gif" border="0" height="16" width="16"></a>&nbsp;&nbsp;
+      <a href="admin_logs.php?act=list&id={$list.user_id}" title="{$lang.view_log}"><img src="images/icon_view.gif" border="0" height="16" width="16"></a>&nbsp;&nbsp;
+      <a href="privilege.php?act=edit&id={$list.user_id}" title="{$lang.edit}"><img src="images/icon_edit.gif" border="0" height="16" width="16"></a>&nbsp;&nbsp;
+      <a href="javascript:;" onclick="listTable.remove({$list.user_id}, '{$lang.drop_confirm}')" title="{$lang.remove}"><img src="images/icon_drop.gif" border="0" height="16" width="16"></a></td>
   </tr>
   {/foreach}
 </table>

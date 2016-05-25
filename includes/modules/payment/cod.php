@@ -67,6 +67,11 @@ if (isset($set_modules) && $set_modules == TRUE)
  */
 class cod
 {
+    function __construct()
+    {
+        $this->cod();
+    }
+
     /**
      * 构造函数
      *
@@ -75,10 +80,8 @@ class cod
      *
      * @return void
      */
-
-    function __construct()
+    function cod()
     {
-        
     }
 
     /**

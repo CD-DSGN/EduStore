@@ -136,7 +136,7 @@ if (is_spider())
         /* 整合UC后，如果是蜘蛛访问，初始化UC需要的常量 */
         if($_CFG['integrate_code'] == 'ucenter')
         {
-             $user = & init_users();
+             $user = init_users();
         }
     }
     $_SESSION = array();
@@ -201,7 +201,7 @@ if (!defined('INIT_NO_SMARTY'))
 if (!defined('INIT_NO_USERS'))
 {
     /* 会员信息 */
-    $user =& init_users();
+    $user = init_users();
 
     if (!isset($_SESSION['user_id']))
     {
@@ -303,5 +303,4 @@ else
 {
     ob_start();
 }
-
 ?>

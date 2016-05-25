@@ -87,10 +87,10 @@ $_LANG['email_notic'] = '输入管理员的Email邮箱,必须为Email格式';
 $_LANG['confirm_notic'] = '输入管理员的确认密码,两次输入必须一致';
 
 /* 登录表单 */
-$_LANG['label_username'] = '管理员姓名：';
-$_LANG['label_password'] = '管理员密码：';
-$_LANG['label_captcha'] = '验证码：';
-$_LANG['click_for_another'] = '看不清？点击更换另一个验证码。';
-$_LANG['signin_now'] = '进入管理中心';
-$_LANG['remember'] = '请保存我这次的登录信息。';
+$_LANG['label_username'] = '用户名';
+$_LANG['label_password'] = '密码';
+$_LANG['label_captcha'] = '验证码';
+$_LANG['click_for_another'] = '换一张';
+$_LANG['signin_now'] = '登录';
+$_LANG['remember'] = '保存登录信息';
 ?>

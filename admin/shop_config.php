@@ -31,7 +31,7 @@ $sess_id = $GLOBALS['sess']->get_session_id();
 
 $auth = time();
 $ac = md5($certi_id.'SHOPEX_SMS'.$auth);
-$url = 'http://ecshop.ecmoban.com/sms/index.php?certificate_id='.$certi_id.'&sess_id='.$sess_id.'&auth='.$auth.'&ac='.$ac;
+$url = 'http://service.shopex.cn/sms/index.php?certificate_id='.$certi_id.'&sess_id='.$sess_id.'&auth='.$auth.'&ac='.$ac;
 
 /*------------------------------------------------------ */
 //-- 列表编辑 ?act=list_edit

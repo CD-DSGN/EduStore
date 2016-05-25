@@ -78,11 +78,15 @@ class chinabank
      *
      * @return void
      */
-
     function __construct()
     {
-        
+        $this->chinabank();
     }
+    function chinabank()
+    {
+    }
+
+
 
     /**
      * 生成支付代码

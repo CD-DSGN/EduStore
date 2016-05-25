@@ -5,9 +5,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="styles/general.css" rel="stylesheet" type="text/css" />
 <link href="styles/main.css" rel="stylesheet" type="text/css" />
-<script src="js/jquery.min.js" type="text/javascript"></script>
-<script src="js/jquery.SuperSlide.2.1.1.js" type="text/javascript"></script>
-<script src="js/share.js">
 {literal}
 <style type="text/css">
 body {
@@ -15,6 +12,7 @@ body {
 }
 </style>
 {/literal}
+{insert_scripts files="../js/jquery-1.9.1.min.js,../js/jquery.json.js"}
 {insert_scripts files="../js/utils.js,validator.js"}
 <script language="JavaScript">
 <!--
@@ -38,9 +36,12 @@ if (window.parent != window)
 	padding: 0;
 	list-style: none;
 }
+html,body{ height:100%; padding:0;}
 body {
 	background: #fff;
 	font: normal 12px/22px 宋体;
+	position:relative;
+	background:#2f4158 url(images/login_bg02.jpg) 50% 50%; background-size: cover;
 }
 img {
 	border: 0;
@@ -59,54 +60,94 @@ a {
 	position: relative; background:url(images/qq.png) no-repeat;
 }
 .slideBox p{ position:absolute; right:12px; top:5px; height:55px; line-height:55px; color:#eb8918; width:150px; text-align:left; font-size:20px; }
+
+.login_box{ position:absolute; left:0; top:50%; width:100%;}
+.login_logo{ text-align:center; padding-bottom:30px;}
+.login_con{ width:422px; margin:-200px auto 0;}
+{if $gd_version > 0}
+.login_con{ margin:-230px auto 0;}
+{/if}
+.login_h,.login_c,.login_f{ background:url(images/login_bj.png) no-repeat;}
+.login_h,.login_f{ height:5px; overflow:hidden;}
+.login_c{ background-position:-422px 0; background-repeat:repeat-y; padding:0 51px;}
+.login_input,input.login_input[type='text']{ border:1px solid #b1acaa; background:rgba(255,255,255,0.3) !important; filter: Alpha(opacity=30); background:#fff; border:1px solid #afa7a6; width:284px; height:32px; line-height:18px; height:18px; margin:0; outline:0; padding:8px 0 8px 34px; color:#333; font-family:Microsoft Yahei,'微软雅黑';}
+.login_c .label{ position:relative; display:block;}
+.login_c .label i{ position:absolute; top:11px; left:13px;}
+.login_c .button{ background:#4d90fe url(images/login_sub.png) right 0 no-repeat; padding:0 38px 0 14px; color:#fff; height:34px; line-height:34px; border:0; outline:0; margin:0;}
+.login_c .button:hover{ background:#326dfe url(images/login_sub.png) right -34px no-repeat;}
+.jizhu_label{ position:relative; float:left; color:#7a7a7a; line-height:19px; font-family:Microsoft Yahei,'微软雅黑'; overflow:hidden;}
+.jizhu_label span{ width:19px; height:19px; background:url(images/login_checkbox.png) no-repeat; float:left; margin-right:5px; float:left;}
+.jizhu_label span.checkbox{ background-position:-19px 0;}
+.jizhu_label input{margin-left:-50px; float:left;}
+.jizhu_label label{ float:left; line-height:19px;}
+.gb_version{ position:absolute; top:0; right:0; width:120px; height:36px;}
+.login_f{ background-position:-844px 0;}
 </style>
 </head>
-<body style="background:url(images/bg.jpg) repeat-x top center #ededed;" >
+<body>
+<div class="login_box">
+<div class="login_con">
+<div class="login_logo"><a href="http://www.ecmoban.com/" target="_blank"><img src="images/login_logo.png" /></a></div>
+<div class="login_h"></div>
+<div class="login_c">
 <form method="post" action="privilege.php" name='theForm' onsubmit="return validate()">
-  <table cellspacing="0" cellpadding="0" style="width:521px; height:327px;background:url(images/loginbg.png); color:#727272; font-size:#727272; margin:auto; margin-top:212px;" align="center">
+  <table cellspacing="0" cellpadding="0" border="0" align="center" width="320">
     <tr>
-      <td height="99" align="center" valign="middle"><img src="images/logo.jpg" style="border:none; display:block; margin-top:15px; text-align:center;"/></td>
+      <td height="90" align="center" valign="middle" style="font-size:25px; color:#333; font-family:'宋体';">ECShop管理中心</td>
     </tr>
     <tr>
-      <td height="201" align="center" ><table width="328" height="180">
+      <td align="center" >
+      	<table>
           <tr>
-            <td width="131">{$lang.label_username}</td>
-            <td colspan="2"><input type="text" name="username" style=" width:216px; height:24px; padding:0; line-height:24px; background:url(images/txtbg.png) no-repeat; border:none; padding:0px 3px;" /></td>
+            <td colspan="2">
+            	<label class="label">
+                    <i><img src="images/login_icon01.png" /></i>
+                    <input type="text" name="username" class="login_input" placeholder="{$lang.label_username}"/>
+                </label>
+            </td>
           </tr>
           <tr>
-            <td>{$lang.label_password}</td>
-            <td colspan="2"><input type="password" name="password" style=" width:216px; line-height:24px; padding:0; height:24px; background:url(images/txtbg.png) no-repeat; border:none; padding:0px 3px;" /></td>
+            <td colspan="2" style="padding-top:18px;">
+            	<label class="label">
+                    <i><img src="images/login_icon02.png" /></i>
+                    <input type="password" name="password" class="login_input" placeholder="{$lang.label_password}"/>
+                </label>
+            </td>
           </tr>
-          {if $gd_version < 0}
+          {if $gd_version > 0}
           <tr>
-            <td>{$lang.label_captcha}</td>
-            <td width="106"><input type="text" name="captcha" class="capital" style=" width:108px; height:24px; padding:0; background:url(images/txtbg.png) no-repeat; border:none; padding:0px 3px;"  /></td>
-            <td width="103"><img src="index.php?act=captcha&amp;{$random}" width="105" height="20" alt="CAPTCHA" border="1" onclick= "this.src=&quot;index.php?act=captcha&amp;&quot;+Math.random()" style="cursor: pointer;" title="{$lang.click_for_another}" /></td>
+            <td colspan="2" style="padding-top:18px;">
+            	<label class="label">
+                	<i><img src="images/login_icon03.png" /></i>
+                    <input type="text" name="captcha" class="login_input" placeholder="{$lang.label_captcha}"/>
+                    <img src="index.php?act=captcha&{$random}" alt="CAPTCHA" onclick= this.src="index.php?act=captcha&"+Math.random() title="{$lang.click_for_another}" class="gb_version" />
+                </label>
+            </td>
           </tr>
           {/if}
           <tr>
-            <td align="right">&nbsp;</td>
-            <td colspan="2" align="left"><input type="checkbox" value="1" name="remember" id="remember"/>
-              <label for="remember">{$lang.remember}</label></td>
+            <td height="34" colspan="1" align="left" style="padding-top:18px;">
+            	<div class="jizhu_label">
+                    <span></span>
+                    <input type="checkbox" value="1" name="remember" id="jizhu_label"/>
+                    <label for="jizhu_label">{$lang.remember}</label>
+                </div>
+            </td>
+            <td height="34" align="right" style="padding-top:18px;"><input type="submit" value="{$lang.signin_now}" class="button"/></td>
           </tr>
-          <tr>
-            <td colspan="3"></td>
-          </tr>
-          <tr>
-            <td height="34">&nbsp;</td>
-            <td colspan="2" align="left"><input type="submit" value="{$lang.signin_now}" class="button" style="background:url(images/btn.jpg); width:118px; height:28px; padding:0; color:#FFF; line-height:28px; border:none;" /></td>
-          </tr>
-          <tr>
-            <td colspan="3" align="center" >&raquo; <a href="../" style="color:#727272">{$lang.back_home}</a> &nbsp;&nbsp;&raquo; <a href="get_password.php?act=forget_pwd" style="color:#727272">{$lang.forget_pwd}</a></td>
-          </tr>
-        </table></td>
+        </table>
+        </td>
     </tr>
     <tr>
-      <td align="center" style="padding-left: 50px">&nbsp;</td>
+    	<td height="35">&nbsp;</td>
     </tr>
   </table>
   <input type="hidden" name="act" value="signin" />
 </form>
+</div>
+<div class="login_f"></div>
+</div>
+</div>
 <script language="JavaScript">
 <!--
   document.forms['theForm'].elements['username'].focus();
@@ -127,5 +168,17 @@ a {
   }
   {/literal}
 //-->
+$(function(){
+	function checked(){
+		var jizhu_label=$('.jizhu_label')
+		if(jizhu_label.find('input').is(':checked')){
+			jizhu_label.find('span').addClass('checkbox');
+		}else{
+			jizhu_label.find('span').removeClass('checkbox');
+		}
+	}
+	checked()
+	$('.jizhu_label').click(checked)
+})
 </script>
 </body>

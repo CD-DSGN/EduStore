@@ -51,10 +51,10 @@
     <td align="center">{if $msg.reply eq 0}{$lang.unreplyed}{else}{$lang.replyed}{/if}</td>
     <td align="center">
       <a href="user_msg.php?act=view&id={$msg.msg_id}" title="{$lang.view}">
-        <img src="images/icon_view.gif" border="0" height="21" width="21" />
+        <img src="images/icon_view.gif" border="0" height="16" width="16" />
       </a>
       <a href="javascript:;" onclick="listTable.remove({$msg.msg_id}, '{$lang.drop_confirm}')"  title="{$lang.remove}">
-        <img src="images/icon_drop.gif" border="0" height="21" width="21">
+        <img src="images/icon_drop.gif" border="0" height="16" width="16">
       </a>
     </td>
   </tr>

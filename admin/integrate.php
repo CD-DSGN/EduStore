@@ -1020,7 +1020,7 @@ if ($_REQUEST['act'] == 'points_set')
 {
     $rule_index = empty($_GET['rule_index']) ? '' : trim($_GET['rule_index']);
 
-    $user = &init_users();
+    $user = init_users();
     $points = $user->get_points_name(); //获取商城可用积分
 
     if (empty($points))

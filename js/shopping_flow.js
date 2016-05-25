@@ -404,6 +404,8 @@ if (obj.error)
   }
   else
   {
+	document.getElementById("ECS_BONUS").options[0].selected = true;
+	selectedBonus = 0;
     orderSelectedResponse(obj.content);
   }
 }

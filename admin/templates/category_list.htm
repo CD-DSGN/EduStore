@@ -37,7 +37,7 @@
     <td width="10%"><img src="images/{if $cat.show_in_nav eq '1'}yes{else}no{/if}.gif" onclick="listTable.toggle(this, 'toggle_show_in_nav', {$cat.cat_id})" /></td>
     <td width="10%"><img src="images/{if $cat.is_show eq '1'}yes{else}no{/if}.gif" onclick="listTable.toggle(this, 'toggle_is_show', {$cat.cat_id})" /></td>
     <td><span onclick="listTable.edit(this, 'edit_grade', {$cat.cat_id})">{$cat.grade}</span></td>
-    <td width="10%" align="right"><span onclick="listTable.edit(this, 'edit_sort_order', {$cat.cat_id})">{$cat.sort_order}</span></td>
+    <td width="10%" align="center"><span onclick="listTable.edit(this, 'edit_sort_order', {$cat.cat_id})">{$cat.sort_order}</span></td>
     <td width="24%" align="center">
       <a href="category.php?act=move&cat_id={$cat.cat_id}">{$lang.move_goods}</a> |
       <a href="category.php?act=edit&amp;cat_id={$cat.cat_id}">{$lang.edit}</a> |

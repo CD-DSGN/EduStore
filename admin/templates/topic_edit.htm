@@ -205,7 +205,7 @@ onload = function()
     classList.options.add(newOpt);
     return;
   }
-  var temp    = data.parseJSON();
+  var temp    = $.evalJSON(data);
 
   var counter = 0;
   for (var k in temp)
@@ -283,7 +283,7 @@ function checkForm()
   validator.required('end_time', end_time_empty);
   validator.islt('start_time', 'end_time', start_lt_end);
 
-  document.getElementById("topic_data").value = myTopic.toJSONString();
+  document.getElementById("topic_data").value = $.toJSON(myTopic);
 
   return validator.passed();
 }

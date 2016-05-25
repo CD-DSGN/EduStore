@@ -21,8 +21,8 @@
    <!-- {/if} --></td>
   <td align="center"><!-- {if $val.id} --><span onclick="listTable.edit(this, 'edit_sort_order', {$val.id})">{$val.vieworder}</span><!-- {/if} --></td>
   <td align="center"><!-- {if $val.id} -->{$lang[$val.type]}<!-- {/if} --></td>
-  <td align="center"><!-- {if $val.id} --><a href="navigator.php?act=edit&id={$val.id}" title="{$lang.edit}"><img src="images/icon_edit.gif" width="21" height="21" border="0" /></a>
-  <a href="navigator.php?act=del&id={$val.id}" onclick="return confirm('{$lang.ckdel}');" title="{$lang.ckdel}"><img src="images/no.gif" width="21" height="21" border="0" /><!-- {/if} --></a>
+  <td align="center"><!-- {if $val.id} --><a href="navigator.php?act=edit&id={$val.id}" title="{$lang.edit}"><img src="images/icon_edit.gif" width="16" height="16" border="0" /></a>
+  <a href="navigator.php?act=del&id={$val.id}" onclick="return confirm('{$lang.ckdel}');" title="{$lang.ckdel}"><img src="images/no.gif" width="16" height="16" border="0" /><!-- {/if} --></a>
   </td>
 </tr>
 {foreachelse}

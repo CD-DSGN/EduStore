@@ -40,10 +40,10 @@ class exchange
      *
      * @return void
      */
-    function exchange($table, &$db , $id, $name)
+    function exchange($table, $db , $id, $name)
     {
         $this->table     = $table;
-        $this->db        = &$db;
+        $this->db        = $db;
         $this->id        = $id;
         $this->name      = $name;
         $this->error_msg = '';

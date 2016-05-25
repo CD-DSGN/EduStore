@@ -142,7 +142,7 @@ if (!defined('INIT_NO_SMARTY'))
 if (!defined('INIT_NO_USERS'))
 {
     /* 会员信息 */
-    $user =& init_users();
+    $user = init_users();
     if (empty($_SESSION['user_id']))
     {
         if ($user->get_cookie())

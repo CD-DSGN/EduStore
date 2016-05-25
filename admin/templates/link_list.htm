@@ -24,8 +24,8 @@
     <td align="center"><span>{$link.link_logo}</span></td>
     <td align="right"><span onclick="listTable.edit(this, 'edit_show_order', {$link.link_id})">{$link.show_order}</span></td>
     <td align="center"><span>
-    <a href="friend_link.php?act=edit&id={$link.link_id}" title="{$lang.edit}"><img src="images/icon_edit.gif" border="0" height="21" width="21" /></a>&nbsp;
-    <a href="javascript:;" onclick="listTable.remove({$link.link_id}, '{$lang.drop_confirm}')" title="{$lang.remove}"><img src="images/icon_drop.gif" border="0" height="21" width="21" /></a></span></td>
+    <a href="friend_link.php?act=edit&id={$link.link_id}" title="{$lang.edit}"><img src="images/icon_edit.gif" border="0" height="16" width="16" /></a>&nbsp;
+    <a href="javascript:;" onclick="listTable.remove({$link.link_id}, '{$lang.drop_confirm}')" title="{$lang.remove}"><img src="images/icon_drop.gif" border="0" height="16" width="16" /></a></span></td>
   </tr>
   {foreachelse}
     <tr><td class="no-records" colspan="10">{$lang.no_links}</td></tr>

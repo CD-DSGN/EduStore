@@ -24,11 +24,11 @@
   <tr>
     <td class="label"></td>
     <td>
-    <input type="checkbox" name="special_rank" value="1" {if $rank.special_rank eq 1} checked="true"{/if} onClick="javascript:doSpecial()" /> {$lang.special_rank} <a href="javascript:showNotice('notice_special');" title="{$lang.form_notice}"><img src="images/notice.gif" width="21" height="21" border="0" alt="{$lang.form_notice}"></a>
+    <input type="checkbox" name="special_rank" value="1" {if $rank.special_rank eq 1} checked="true"{/if} onClick="javascript:doSpecial()" /> {$lang.special_rank} <a href="javascript:showNotice('notice_special');" title="{$lang.form_notice}"><img src="images/notice.gif" width="16" height="16" border="0" alt="{$lang.form_notice}"></a>
     <br /><span class="notice-span" {if $help_open}style="display:block" {else} style="display:none" {/if} id="notice_special">{$lang.notice_special}</span></td>
   </tr>
   <tr>
-    <td class="label"><a href="javascript:showNotice('notice_discount');" title="{$lang.form_notice}"><img src="images/notice.gif" width="21" height="21" border="0" alt="{$lang.form_notice}"></a>{$lang.discount}: </td>
+    <td class="label"><a href="javascript:showNotice('notice_discount');" title="{$lang.form_notice}"><img src="images/notice.gif" width="16" height="16" border="0" alt="{$lang.form_notice}"></a>{$lang.discount}: </td>
     <td><input type="text" name="discount" value="{$rank.discount}" size="10" maxlength="20" />{$lang.require_field}
     <br /><span class="notice-span" {if $help_open}style="display:block" {else} style="display:none" {/if} id="notice_discount">{$lang.notice_discount}</span>
     </td>

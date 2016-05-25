@@ -33,9 +33,9 @@
     <td align="center"><img src="images/{if $list.is_exchange eq 1}yes{else}no{/if}.gif" onclick="listTable.toggle(this, 'toggle_exchange', {$list.goods_id})" /></td>
     <td align="center"><img src="images/{if $list.is_hot eq 1}yes{else}no{/if}.gif" onclick="listTable.toggle(this, 'toggle_hot', {$list.goods_id})" /></td>
     <td align="center" nowrap="true"><span>
-      <a href="../exchange.php?id={$list.goods_id}&act=view" target="_blank" title="{$lang.view}"><img src="images/icon_view.gif" border="0" height="21" width="21" /></a>&nbsp;
-      <a href="exchange_goods.php?act=edit&id={$list.goods_id}" title="{$lang.edit}"><img src="images/icon_edit.gif" border="0" height="21" width="21" /></a>&nbsp;
-      <a href="javascript:;" onclick="listTable.remove({$list.goods_id}, '{$lang.drop_confirm}')" title="{$lang.remove}"><img src="images/icon_drop.gif" border="0" height="21" width="21"></a></span>
+      <a href="../exchange.php?id={$list.goods_id}&act=view" target="_blank" title="{$lang.view}"><img src="images/icon_view.gif" border="0" height="16" width="16" /></a>&nbsp;
+      <a href="exchange_goods.php?act=edit&id={$list.goods_id}" title="{$lang.edit}"><img src="images/icon_edit.gif" border="0" height="16" width="16" /></a>&nbsp;
+      <a href="javascript:;" onclick="listTable.remove({$list.goods_id}, '{$lang.drop_confirm}')" title="{$lang.remove}"><img src="images/icon_drop.gif" border="0" height="16" width="16"></a></span>
     </td>
    </tr>
    {foreachelse}

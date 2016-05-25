@@ -2,7 +2,7 @@
 {include file="pageheader.htm"}
 <script type="text/javascript" src="../js/calendar.php?lang={$cfg_lang}"></script>
 <link href="../js/calendar/calendar.css" rel="stylesheet" type="text/css" />
-{insert_scripts files="validator.js,../js/transport.js,../js/utils.js}
+{insert_scripts files="validator.js,../js/transport_jquery.js,../js/utils.js}
 <div class="main-div">
 <form method="post" action="auction.php" name="theForm" enctype="multipart/form-data" onSubmit="return validate()">
 <table cellspacing="1" cellpadding="3" width="100%">
@@ -31,12 +31,12 @@
   </tr>
   <tr>
     <td class="label">{$lang.label_start_time}</td>
-    <td><input name="start_time" type="text" id="start_time" value="{$auction.start_time}" readonly="readonly" />
+    <td><input name="start_time" type="text" id="start_time" value="{$auction.start_time}" readonly />
       <input name="selbtn1" type="button" id="selbtn1" onclick="return showCalendar('start_time', '%Y-%m-%d %H:%M', '24', false, 'selbtn1');" value="{$lang.btn_select}" class="button" /></td>
   </tr>
   <tr>
     <td class="label">{$lang.label_end_time}</td>
-    <td><input name="end_time" type="text" id="end_time" value="{$auction.end_time}" readonly="readonly" />
+    <td><input name="end_time" type="text" id="end_time" value="{$auction.end_time}" readonly />
       <input name="selbtn2" type="button" id="selbtn2" onclick="return showCalendar('end_time', '%Y-%m-%d %H:%M', '24', false, 'selbtn2');" value="{$lang.btn_select}" class="button" /></td>
   </tr>
   <tr>

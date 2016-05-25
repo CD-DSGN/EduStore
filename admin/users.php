@@ -113,7 +113,7 @@ elseif ($_REQUEST['act'] == 'insert')
     $rank = empty($_POST['user_rank']) ? 0 : intval($_POST['user_rank']);
     $credit_line = empty($_POST['credit_line']) ? 0 : floatval($_POST['credit_line']);
 
-    $users =& init_users();
+    $users = init_users();
 
     if (!$users->add_user($username, $password, $email))
     {
@@ -217,7 +217,7 @@ elseif ($_REQUEST['act'] == 'edit')
 
     $row = $db->GetRow($sql);
     $row['user_name'] = addslashes($row['user_name']);
-    $users  =& init_users();
+    $users  = init_users();
     $user   = $users->get_user_info($row['user_name']);
 
     $sql = "SELECT u.user_id, u.sex, u.birthday, u.pay_points, u.rank_points, u.user_rank , u.user_money, u.frozen_money, u.credit_line, u.parent_id, u2.user_name as parent_username, u.qq, u.msn,
@@ -352,7 +352,7 @@ elseif ($_REQUEST['act'] == 'update')
     $rank = empty($_POST['user_rank']) ? 0 : intval($_POST['user_rank']);
     $credit_line = empty($_POST['credit_line']) ? 0 : floatval($_POST['credit_line']);
 
-    $users  =& init_users();
+    $users  = init_users();
 
     if (!$users->edit_user(array('username'=>$username, 'password'=>$password, 'email'=>$email, 'gender'=>$sex, 'bday'=>$birthday ), 1))
     {
@@ -440,7 +440,7 @@ elseif ($_REQUEST['act'] == 'batch_remove')
         $usernames = implode(',',addslashes_deep($col));
         $count = count($col);
         /* 通过插件来删除用户 */
-        $users =& init_users();
+        $users = init_users();
         $users->remove_user($col);
 
         admin_log($usernames, 'batch_remove', 'users');
@@ -476,7 +476,7 @@ elseif ($_REQUEST['act'] == 'edit_username')
         return;
     }
 
-    $users =& init_users();
+    $users = init_users();
 
     if ($users->edit_user($id, $username))
     {
@@ -507,7 +507,7 @@ elseif ($_REQUEST['act'] == 'edit_email')
     $id = empty($_REQUEST['id']) ? 0 : intval($_REQUEST['id']);
     $email = empty($_REQUEST['val']) ? '' : json_str_iconv(trim($_REQUEST['val']));
 
-    $users =& init_users();
+    $users = init_users();
 
     $sql = "SELECT user_name FROM " . $ecs->table('users') . " WHERE user_id = '$id'";
     $username = $db->getOne($sql);
@@ -545,7 +545,7 @@ elseif ($_REQUEST['act'] == 'remove')
     $sql = "SELECT user_name FROM " . $ecs->table('users') . " WHERE user_id = '" . $_GET['id'] . "'";
     $username = $db->getOne($sql);
     /* 通过插件来删除用户 */
-    $users =& init_users();
+    $users = init_users();
     $users->remove_user($username); //已经删除用户所有数据
 
     /* 记录管理员操作 */

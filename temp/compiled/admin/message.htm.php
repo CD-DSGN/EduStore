@@ -1,7 +1,7 @@
 <?php echo $this->fetch('pageheader.htm'); ?>
 <div class="list-div">
   <div style="background:#FFF; padding: 20px 50px; margin: 2px;">
-    <table align="center" width="400">
+    <table align="center" width="400" style="background:#fff;">
       <tr>
         <td width="50" valign="top">
           <?php if ($this->_var['msg_type'] == 0): ?>
