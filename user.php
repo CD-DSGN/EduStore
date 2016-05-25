@@ -358,7 +358,16 @@ elseif ($action == 'act_login')
             show_message($_LANG['invalid_captcha'], $_LANG['relogin_lnk'], 'user.php', 'error');
         }
     }
-
+    /*begin, add by chenggaoyuan for login with telephone*/
+    if(isMobile($username))
+    {
+        $sql ="select user_name from ".$ecs->table('users')." where mobile_phone='".
+    
+            $username."'";
+            $username_e = $db->getOne($sql);
+            if($username_e) $username=$username_e;
+    }
+    /*end, add by chenggaoyuan for login with telephone*/
     if ($user->login($username, $password,isset($_POST['remember'])))
     {
         update_user_info();
