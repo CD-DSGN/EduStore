@@ -2197,7 +2197,14 @@ elseif ($_REQUEST['act'] == 'add' || $_REQUEST['act'] == 'edit')
                 unserialize($shipping['configure']), $total['weight'], $total['amount'], $total['number']);
             $shipping_list[$key]['shipping_fee'] = $shipping_fee;
             $shipping_list[$key]['format_shipping_fee'] = price_format($shipping_fee);
-            $shipping_list[$key]['free_money'] = price_format($shipping['configure']['free_money']);
+            //begin by zhangmengqi, bux fix : $shipping need unserialize before using
+            $unserialize_shiping = unserialize($shipping['configure']);
+            $arr_shipping = array();
+            foreach ($unserialize_shiping AS $row){
+                $arr_shipping[$row['name']] = $row['value'];
+            }
+            $shipping_list[$key]['free_money'] = price_format($arr_shipping['free_money']);
+            //end by zhangmenqi
         }
         $smarty->assign('shipping_list', $shipping_list);
     }
