@@ -22,7 +22,7 @@ CREATE TABLE `ecs_ad` (
   PRIMARY KEY  (`ad_id`),
   KEY `position_id` (`position_id`),
   KEY `enabled` (`enabled`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -39,7 +39,7 @@ CREATE TABLE `ecs_ad_position` (
   `position_desc` varchar(255) NOT NULL default '',
   `position_style` text NOT NULL,
   PRIMARY KEY  (`position_id`)
-)  TYPE=MyISAM;
+)  ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -55,7 +55,7 @@ CREATE TABLE `ecs_admin_action` (
   `relevance` varchar(20) NOT NULL default '',
   PRIMARY KEY  (`action_id`),
   KEY `parent_id` (`parent_id`)
-)  TYPE=MyISAM;
+)  ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -73,7 +73,7 @@ CREATE TABLE `ecs_admin_log` (
   PRIMARY KEY  (`log_id`),
   KEY `log_time` (`log_time`),
   KEY `user_id` (`user_id`)
-)  TYPE=MyISAM;
+)  ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -95,7 +95,7 @@ CREATE TABLE `ecs_admin_message` (
   PRIMARY KEY  (`message_id`),
   KEY `sender_id` (`sender_id`,`receiver_id`),
   KEY `receiver_id` (`receiver_id`)
-)  TYPE=MyISAM;
+)  ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -123,7 +123,7 @@ CREATE TABLE `ecs_admin_user` (
   PRIMARY KEY  (`user_id`),
   KEY `user_name` (`user_name`),
   KEY `agency_id` (`agency_id`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -137,7 +137,7 @@ CREATE TABLE `ecs_adsense` (
   `referer` varchar(255) NOT NULL default '',
   `clicks` int(10) unsigned NOT NULL default '0',
   KEY `from_ad` (`from_ad`)
-)  TYPE=MyISAM;
+)  ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -150,7 +150,7 @@ CREATE TABLE `ecs_area_region` (
   `shipping_area_id` smallint(5) unsigned NOT NULL default '0',
   `region_id` smallint(5) unsigned NOT NULL default '0',
   PRIMARY KEY  (`shipping_area_id`,`region_id`)
-)  TYPE=MyISAM;
+)  ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -176,7 +176,7 @@ CREATE TABLE `ecs_article` (
   `description` varchar(255) default NULL,
   PRIMARY KEY  (`article_id`),
   KEY `cat_id` (`cat_id`)
-)  TYPE=MyISAM;
+)  ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -198,7 +198,7 @@ CREATE TABLE `ecs_article_cat` (
   KEY `cat_type` (`cat_type`),
   KEY `sort_order` (`sort_order`),
   KEY `parent_id` (`parent_id`)
-)  TYPE=MyISAM;
+)  ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -220,7 +220,7 @@ CREATE TABLE `ecs_attribute` (
   `attr_group` tinyint( 1 ) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY  (`attr_id`),
   KEY `cat_id` (`cat_id`)
-)  TYPE=MyISAM;
+)  ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -242,7 +242,7 @@ CREATE TABLE `ecs_bonus_type` (
   `use_end_date` int(11) NOT NULL default '0',
   `min_goods_amount` decimal(10,2) unsigned NOT NULL default '0.00',
   PRIMARY KEY  (`type_id`)
-)  TYPE=MyISAM;
+)  ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -267,7 +267,7 @@ CREATE TABLE `ecs_booking_goods` (
   `dispose_note` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`rec_id`),
   KEY `user_id` (`user_id`)
-)  TYPE=MyISAM;
+)  ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -286,7 +286,7 @@ CREATE TABLE `ecs_brand` (
   `is_show` tinyint( 1 ) unsigned NOT NULL default '1',
   PRIMARY KEY  (`brand_id`),
   KEY `is_show` (`is_show`)
-)  TYPE=MyISAM;
+)  ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -303,7 +303,7 @@ CREATE TABLE `ecs_card` (
   `free_money` decimal(6,2) unsigned NOT NULL default '0.00',
   `card_desc` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`card_id`)
-)  TYPE=MyISAM;
+)  ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -334,7 +334,7 @@ CREATE TABLE `ecs_cart` (
   `goods_attr_id` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`rec_id`),
   KEY `session_id` (`session_id`)
-)  TYPE=MyISAM;
+)  ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -359,7 +359,7 @@ CREATE TABLE `ecs_category` (
   `filter_attr` varchar(255) NOT NULL default '0',
   PRIMARY KEY  (`cat_id`),
   KEY `parent_id` (`parent_id`)
-)  TYPE=MyISAM;
+)  ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -378,7 +378,7 @@ CREATE TABLE `ecs_collect_goods` (
   KEY `user_id` (`user_id`),
   KEY `goods_id` (`goods_id`),
   KEY `is_attention` (`is_attention`)
-)  TYPE=MyISAM;
+)  ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -403,7 +403,7 @@ CREATE TABLE `ecs_comment` (
   PRIMARY KEY  (`comment_id`),
   KEY `parent_id` (`parent_id`),
   KEY `id_value` (`id_value`)
-)  TYPE=MyISAM;
+)  ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -433,7 +433,7 @@ CREATE TABLE `ecs_crons` (
   KEY `nextime` (`nextime`),
   KEY `enable` (`enable`),
   KEY `cron_code` (`cron_code`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -449,7 +449,7 @@ CREATE TABLE `ecs_error_log` (
   `time` int(10) NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `time` (`time`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -474,7 +474,7 @@ CREATE TABLE `ecs_feedback` (
   `msg_area` TINYINT(1) unsigned NOT NULL default '0',
   PRIMARY KEY  (`msg_id`),
   KEY `user_id` (`user_id`)
-)  TYPE=MyISAM;
+)  ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -491,7 +491,7 @@ CREATE TABLE `ecs_friend_link` (
   `show_order` tinyint(3) unsigned NOT NULL default '50',
   PRIMARY KEY  (`link_id`),
   KEY `show_order` (`show_order`)
-)  TYPE=MyISAM;
+)  ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -556,7 +556,7 @@ CREATE TABLE `ecs_goods` (
   KEY `promote_start_date` (`promote_start_date`),
   KEY `goods_number` (`goods_number`),
   KEY `sort_order` (`sort_order`)
-)  TYPE=MyISAM;
+)  ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -570,7 +570,7 @@ CREATE TABLE `ecs_goods_article` (
   `article_id` mediumint(8) unsigned NOT NULL default '0',
   `admin_id` tinyint(3) unsigned NOT NULL default '0',
   PRIMARY KEY  (`goods_id`,`article_id`,`admin_id`)
-)  TYPE=MyISAM;
+)  ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -588,7 +588,7 @@ CREATE TABLE `ecs_goods_attr` (
   PRIMARY KEY  (`goods_attr_id`),
   KEY `goods_id` (`goods_id`),
   KEY `attr_id` (`attr_id`)
-)  TYPE=MyISAM;
+)  ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -601,7 +601,7 @@ CREATE TABLE `ecs_goods_cat` (
   `goods_id` mediumint(8) unsigned NOT NULL default '0',
   `cat_id` smallint(5) unsigned NOT NULL default '0',
   PRIMARY KEY  (`goods_id`,`cat_id`)
-)  TYPE=MyISAM;
+)  ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -619,7 +619,7 @@ CREATE TABLE `ecs_goods_gallery` (
   `img_original` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`img_id`),
   KEY `goods_id` (`goods_id`)
-)  TYPE=MyISAM;
+)  ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -634,7 +634,7 @@ CREATE TABLE `ecs_goods_type` (
   `enabled` tinyint(1) unsigned NOT NULL default '1',
   `attr_group` VARCHAR( 255 ) NOT NULL,
   PRIMARY KEY  (`cat_id`)
-)  TYPE=MyISAM;
+)  ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -649,7 +649,7 @@ CREATE TABLE `ecs_group_goods` (
   `goods_price` decimal(10,2) unsigned NOT NULL default '0.00',
   `admin_id` tinyint(3) unsigned NOT NULL default '0',
   PRIMARY KEY  (`parent_id`,`goods_id`,`admin_id`)
-)  TYPE=MyISAM;
+)  ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -664,7 +664,7 @@ CREATE TABLE `ecs_link_goods` (
   `is_double` tinyint(1) unsigned NOT NULL default '0',
   `admin_id` tinyint(3) unsigned NOT NULL default '0',
   PRIMARY KEY  (`goods_id`,`link_goods_id`,`admin_id`)
-)  TYPE=MyISAM;
+)  ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -685,7 +685,7 @@ CREATE TABLE `ecs_mail_templates` (
   PRIMARY KEY  (`template_id`),
   UNIQUE (`template_code`),
   KEY `type` (`type`)
-)  TYPE=MyISAM;
+)  ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -701,7 +701,7 @@ CREATE TABLE `ecs_member_price` (
   `user_price` decimal(10,2) NOT NULL default '0.00',
   PRIMARY KEY  (`price_id`),
   KEY `goods_id` (`goods_id`,`user_rank`)
-)  TYPE=MyISAM;
+)  ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -716,7 +716,7 @@ CREATE TABLE `ecs_keywords` (
   `keyword` varchar(90) NOT NULL default '',
   `count` mediumint(8) unsigned NOT NULL default '0',
   PRIMARY KEY  (`date`,`searchengine`,`keyword`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -737,7 +737,7 @@ CREATE TABLE `ecs_order_action` (
   `log_time` int(11) unsigned NOT NULL default '0',
   PRIMARY KEY  (`action_id`),
   KEY `order_id` (`order_id`)
-)  TYPE=MyISAM;
+)  ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -766,7 +766,7 @@ CREATE TABLE `ecs_order_goods` (
   PRIMARY KEY  (`rec_id`),
   KEY `order_id` (`order_id`),
   KEY `goods_id` (`goods_id`)
-)  TYPE=MyISAM;
+)  ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -850,7 +850,7 @@ CREATE TABLE `ecs_order_info` (
   KEY `pay_id` (`pay_id`),
   KEY `extension_code` (`extension_code`,`extension_id`),
   KEY `agency_id` (`agency_id`)
-)  TYPE=MyISAM;
+)  ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -867,7 +867,7 @@ CREATE TABLE `ecs_pack` (
   `free_money` smallint(5) unsigned NOT NULL default '0',
   `pack_desc` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`pack_id`)
-)  TYPE=MyISAM;
+)  ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -889,7 +889,7 @@ CREATE TABLE `ecs_payment` (
   `is_online` tinyint(1) unsigned NOT NULL default '0',
   PRIMARY KEY  (`pay_id`),
   UNIQUE KEY `pay_code` (`pay_code`)
-)  TYPE=MyISAM;
+)  ENGINE=MyISAM;
 -- --------------------------------------------------------
 
 --
@@ -904,7 +904,7 @@ CREATE TABLE `ecs_plugins` (
   `assign` tinyint(1) unsigned NOT NULL default '0',
   `install_date` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`code`)
-)  TYPE=MyISAM;
+)  ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -923,7 +923,7 @@ CREATE TABLE `ecs_region` (
   KEY `parent_id` (`parent_id`),
   KEY `region_type` (`region_type`),
   KEY `agency_id` (`agency_id`)
-)  TYPE=MyISAM;
+)  ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -969,7 +969,7 @@ CREATE TABLE `ecs_searchengine` (
   `searchengine` varchar(20) NOT NULL default '',
   `count` mediumint(8) unsigned NOT NULL default '0',
   PRIMARY KEY  (`date`,`searchengine`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -991,7 +991,7 @@ CREATE TABLE `ecs_sessions` (
   `data` char(255) NOT NULL default '',
   PRIMARY KEY  (`sesskey`),
   KEY `expiry` (`expiry`)
-) TYPE=HEAP;
+) ENGINE=HEAP;
 
 
 -- --------------------------------------------------------
@@ -1007,7 +1007,7 @@ CREATE TABLE `ecs_sessions_data` (
   `data` longtext NOT NULL ,
   PRIMARY KEY ( `sesskey` ) ,
   KEY `expiry` ( `expiry` )
-) TYPE = MYISAM;
+) ENGINE = MYISAM;
 
 -- --------------------------------------------------------
 
@@ -1031,7 +1031,7 @@ CREATE TABLE `ecs_shipping` (
   `shipping_order` tinyint(3) unsigned NOT NULL default '0',
   PRIMARY KEY  (`shipping_id`),
   KEY `shipping_code` (`shipping_code`,`enabled`)
-)  TYPE=MyISAM;
+)  ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -1047,7 +1047,7 @@ CREATE TABLE `ecs_shipping_area` (
   `configure` text NOT NULL,
   PRIMARY KEY  (`shipping_area_id`),
   KEY `shipping_id` (`shipping_id`)
-)  TYPE=MyISAM;
+)  ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -1068,7 +1068,7 @@ CREATE TABLE `ecs_shop_config` (
   PRIMARY KEY  (`id`),
   UNIQUE KEY `code` (`code`),
   KEY `parent_id` (`parent_id`)
-)  TYPE=MyISAM;
+)  ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -1085,7 +1085,7 @@ CREATE TABLE `ecs_snatch_log` (
   `bid_time` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`log_id`),
   KEY `snatch_id` (`snatch_id`)
-)  TYPE=MyISAM;
+)  ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -1106,7 +1106,7 @@ CREATE TABLE `ecs_stats` (
   `referer_path` varchar(200) NOT NULL default '',
   `access_url` varchar(255) NOT NULL default '',
   KEY `access_time` (`access_time`)
-)  TYPE=MyISAM;
+)  ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -1123,7 +1123,7 @@ CREATE TABLE `ecs_tag` (
   PRIMARY KEY  (`tag_id`),
   KEY `user_id` (`user_id`),
   KEY `goods_id` (`goods_id`)
-)  TYPE=MyISAM;
+)  ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -1145,7 +1145,7 @@ CREATE TABLE `ecs_template` (
   KEY `filename` (`filename`,`region`),
   KEY `theme` (`theme`),
   KEY `remarks` (`remarks`)
-)  TYPE=MyISAM;
+)  ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -1172,7 +1172,7 @@ CREATE TABLE `ecs_user_address` (
   `best_time` varchar(120) NOT NULL default '',
   PRIMARY KEY  (`address_id`),
   KEY `user_id` (`user_id`)
-)  TYPE=MyISAM;
+)  ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -1191,7 +1191,7 @@ CREATE TABLE `ecs_user_bonus` (
   `emailed` tinyint unsigned NOT NULL default '0',
   PRIMARY KEY  (`bonus_id`),
   KEY `user_id` (`user_id`)
-)  TYPE=MyISAM;
+)  ENGINE=MyISAM;
 
 -- ---------------------------------------------------------
 --
@@ -1207,7 +1207,7 @@ CREATE TABLE IF NOT EXISTS `ecs_user_feed` (
   `feed_type` tinyint(1) unsigned NOT NULL default '0',
   `is_feed` tinyint(1) unsigned NOT NULL default '0',
   PRIMARY KEY  (`feed_id`)
-)  TYPE=MyISAM;
+)  ENGINE=MyISAM;
 
 
 -- --------------------------------------------------------
@@ -1226,7 +1226,7 @@ CREATE TABLE `ecs_user_rank` (
   `show_price` tinyint(1) unsigned NOT NULL default '1',
   `special_rank` tinyint(1) unsigned NOT NULL default '0',
   PRIMARY KEY  (`rank_id`)
-)  TYPE=MyISAM;
+)  ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -1280,7 +1280,7 @@ CREATE TABLE `ecs_users` (
   KEY `parent_id` (`parent_id`),
   KEY `flag` (`flag`),
   UNIQUE (`user_name`)
-)  TYPE=MyISAM;
+)  ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -1297,7 +1297,7 @@ CREATE TABLE `ecs_vote` (
   `can_multi` tinyint(1) unsigned NOT NULL default '0',
   `vote_count` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`vote_id`)
-)  TYPE=MyISAM;
+)  ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -1313,7 +1313,7 @@ CREATE TABLE `ecs_vote_log` (
   `vote_time` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`log_id`),
   KEY `vote_id` (`vote_id`)
-)  TYPE=MyISAM;
+)  ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -1330,7 +1330,7 @@ CREATE TABLE `ecs_vote_option` (
   `option_order` tinyint(3) unsigned NOT NULL default '100',
   PRIMARY KEY  (`option_id`),
   KEY `vote_id` (`vote_id`)
-)  TYPE=MyISAM;
+)  ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 --
@@ -1344,7 +1344,7 @@ CREATE TABLE `ecs_pay_log` (
   `order_type` tinyint(1) unsigned NOT NULL default '0',
   `is_paid` tinyint(1) unsigned NOT NULL default '0',
   PRIMARY KEY  (`log_id`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 --
@@ -1366,7 +1366,7 @@ CREATE TABLE `ecs_user_account` (
   PRIMARY KEY  (`id`),
   KEY `user_id` (`user_id`),
   KEY `is_paid` (`is_paid`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 --
 -- 表的结构 `ecs_agency`
@@ -1378,7 +1378,7 @@ CREATE TABLE `ecs_agency` (
   `agency_desc` text NOT NULL,
   PRIMARY KEY  (`agency_id`),
   KEY `agency_name` (`agency_name`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -1401,7 +1401,7 @@ CREATE TABLE `ecs_goods_activity` (
   `ext_info` text NOT NULL,
   PRIMARY KEY  (`act_id`),
   KEY `act_name` (`act_name`,`act_type`,`goods_id`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -1423,7 +1423,7 @@ CREATE TABLE `ecs_account_log` (
   `teacher_integral` int unsigned NOT NULL default '0',
   PRIMARY KEY  (`log_id`),
   KEY `user_id` (`user_id`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -1448,7 +1448,7 @@ CREATE TABLE `ecs_topic` (
   `keywords` varchar(255) default NULL,
   `description` varchar(255) default NULL,
   KEY `topic_id` (`topic_id`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -1465,7 +1465,7 @@ CREATE TABLE `ecs_auction_log` (
   `bid_time` int(10) unsigned NOT NULL,
   PRIMARY KEY  (`log_id`),
   KEY `act_id` (`act_id`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -1482,7 +1482,7 @@ CREATE TABLE  `ecs_affiliate_log` (
  `point` INT(10) NOT NULL DEFAULT '0',
  `separate_type` TINYINT(1) NOT NULL DEFAULT '0',
 PRIMARY KEY ( `log_id` )
-) TYPE = MYISAM;
+) ENGINE = MYISAM;
 
 -- --------------------------------------------------------
 
@@ -1507,7 +1507,7 @@ CREATE TABLE `ecs_favourable_activity` (
   `sort_order` tinyint(3) unsigned NOT NULL DEFAULT '50',
   PRIMARY KEY  (`act_id`),
   KEY `act_name` (`act_name`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -1529,7 +1529,7 @@ CREATE TABLE `ecs_virtual_card` (
     KEY `goods_id` (`goods_id`),
     KEY `car_sn` (`card_sn`),
     KEY `is_saled` (`is_saled`)
-    ) TYPE=MyISAM;
+    ) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -1546,7 +1546,7 @@ CREATE TABLE IF NOT EXISTS `ecs_wholesale` (
   `enabled` tinyint(3) unsigned NOT NULL,
   PRIMARY KEY  (`act_id`),
   KEY `goods_id` (`goods_id`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -1567,7 +1567,7 @@ CREATE TABLE `ecs_nav` (
   PRIMARY KEY  (`id`),
   KEY `type` (`type`),
   KEY `ifshow` (`ifshow`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 -- 增加发送队列表
 DROP TABLE IF EXISTS `ecs_email_sendlist`;
@@ -1579,7 +1579,7 @@ CREATE TABLE  `ecs_email_sendlist` (
  `error` TINYINT( 1 ) NOT NULL DEFAULT  '0' ,
  `pri` TINYINT( 10 ) NOT NULL ,
  `last_send` INT( 10 ) NOT NULL
-) TYPE = MYISAM;
+) ENGINE = MYISAM;
 
 -- 增加电子杂志订阅表
 DROP TABLE IF EXISTS `ecs_email_list`;
@@ -1589,7 +1589,7 @@ CREATE TABLE `ecs_email_list` (
   `stat` tinyint(1) NOT NULL default '0',
   `hash` varchar(10) NOT NULL,
   PRIMARY KEY  (`id`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 -- 增加自动处理的表
 DROP TABLE IF EXISTS `ecs_auto_manage`;
@@ -1599,7 +1599,7 @@ CREATE TABLE `ecs_auto_manage` (
   `starttime` int(10) NOT NULL,
   `endtime` int(10) NOT NULL,
   PRIMARY KEY  (`item_id`,`type`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 -- 增加分类首页推荐表
 DROP TABLE IF EXISTS `ecs_cat_recommend`;
@@ -1607,7 +1607,7 @@ CREATE TABLE `ecs_cat_recommend` (
   `cat_id` smallint(5) NOT NULL,
   `recommend_type` tinyint(1) NOT NULL,
   PRIMARY KEY  (`cat_id`,`recommend_type`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 -- 增加商品批量购买优惠价格表
 DROP TABLE IF EXISTS `ecs_volume_price`;
@@ -1617,7 +1617,7 @@ CREATE TABLE IF NOT EXISTS `ecs_volume_price` (
   `volume_number` smallint(5) unsigned NOT NULL DEFAULT '0',
   `volume_price` decimal(10,2) NOT NULL DEFAULT '0.00',
   PRIMARY KEY (`price_type`,`goods_id`,`volume_number`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 -- 增加超值礼包商品表
 DROP TABLE IF EXISTS `ecs_package_goods`;
@@ -1628,7 +1628,7 @@ CREATE TABLE `ecs_package_goods` (
   `goods_number` smallint( 5 ) unsigned NOT NULL DEFAULT '1',
   `admin_id` tinyint( 3 ) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY  (`package_id`,`goods_id`,`admin_id`,`product_id`)
-) TYPE = MYISAM;
+) ENGINE = MYISAM;
 
 -- 增加积分商城商品表
 DROP TABLE IF EXISTS `ecs_exchange_goods`;

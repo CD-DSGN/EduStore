@@ -37,7 +37,7 @@ array('login','act_login','register','act_register','act_edit_password','get_pas
 //Todo 有可能需要增加，看界面的情况
 $ui_arr = array('register', 'login', 'profile', 'order_list', 'order_detail', 'address_list', 'collection_list',
 'message_list', 'tag_list', 'get_password', 'reset_password', 'booking_list', 'add_booking', 'account_raply',
-'account_deposit', 'account_log', 'account_detail', 'act_account', 'pay', 'default', 'bonus', 'group_buy', 'group_buy_detail', 'affiliate', 'comment_list','validate_email','track_packages', 'transform_points','qpassword_name', 'get_passwd_question', 'check_answer');
+'account_deposit', 'account_log', 'account_detail', 'act_account', 'pay', 'default', 'bonus', 'group_buy', 'group_buy_detail', 'affiliate', 'comment_list','validate_email','track_packages', 'transform_points','qpassword_name', 'get_passwd_question', 'check_answer','register_teacher');
 //end zhangmengqi
 
 /* 未登录处理 */
@@ -111,6 +111,7 @@ if ($action == 'default')
     $smarty->display('user_clips.dwt');
 }
 
+
 /* 显示会员注册界面 */
 if ($action == 'register')
 {
@@ -139,8 +140,9 @@ if ($action == 'register')
 //    $smarty->assign('back_act', $back_act);
     $smarty->display('user_passport.dwt');
 }
-//begin zhangmengqi, 教师注册页面展示
-else if($aciton = 'register_teacher'){
+//begin zhangmengqi
+elseif($action == 'register_teacher')
+{
     if ((!isset($back_act)||empty($back_act)) && isset($GLOBALS['_SERVER']['HTTP_REFERER']))
     {
         $back_act = strpos($GLOBALS['_SERVER']['HTTP_REFERER'], 'user.php') ? './index.php' : $GLOBALS['_SERVER']['HTTP_REFERER'];
@@ -2832,7 +2834,7 @@ elseif ($action == 'clear_history')
 }
 //begin zhangmengqi
 /*展示订阅界面*/
-else if($action == 'subscription'){
+elseif($action == 'subscription'){
     //展示订阅界面
     //1.获得课程相关信息
     $sql = 'SELECT * FROM ' . $ecs->table('course') . ' ORDER BY id';
@@ -2843,7 +2845,7 @@ else if($action == 'subscription'){
     $smarty->display('user_passport.dwt');
 }
 /*添加关注操作*/
-else if($action == 'act_subscription'){
+elseif($action == 'act_subscription'){
     //展示相应界面
     //1.取得搜索条件,取得查询的科目信息
     //Todo 搜索数据库,修改数据查询条件
