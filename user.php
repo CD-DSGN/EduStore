@@ -156,7 +156,11 @@ elseif($action == 'register_teacher')
     $sql = 'SELECT * FROM ' . $ecs->table('courses') . ' ORDER BY course_id';
     /* 取出课程相关信息 */
     $course_info = $db->getAll($sql);
-    $smarty->assign('course_id',$course_info);
+    $course_id = array();
+    foreach ($course_info as $item) {
+        $course_id[$item['course_id']] = $item['course_name'];
+    }
+    $smarty->assign('course_id',$course_id);
 
     /* 验证码相关设置 */
     if ((intval($_CFG['captcha']) & CAPTCHA_REGISTER) && gd_version() > 0)
