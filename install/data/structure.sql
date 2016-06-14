@@ -544,7 +544,6 @@ CREATE TABLE `ecs_goods` (
   `rank_integral` int NOT NULL default '-1',
   `suppliers_id` smallint(5) unsigned default NULL,
   `is_check` tinyint(1) unsigned default NULL,
-  ---begin zhangmnegqi, 表示书籍商品的分类，比如地理，生物等
   `course_id` TINYINT(8) unsigned default NULL,
   PRIMARY KEY  (`goods_id`),
   KEY `goods_sn` (`goods_sn`),
