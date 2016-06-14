@@ -3812,12 +3812,12 @@ INSERT INTO `ecs_courses` ( `course_name`) VALUES
 ('语文'),
 ('数学'),
 ('英语'),
+('物理'),
+('化学'),
+('生物'),
 ('历史'),
 ('地理'),
-('思想品德'),
-('生物'),
-('化学'),
-('物理');
+('思想品德');
 
 --增加模板堂中的默认数据，后面需要进一步修改
 INSERT INTO `ecs_ad` (`ad_id`, `position_id`, `media_type`, `ad_name`, `ad_link`, `ad_code`, `start_time`, `end_time`, `link_man`, `link_email`, `link_phone`, `click_count`, `enabled`) VALUES
