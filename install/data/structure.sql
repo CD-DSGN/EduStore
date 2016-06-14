@@ -1274,7 +1274,7 @@ CREATE TABLE `ecs_users` (
   `passwd_question` VARCHAR( 50 ) NULL,
   `passwd_answer` VARCHAR( 255 ) NULL,
   `is_teacher` tinyint(3) unsigned NOT NULL default '0',
-  `teacher_integral` int unsigned NOT NULL default '0'
+  `teacher_integral` int unsigned NOT NULL default '0',
   PRIMARY KEY  (`user_id`),
   KEY `email` (`email`),
   KEY `parent_id` (`parent_id`),
