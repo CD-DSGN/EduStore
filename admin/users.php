@@ -115,6 +115,10 @@ elseif ($_REQUEST['act'] == 'insert')
 
     $users = init_users();
 
+    //begin zhangmengqi
+    //Todo 肯定要加入is_teacher
+    //end zhangmengqi
+
     if (!$users->add_user($username, $password, $email))
     {
         /* 插入会员数据失败 */

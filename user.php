@@ -206,8 +206,8 @@ elseif ($action == 'act_register')
         //begin zhangmengqi，增加教师信息,手机信息
         $is_teacher = isset($_POST['is_teacher']) ? $_POST['is_teacher'] : '0';
         $teacher_info = array();
-        $teacher_info['real_name'] = isset($_POST['real_name']) ? $_POST['real_name'] : '';
-        $teacher_info['school'] = isset($_POST['school']) ? $_POST['school'] : '';
+        $teacher_info['real_name'] = isset($_POST['real_name']) ? trim($_POST['real_name']): '';
+        $teacher_info['school'] = isset($_POST['school']) ? trim($_POST['school']): '';
         $teacher_info['course_id'] = isset($_POST['course_name']) ? $_POST['course_name'] : '';
         
         //防止sql注入
@@ -274,6 +274,8 @@ elseif ($action == 'act_register')
                 $values[] = $teacher_info['school'];
 
                 $sql = 'INSERT INTO '. $ecs->table('teachers') . ' (`user_id`, `course_id`, `real_name`, `school`)'. " VALUES ('" . implode("', '", $values) . "')";
+                $db->query($sql);
+                $sql = 'UPDATE ' . $ecs->table('users') . " SET `is_teacher`='$is_teacher' WHERE `user_id`='" . $_SESSION['user_id'] . "'";
                 $db->query($sql);
             }
             //end zhangmengqi
