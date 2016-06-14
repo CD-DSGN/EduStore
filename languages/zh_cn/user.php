@@ -382,6 +382,10 @@ $_LANG['back_retry_answer'] = '返回重试';
 $_LANG['label_username_or_telephone'] = '手机号码或用户名';
 $_LANG['label_username'] = '用户名';
 $_LANG['label_email'] = 'email';
+//added by chenggaoyuan
+$_LANG['label_realname'] = '真实姓名';
+$_LANG['label_schoolname'] = '学校';
+$_LANG['label_coursename'] = '任课课程';
 $_LANG['label_password'] = '密码';
 $_LANG['label_confirm_password'] = '确认密码';
 $_LANG['label_password_intensity'] = '密码强度';

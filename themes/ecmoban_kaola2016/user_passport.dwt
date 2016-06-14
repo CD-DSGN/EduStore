@@ -27,7 +27,7 @@
     <ul>
         <li class="active"><a href="user.php">用户登录</a></li>
         <li ><a href="user.php?act=register">用户注册</a></li>
-        <li ><a href="user.php?act=register_teacher ">教师注册</a></li>
+        <li ><a href="user.php?act=register_teacher">教师注册</a></li>
     </ul>
     </div>
    <form name="formLogin" action="user.php" method="post" onSubmit="return userLogin()">
@@ -88,7 +88,7 @@
     <ul>
         <li  ><a href="user.php">用户登录</a></li>
         <li class="active"><a href="user.php?act=register">用户注册</a></li>
-        <li ><a href="user.php?act=register_teacher ">教师注册</a></li>
+        <li ><a href="user.php?act=register_teacher">教师注册</a></li>
     </ul>
     </div>
     <form action="user.php" method="post" name="formUser" onsubmit="return register();">
@@ -200,7 +200,7 @@
 <!--{/if}-->
 <!--#会员注册界面 end-->
 
-<!--教师用户这册 start added by chenggaoyuan -->
+<!--教师用户注册 start added by chenggaoyuan -->
     <!--{if $action eq 'register_teacher'}-->
     <!-- {if $shop_reg_closed eq 1} -->
     <div class="usBox">
@@ -215,8 +215,8 @@
     <div class="login_tab">
     <ul>
         <li  ><a href="user.php">用户登录</a></li>
-        <li class="active"><a href="user.php?act=register">用户注册</a></li>
-        <li ><a href="user.php?act=register_teacher ">教师注册</a></li>
+        <li ><a href="user.php?act=register">用户注册</a></li>
+        <li class="active"><a href="user.php?act=register_teacher">教师注册</a></li>
     </ul>
     </div>
     <form action="user.php" method="post" name="formUser" onsubmit="return register();">
@@ -237,26 +237,27 @@
         </tr>
         <!--start, added by chenggaoyuan -->
         <tr>
-          <td align="right">{$lang.label_email}</td>
+          <td align="right">{$lang.label_realname}</td>
           <td>
-          <input name="email" type="text" size="25" id="email" onblur="checkEmail(this.value);"  class="inputBg"/>
-            <span id="email_notice" style="color:#FF0000"> *</span>
+          <input name="real_name" type="text" size="25" id="real_name" class="inputBg"/>
+            <span id="real_name_notice" style="color:#FF0000"> *</span>
           </td>
         </tr>
         <tr>
-          <td align="right">{$lang.label_email}</td>
+          <td align="right">{$lang.label_schoolname}</td>
           <td>
-          <input name="email" type="text" size="25" id="email" onblur="checkEmail(this.value);"  class="inputBg"/>
-            <span id="email_notice" style="color:#FF0000"> *</span>
+          <input name="school" type="text" size="25" id="school"  class="inputBg"/>
+            <span id="school_notice" style="color:#FF0000"> *</span>
           </td>
         </tr>
-        <tr>
-          <td align="right">{$lang.label_email}</td>
-          <td>
-          <input name="email" type="text" size="25" id="email" onblur="checkEmail(this.value);"  class="inputBg"/>
-            <span id="email_notice" style="color:#FF0000"> *</span>
-          </td>
-        </tr>            
+        <td align="right">{$lang.label_coursename}</td>
+        	<td>
+          		<select name='course_name' class="course_name">
+                <option value="0">请选择课程</option>
+				{html_options options=$course_id }</select>
+                <span id="coursename_notice" style="color:#FF0000"> *</span>
+          	</td>
+        </tr>                    
         <!--end, added by chenggaoyuan -->
         <tr>
           <td align="right">{$lang.label_password}</td>
@@ -327,9 +328,10 @@
         <tr>
           <td>&nbsp;</td>
           <td align="left">
-          <input name="act" type="hidden" value="act_register" >
+          <input type="hidden" name="act"  value="act_register" >
           <input type="hidden" name="back_act" value="{$back_act}" />
-          <input name="Submit" type="submit" value="" class="us_Submit_reg">
+          <input type="hidden" name="is_teacher" value="1" />
+          <input type="submit" name="Submit"  value="" class="us_Submit_reg">
           </td>
         </tr>
         <tr>
