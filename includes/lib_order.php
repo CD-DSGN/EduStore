@@ -2603,7 +2603,7 @@ function teacher_integral_to_give($order)
     }
     else
     {
-        $sql = "SELECT SUM(og.goods_number * og.goods_price) AS custom_points, SUM(og.goods_number * og.goods_price) AS rank_points " .
+        $sql = "SELECT SUM(og.goods_number * og.goods_price) AS teacher_integral" .
             "FROM " . $GLOBALS['ecs']->table('order_goods') . " AS og, " .
             $GLOBALS['ecs']->table('goods') . " AS g " .
             "WHERE og.goods_id = g.goods_id " .

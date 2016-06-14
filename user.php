@@ -208,7 +208,7 @@ elseif ($action == 'act_register')
         $teacher_info = array();
         $teacher_info['real_name'] = isset($_POST['real_name']) ? $_POST['real_name'] : '';
         $teacher_info['school'] = isset($_POST['school']) ? $_POST['school'] : '';
-        $teacher_info['course_id'] = isset($_POST['course_id']) ? $_POST['course_id'] : '';
+        $teacher_info['course_id'] = isset($_POST['course_name']) ? $_POST['course_name'] : '';
         
         //防止sql注入
         $teacher_info['real_name'] = addslashes($teacher_info['real_name']);
