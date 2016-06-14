@@ -151,7 +151,7 @@ else if($aciton = 'register_teacher'){
     $extend_info_list = $db->getAll($sql);
     $smarty->assign('extend_info_list', $extend_info_list);
 
-    $sql = 'SELECT * FROM ' . $ecs->table('course') . ' ORDER BY id';
+    $sql = 'SELECT * FROM ' . $ecs->table('courses') . ' ORDER BY course_id';
     /* 取出课程相关信息 */
     $course_info = $db->getAll($sql);
     $smarty->assign('course_id',$course_info);
