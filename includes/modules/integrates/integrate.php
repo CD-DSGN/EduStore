@@ -187,7 +187,7 @@ class integrate
      *
      * @return int
      */
-    function add_user($username, $password, $email, $gender = -1, $bday = 0, $reg_date=0, $md5password='', $is_teacher)
+    function add_user($username, $password, $email, $is_teacher,$gender = -1, $bday = 0, $reg_date=0, $md5password='')
     {
         /* 将用户添加到整合方 */
         if ($this->check_user($username) > 0)
