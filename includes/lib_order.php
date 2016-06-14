@@ -2584,6 +2584,40 @@ function integral_to_give($order)
     }
 }
 
+//begin zhangmengqi
+//Todo
+/**
+ * @param $order  订单信息
+ * @return array
+ */
+function teacher_integral_to_give($order)
+{
+    /* 判断是否团购 */
+    //看看这段需不需要变
+    if ($order['extension_code'] == 'group_buy')
+    {
+        include_once(ROOT_PATH . 'includes/lib_goods.php');
+        $group_buy = group_buy_info(intval($order['extension_id']));
+
+        return array('custom_points' => $group_buy['gift_integral'], 'rank_points' => $order['goods_amount']);
+    }
+    else
+    {
+        $sql = "SELECT SUM(og.goods_number * og.goods_price) AS custom_points, SUM(og.goods_number * og.goods_price) AS rank_points " .
+            "FROM " . $GLOBALS['ecs']->table('order_goods') . " AS og, " .
+            $GLOBALS['ecs']->table('goods') . " AS g " .
+            "WHERE og.goods_id = g.goods_id " .
+            "AND og.order_id = '$order[order_id]' " .
+            "AND og.goods_id > 0 " .
+            "AND og.parent_id = 0 " .
+            "AND og.is_gift = 0 AND og.extension_code != 'package_buy'"; //Todo package_buy 条件是否有必要
+
+        return $GLOBALS['db']->getRow($sql);
+    }
+}
+
+//end zhangmengqi
+
 /**
  * 发红包：发货时发红包
  * @param   int     $order_id   订单号

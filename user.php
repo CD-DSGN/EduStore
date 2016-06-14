@@ -29,13 +29,16 @@ $back_act='';
 
 
 // 不需要登录的操作或自己验证是否登录（如ajax处理）的act
+//begin zhangmengqi,增加函数名(register_teacher)
 $not_login_arr =
-array('login','act_login','register','act_register','act_edit_password','get_password','send_pwd_email','password', 'signin', 'add_tag', 'collect', 'return_to_cart', 'logout', 'email_list', 'validate_email', 'send_hash_mail', 'order_query', 'is_registered', 'check_email','clear_history','qpassword_name', 'get_passwd_question', 'check_answer');
+array('login','act_login','register','act_register','act_edit_password','get_password','send_pwd_email','password', 'signin', 'add_tag', 'collect', 'return_to_cart', 'logout', 'email_list', 'validate_email', 'send_hash_mail', 'order_query', 'is_registered', 'check_email','clear_history','qpassword_name', 'get_passwd_question', 'check_answer','register_teacher');
 
 /* 显示页面的action列表 */
+//Todo 有可能需要增加，看界面的情况
 $ui_arr = array('register', 'login', 'profile', 'order_list', 'order_detail', 'address_list', 'collection_list',
 'message_list', 'tag_list', 'get_password', 'reset_password', 'booking_list', 'add_booking', 'account_raply',
 'account_deposit', 'account_log', 'account_detail', 'act_account', 'pay', 'default', 'bonus', 'group_buy', 'group_buy_detail', 'affiliate', 'comment_list','validate_email','track_packages', 'transform_points','qpassword_name', 'get_passwd_question', 'check_answer');
+//end zhangmengqi
 
 /* 未登录处理 */
 if (empty($_SESSION['user_id']))
@@ -136,7 +139,39 @@ if ($action == 'register')
 //    $smarty->assign('back_act', $back_act);
     $smarty->display('user_passport.dwt');
 }
+//begin zhangmengqi, 教师注册页面展示
+else if($aciton = 'register_teacher'){
+    if ((!isset($back_act)||empty($back_act)) && isset($GLOBALS['_SERVER']['HTTP_REFERER']))
+    {
+        $back_act = strpos($GLOBALS['_SERVER']['HTTP_REFERER'], 'user.php') ? './index.php' : $GLOBALS['_SERVER']['HTTP_REFERER'];
+    }
 
+    /* 取出注册扩展字段 */
+    $sql = 'SELECT * FROM ' . $ecs->table('reg_fields') . ' WHERE type < 2 AND display = 1 ORDER BY dis_order, id';
+    $extend_info_list = $db->getAll($sql);
+    $smarty->assign('extend_info_list', $extend_info_list);
+
+    $sql = 'SELECT * FROM ' . $ecs->table('course') . ' ORDER BY dis_order, id';
+    /* 取出课程相关信息 */
+    $course_info = $db->getAll($sql);
+    $smarty->assign('course_id',$course_info);
+
+    /* 验证码相关设置 */
+    if ((intval($_CFG['captcha']) & CAPTCHA_REGISTER) && gd_version() > 0)
+    {
+        $smarty->assign('enabled_captcha', 1);
+        $smarty->assign('rand',            mt_rand());
+    }
+
+    /* 密码提示问题 */
+    $smarty->assign('passwd_questions', $_LANG['passwd_questions']);
+
+    /* 增加是否关闭注册 */
+    $smarty->assign('shop_reg_closed', $_CFG['shop_reg_closed']);
+//    $smarty->assign('back_act', $back_act);
+    $smarty->display('user_passport.dwt');
+}
+//end zhangmengqi
 /* 注册会员的处理 */
 elseif ($action == 'act_register')
 {
@@ -161,6 +196,20 @@ elseif ($action == 'act_register')
         $other['mobile_phone'] = isset($_POST['extend_field5']) ? $_POST['extend_field5'] : '';
         $sel_question = empty($_POST['sel_question']) ? '' : compile_str($_POST['sel_question']);
         $passwd_answer = isset($_POST['passwd_answer']) ? compile_str(trim($_POST['passwd_answer'])) : '';
+
+        //begin zhangmengqi，增加教师信息,手机信息
+        $is_teacher = isset($_POST['is_teacher']) ? $_POST['is_teacher'] : '0';
+        $teacher_info = array();
+        $teacher_info['real_name'] = isset($_POST['real_name']) ? $_POST['real_name'] : '';
+        $teacher_info['school'] = isset($_POST['school']) ? $_POST['school'] : '';
+        $teacher_info['course_id'] = isset($_POST['course_id']) ? $_POST['course_id'] : '';
+        
+        //防止sql注入
+        $teacher_info['real_name'] = addslashes($teacher_info['real_name']);
+        $teacher_info['school'] = addslashes($teacher_info['school']);
+        $teacher_info['course_id'] = addslashes($teacher_info['course_id']);
+        $other['mobile_phone'] = addslashes($other['mobile_phone']);
+        //end zhangmengqi
 
 
         $back_act = isset($_POST['back_act']) ? trim($_POST['back_act']) : '';
@@ -202,8 +251,27 @@ elseif ($action == 'act_register')
             }
         }
 
-        if (register($username, $password, $email, $other) !== false)
+        if (register($username, $password, $email, $is_teacher, $other) !== false)
         {
+
+            //begin zhangmengqi
+            //1.先得到user的id
+            //2.如果是老师，插入教师表
+            if($is_teacher == 1){
+                //注意mobile_phone 先前是作为扩展字段的，看看哪些地方出现了，需要替换
+//                $sql = 'SELECT user_id FROM' . $ecs->table('users') . 'WHERE user_name ='. "'$username'";
+//                $res = $db->getRow($sql);
+                $values = array();
+                $values[] = $_SESSION['user_id'];
+                $values[] = $teacher_info['course_id'];
+                $values[] = $teacher_info['real_name'];
+                $values[] = $teacher_info['school'];
+
+                $sql = 'INSERT INTO '. $ecs->table('teachers') . ' (`user_id`, `course_id`, `real_name`, `school`)'. " VALUES ('" . implode("', '", $values) . "')";
+                $db->query($sql);
+            }
+            //end zhangmengqi
+
             /*把新注册用户的扩展信息插入数据库*/
             $sql = 'SELECT id FROM ' . $ecs->table('reg_fields') . ' WHERE type = 0 AND display = 1 ORDER BY dis_order, id';   //读出所有自定义扩展字段的id
             $fields_arr = $db->getAll($sql);
@@ -2762,6 +2830,33 @@ elseif ($action == 'clear_history')
 {
     setcookie('ECS[history]',   '', 1);
 }
+//begin zhangmengqi
+/*展示订阅界面*/
+else if($action == 'subscription'){
+    //展示订阅界面
+    //1.获得课程相关信息
+    $sql = 'SELECT * FROM ' . $ecs->table('course') . ' ORDER BY id';
+    /* 取出课程相关信息 */
+    $course_info = $db->getAll($sql);
+    $smarty->assign('course_id',$course_info);
+    //Todo 更换页面名称 展示页面
+    $smarty->display('user_passport.dwt');
+}
+/*添加关注操作*/
+else if($action == 'act_subscription'){
+    //展示相应界面
+    //1.取得搜索条件,取得查询的科目信息
+    //Todo 搜索数据库,修改数据查询条件
+    $id = '';
+    $sql = 'SELECT * FROM ' . $ecs->table('teachers') . "where course_id = '$id' ".' ORDER BY id';
+    $result = $db->getAll();
+    $smarty->assign('result',$result);
+    //Todo 更改页面名称 展示页面
+    $smarty->display('user_passport.dwt');
+}
+
+//end zhangmengqi
+
 /*begin, add by chenggaoyuan for judging a telephone number*/
 function is_telephone($phone){
     $chars = "/^13[0-9]{1}[0-9]{8}$|15[0-9]{1}[0-9]{8}$|18[0-9]{1}[0-9]{8}$/";

@@ -544,6 +544,8 @@ CREATE TABLE `ecs_goods` (
   `rank_integral` int NOT NULL default '-1',
   `suppliers_id` smallint(5) unsigned default NULL,
   `is_check` tinyint(1) unsigned default NULL,
+  ---begin zhangmnegqi, 表示书籍商品的分类，比如地理，生物等
+  `course_id` TINYINT(8) unsigned default NULL,
   PRIMARY KEY  (`goods_id`),
   KEY `goods_sn` (`goods_sn`),
   KEY `cat_id` (`cat_id`),
@@ -836,6 +838,8 @@ CREATE TABLE `ecs_order_info` (
   `is_separate` tinyint(1) NOT NULL default '0',
   `parent_id` mediumint(8) unsigned NOT NULL default '0',
   `discount` decimal(10, 2) NOT NULL,
+  `supplier_id` INT( 10 )  NOT NULL  DEFAULT 0,
+  `froms` CHAR( 10 ) NOT NULL DEFAULT 'pc' COMMENT 'pc:电脑,mobile:手机,app:应用',
   PRIMARY KEY  (`order_id`),
   UNIQUE KEY `order_sn` (`order_sn`),
   KEY `user_id` (`user_id`),
@@ -1230,6 +1234,9 @@ CREATE TABLE `ecs_user_rank` (
 -- 表的结构 `ecs_users`
 --
 
+-- begin zhangmengqi
+-- 增加字段表示该user是否是老师，增加手机号
+
 DROP TABLE IF EXISTS `ecs_users`;
 CREATE TABLE `ecs_users` (
   `user_id` mediumint(8) unsigned NOT NULL auto_increment,
@@ -1266,6 +1273,8 @@ CREATE TABLE `ecs_users` (
   `credit_line` DECIMAL( 10, 2 ) UNSIGNED NOT NULL,
   `passwd_question` VARCHAR( 50 ) NULL,
   `passwd_answer` VARCHAR( 255 ) NULL,
+  `is_teacher` tinyint(3) unsigned NOT NULL default '0',
+  `teacher_integral` int unsigned NOT NULL default '0'
   PRIMARY KEY  (`user_id`),
   KEY `email` (`email`),
   KEY `parent_id` (`parent_id`),
@@ -1411,6 +1420,7 @@ CREATE TABLE `ecs_account_log` (
   `change_time` int(10) unsigned NOT NULL,
   `change_desc` varchar(255) NOT NULL,
   `change_type` tinyint(3) unsigned NOT NULL,
+  `teacher_integral` int unsigned NOT NULL default '0',
   PRIMARY KEY  (`log_id`),
   KEY `user_id` (`user_id`)
 ) TYPE=MyISAM;
@@ -1793,3 +1803,43 @@ CREATE TABLE `ecs_products` (
   `product_number` smallint(5) unsigned default '0',
   PRIMARY KEY  (`product_id`)
 ) ENGINE=MyISAM;
+
+--begin zhangmengqi
+--增加课程表
+DROP TABLE IF EXISTS `ecs_courses`;
+CREATE TABLE `ecs_courses` (
+  `course_id` TINYINT(8) unsigned NOT NULL auto_increment,
+  `course_name` varchar(50) NOT NULL,
+  PRIMARY KEY  (`course_id`)
+) ENGINE=MyISAM;
+
+
+--增加教师表
+DROP TABLE IF EXISTS `ecs_teachers`;
+CREATE TABLE `ecs_teachers` (
+  `teacher_id` int(8) unsigned NOT NULL auto_increment,
+  `user_id` mediumint(8) unsigned NOT NULL,
+  `course_id` tinyint(8) unsigned NOT NULL,
+  `real_name` varchar (50)  NOT NULL,
+  `school` varchar (90)  NOT NULL,
+  PRIMARY KEY  (`teacher_id`)
+) ENGINE=MyISAM;
+
+--增加教师、课程和学生联系表，即某学生在某个科目，订阅了某个老师
+DROP TABLE IF EXISTS `ecs_subscription`;
+CREATE TABLE `ecs_subscription` (
+  `teacher_user_id` int(8) unsigned NOT NULL,
+  `students_user_id` mediumint(8) unsigned NOT NULL,
+  `course_id` tinyint(8) unsigned NOT NULL
+) ENGINE=MyISAM;
+
+--end zhangmengqi
+
+
+
+
+
+
+
+
+

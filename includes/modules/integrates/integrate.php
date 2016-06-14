@@ -68,6 +68,10 @@ class integrate
     /* 注册日期的字段名 */
     var $field_reg_date = '';
 
+    //begin zhangmengqi
+    var $filed_is_teacher = 'is_teacher';
+    //end zhangmengqi
+
     /* 是否需要同步数据到商城 */
     var $need_sync = true;
 
@@ -183,7 +187,7 @@ class integrate
      *
      * @return int
      */
-    function add_user($username, $password, $email, $gender = -1, $bday = 0, $reg_date=0, $md5password='')
+    function add_user($username, $password, $email, $gender = -1, $bday = 0, $reg_date=0, $md5password='', $is_teacher)
     {
         /* 将用户添加到整合方 */
         if ($this->check_user($username) > 0)
@@ -232,6 +236,11 @@ class integrate
             $fields[] = $this->field_reg_date;
             $values[] = $reg_date;
         }
+
+        //begin zhangmengqi,增加字段
+        $fields[] = $this->filed_is_teacher;
+        $values[] = $is_teacher;
+        //end zhangmengqi
 
         $sql = "INSERT INTO " . $this->table($this->user_table).
                " (" . implode(',', $fields) . ")".

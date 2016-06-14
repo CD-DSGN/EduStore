@@ -3796,10 +3796,72 @@ INSERT INTO `ecs_template` (`filename`, `region`, `library`, `sort_order`, `id`,
 -- 会员注册项 ecs_reg_fields
 --
 
-INSERT INTO `ecs_reg_fields` (`id`, `reg_field_name`, `dis_order`, `display`, `type`, `is_need`) VALUES  
+
+--begin zhangmengqi,因为手机为必选项，所以从扩展项中删除
+INSERT INTO `ecs_reg_fields` (`id`, `reg_field_name`, `dis_order`, `display`, `type`, `is_need`) VALUES
 (1, 'MSN', 0, 1, 1, 1), 
 (2, 'QQ', 0, 1, 1, 1), 
 (3, '办公电话', 0, 1, 1, 1), 
 (4, '家庭电话', 0, 1, 1, 1), 
-(5, '手机', 0, 1, 1, 1),
-(6, '密码找回问题', 0, 1, 1, 1);
+(5, '密码找回问题', 0, 1, 1, 1);
+--end zhangmengqi
+
+-- begin zhangmengqi
+-- 增加课程默认科目
+INSERT INTO `ecs_courses` ( `course_name`) VALUES
+('语文'),
+('数学'),
+('英语'),
+('历史'),
+('地理'),
+('思想品德'),
+('生物'),
+('化学'),
+('物理');
+
+--增加模板堂中的默认数据，后面需要进一步修改
+INSERT INTO `ecs_ad` (`ad_id`, `position_id`, `media_type`, `ad_name`, `ad_link`, `ad_code`, `start_time`, `end_time`, `link_man`, `link_email`, `link_phone`, `click_count`, `enabled`) VALUES
+(193, 159, 0, '首页左侧广告', 'http://ectouch.cn/', '1413916122102071507.png', 1381219200, 1983427200, '', '', '', 0, 1),
+(194, 160, 0, '底部通栏广告', '#', '1454280130804827900.jpg', 1454227200, 1993276800, '', '', '', 1, 1),
+(197, 163, 0, '搜索框右侧小广告', '', '1461026625900236331.png', 1460966400, 2000016000, '', '', '', 3, 1);
+
+INSERT INTO `ecs_ad_position` (`position_id`, `position_name`, `ad_width`, `ad_height`, `position_desc`, `position_style`) VALUES
+(159, '首页左侧广告', 240, 140, '', '<table cellpadding="0" cellspacing="0">\r\n{foreach from=$ads item=ad}\r\n<tr><td>{$ad}</td></tr>\r\n{/foreach}\r\n</table>'),
+(160, '底部通栏广告', 1920, 105, '', '\r\n{foreach from=$ads item=ad}\r\n{$ad}\r\n{/foreach}\r\n'),
+(163, '搜索框右侧小广告', 190, 80, '', '{foreach from=$ads item=ad}\r\n{$ad}\r\n{/foreach}');
+
+INSERT INTO `ecs_template` (`filename`, `region`, `library`, `sort_order`, `id`, `number`, `type`, `theme`, `remarks`) VALUES
+('index', '左边区域', '/library/vote_list.lbi', 8, 0, 0, 0, 'default', ''),
+('index', '左边区域', '/library/email_list.lbi', 9, 0, 0, 0, 'default', ''),
+('index', '左边区域', '/library/order_query.lbi', 6, 0, 0, 0, 'default', ''),
+('index', '左边区域', '/library/cart.lbi', 0, 0, 0, 0, 'default', ''),
+('index', '左边区域', '/library/promotion_info.lbi', 3, 0, 0, 0, 'default', ''),
+('index', '左边区域', '/library/auction.lbi', 4, 0, 3, 0, 'default', ''),
+('index', '左边区域', '/library/group_buy.lbi', 5, 0, 3, 0, 'default', ''),
+('index', '', '/library/recommend_promotion.lbi', 0, 0, 4, 0, 'default', ''),
+('index', '右边主区域', '/library/recommend_hot.lbi', 2, 0, 10, 0, 'default', ''),
+('index', '右边主区域', '/library/recommend_new.lbi', 1, 0, 10, 0, 'default', ''),
+('index', '右边主区域', '/library/recommend_best.lbi', 0, 0, 10, 0, 'default', ''),
+('index', '左边区域', '/library/invoice_query.lbi', 7, 0, 0, 0, 'default', ''),
+('index', '左边区域', '/library/top10.lbi', 2, 0, 0, 0, 'default', ''),
+('index', '左边区域', '/library/category_tree.lbi', 1, 0, 0, 0, 'default', ''),
+('index', '', '/library/brands.lbi', 0, 0, 11, 0, 'default', ''),
+('category', '左边区域', '/library/category_tree.lbi', 1, 0, 0, 0, 'default', ''),
+('category', '右边区域', '/library/recommend_best.lbi', 0, 0, 5, 0, 'default', ''),
+('category', '右边区域', '/library/goods_list.lbi', 1, 0, 0, 0, 'default', ''),
+('category', '右边区域', '/library/pages.lbi', 2, 0, 0, 0, 'default', ''),
+('category', '左边区域', '/library/cart.lbi', 0, 0, 0, 0, 'default', ''),
+('category', '左边区域', '/library/price_grade.lbi', 3, 0, 0, 0, 'default', ''),
+('category', '左边区域', '/library/filter_attr.lbi', 2, 0, 0, 0, 'default', ''),
+('index', '商店公告下广告', '/library/ad_position.lbi', 0, 159, 0, 4, 'ecmoban_kaola2016', ''),
+('index', '', '/library/brands.lbi', 0, 0, 3, 0, 'ecmoban_kaola2016', ''),
+('index', '', '/library/auction.lbi', 0, 0, 3, 0, 'ecmoban_kaola2016', ''),
+('index', '', '/library/group_buy.lbi', 0, 0, 3, 0, 'ecmoban_kaola2016', ''),
+('index', '促销商品区域', '/library/recommend_promotion.lbi', 0, 0, 4, 0, 'ecmoban_kaola2016', ''),
+('index', '全宽行', '/library/recommend_hot.lbi', 1, 0, 5, 0, 'ecmoban_kaola2016', ''),
+('index', '全宽行', '/library/recommend_new.lbi', 0, 0, 5, 0, 'ecmoban_kaola2016', ''),
+('index', '全宽行', '/library/recommend_best.lbi', 2, 0, 5, 0, 'ecmoban_kaola2016', ''),
+('index', '商店公告', '/library/new_articles.lbi', 0, 0, 0, 0, 'ecmoban_kaola2016', '');
+
+--end zhangmengqi
+

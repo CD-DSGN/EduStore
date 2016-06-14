@@ -1852,9 +1852,11 @@ function formated_weight($weight)
  * @param   int     $pay_points     消费积分变动
  * @param   string  $change_desc    变动说明
  * @param   int     $change_type    变动类型：参见常量文件
+ * @param   int     teacher_integral  教师积分
  * @return  void
  */
-function log_account_change($user_id, $user_money = 0, $frozen_money = 0, $rank_points = 0, $pay_points = 0, $change_desc = '', $change_type = ACT_OTHER)
+//begin zhangmengqi
+function log_account_change($user_id, $user_money = 0, $frozen_money = 0, $rank_points = 0, $pay_points = 0, $change_desc = '', $change_type = ACT_OTHER, $teacher_integral=0)
 {
     /* 插入帐户变动记录 */
     $account_log = array(
@@ -1865,7 +1867,8 @@ function log_account_change($user_id, $user_money = 0, $frozen_money = 0, $rank_
         'pay_points'    => $pay_points,
         'change_time'   => gmtime(),
         'change_desc'   => $change_desc,
-        'change_type'   => $change_type
+        'change_type'   => $change_type,
+        'teacher_integral' => $teacher_integral
     );
     $GLOBALS['db']->autoExecute($GLOBALS['ecs']->table('account_log'), $account_log, 'INSERT');
 
@@ -1875,10 +1878,11 @@ function log_account_change($user_id, $user_money = 0, $frozen_money = 0, $rank_
             " frozen_money = frozen_money + ('$frozen_money')," .
             " rank_points = rank_points + ('$rank_points')," .
             " pay_points = pay_points + ('$pay_points')" .
+            " teacher_integral = teacher_integral + ('$teacher_integral')" .
             " WHERE user_id = '$user_id' LIMIT 1";
     $GLOBALS['db']->query($sql);
 }
-
+//end zhangmengqi
 
 /**
  * 获得指定分类下的子分类的数组

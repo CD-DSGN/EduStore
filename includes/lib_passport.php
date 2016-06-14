@@ -25,11 +25,13 @@ if (!defined('IN_ECS'))
  * @param   string       $username          注册用户名
  * @param   string       $password          用户密码
  * @param   string       $email             注册email
+ * @param   string       $is_teacher        是否是教师
  * @param   array        $other             注册的其他信息
  *
  * @return  bool         $bool
+ * modified by zhangmengqi
  */
-function register($username, $password, $email, $other = array())
+function register($username, $password, $email, $is_teacher,$other = array())
 {
     /* 检查注册是否关闭 */
     if (!empty($GLOBALS['_CFG']['shop_reg_closed']))
@@ -74,7 +76,7 @@ function register($username, $password, $email, $other = array())
         return false;
     }
 
-    if (!$GLOBALS['user']->add_user($username, $password, $email))
+    if (!$GLOBALS['user']->add_user($username, $password, $email, $is_teacher))
     {
         if ($GLOBALS['user']->error == ERR_INVALID_USERNAME)
         {
