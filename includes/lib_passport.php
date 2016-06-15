@@ -31,7 +31,7 @@ if (!defined('IN_ECS'))
  * @return  bool         $bool
  * modified by zhangmengqi
  */
-function register($username, $password, $email, $is_teacher,$other = array())
+function register($username, $password, $email,$other = array())
 {
     /* 检查注册是否关闭 */
     if (!empty($GLOBALS['_CFG']['shop_reg_closed']))
@@ -76,7 +76,7 @@ function register($username, $password, $email, $is_teacher,$other = array())
         return false;
     }
 
-    if (!$GLOBALS['user']->add_user($username, $password, $email, $is_teacher))
+    if (!$GLOBALS['user']->add_user($username, $password, $email))
     {
         if ($GLOBALS['user']->error == ERR_INVALID_USERNAME)
         {
