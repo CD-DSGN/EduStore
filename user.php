@@ -257,7 +257,7 @@ elseif ($action == 'act_register')
             }
         }
 
-        if (register($username, $password, $email, $is_teacher, $other) !== false)
+        if (register($username, $password, $email, $other) !== false)
         {
 
             //begin zhangmengqi

@@ -25,7 +25,6 @@ if (!defined('IN_ECS'))
  * @param   string       $username          注册用户名
  * @param   string       $password          用户密码
  * @param   string       $email             注册email
- * @param   string       $is_teacher        是否是教师
  * @param   array        $other             注册的其他信息
  *
  * @return  bool         $bool
