@@ -864,6 +864,17 @@ elseif ($_REQUEST['act'] == 'delivery_ship')
 
             log_account_change($order['user_id'], 0, 0, intval($integral['rank_points']), intval($integral['custom_points']), sprintf($_LANG['order_gift_integral'], $order['order_sn']));
 
+            //begin zhangmengqi,全部发货时，给相关联教师发放相应的积分
+            $integral_arr = teacher_integral_to_give($order);
+            if($integral_arr){
+                foreach ($integral_arr as $user_id => $teacher_integral) {
+                    log_account_change($user_id, 0, 0, 0, 0, sprintf($_LANG['order_gift_teacher_integral'], $order['order_sn']),ACT_OTHER,$teacher_integral);
+                }
+            }
+            //end zhangmengqi
+
+
+
             /* 发放红包 */
             send_order_bonus($order_id);
         }
@@ -1025,6 +1036,14 @@ elseif ($_REQUEST['act'] == 'delivery_cancel_ship')
             $integral = integral_to_give($order);
             log_account_change($order['user_id'], 0, 0, (-1) * intval($integral['rank_points']), (-1) * intval($integral['custom_points']), sprintf($_LANG['return_order_gift_integral'], $order['order_sn']));
 
+            //begin zhangmengqi, 退回赠送给教师的教师积分
+            $integral_arr = teacher_integral_to_give($order);
+            if($integral_arr){
+                foreach ($integral_arr as $user_id => $teacher_integral) {
+                    log_account_change($user_id, 0, 0, 0, 0, sprintf($_LANG['return_order_gift_teacher_integral'], $order['order_sn']), ACT_OTHER, -$teacher_integral);
+                }
+            }
+            //end zhangmengqi
             /* todo 计算并退回红包 */
             return_order_bonus($order_id);
         }

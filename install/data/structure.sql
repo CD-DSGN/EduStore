@@ -1419,7 +1419,7 @@ CREATE TABLE `ecs_account_log` (
   `change_time` int(10) unsigned NOT NULL,
   `change_desc` varchar(255) NOT NULL,
   `change_type` tinyint(3) unsigned NOT NULL,
-  `teacher_integral` int unsigned NOT NULL default '0',
+  `teacher_integral` int NOT NULL default '0',
   PRIMARY KEY  (`log_id`),
   KEY `user_id` (`user_id`)
 ) ENGINE=MyISAM;

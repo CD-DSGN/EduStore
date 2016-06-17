@@ -2588,32 +2588,58 @@ function integral_to_give($order)
 //Todo
 /**
  * @param $order  订单信息
- * @return array
+ * @return array  如果存在要返回的分数，则返回一个数组，数组的key为各个老师的user_id,值为应该获取的分数; 如果不存在，增返回false
  */
 function teacher_integral_to_give($order)
 {
-    /* 判断是否团购 */
-    //看看这段需不需要变
-    if ($order['extension_code'] == 'group_buy')
-    {
-        include_once(ROOT_PATH . 'includes/lib_goods.php');
-        $group_buy = group_buy_info(intval($order['extension_id']));
+    //Todo 需要重点观察，还没有得到验证;关于团购要不要特殊考虑，也还需要研究
+    //1.先判断购买的用户是否是老师，教师购买不获得教师积分;如果是老师，或者没有查询结果，直接返回
+    $res = judge_is_teacher($order);
 
-        return array('custom_points' => $group_buy['gift_integral'], 'rank_points' => $order['goods_amount']);
+    if(!$res || $res['is_teacher'] == 1){
+        return false;
     }
-    else
-    {
-        $sql = "SELECT SUM(og.goods_number * og.goods_price) AS teacher_integral" .
-            "FROM " . $GLOBALS['ecs']->table('order_goods') . " AS og, " .
-            $GLOBALS['ecs']->table('goods') . " AS g " .
-            "WHERE og.goods_id = g.goods_id " .
+
+    //2.学生购买时，看看订单包含了哪些科目的书籍及每个科目花了多少钱，如地理书总共花了35，物理总共花了100
+    $sql = "SELECT sum(og.goods_number * og.goods_price) AS costs, s.teacher_user_id as id " .
+           "FROM " . $GLOBALS['ecs']->table('order_goods') . " AS og, " .
+            $GLOBALS['ecs']->table('order_info') . " AS o, " .
+            $GLOBALS['ecs']->table('goods') . " AS g, " .
+            $GLOBALS['ecs']->table('subscription') . " AS s " .
+            "where og.order_id = o.order_id " .
             "AND og.order_id = '$order[order_id]' " .
             "AND og.goods_id > 0 " .
             "AND og.parent_id = 0 " .
-            "AND og.is_gift = 0 AND og.extension_code != 'package_buy'"; //Todo package_buy 条件是否有必要
+            "AND og.is_gift = 0 AND og.extension_code != 'package_buy' " .
+            "AND g.goods_id = og.goods_id " .
+            "AND s.students_user_id = o.user_id " .
+            "AND s.course_id = g.course_id  " .
+            "group by g.course_id having g.course_id > 0 order by g.course_id";
 
-        return $GLOBALS['db']->getRow($sql);
+    $res = $GLOBALS['db']->getAll($sql);
+    if(!$res){
+        return false;
     }
+
+    $integral_arr = array();
+    foreach ($res as $item) {
+        $integral_arr[$item['id']] = $item['costs'];
+    }
+    return $integral_arr;
+}
+
+/**
+ * @param $order 订单信息，其实只要包含订单号就行
+ * @return bool
+ */
+function judge_is_teacher($order)
+{
+    $sql = "SELECT u.`user_id`, u.`is_teacher` " .
+        "FROM " . $GLOBALS['ecs']->table('order_info') . "AS oi, " .
+        $GLOBALS['ecs']->table('users') . "AS u " .
+        "WHERE oi.`user_id` = u.`user_id` AND oi.`order_id`= " . "'$order[order_id]'";
+    $res = $GLOBALS['db']->getRow($sql);
+    return $res;
 }
 
 //end zhangmengqi
