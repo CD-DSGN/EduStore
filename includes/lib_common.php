@@ -1877,7 +1877,7 @@ function log_account_change($user_id, $user_money = 0, $frozen_money = 0, $rank_
             " SET user_money = user_money + ('$user_money')," .
             " frozen_money = frozen_money + ('$frozen_money')," .
             " rank_points = rank_points + ('$rank_points')," .
-            " pay_points = pay_points + ('$pay_points')" .
+            " pay_points = pay_points + ('$pay_points')," .
             " teacher_integral = teacher_integral + ('$teacher_integral')" .
             " WHERE user_id = '$user_id' LIMIT 1";
     $GLOBALS['db']->query($sql);
