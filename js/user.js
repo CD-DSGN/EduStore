@@ -445,7 +445,20 @@ function register()
   var mobile_phone = frm.elements['extend_field5'] ? Utils.trim(frm.elements['extend_field5'].value) : '';
   var passwd_answer = frm.elements['passwd_answer'] ? Utils.trim(frm.elements['passwd_answer'].value) : '';
   var sel_question =  frm.elements['sel_question'] ? Utils.trim(frm.elements['sel_question'].value) : '';
-
+  //added by chenggaoyuan
+  var count = 4;
+  if(frm.elements['real_name'])
+  {
+	  var teacher_name = Utils.trim(frm.elements['real_name'].value);
+  }
+  if(frm.elements['school'])
+  {
+	  var school_name = Utils.trim(frm.elements['school'].value);
+  }
+  if(frm.elements['course_name'])
+  {
+	  var course_name = Utils.trim(frm.elements['course_name'].value);
+  }
 
   var msg = "";
   // 检查输入
@@ -473,6 +486,29 @@ function register()
     {
       msg += email_invalid + '\n';
     }
+  }
+  /*added by chenggaoyuan*/
+  if(typeof(teacher_name)!="undefined")
+  {
+	  count = 7;
+	  if(teacher_name.length == 0)
+	  {
+		msg += teacher_name_empty + '\n';
+	  }
+  }
+  if(typeof(school_name)!="undefined")
+  {
+	  if(school_name.length == 0)
+	  {
+		msg += school_name_empty + '\n';
+	  }
+  }
+  if(typeof(course_name)!="undefined")
+  {
+	  if(course_name == "0")
+	  {
+		msg += course_name_empty + '\n';
+	  }
   }
   if (password.length == 0)
   {
@@ -535,7 +571,7 @@ function register()
     msg += no_select_question + '\n';
   }
 
-  for (i = 4; i < frm.elements.length - 4; i++)	// 从第五项开始循环检查是否为必填项
+  for (i = count; i < frm.elements.length - count; i++)	// 从第五项开始循环检查是否为必填项
   {
 	needinput = document.getElementById(frm.elements[i].name + 'i') ? document.getElementById(frm.elements[i].name + 'i') : '';
 
@@ -555,7 +591,6 @@ function register()
     return true;
   }
 }
-
 /* *
  * 用户中心订单保存地址信息
  */

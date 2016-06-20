@@ -87,7 +87,7 @@ catch (e) {
 <div class="header-main">
     <div class="block">
         <div class="header-logo header-logo-index">
-            <a href="index.php"><img src="images/logo.gif" alt=""></a>
+            <a href="index.php"><img src="images/logo.png" alt=""></a>
         </div>
         <div class="header-banner w-icon w-icon-28" id="ECS_CARTINFO">
             <a href="flow.php">购物车</a>&nbsp;<span class="cart-num">{insert name='cart_info'}</span>
