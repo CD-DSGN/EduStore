@@ -426,7 +426,65 @@ function check_email_callback(result)
     document.forms['formUser'].elements['Submit'].disabled = 'disabled';
   }
 }
-
+/*begin, added by chenggaoyuan*/
+function checkRealName(realname)
+{
+	  var submit_disabled = false;
+	  
+	  if (realname == '')
+	  {
+	    document.getElementById('real_name_notice').innerHTML = msg_rn_blank;
+	    submit_disabled = true;
+	  }else{
+		document.getElementById('real_name_notice').innerHTML = msg_blank;
+		submit_disabled = false;  
+	  }
+	  if( submit_disabled )
+	  {
+	    document.forms['formUser'].elements['Submit'].disabled = 'disabled';
+	    return false;
+	  }
+	  return true;
+}
+function checkSchool(schoolname)
+{
+	  var submit_disabled = false;
+	  
+	  if (schoolname == '')
+	  {
+	    document.getElementById('school_notice').innerHTML = msg_school_blank;
+	    submit_disabled = true;
+	  }else{
+		document.getElementById('school_notice').innerHTML = msg_blank;
+		submit_disabled = false;  
+	  }
+	  if( submit_disabled )
+	  {
+	    document.forms['formUser'].elements['Submit'].disabled = 'disabled';
+	    return false;
+	  }
+	  return true;
+}
+function checkCourseName(coursename)
+{
+	  var submit_disabled = false;
+	  
+	  if (coursename == '0')
+	  {
+	    document.getElementById('coursename_notice').innerHTML = msg_course_blank;
+	    submit_disabled = true;
+	  }else{
+		document.getElementById('coursename_notice').innerHTML = msg_blank;
+		submit_disabled = false;		
+	  }
+	  if( submit_disabled )
+	  {
+	    document.forms['formUser'].elements['Submit'].disabled = 'disabled';
+	    return false;
+	  }
+	  return true;
+}
+/*end, added by chenggaoyuan*/
 /* *
  * 处理注册用户
  */

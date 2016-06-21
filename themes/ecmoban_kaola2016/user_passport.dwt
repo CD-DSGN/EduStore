@@ -239,20 +239,20 @@
         <tr>
           <td align="right">{$lang.label_realname}</td>
           <td>
-          <input name="real_name" type="text" size="25" id="real_name" class="inputBg"/>
+          <input name="real_name" type="text" size="25" id="real_name" onblur="checkRealName(this.value);" class="inputBg"/>
             <span id="real_name_notice" style="color:#FF0000"> *</span>
           </td>
         </tr>
         <tr>
           <td align="right">{$lang.label_schoolname}</td>
           <td>
-          <input name="school" type="text" size="25" id="school"  class="inputBg"/>
+          <input name="school" type="text" size="25" id="school"  onblur="checkSchool(this.value);" class="inputBg"/>
             <span id="school_notice" style="color:#FF0000"> *</span>
           </td>
         </tr>
         <td align="right">{$lang.label_coursename}</td>
         	<td>
-          		<select name='course_name' class="course_name">
+          		<select name='course_name' class="course_name" onblur="checkCourseName(this.value);">
                 <option value="0">请选择课程</option>
 				{html_options options=$course_id }</select>
                 <span id="coursename_notice" style="color:#FF0000"> *</span>

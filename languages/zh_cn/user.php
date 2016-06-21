@@ -382,10 +382,11 @@ $_LANG['back_retry_answer'] = '返回重试';
 $_LANG['label_username_or_telephone'] = '手机号码或用户名';
 $_LANG['label_username'] = '用户名';
 $_LANG['label_email'] = 'email';
-//added by chenggaoyuan
+/*begin, added by chenggaoyuan*/
 $_LANG['label_realname'] = '教师姓名';
 $_LANG['label_schoolname'] = '学校';
 $_LANG['label_coursename'] = '任课课程';
+/*end, added by chenggaoyuan*/
 $_LANG['label_password'] = '密码';
 $_LANG['label_confirm_password'] = '确认密码';
 $_LANG['label_password_intensity'] = '密码强度';
@@ -510,11 +511,15 @@ $_LANG['passport_js']['msg_email_format'] = '* 邮件地址不合法';
 $_LANG['passport_js']['msg_blank'] = '不能为空';
 $_LANG['passport_js']['no_select_question'] = '- 您没有完成密码提示问题的操作';
 $_LANG['passport_js']['passwd_balnk'] = '- 密码中不能包含空格';
-/*added by chenggaoyuan*/
+/*begin, added by chenggaoyuan*/
 $_LANG['passport_js']['teacher_name_empty'] = '- 教师姓名不能为空。';
 $_LANG['passport_js']['school_name_empty'] = '- 学校不能为空。';
 $_LANG['passport_js']['course_name_empty'] = '- 任课课程不能为空。';
-
+$_LANG['passport_js']['msg_rn_blank'] = '* 教师姓名不能为空';
+$_LANG['passport_js']['msg_school_blank'] = '* 学校不能为空';
+$_LANG['passport_js']['msg_course_blank'] = '* 任课课程不能为空';
+$_LANG['passport_js']['msg_blank'] = '';
+/*end, added by chenggaoyuan*/
 
 /* user_clips.dwt js 语言文件 */
 $_LANG['clips_js']['msg_title_empty'] = '留言标题为空';
