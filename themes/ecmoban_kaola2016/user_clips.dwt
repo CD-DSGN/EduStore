@@ -52,6 +52,12 @@
           <div class="f_l" style="width:350px;">
           <h5><span>{$lang.your_account}</span></h5>
           <div class="blank"></div>
+          <!--begin, added by chenggaoyuan-->
+          <!--{if $info.is_teacher eq 1} -->
+          <div style="font-size:15px">
+          {$lang.teacher_integral}:&nbsp;{$info.teacher_integral}<br />
+          </div>
+          <!--{/if} -->
           {$lang.your_surplus}:<a href="user.php?act=account_log" style="color:#006bd0;">{$info.surplus}</a><br />
           <!-- {if $info.credit_line gt 0} 如果有信用额度 -->
           {$lang.credit_line}:{$info.formated_credit_line}<br />

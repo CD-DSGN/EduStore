@@ -111,8 +111,8 @@ function get_profile($user_id)
     $info  = array();
     $infos = array();
     $sql  = "SELECT user_name, birthday, sex, question, answer, rank_points, pay_points,user_money, user_rank,".
-             " msn, qq, office_phone, home_phone, mobile_phone, passwd_question, passwd_answer ".
-           "FROM " .$GLOBALS['ecs']->table('users') . " WHERE user_id = '$user_id'";
+             " msn, qq, office_phone, home_phone, mobile_phone, passwd_question, passwd_answer, is_teacher".
+           " FROM " .$GLOBALS['ecs']->table('users') . " WHERE user_id = '$user_id'";
     $infos = $GLOBALS['db']->getRow($sql);
     $infos['user_name'] = addslashes($infos['user_name']);
 
@@ -158,6 +158,7 @@ function get_profile($user_id)
         }
     }
 
+    
     $info['discount']    = $_SESSION['discount'] * 100 . "%";
     $info['email']       = $_SESSION['email'];
     $info['user_name']   = $_SESSION['user_name'];
@@ -178,6 +179,7 @@ function get_profile($user_id)
     $info['mobile_phone'] = $infos['mobile_phone'];
     $info['passwd_question'] = $infos['passwd_question'];
     $info['passwd_answer'] = $infos['passwd_answer'];
+    $info['is_teacher'] = $infos['is_teacher'];
 
     return $info;
 }

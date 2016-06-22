@@ -451,6 +451,8 @@ $_LANG['your_bonus'] = '红包';
 $_LANG['your_message'] = '留言';
 $_LANG['your_order'] = '订单';
 $_LANG['your_integral'] = '积分';
+/*begin, added by chenggaoyuan*/
+$_LANG['teacher_integral'] = '汇积分';
 $_LANG['your_level'] = '您的等级是 %s ';
 $_LANG['next_level'] = ',您还差 %s 积分达到 %s ';
 $_LANG['attention'] = '关注';

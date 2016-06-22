@@ -558,7 +558,21 @@ elseif ($action == 'profile')
             default:    $extend_info_list[$key]['content'] = empty($temp_arr[$val['id']]) ? '' : $temp_arr[$val['id']] ;
         }
     }
+    
 
+    if($user_info['is_teacher'] == '1')
+    {
+        $teacher_info_arr = array();
+        $sql = "SELECT real_name, school, course_id FROM ". $ecs->table('teachers') ." WHERE user_id = '$user_id'";
+        $teacher_info_arr = $GLOBALS['db']->getRow($sql);
+        
+        $course_id_temp = $teacher_info_arr['course_id'];
+        $sql = "SELECT course_name FROM ". $ecs->table('courses') ." WHERE course_id = " . "$course_id_temp";
+        $course_name_arr = $GLOBALS['db']->getRow($sql);
+        
+        $smarty->assign('teacher_info_arr', $teacher_info_arr);
+        $smarty->assign('course_name_arr', $course_name_arr);
+    }
     $smarty->assign('extend_info_list', $extend_info_list);
 
     /* 密码提示问题 */

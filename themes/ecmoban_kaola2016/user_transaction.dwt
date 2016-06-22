@@ -50,6 +50,16 @@
       <div class="blank"></div>
      <form name="formEdit" action="user.php" method="post" onSubmit="return userEdit()">
       <table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd">
+      			<tr>
+                  <td width="28%" align="right" bgcolor="#FFFFFF">{$lang.label_username}： </td>
+                  <td width="72%" align="left" bgcolor="#FFFFFF">{$profile.user_name}</td>
+                </tr>
+                <!-- {if $profile.is_teacher eq 1} -->
+      			<tr>
+               	  <td width="28%" align="right" bgcolor="#FFFFFF">{$lang.label_realname}： </td>
+                  <td width="72%" align="left" bgcolor="#FFFFFF">{$teacher_info_arr.real_name}</td>
+                </tr> 
+                <!-- {/if} -->               
                 <tr>
                   <td width="28%" align="right" bgcolor="#FFFFFF">{$lang.birthday}： </td>
                   <td width="72%" align="left" bgcolor="#FFFFFF"> {html_select_date field_order=YMD prefix=birthday start_year=-60 end_year=+1 display_days=true month_format=%m day_value_format=%02d time=$profile.birthday} </td>
@@ -63,6 +73,16 @@
                     <input type="radio" name="sex" value="2" {if $profile.sex==2}checked="checked"{/if} />
                   {$lang.female}&nbsp;&nbsp; </td>
                 </tr>
+                <!-- {if $profile.is_teacher eq 1} -->
+      			<tr>
+               	  <td width="28%" align="right" bgcolor="#FFFFFF">{$lang.label_schoolname}： </td>
+                  <td width="72%" align="left" bgcolor="#FFFFFF">{$teacher_info_arr.school}</td>
+                </tr>
+      			<tr>
+               	  <td width="28%" align="right" bgcolor="#FFFFFF">{$lang.label_coursename}： </td>
+                  <td width="72%" align="left" bgcolor="#FFFFFF">{$course_name_arr.course_name}</td>
+                </tr>
+                <!-- {/if} -->                                               
                 <tr>
                   <td width="28%" align="right" bgcolor="#FFFFFF">{$lang.email}： </td>
                   <td width="72%" align="left" bgcolor="#FFFFFF"><input name="email" type="text" value="{$profile.email}" size="25" class="inputBg" /><span style="color:#FF0000"> *</span></td>
