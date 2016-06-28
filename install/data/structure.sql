@@ -1470,6 +1470,7 @@ CREATE TABLE `ecs_auction_log` (
 
 
 -- 增加分成信息纪录
+-- 增加教师积分项
 DROP TABLE IF EXISTS `ecs_affiliate_log`;
 CREATE TABLE  `ecs_affiliate_log` (
  `log_id` MEDIUMINT( 8 ) NOT NULL auto_increment,
@@ -1480,7 +1481,8 @@ CREATE TABLE  `ecs_affiliate_log` (
  `money` DECIMAL(10,2) NOT NULL DEFAULT '0',
  `point` INT(10) NOT NULL DEFAULT '0',
  `separate_type` TINYINT(1) NOT NULL DEFAULT '0',
-PRIMARY KEY ( `log_id` )
+  `teacher_integral` int NOT NULL default '0',
+  PRIMARY KEY ( `log_id` )
 ) ENGINE = MYISAM;
 
 -- --------------------------------------------------------

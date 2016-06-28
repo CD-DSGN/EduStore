@@ -346,11 +346,14 @@ function get_affiliate_ck()
 
     return $arr;
 }
-function write_affiliate_log($oid, $uid, $username, $money, $point, $separate_by)
+//begin zhangmengqi
+//增加一个teacher_integral参数，用于记录教师积分的变化
+//end zhangmengqi
+function write_affiliate_log($oid, $uid, $username, $money, $point, $separate_by, $teacher_integral = 0)
 {
     $time = gmtime();
-    $sql = "INSERT INTO " . $GLOBALS['ecs']->table('affiliate_log') . "( order_id, user_id, user_name, time, money, point, separate_type)".
-                                                              " VALUES ( '$oid', '$uid', '$username', '$time', '$money', '$point', $separate_by)";
+    $sql = "INSERT INTO " . $GLOBALS['ecs']->table('affiliate_log') . "( order_id, user_id, user_name, time, money, point, separate_type, teacher_integral)".
+        " VALUES ( '$oid', '$uid', '$username', '$time', '$money', '$point', $separate_by, $teacher_integral)";
     if ($oid)
     {
         $GLOBALS['db']->query($sql);

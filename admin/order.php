@@ -864,16 +864,18 @@ elseif ($_REQUEST['act'] == 'delivery_ship')
 
             log_account_change($order['user_id'], 0, 0, intval($integral['rank_points']), intval($integral['custom_points']), sprintf($_LANG['order_gift_integral'], $order['order_sn']));
 
-            //begin zhangmengqi,全部发货时，给相关联教师发放相应的积分
+            //begin zhangmengqi,全部发货时，给相关联教师发放相应的积分;give_integral_to_affiliate_teacher给推荐人积分
             $integral_arr = teacher_integral_to_give($order);
+
             if($integral_arr){
                 foreach ($integral_arr as $user_id => $teacher_integral) {
                     log_account_change($user_id, 0, 0, 0, 0, sprintf($_LANG['order_gift_teacher_integral'], $order['order_sn']),ACT_OTHER,$teacher_integral);
                 }
+
             }
+
+            give_integral_to_affiliate_teacher($integral_arr,$order,1); //1表示给积分，-1表示回退积分
             //end zhangmengqi
-
-
 
             /* 发放红包 */
             send_order_bonus($order_id);
@@ -1043,6 +1045,8 @@ elseif ($_REQUEST['act'] == 'delivery_cancel_ship')
                     log_account_change($user_id, 0, 0, 0, 0, sprintf($_LANG['return_order_gift_teacher_integral'], $order['order_sn']), ACT_OTHER, -$teacher_integral);
                 }
             }
+
+            give_integral_to_affiliate_teacher($integral_arr,$order,-1);  //退回因为推荐获得的分成
             //end zhangmengqi
             /* todo 计算并退回红包 */
             return_order_bonus($order_id);
@@ -3910,6 +3914,8 @@ elseif ($_REQUEST['act'] == 'operate_post')
                     log_account_change($user_id, 0, 0, 0, 0, sprintf($_LANG['return_order_gift_teacher_integral'], $order['order_sn']), ACT_OTHER, -$teacher_integral);
                 }
             }
+
+            give_integral_to_affiliate_teacher($integral_arr,$order,-1);  //退回因为推荐获得的分成
             //end zhangmengqi
 
             /* todo 计算并退回红包 */
@@ -4090,6 +4096,7 @@ elseif ($_REQUEST['act'] == 'operate_post')
                         log_account_change($user_id, 0, 0, 0, 0, sprintf($_LANG['return_order_gift_teacher_integral'], $order['order_sn']), ACT_OTHER, -$teacher_integral);
                     }
                 }
+                give_integral_to_affiliate_teacher($integral_arr,$order,-1);  //退回因为推荐获得的分成
                 //end zhangmengqi
             }
             /* todo 计算并退回红包 */
@@ -6382,4 +6389,77 @@ function get_site_root_url()
     return 'http://' . $_SERVER['HTTP_HOST'] . str_replace('/' . ADMIN_PATH . '/order.php', '', PHP_SELF);
 
 }
+
+//begin zhangmengqi
+function give_integral_to_affiliate_teacher($integral_arr, $order, $give){
+    if(empty($integral_arr)){
+        return ;
+    }
+
+    $_LANG = $GLOBALS['_LANG'];
+    $db    = $GLOBALS['db'];
+
+    $order_sn = $order['order_sn'];
+    $oid = $order['order_id'];
+
+    $affiliate = unserialize($GLOBALS['_CFG']['affiliate']);
+    empty($affiliate) && $affiliate = array();
+    $num = count($affiliate['item']);
+    $affiliate['config']['level_point_all'] = (float)$affiliate['config']['level_point_all'];
+    if ($affiliate['config']['level_point_all']){
+        $affiliate['config']['level_point_all'] /= 100;
+    }
+    $row = array();
+    for ($i = 0; $i < $num; $i++ ) {
+        if ($affiliate['item'][$i]['level_point']) {
+            $affiliate['item'][$i]['level_point'] /= 100;
+        }
+    }
+
+    foreach ($integral_arr as $user_id => $teacher_integral) {
+        //对于不同科目，分别给予推荐人
+        for($i = 0; $i < $num; $i++){
+            if(!$i){
+                //第一次的用户id需要做特殊处理, 找出用户关注的
+                $pre_user_id = $row['user_id']  = $user_id;
+            }else{
+                $pre_user_id = $row['user_id'];
+            }
+
+            $set_teacher_point = round($affiliate['config']['level_point_all'] * $teacher_integral * $affiliate['item'][$i]['level_point'], 0);
+            $row = $db->getRow("SELECT o.parent_id as user_id,u.user_name FROM " . $GLOBALS['ecs']->table('users') . " o" .
+                " LEFT JOIN" . $GLOBALS['ecs']->table('users') . " u ON o.parent_id = u.user_id" .
+                " WHERE o.user_id = '$row[user_id]'");
+            $up_uid = $row['user_id'];
+            if (empty($up_uid) || empty($row['user_name'])) {
+                break;
+            } else {
+                if ($give > 0) {   //赠送推荐人积分的情况
+                    $info = sprintf($_LANG['separate_info_teacher'], $pre_user_id, $order_sn, 0, 0, $set_teacher_point);
+                    log_account_change($up_uid, 0, 0, 0, 0, $info, ACT_OTHER, $set_teacher_point);
+                    write_separate_log($oid, $up_uid, $row['user_name'], 0, 0, 0, $set_teacher_point); //只有按注册分配
+                } else {          //回退推荐人积分的情况
+                    $info = sprintf($_LANG['return_separate_info_teacher'], $pre_user_id, $order_sn, 0, 0, -$set_teacher_point);
+                    log_account_change($up_uid, 0, 0, 0, 0, $info, ACT_OTHER, -$set_teacher_point);
+                    write_separate_log($oid, $up_uid, $row['user_name'], 0, 0, 0, -$set_teacher_point); //只有按注册分配
+                }
+            }
+        }
+    }
+}
+
+function write_separate_log($oid, $uid, $username, $money, $point, $separate_by, $teacher_integral = 0)
+{
+    $time = gmtime();
+    $sql = "INSERT INTO " . $GLOBALS['ecs']->table('affiliate_log') . "( order_id, user_id, user_name, time, money, point, separate_type, teacher_integral)".
+        " VALUES ( '$oid', '$uid', '$username', '$time', '$money', '$point', $separate_by, $teacher_integral)";
+    if ($oid)
+    {
+        $GLOBALS['db']->query($sql);
+    }
+}
+
+
+//end zhangmengqi
+
 ?>
