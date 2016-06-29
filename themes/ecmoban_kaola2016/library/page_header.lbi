@@ -51,14 +51,14 @@ catch (e) {
 <div class="header-nav">
     <div class="block">
         <span class="fl gotoindex" style="margin-right:15px;">
-        考拉欢迎你！
+        	汇师网欢迎您！
         </span>
         <!-- 登录信息 -->
         <p class="header-login-info">
             {* ECSHOP 提醒您：根据用户id来调用member_info.lbi显示不同的界面  *}{insert name='member_info'}
         </p>
         <a href="javascript:;" class="fl nav-mobile" style="">
-            <i class="iconfont">&#xe615;</i>手机考拉海购
+            <i class="iconfont">&#xe615;</i>手机汇师
             <span class="nav-mobile-sub"><img src="images/2dcode-app3.jpg" alt=""></span>
         </a>
         <!-- 快速导航 -->
