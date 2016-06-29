@@ -6392,15 +6392,23 @@ function get_site_root_url()
 
 //begin zhangmengqi
 function give_integral_to_affiliate_teacher($integral_arr, $order, $give){
-    if(empty($integral_arr)){
-        return ;
-    }
-
     $_LANG = $GLOBALS['_LANG'];
     $db    = $GLOBALS['db'];
 
     $order_sn = $order['order_sn'];
     $oid = $order['order_id'];
+
+    //回退积分的情况单独处理
+    if($give < 0){
+        //查询affiliate_log表的分成记录，确定要回退多少
+        roll_back_affiliate($oid, $_LANG, $order_sn);
+        return;
+    }
+
+    if(empty($integral_arr)){
+        return ;
+    }
+
 
     $affiliate = unserialize($GLOBALS['_CFG']['affiliate']);
     empty($affiliate) && $affiliate = array();
@@ -6434,32 +6442,100 @@ function give_integral_to_affiliate_teacher($integral_arr, $order, $give){
             if (empty($up_uid) || empty($row['user_name'])) {
                 break;
             } else {
-                if ($give > 0) {   //赠送推荐人积分的情况
-                    $info = sprintf($_LANG['separate_info_teacher'], $pre_user_id, $order_sn, 0, 0, $set_teacher_point);
-                    log_account_change($up_uid, 0, 0, 0, 0, $info, ACT_OTHER, $set_teacher_point);
-                    write_separate_log($oid, $up_uid, $row['user_name'], 0, 0, 0, $set_teacher_point); //只有按注册分配
-                } else {          //回退推荐人积分的情况
-                    $info = sprintf($_LANG['return_separate_info_teacher'], $pre_user_id, $order_sn, 0, 0, -$set_teacher_point);
-                    log_account_change($up_uid, 0, 0, 0, 0, $info, ACT_OTHER, -$set_teacher_point);
-                    write_separate_log($oid, $up_uid, $row['user_name'], 0, 0, 0, -$set_teacher_point); //只有按注册分配
-                }
+                $info = sprintf($_LANG['separate_info_teacher'], $pre_user_id, $order_sn, 0, 0, $set_teacher_point);
+                log_account_change($up_uid, 0, 0, 0, 0, $info, ACT_OTHER, $set_teacher_point);
+                write_separate_log($oid, $up_uid, $row['user_name'], 0, 0, 0, $set_teacher_point); //只有按注册分配
             }
         }
     }
 }
 
-function write_separate_log($oid, $uid, $username, $money, $point, $separate_by, $teacher_integral = 0)
+/**
+ * @param $oid
+ * @param $_LANG
+ * @param $order_sn
+ */
+function roll_back_affiliate($oid, $_LANG, $order_sn)
 {
-    $time = gmtime();
-    $sql = "INSERT INTO " . $GLOBALS['ecs']->table('affiliate_log') . "( order_id, user_id, user_name, time, money, point, separate_type, teacher_integral)".
-        " VALUES ( '$oid', '$uid', '$username', '$time', '$money', '$point', $separate_by, $teacher_integral)";
-    if ($oid)
-    {
-        $GLOBALS['db']->query($sql);
+    $sql = "select * from " . $GLOBALS['ecs']->table('affiliate_log') . "where order_id = $oid AND (separate_type > 0 or separate_type = 0)";
+    $res = $GLOBALS['db']->getAll($sql);
+    foreach ($res as $log_info) {
+        $set_teacher_point = $log_info['teacher_integral'];
+        $info = sprintf($_LANG['return_separate_info_teacher'], $order_sn, 0, 0, -$set_teacher_point);
+        log_account_change($log_info['user_id'], 0, 0, 0, 0, $info, ACT_OTHER, -$set_teacher_point);
+        rollBack_separate_log($oid, $log_info['user_id'], -2);
     }
+    return;
 }
 
+function write_separate_log($oid, $uid, $username, $money, $point, $separate_by, $teacher_integral = 0)
+{
+    if(!$oid){
+        return;
+    }
+    $time = gmtime();
 
+    //判断是不是有分过成，又被撤销了的记录，如果有则重新分成
+    $sql  = "select count(*) from " . $GLOBALS['ecs']->table('affiliate_log') . "where order_id = $oid AND user_id = $uid AND separate_type < 0";
+    $res = $GLOBALS['db']->getOne($sql);
+    if($res > 0){
+        $sql = "UPDATE " . $GLOBALS['ecs']->table('affiliate_log') .
+            " SET money = $money, " .
+            "point = $point," .
+            "separate_type = $separate_by, " .
+            "user_name = '$username', " .
+            "teacher_integral = $teacher_integral " .
+            "where order_id = $oid AND user_id = $uid AND separate_type < 0";
+        $GLOBALS['db']->query($sql);
+
+        $sql = "UPDATE " . $GLOBALS['ecs']->table('order_info') .
+            " SET is_separate = 1" .
+            " WHERE order_id = '$oid'";
+        $GLOBALS['db']->query($sql);
+        return ;
+    }
+
+
+    //判断是否出现了一个订单，某教师会分多次成（因为推荐了不同的教师，不同的教师又会分给他），如果出现则update记录，否则插入一条记录
+    $sql = "select count(*) as num from " . $GLOBALS['ecs']->table('affiliate_log') . "where order_id = $oid AND user_id = $uid AND (separate_type > 0 or separate_type = 0)";
+    $res = $GLOBALS['db']->getOne($sql);
+    if($res > 0){
+        $sql = "UPDATE " . $GLOBALS['ecs']->table('affiliate_log') .
+            " SET money = money + $money, " .
+            "point = point + $point," .
+            "teacher_integral = teacher_integral + $teacher_integral " .
+            "where order_id = $oid AND user_id = $uid AND (separate_type > 0 or separate_type = 0)";
+        $GLOBALS['db']->query($sql);
+        return ;
+    }
+
+    $sql = "INSERT INTO " . $GLOBALS['ecs']->table('affiliate_log') . "( order_id, user_id, user_name, time, money, point, separate_type, teacher_integral)".
+        " VALUES ( '$oid', '$uid', '$username', '$time', '$money', '$point', $separate_by, $teacher_integral)";
+    $GLOBALS['db']->query($sql);
+
+    //置为已分成状态
+    $sql = "UPDATE " . $GLOBALS['ecs']->table('order_info') .
+        " SET is_separate = 1" .
+        " WHERE order_id = '$oid'";
+    $GLOBALS['db']->query($sql);
+
+}
+
+//撤销分成记录
+function rollBack_separate_log($oid, $uid, $flag){
+    if (!$oid){
+        return;
+    }
+    $sql = "UPDATE " . $GLOBALS['ecs']->table('affiliate_log') .
+        " SET separate_type = '$flag'" .
+        " WHERE order_id = '$oid' AND user_id = '$uid'";
+    $GLOBALS['db']->query($sql);
+
+    $sql = "UPDATE " . $GLOBALS['ecs']->table('order_info') .
+        " SET is_separate = 3" .
+        " WHERE order_id = '$oid'";
+    $GLOBALS['db']->query($sql);
+}
 //end zhangmengqi
 
 ?>

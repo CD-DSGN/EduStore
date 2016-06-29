@@ -335,7 +335,7 @@ $_LANG['order_gift_teacher_integral'] = '订单 %s 赠送的教师积分';
 $_LANG['return_order_gift_integral'] = '由于退货或未发货操作，退回订单 %s 赠送的积分';
 $_LANG['return_order_gift_teacher_integral'] = '由于退货或未发货操作，退回订单 %s 赠送的教师积分';
 $_LANG['separate_info_teacher'] = '因为推荐用戶ID %s 从订单ID %s 获得分成:金钱 %s 积分 %s 教师积分 %s';
-$_LANG['return_separate_info_teacher'] = '因为退货或未发货操作，退回推荐用戶ID %s 从订单ID %s 获得分成:金钱 %s 积分 %s 教师积分 %s';
+$_LANG['return_separate_info_teacher'] = '因为退货或未发货操作，退回从订单ID %s 获得分成:金钱 %s 积分 %s 教师积分 %s';
 
 $_LANG['invoice_no_mall'] = '&nbsp;&nbsp;&nbsp;&nbsp;多个发货单号，请用英文逗号（“,”）隔开。';
 

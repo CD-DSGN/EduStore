@@ -2227,17 +2227,32 @@ elseif ($action == 'affiliate')
                 $affdb[$i]['money'] = $affiliate['item'][$i-1]['level_money'];
             }
             $smarty->assign('affdb', $affdb);
+            //begin zhangmengqi, 只显示已经分成的订单，其余不用管
+
+//            $sqlcount = "SELECT count(*) FROM " . $ecs->table('order_info') . " o".
+//        " LEFT JOIN".$ecs->table('users')." u ON o.user_id = u.user_id".
+//        " LEFT JOIN " . $ecs->table('affiliate_log') . " a ON o.order_id = a.order_id" .
+//        " WHERE o.user_id > 0 AND (u.parent_id IN ($all_uid) AND o.is_separate = 0 OR a.user_id = '$user_id' AND o.is_separate > 0)";
+
+
+//            $sql = "SELECT o.*, a.log_id, a.user_id as suid,  a.user_name as auser, a.money, a.point, a.separate_type FROM " . $ecs->table('order_info') . " o".
+//                    " LEFT JOIN".$ecs->table('users')." u ON o.user_id = u.user_id".
+//                    " LEFT JOIN " . $ecs->table('affiliate_log') . " a ON o.order_id = a.order_id" .
+//        " WHERE o.user_id > 0 AND (u.parent_id IN ($all_uid) AND o.is_separate = 0 OR a.user_id = '$user_id' AND o.is_separate > 0)".
+//                    " ORDER BY order_id DESC" ;
 
             $sqlcount = "SELECT count(*) FROM " . $ecs->table('order_info') . " o".
-        " LEFT JOIN".$ecs->table('users')." u ON o.user_id = u.user_id".
-        " LEFT JOIN " . $ecs->table('affiliate_log') . " a ON o.order_id = a.order_id" .
-        " WHERE o.user_id > 0 AND (u.parent_id IN ($all_uid) AND o.is_separate = 0 OR a.user_id = '$user_id' AND o.is_separate > 0)";
+                " JOIN " . $ecs->table('affiliate_log') . " a ON o.order_id = a.order_id AND a.user_id = '$user_id' " .
+                " WHERE o.user_id > 0 AND (a.separate_type > 0 or a.separate_type = 0) ";
 
-            $sql = "SELECT o.*, a.log_id, a.user_id as suid,  a.user_name as auser, a.money, a.point, a.separate_type FROM " . $ecs->table('order_info') . " o".
-                    " LEFT JOIN".$ecs->table('users')." u ON o.user_id = u.user_id".
-                    " LEFT JOIN " . $ecs->table('affiliate_log') . " a ON o.order_id = a.order_id" .
-        " WHERE o.user_id > 0 AND (u.parent_id IN ($all_uid) AND o.is_separate = 0 OR a.user_id = '$user_id' AND o.is_separate > 0)".
-                    " ORDER BY order_id DESC" ;
+            $sql = "SELECT o.*, a.log_id, a.user_id as suid,  a.user_name as auser, a.money, a.point, a.separate_type, a.teacher_integral FROM  " . $ecs->table('order_info') . " o".
+                " JOIN " . $ecs->table('affiliate_log') . " a ON o.order_id = a.order_id AND a.user_id = '$user_id' " .
+                " WHERE o.user_id > 0 AND (a.separate_type > 0 or a.separate_type = 0) " .
+                " ORDER BY order_id DESC ";
+
+            //end zhangmengqi
+
+
 
             /*
                 SQL解释：
@@ -2297,20 +2312,24 @@ elseif ($action == 'affiliate')
 
         $res = $db->SelectLimit($sql, $size, ($page - 1) * $size);
         $logdb = array();
-        while ($rt = $GLOBALS['db']->fetchRow($res))
-        {
-            if(!empty($rt['suid']))
-            {
-                //在affiliate_log有记录
-                if($rt['separate_type'] == -1 || $rt['separate_type'] == -2)
-                {
-                    //已被撤销
-                    $rt['is_separate'] = 3;
-                }
-            }
-            $rt['order_sn'] = substr($rt['order_sn'], 0, strlen($rt['order_sn']) - 5) . "***" . substr($rt['order_sn'], -2, 2);
-            $logdb[] = $rt;
-        }
+        //begin zhangmengqi, 没有必要进行检查了
+
+//        while ($rt = $GLOBALS['db']->fetchRow($res))
+//        {
+//            if(!empty($rt['suid']))
+//            {
+//                //在affiliate_log有记录
+//                if($rt['separate_type'] == -1 || $rt['separate_type'] == -2)
+//                {
+//                    //已被撤销
+//                    $rt['is_separate'] = 3;
+//                }
+//            }
+//            $rt['order_sn'] = substr($rt['order_sn'], 0, strlen($rt['order_sn']) - 5) . "***" . substr($rt['order_sn'], -2, 2);
+//            $logdb[] = $rt;
+//        }
+
+        //end zhangmengqi
 
         $url_format = "user.php?act=affiliate&page=";
 
