@@ -775,3 +775,14 @@ font-size: 8pt;font-family: sans-serif;}
 
 /*QQ END*/
 .course_name{height:25px}
+
+.subscription_span a {float: right; height: 26px; line-height: 26px; padding: 0 10px 0 23px; margin-right: 10px; background: #c43926 url(images/icon_add02.gif) no-repeat 6px center; border-radius: 3px; color: #fff; font-size: 13px; font-weight: normal; text-align: center; cursor:pointer;}
+.subscription_span a:hover { text-decoration:none; background-color:#00C;}
+
+.subscription_cancel_span a {float: right; height: 26px; line-height: 26px; padding: 0 10px 0 10px; margin-right: 40px; background: #c43926 no-repeat 6px center; border-radius: 3px; color: #fff; font-size: 13px; font-weight: normal; text-align: center; cursor:pointer;}
+.subscription_cancel_span a:hover { text-decoration:none; background-color:#00C;}
+
+.subscription_span_act a {float: right; height: 20px; line-height: 20px; padding: 0 10px 0 10px; margin-right: 70px; background: #c43926; border-radius: 3px; color: #fff; font-size: 13px; font-weight: normal; text-align: center; cursor:pointer;}
+.subscription_span_act a:hover { text-decoration:none; background-color:#00C;}
+
+.teacher_name_span {font-weight: bold; height: 26px; line-height: 26px;}

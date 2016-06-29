@@ -2,6 +2,9 @@
 <div class="userMenu">
 <a href="user.php" {if $action eq 'default'}class="curs"{/if}><img src="../images/u1.gif"> {$lang.label_welcome}</a>
 <a href="user.php?act=profile"{if $action eq 'profile'}class="curs"{/if}><img src="../images/u2.gif"> {$lang.label_profile}</a>
+<!-- {if $teacher_or_not eq 0} -->
+<a href="user.php?act=teacher_subscription"{if $action eq 'teacher_subscription'}class="curs"{/if}><img src="../images/shoucang1.gif"> {$lang.label_teacher_connection}</a>
+<!--{/if}-->
 <a href="user.php?act=order_list"{if $action eq 'order_list'|| $action eq 'order_detail'}class="curs"{/if}><img src="../images/u3.gif"> {$lang.label_order}</a>
 <a href="user.php?act=address_list"{if $action eq 'address_list'}class="curs"{/if}><img src="../images/u4.gif"> {$lang.label_address}</a>
 <a href="user.php?act=collection_list"{if $action eq 'collection_list'}class="curs"{/if}><img src="../images/u5.gif"> {$lang.label_collection}</a>

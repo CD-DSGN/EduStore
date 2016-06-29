@@ -23,6 +23,7 @@ $_LANG['shot_message'] = "短消息";
 /* 用户菜单 */
 $_LANG['label_welcome'] = '欢迎页';
 $_LANG['label_profile'] = '用户信息';
+$_LANG['label_teacher_connection'] = '关注教师';
 $_LANG['label_order'] = '我的订单';
 $_LANG['label_address'] = '收货地址';
 $_LANG['label_message'] = '我的留言';

@@ -10,6 +10,8 @@
 <link rel="shortcut icon" href="favicon.ico" />
 <link rel="icon" href="animated_favicon.gif" type="image/gif" />
 <link href="{$ecs_css_path}" rel="stylesheet" type="text/css" />
+<script type="text/css">
+</script>
 {* 包含脚本文件 *}
 {insert_scripts files='common.js,user.js'}
 </head>
@@ -141,9 +143,51 @@
         </tr>
       </table>
     </form>
-     <!--{/if}-->
-     <!--#用户信息界面 end-->
-     <!-- {if $action eq 'bonus'} 用户的红包列表 start-->
+    <!--{/if}-->
+    <!--#用户信息界面 end-->
+    
+    <!-- 教师关注界面 start -->
+    <!--{if $action eq 'teacher_subscription'}-->
+    <h5><span>{$lang.teacher_sub}</span></h5>
+    <div class="blank"></div>
+    <table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd">
+    {foreach from=$course_info item=course_item}
+		<tr>
+			<td width="28%" align="center" bgcolor="#FFFFFF">{$course_item.course_name}</td>
+			<td width="72%" align="center" bgcolor="#FFFFFF"><span class="teacher_name_span">{$course_item.tch_name}
+            </span><span class="subscription_cancel_span"><a href="user.php?act=teacher_subscription&cour={$course_item.course_id}&cancel_sub=true">取消关注</a></span>
+            <span class="subscription_span"><a href="user.php?act=teacher_subscription_act&cour={$course_item.course_id}">关注</a></span>
+            </td>
+		</tr>    
+    {/foreach}
+    </table>
+    <!--{/if}-->
+    <!-- 教师关注界面 end -->
+    
+    <!-- 教师关注操作界面 start -->
+    <!--{if $action eq 'teacher_subscription_act'}-->
+    <h5><span>{$lang.teacher_sub_act}</span></h5>
+    <div class="blank"></div>
+    <table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd">
+    <tr>
+    	<td width="20%" align="center" bgcolor="#FFFFFF">教师姓名</td>
+        <td width="20%" align="center" bgcolor="#FFFFFF">任课课程</td>
+        <td width="35%" align="center" bgcolor="#FFFFFF">学校</td>
+        <td width="25%" align="center" bgcolor="#FFFFFF">操作</td>
+	</tr>
+    {foreach from=$teaches_one_course item=one_teacher}
+    <tr>
+    	<th width="20%" align="center" bgcolor="#FFFFFF">{$one_teacher.real_name}</th>
+        <th width="20%" align="center" bgcolor="#FFFFFF">{$course_name}</th>
+        <th width="35%" align="center" bgcolor="#FFFFFF">{$one_teacher.school}</th>
+        <th width="25%" align="center" bgcolor="#FFFFFF"><span class="subscription_span_act"><a href=						  	"user.php?act=teacher_subscription&cour={$one_teacher.course_id}&tcid={$one_teacher.user_id}">确认关注</a></span></th>   				        
+	</tr>    
+    {/foreach}
+    </table>
+    <!--{/if}-->
+    <!-- 教师关注操作界面 end -->
+    
+    <!-- {if $action eq 'bonus'} 用户的红包列表 start-->
       <script type="text/javascript">
         {foreach from=$lang.profile_js item=item key=key}
           var {$key} = "{$item}";

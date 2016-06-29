@@ -22,7 +22,11 @@ require_once(ROOT_PATH . 'languages/' .$_CFG['lang']. '/user.php');
 
 $user_id = $_SESSION['user_id'];
 $action  = isset($_REQUEST['act']) ? trim($_REQUEST['act']) : 'default';
-
+/*begin, added by chenggaoyuan*/
+$course  = isset($_GET['cour']) ? trim($_GET['cour']) : 'coursenull';
+$user_id_teacher  = isset($_GET['tcid']) ? trim($_GET['tcid']) : 'tcidnull';
+$cancel_sub  = isset($_GET['cancel_sub']) ? trim($_GET['cancel_sub']) : 'cancel_sub_null';
+/*end, added by chenggaoyuan*/
 $affiliate = unserialize($GLOBALS['_CFG']['affiliate']);
 $smarty->assign('affiliate', $affiliate);
 $back_act='';
@@ -30,14 +34,18 @@ $back_act='';
 
 // 不需要登录的操作或自己验证是否登录（如ajax处理）的act
 //begin zhangmengqi,增加函数名(register_teacher)
-$not_login_arr =
-array('login','act_login','register','act_register','act_edit_password','get_password','send_pwd_email','password', 'signin', 'add_tag', 'collect', 'return_to_cart', 'logout', 'email_list', 'validate_email', 'send_hash_mail', 'order_query', 'is_registered', 'check_email','clear_history','qpassword_name', 'get_passwd_question', 'check_answer','register_teacher');
+$not_login_arr =array('login','act_login','register','act_register','act_edit_password','get_password','send_pwd_email',
+'password', 'signin', 'add_tag', 'collect', 'return_to_cart', 'logout', 'email_list', 'validate_email', 'send_hash_mail', 
+'order_query', 'is_registered', 'check_email','clear_history','qpassword_name', 'get_passwd_question', 'check_answer', 
+'register_teacher');
 
 /* 显示页面的action列表 */
 //Todo 有可能需要增加，看界面的情况
 $ui_arr = array('register', 'login', 'profile', 'order_list', 'order_detail', 'address_list', 'collection_list',
 'message_list', 'tag_list', 'get_password', 'reset_password', 'booking_list', 'add_booking', 'account_raply',
-'account_deposit', 'account_log', 'account_detail', 'act_account', 'pay', 'default', 'bonus', 'group_buy', 'group_buy_detail', 'affiliate', 'comment_list','validate_email','track_packages', 'transform_points','qpassword_name', 'get_passwd_question', 'check_answer','register_teacher');
+'account_deposit', 'account_log', 'account_detail', 'act_account', 'pay', 'default', 'bonus', 'group_buy', 'group_buy_detail', 
+'affiliate', 'comment_list','validate_email','track_packages', 'transform_points','qpassword_name', 'get_passwd_question', 
+'check_answer','register_teacher', 'teacher_subscription','teacher_subscription_act');
 //end zhangmengqi
 
 /* 未登录处理 */
@@ -91,6 +99,9 @@ if (in_array($action, $ui_arr))
     $smarty->assign('data_dir',   DATA_DIR);   // 数据目录
     $smarty->assign('action',     $action);
     $smarty->assign('lang',       $_LANG);
+    $sql = "SELECT is_teacher FROM ". $ecs->table('users'). "WHERE user_id = '$user_id'";
+    $teacher_or_not = $db->getOne($sql);
+    $smarty->assign('teacher_or_not', $teacher_or_not);
 }
 
 //用户中心欢迎页
@@ -2854,31 +2865,68 @@ elseif ($action == 'clear_history')
 }
 //begin zhangmengqi
 /*展示订阅界面*/
-elseif($action == 'subscription'){
-    //展示订阅界面
-    //1.获得课程相关信息
-    $sql = 'SELECT * FROM ' . $ecs->table('course') . ' ORDER BY id';
+elseif($action == 'teacher_subscription'){
     /* 取出课程相关信息 */
+    $sql = 'SELECT * FROM ' . $ecs->table('courses') . ' ORDER BY course_id';
     $course_info = $db->getAll($sql);
-    $smarty->assign('course_id',$course_info);
-    //Todo 更换页面名称 展示页面
-    $smarty->display('user_passport.dwt');
+    if($cancel_sub != 'cancel_sub_null' && $course != 'coursenull'){
+        $sql = "DELETE FROM " .$ecs->table('subscription'). " WHERE course_id = '$course' AND students_user_id = '$user_id'";
+        $db->query($sql);
+    }
+    //关注此教师并建立绑定关系
+    if($course != 'coursenull' && $user_id_teacher != 'tcidnull')
+    {
+        $sql = 'SELECT teacher_user_id FROM ' . $ecs->table('subscription') . " WHERE course_id = '$course' AND students_user_id = '$user_id'";
+        $teacher_id = $db->getOne($sql);
+        //此学生这门课程没有关注教师
+        if(false == $teacher_id){
+            $sql = 'INSERT INTO '. $ecs->table('subscription') . " VALUES ('$user_id_teacher', '$user_id', '$course')";
+            $db->query($sql);
+        }
+        //此学生这门课程已有关注教师
+        else{
+            $sql = 'UPDATE ' . $ecs->table('subscription') . " SET teacher_user_id = '$user_id_teacher' WHERE course_id = '$course' AND students_user_id = '$user_id'";
+            $db->query($sql);
+        }
+    }
+    //取出所有课程对应的教师并展示
+    for($i=0;$i<sizeof($course_info);$i++)
+    {
+        $j=$i+1;
+        $sql = 'SELECT teacher_user_id FROM ' . $ecs->table('subscription') . " WHERE students_user_id = '$user_id' AND course_id = '$j'";
+        $tch_id = $db->getOne($sql);
+        if(false == $tch_id)
+        {
+            $course_info[$i]['tch_name'] = $_LANG['have_not_sub'];
+        }
+        else{
+            $sql = 'SELECT real_name FROM ' . $ecs->table('teachers') . " WHERE user_id = '$tch_id'";
+            $tch_name = $db->getOne($sql);
+            $course_info[$i]['tch_name'] = $tch_name;
+        }
+    }
+
+    $smarty->assign('course_info',$course_info);
+    $smarty->display('user_transaction.dwt');
 }
 /*添加关注操作*/
-elseif($action == 'act_subscription'){
-    //展示相应界面
-    //1.取得搜索条件,取得查询的科目信息
-    //Todo 搜索数据库,修改数据查询条件
-    $id = '';
-    $sql = 'SELECT * FROM ' . $ecs->table('teachers') . "where course_id = '$id' ".' ORDER BY id';
-    $result = $db->getAll();
-    $smarty->assign('result',$result);
-    //Todo 更改页面名称 展示页面
-    $smarty->display('user_passport.dwt');
+elseif($action == 'teacher_subscription_act'){
+    //取得对应任课课程的教师
+    if($course != 'coursenull')
+    {
+        $id = $course;
+        $sql = 'SELECT * FROM ' . $ecs->table('teachers') . " WHERE course_id = '$id' ".' ORDER BY real_name';
+        $teaches_one_course = $db->getAll($sql);
+        
+        $sql = 'SELECT course_name FROM ' . $ecs->table('courses') . " WHERE course_id = '$id'";
+        $course_name = $db->getOne($sql);
+        $smarty->assign('course_name',$course_name);
+        $smarty->assign('teaches_one_course',$teaches_one_course);
+    }
+    $smarty->display('user_transaction.dwt');
 }
 
 //end zhangmengqi
-
 /*begin, add by chenggaoyuan for judging a telephone number*/
 function is_telephone($phone){
     $chars = "/^13[0-9]{1}[0-9]{8}$|15[0-9]{1}[0-9]{8}$|18[0-9]{1}[0-9]{8}$/";

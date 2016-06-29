@@ -46,6 +46,8 @@ $_LANG['view_cart'] = '查看购物车';
 $_LANG['catalog'] = '所有分类';
 $_LANG['regist_login'] = '注册/登录';
 $_LANG['profile'] = '个人资料';
+$_LANG['teacher_sub'] = '关注教师列表';
+$_LANG['teacher_sub_act'] = '搜索并关注教师';
 $_LANG['query_info'] = "共执行 %d 个查询，用时 %f 秒，在线 %d 人";
 $_LANG['gzip_enabled'] = '，Gzip 已启用';
 $_LANG['gzip_disabled'] = '，Gzip 已禁用';
@@ -727,4 +729,5 @@ $_LANG['label_collection'] = '我的收藏';
 $_LANG['article_list'] = '文章列表';
 $_LANG['preferences_price'] = '优惠价格';
 $_LANG['divided_into'] = '分成规则';
+$_LANG['have_not_sub'] = '';
 ?>

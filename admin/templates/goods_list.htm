@@ -29,7 +29,7 @@
     <th><a href="javascript:listTable.sort('goods_number'); ">{$lang.goods_number}</a>{$sort_goods_number}</th>
     {/if}
     <th>{$lang.handler}</th>
-  <tr>
+  </tr>
   {foreach from=$goods_list item=goods}
   <tr>
     <td><input type="checkbox" name="checkboxes[]" value="{$goods.goods_id}" />{$goods.goods_id}</td>
