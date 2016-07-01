@@ -145,7 +145,7 @@
     </form>
     <!--{/if}-->
     <!--#用户信息界面 end-->
-    
+    <!--teacher-->
     <!-- 教师关注界面 start -->
     <!--{if $action eq 'teacher_subscription'}-->
     <h5><span>{$lang.teacher_sub}</span></h5>
