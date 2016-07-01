@@ -38,7 +38,7 @@
         {$lang.nolimit}
         <!-- {/if} -->
       </td>
-    </tr><!--linux2-->
+    </tr><!--html-->
     <tr>
       <th bgcolor="#ffffff">{$lang.label_end_time}</th>
       <td bgcolor="#ffffff">{$val.end_time}</td>
