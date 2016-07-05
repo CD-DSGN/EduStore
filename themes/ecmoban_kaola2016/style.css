@@ -786,3 +786,13 @@ font-size: 8pt;font-family: sans-serif;}
 .subscription_span_act a:hover { text-decoration:none; background-color:#00C;}
 
 .teacher_name_span {font-weight: bold; height: 26px; line-height: 26px;}
+
+/*教师搜索框*/
+.teacher-search{ margin: 5px 5px 5px 5px; width: 300px;}
+.teacherSearch-form{ border: solid #333; border-width: 1px 0 1px 1px; height:34px; position: relative; background: #fff;}
+.teacherSearch-input-wp{ float: left; position: relative;}
+.teacherSearch-input{width: 230px!important; color: #999; margin: 0; *margin-top: -1px; position: relative; z-index: 2; width: 289px; line-height: 20px; padding: 7px 3px 7px 5px; outline: 0; border: 0; font-weight: 900; background: transparent; font: 16px/22px arial;}
+.teacherSearch-input-wp label{line-height: 30px; height: 30px; position: absolute; left: 8px; top: 0; z-index: 1; font-size: 14px; display: inline; color: #666;}
+.teacherSearch-input-wp.focus label{ color: #ccc;}
+.teacherSearch-input-wp.fill label{ display: none;}
+.teacherSearch-form button{ position: absolute; right: 0; top: 0; z-index: 1; width: 50px; border: 0 none; font-size: 16px; letter-spacing: 4px; cursor: pointer; color: #FFF; background-color: #C00; height: 34px; overflow: hidden; font-family: '\5FAE\8F6F\96C5\9ED1',arial,"\5b8b\4f53";}

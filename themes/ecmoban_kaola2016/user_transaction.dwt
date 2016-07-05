@@ -166,7 +166,36 @@
     <!-- 教师关注操作界面 start -->
     <!--{if $action eq 'teacher_subscription_act'}-->
     <h5><span>{$lang.teacher_sub_act}</span></h5>
-    <div class="blank"></div>
+<!--    <div class="blank"></div>-->
+    <div class="teacher-search">
+            <form method="get" action="user.php" onSubmit="return checkSearchForm(this)" class="teacherSearch-form">
+                <div class="teacherSearch-input-wp">
+                    <input type="text" name="keywords" id="mq" class="teacherSearch-input" value="请搜索教师姓名" onfocus="javascript:if(this.value=='请搜索教师姓名'){this.value=''}" onblur="javascript:if(this.value==''){this.value='请搜索教师姓名'}" >
+                    <label for="mq"></label>
+                </div>
+                <input type="hidden" name="act" value="teacher_subscription_act">
+                <input type="hidden" name="cour" value="{$course_id}">
+                <button type="submit" class="w-icon w-icon-27"></button>
+                <script type="text/javascript">
+                    {literal}
+                    <!--
+                    function checkSearchForm()
+                    {
+                    if(document.getElementById('keyword').value)
+                    {
+                    return true;
+                    }
+                    else
+                    {
+                    alert("{$lang.no_keywords}");
+                    return false;
+                    }
+                    }
+                    -->
+                    {/literal}
+                </script>
+            </form>
+        </div>
     <table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd">
     <tr>
     	<td width="20%" align="center" bgcolor="#FFFFFF">教师姓名</td>

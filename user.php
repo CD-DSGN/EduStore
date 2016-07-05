@@ -26,6 +26,7 @@ $action  = isset($_REQUEST['act']) ? trim($_REQUEST['act']) : 'default';
 $course  = isset($_GET['cour']) ? trim($_GET['cour']) : 'coursenull';
 $user_id_teacher  = isset($_GET['tcid']) ? trim($_GET['tcid']) : 'tcidnull';
 $cancel_sub  = isset($_GET['cancel_sub']) ? trim($_GET['cancel_sub']) : 'cancel_sub_null';
+$keywords = isset($_GET['keywords']) ? trim($_GET['keywords']) : 'keywords_null';
 /*end, added by chenggaoyuan*/
 $affiliate = unserialize($GLOBALS['_CFG']['affiliate']);
 $smarty->assign('affiliate', $affiliate);
@@ -2882,10 +2883,10 @@ elseif ($action == 'clear_history')
 {
     setcookie('ECS[history]',   '', 1);
 }
-//begin zhangmengqi
+//begin chenggaoyuan
 /*展示订阅界面*/
 elseif($action == 'teacher_subscription'){
-    /* 取出课程相关信息 */
+    
     $sql = 'SELECT * FROM ' . $ecs->table('courses') . ' ORDER BY course_id';
     $course_info = $db->getAll($sql);
     if($cancel_sub != 'cancel_sub_null' && $course != 'coursenull'){
@@ -2931,16 +2932,21 @@ elseif($action == 'teacher_subscription'){
 /*添加关注操作*/
 elseif($action == 'teacher_subscription_act'){
     //取得对应任课课程的教师
-    if($course != 'coursenull')
+    if($course != 'coursenull' && $keywords == 'keywords_null')
     {
         $id = $course;
-        $sql = 'SELECT * FROM ' . $ecs->table('teachers') . " WHERE course_id = '$id' ".' ORDER BY real_name';
+        $smarty->assign('course_id',$id);
+    }
+    if($course != 'coursenull' && $keywords != 'keywords_null')
+    {
+        $id = $course;
+        $sql = 'SELECT * FROM ' . $ecs->table('teachers') . " WHERE course_id = '$id' AND real_name LIKE '%$keywords%'";
         $teaches_one_course = $db->getAll($sql);
-        
         $sql = 'SELECT course_name FROM ' . $ecs->table('courses') . " WHERE course_id = '$id'";
         $course_name = $db->getOne($sql);
         $smarty->assign('course_name',$course_name);
         $smarty->assign('teaches_one_course',$teaches_one_course);
+        $smarty->assign('course_id',$id);
     }
     $smarty->display('user_transaction.dwt');
 }
