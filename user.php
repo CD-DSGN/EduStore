@@ -2883,7 +2883,7 @@ elseif ($action == 'clear_history')
 {
     setcookie('ECS[history]',   '', 1);
 }
-//begin chenggaoyuan
+/*begin, add by chenggaoyuan for teacher subscription*/
 /*展示订阅界面*/
 elseif($action == 'teacher_subscription'){
     
@@ -2931,13 +2931,14 @@ elseif($action == 'teacher_subscription'){
 }
 /*添加关注操作*/
 elseif($action == 'teacher_subscription_act'){
-    //取得对应任课课程的教师
-    if($course != 'coursenull' && $keywords == 'keywords_null')
+    //没有点击搜索button or 搜索内容为空 or '请搜索教师姓名'
+    if($course != 'coursenull' && ($keywords == 'keywords_null' || $keywords != '' || $keywords != '请搜索教师姓名'))
     {
         $id = $course;
         $smarty->assign('course_id',$id);
     }
-    if($course != 'coursenull' && $keywords != 'keywords_null')
+    //输入搜索教师姓名并点击搜索button
+    if($course != 'coursenull' && $keywords != 'keywords_null' && $keywords != '' && $keywords != '请搜索教师姓名')
     {
         $id = $course;
         $sql = 'SELECT * FROM ' . $ecs->table('teachers') . " WHERE course_id = '$id' AND real_name LIKE '%$keywords%'";
@@ -2951,7 +2952,7 @@ elseif($action == 'teacher_subscription_act'){
     $smarty->display('user_transaction.dwt');
 }
 
-//end zhangmengqi
+/*end, add by chenggaoyuan for teacher subscription*/
 /*begin, add by chenggaoyuan for judging a telephone number*/
 function is_telephone($phone){
     $chars = "/^13[0-9]{1}[0-9]{8}$|15[0-9]{1}[0-9]{8}$|18[0-9]{1}[0-9]{8}$/";

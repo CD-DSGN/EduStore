@@ -788,8 +788,8 @@ font-size: 8pt;font-family: sans-serif;}
 .teacher_name_span {font-weight: bold; height: 26px; line-height: 26px;}
 
 /*教师搜索框*/
-.teacher-search{ margin: 5px 5px 5px 5px; width: 300px;}
-.teacherSearch-form{ border: solid #333; border-width: 1px 0 1px 1px; height:34px; position: relative; background: #fff;}
+.teacher-search{ margin: 5px 5px 10px 0; width: 300px;}
+.teacherSearch-form{ border: solid #999; border-width: 1px 0 1px 1px; height:34px; position: relative; background: #fff;}
 .teacherSearch-input-wp{ float: left; position: relative;}
 .teacherSearch-input{width: 230px!important; color: #999; margin: 0; *margin-top: -1px; position: relative; z-index: 2; width: 289px; line-height: 20px; padding: 7px 3px 7px 5px; outline: 0; border: 0; font-weight: 900; background: transparent; font: 16px/22px arial;}
 .teacherSearch-input-wp label{line-height: 30px; height: 30px; position: absolute; left: 8px; top: 0; z-index: 1; font-size: 14px; display: inline; color: #666;}
