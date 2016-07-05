@@ -954,7 +954,7 @@ CREATE TABLE `ecs_reg_fields` (
   `type` tinyint(1) unsigned NOT NULL default '0',
   `is_need` tinyint(1) unsigned NOT NULL default '1',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM, AUTO_INCREMENT=100;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
