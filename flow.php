@@ -13,7 +13,8 @@
  * $Id: flow.php 17218 2011-01-24 04:10:41Z douqinghua $
  */
 
-define('IN_ECS', true);
+//增加空行
+ define('IN_ECS', true);
 
 require(dirname(__FILE__) . '/includes/init.php');
 require(ROOT_PATH . 'includes/lib_order.php');
