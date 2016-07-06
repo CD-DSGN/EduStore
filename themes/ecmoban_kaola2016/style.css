@@ -796,3 +796,4 @@ font-size: 8pt;font-family: sans-serif;}
 .teacherSearch-input-wp.focus label{ color: #ccc;}
 .teacherSearch-input-wp.fill label{ display: none;}
 .teacherSearch-form button{ position: absolute; right: 0; top: 0; z-index: 1; width: 50px; border: 0 none; font-size: 16px; letter-spacing: 4px; cursor: pointer; color: #FFF; background-color: #C00; height: 34px; overflow: hidden; font-family: '\5FAE\8F6F\96C5\9ED1',arial,"\5b8b\4f53";}
+.teacher_return_button{width:60px;height:30px;background-color:#CC0000;border:none;border-radius:12px;font-size:15px;margin-top:20px;color:#FFFFFF;}

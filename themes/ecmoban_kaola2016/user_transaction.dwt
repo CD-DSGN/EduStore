@@ -10,6 +10,7 @@
 <link rel="shortcut icon" href="favicon.ico" />
 <link rel="icon" href="animated_favicon.gif" type="image/gif" />
 <link href="{$ecs_css_path}" rel="stylesheet" type="text/css" />
+<!--按钮样式-->
 <script type="text/css">
 </script>
 {* 包含脚本文件 *}
@@ -209,12 +210,14 @@
         <th width="20%" align="center" bgcolor="#FFFFFF">{$course_name}</th>
         <th width="35%" align="center" bgcolor="#FFFFFF">{$one_teacher.school}</th>
         <th width="25%" align="center" bgcolor="#FFFFFF"><span class="subscription_span_act"><a href=						  	"user.php?act=teacher_subscription&cour={$one_teacher.course_id}&tcid={$one_teacher.user_id}">确认关注</a></span></th>   				        
-	</tr>    
+	</tr>
     {/foreach}
     </table>
+	<!--增加按钮-->
+	<p align="center"><input type="button" name="back" value="返回" class="teacher_return_button"  onclick="history.back()"/></p>
     <!--{/if}-->
     <!-- 教师关注操作界面 end -->
-    
+	
     <!-- {if $action eq 'bonus'} 用户的红包列表 start-->
       <script type="text/javascript">
         {foreach from=$lang.profile_js item=item key=key}
