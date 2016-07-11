@@ -216,7 +216,7 @@
 	<p align="center"><input type="button" name="back" value="返回" class="teacher_return_button"  onclick="history.back()"/></p>
     <!--{/if}-->
     <!-- 教师关注操作界面 end -->
-	
+	<!--新同事测试-->
     <!-- {if $action eq 'bonus'} 用户的红包列表 start-->
       <script type="text/javascript">
         {foreach from=$lang.profile_js item=item key=key}
