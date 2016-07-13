@@ -134,7 +134,25 @@ catch (e) {
     <div class="main-nav clearfix block">
         <!-- 主菜单 -->
         <div class="main-nav-list">
-            <a href="index.php" class="cur">首页</a>
+        
+            <a href="category.php?id=1" class="cur" style="width:140px;height:30px;" id="category">商品分类</a>
+           
+            <!-- 实现商品分类 -->
+            <!-- nahuanjie -->
+            <div class="show-category" style="position:absolute;width:150px;height:335px;background-color:#EEE;top:38px;display:none;opacity:0.85;">
+            	{if $parents_category}
+            	<ul class="fenleiUl">
+                	{foreach from=$parents_category item=parents name=key}
+                    <li><a href="{$parents.url}">
+                    <span>{$parents.cat_name}</span>    >
+                    </a></li>
+                    <hr align="center" width="100px" color="#fff" />
+                    {/foreach}
+                </ul>
+                {/if}
+            </div>
+            <!-- 实现商品分类end --> 
+           
             <!-- {foreach name=nav_middle_list from=$navigator_list.middle item=nav} -->
             <a href="{$nav.url}"{if $nav.opennew} target="_blank"{/if} {if $script_name eq 'category'}{/if}>
                 {$nav.name}
@@ -217,4 +235,24 @@ catch (e) {
     }
 });
 $(".cate-panel .left-part").preventScroll();
+</script>
+
+<!-- 商品分类 -->
+<script>
+	$(function(){
+		$("#category").hover(function() {
+            showCategory();
+        });
+		
+		function showCategory()
+		{
+			$(".show-category").css({"display":"block"});
+		}
+		
+		function hideCategory()
+		{
+			$(".show-category").css({"display":"none"});
+		}
+	});
+
 </script>

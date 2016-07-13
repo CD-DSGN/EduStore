@@ -85,6 +85,7 @@ if (!$smarty->is_cached('category.dwt', $cache_id))
 
     if (!empty($cat))
     {
+        $smarty->assign('parents_category',  get_parents_category());
         $smarty->assign('keywords',    htmlspecialchars($cat['keywords']));
         $smarty->assign('description', htmlspecialchars($cat['cat_desc']));
         $smarty->assign('cat_style',   htmlspecialchars($cat['style']));
@@ -331,6 +332,7 @@ if (!$smarty->is_cached('category.dwt', $cache_id))
     $smarty->assign('page_title',       $position['title']);    // 页面标题
     $smarty->assign('ur_here',          $position['ur_here']);  // 当前位置
 
+    $smarty->assign('parents_category',  get_parents_category());
     $smarty->assign('categories',       get_categories_tree($cat_id)); // 分类树
     $smarty->assign('helps',            get_shop_help());              // 网店帮助
     $smarty->assign('top_goods',        get_top10());                  // 销售排行

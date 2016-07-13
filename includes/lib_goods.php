@@ -1503,4 +1503,28 @@ function get_products_info($goods_id, $spec_goods_attr_id)
     }
     return $return_array;
 }
+
+//获取商品分类中，所有父分类的属性
+function get_parents_category()
+{
+    $parentsArr = array();
+
+    $sql = 'SELECT * FROM ' . $GLOBALS['ecs']->table('category') . " WHERE parent_id = 0 AND is_show = 1 ";
+    $res = $GLOBALS['db']->getAll($sql);
+    $index = 0;
+
+    foreach ($res as $row) {
+        $parentsArr[$index]['id'] = $row['cat_id'];
+        $parentsArr[$index]['cat_name'] = $row['cat_name'];
+        $parentsArr[$index]['parent_id'] = $row['parent_id'];
+        $parentsArr[$index]['url'] = build_uri('category', array('cid' => $row['cat_id']), $row['cat_name']);
+        $index++;
+    }
+
+    if(isset($parentsArr))
+    {
+        return $parentsArr;
+    }
+}
+
 ?>
