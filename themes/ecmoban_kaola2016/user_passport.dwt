@@ -107,6 +107,15 @@
             <span id="email_notice" style="color:#FF0000"> *</span>
           </td>
         </tr>
+		<!--添加手机验证码功能-->
+		<tr>
+			<td align="right">手机号码</td>
+			<td><input type="text" class="inputBg"><input type="button" id="checkNumber" name="phone" value="获取验证码" onclick="showtime(30)"></td>
+		</tr>
+		<tr>
+			<td align="right">验证码</td>
+			<td><input type="text" class="inputBg"></td>
+		<tr>     
         <tr>
           <td align="right">{$lang.label_password}</td>
           <td>
@@ -257,7 +266,16 @@
 				{html_options options=$course_id }</select>
                 <span id="coursename_notice" style="color:#FF0000"> *</span>
           	</td>
-        </tr>                    
+        </tr>
+		<!--添加手机验证码功能-->
+		<tr>
+			<td align="right">手机号码</td>
+				<td><input type="text" class="inputBg"><input type="button" id="checkNumber" name="phone" value="获取验证码" onclick="showtime(30)"></td>
+		</tr>
+		<tr>
+			<td align="right">验证码</td>
+			<td><input type="text" class="inputBg"></td>
+		<tr>                      
         <!--end, added by chenggaoyuan -->
         <tr>
           <td align="right">{$lang.label_password}</td>
@@ -503,5 +521,28 @@ var process_request = "{$lang.process_request}";
 var {$key} = "{$item}";
 {/foreach}
 var username_exist = "{$lang.username_exist}";
+</script>
+<!--获取验证码按钮功能实现-->
+<script> 
+function showtime(t){ 
+    document.formUser.phone.disabled=true; 
+    for(i=1;i<=t;i++) { 
+        window.setTimeout("update(" + i + ","+t+")",i*1000); 
+    } 
+
+} 
+
+function update(num,t) { 
+    if(num == t) { 
+        document.formUser.phone.value =" 重新发送 "; 
+        document.formUser.phone.disabled=false;
+		document.formUser.phone.style.opacity="1"; 
+    } 
+    else { 
+        printnr = t-num; 
+        document.formUser.phone.value = + printnr +"秒后重新发送";
+		document.formUser.phone.style.opacity="0.5";
+    } 
+} 
 </script>
 </html>
