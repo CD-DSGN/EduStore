@@ -770,7 +770,7 @@ font-size: 8pt;font-family: sans-serif;}
 .QQbox .Qlist .t{ background:url(images/siderIM_title.gif); height:34px;}
 .QQbox .Qlist .b{ background:url(images/siderIM_bottom.gif); height:9px; overflow:hidden; }
 .QQbox .Qlist .con{ background: url(images/siderIM_bg.gif); width: 100%; padding: 10px 0px 10px 0px;}
-.QQbox .Qlist .con h2{ height: 22px; font: bold 12px/22px "宋体";  border: 1px solid #3a708d; text-align: center; color:#fff;}
+.QQbox .Qlist .con h2{ height: 22px; font: bold 12px/22px "宋体";  border: 1px solid #3a708d; text-align: center; color:#DDD;}
 .QQbox .Qlist .con ul li{ padding: 5px 5px 0px 15px; }
 
 /*QQ END*/
@@ -796,8 +796,10 @@ font-size: 8pt;font-family: sans-serif;}
 .teacherSearch-input-wp.focus label{ color: #ccc;}
 .teacherSearch-input-wp.fill label{ display: none;}
 .teacherSearch-form button{ position: absolute; right: 0; top: 0; z-index: 1; width: 50px; border: 0 none; font-size: 16px; letter-spacing: 4px; cursor: pointer; color: #FFF; background-color: #C00; height: 34px; overflow: hidden; font-family: '\5FAE\8F6F\96C5\9ED1',arial,"\5b8b\4f53";}
+/*关注教师页面返回按钮的样式*/
 .teacher_return_button{width:60px;height:30px;background-color:#CC0000;border:none;border-radius:12px;font-size:15px;margin-top:20px;color:#FFFFFF;cursor:pointer;}
 :hover.teacher_return_button{background-color:#0033FF;}
+<<<<<<< HEAD
 
 /*new 分类栏*/
 .main-nav-list ul li {float:left;}
@@ -808,3 +810,7 @@ font-size: 8pt;font-family: sans-serif;}
 .not-now-head-nav{color: #000;}
 .category_url_text{width:100px; border-bottom: 1px solid #fff; line-height: 50px; height:50px; display: inline-block;}
 .category-name span{}
+=======
+/*手机验证码获取按钮的样式*/
+#checkNumber{background-color:#DD1D1C;border:1px solid #DD1D1C;cursor:pointer;height:27px;color:#EEE;}
+>>>>>>> 50169ede2ad11e655b158e06e78a481adf797696
