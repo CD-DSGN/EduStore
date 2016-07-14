@@ -806,5 +806,5 @@ font-size: 8pt;font-family: sans-serif;}
 /*.category-name {border-bottom: 1px solid #fff; }*/
 .now-head-nav{border-bottom: 4px solid #E31436; color: #E31436;}
 .not-now-head-nav{color: #000;}
-.category_url_text{width:100px; border-bottom: 1px solid #fff; line-height: 36px;}
-.category-name span{height:36px; display: inline-block;}
+.category_url_text{width:100px; border-bottom: 1px solid #fff; line-height: 50px; height:50px; display: inline-block;}
+.category-name span{}

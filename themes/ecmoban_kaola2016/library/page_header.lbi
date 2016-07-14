@@ -142,8 +142,8 @@ catch (e) {
                         {if $parents_category}
                         <ul>
                             {foreach from=$parents_category item=parents name=key}
-                            <li class="category-name"><a href="{$parents.url}" class="not-now-head-nav" target="_blank" style="width:140px;margin:auto;height:36px;">
-                            <span class="category_url_text">{$parents.cat_name}></span>   
+                            <li class="category-name"><a href="{$parents.url}" class="not-now-head-nav" target="_blank" style="width:140px;margin:auto;height:50px;">
+                            <span class="category_url_text">{$parents.cat_name}></span> 
                             </a></li>
                             <!--<hr align="center" style="width:100px; height:1px; border:none;border-top:1px solid #fff;" />-->
                             {/foreach}
