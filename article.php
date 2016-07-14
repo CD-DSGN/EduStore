@@ -57,6 +57,7 @@ if (!$smarty->is_cached('article.dwt', $cache_id))
     }
 
     $smarty->assign('article_categories',   article_categories_tree($article_id)); //文章分类树
+    $smarty->assign('parents_category',  get_parents_category());    //获取所有分类中parent_id = 0的商品
     $smarty->assign('categories',       get_categories_tree());  // 分类树
     $smarty->assign('helps',            get_shop_help()); // 网店帮助
     $smarty->assign('top_goods',        get_top10());    // 销售排行

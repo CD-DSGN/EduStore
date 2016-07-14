@@ -95,6 +95,7 @@ if ($_REQUEST['act'] == 'advanced_search')
     $smarty->assign('page_title', $position['title']);    // 页面标题
     $smarty->assign('ur_here',    $position['ur_here']);  // 当前位置
 
+    $smarty->assign('parents_category',  get_parents_category());    //获取所有分类中parent_id = 0的商品
     $smarty->assign('categories', get_categories_tree()); // 分类树
     $smarty->assign('helps',      get_shop_help());       // 网店帮助
     $smarty->assign('top_goods',  get_top10());           // 销售排行
@@ -507,6 +508,7 @@ else
     $smarty->assign('page_title', $position['title']);    // 页面标题
     $smarty->assign('ur_here',    $position['ur_here']);  // 当前位置
     $smarty->assign('intromode',      $intromode);
+    $smarty->assign('parents_category',  get_parents_category());    //获取所有分类中parent_id = 0的商品
     $smarty->assign('categories', get_categories_tree()); // 分类树
     $smarty->assign('helps',       get_shop_help());      // 网店帮助
     $smarty->assign('top_goods',  get_top10());           // 销售排行

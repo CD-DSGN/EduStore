@@ -132,7 +132,7 @@ while ($row = $db->fetchRow($res))
 
 //print_r($list);
 $smarty->assign('list',             $list);
-
+$smarty->assign('parents_category',  get_parents_category());    //获取所有分类中parent_id = 0的商品
 $smarty->assign('helps',            get_shop_help());       // 网店帮助
 $smarty->assign('lang',             $_LANG);
 

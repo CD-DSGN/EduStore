@@ -134,30 +134,30 @@ catch (e) {
     <div class="main-nav clearfix block">
         <!-- 主菜单 -->
         <div class="main-nav-list">
-        
-            <a href="category.php?id=1" class="cur" style="width:140px;height:30px;" id="category">商品分类</a>
-           
-            <!-- 实现商品分类 -->
-            <!-- nahuanjie -->
-            <div class="show-category" style="position:absolute;width:150px;height:335px;background-color:#EEE;top:38px;display:none;opacity:0.85;">
-            	{if $parents_category}
-            	<ul class="fenleiUl">
-                	{foreach from=$parents_category item=parents name=key}
-                    <li><a href="{$parents.url}">
-                    <span>{$parents.cat_name}</span>    >
-                    </a></li>
-                    <hr align="center" width="100px" color="#fff" />
-                    {/foreach}
-                </ul>
-                {/if}
-            </div>
-            <!-- 实现商品分类end --> 
-           
-            <!-- {foreach name=nav_middle_list from=$navigator_list.middle item=nav} -->
-            <a href="{$nav.url}"{if $nav.opennew} target="_blank"{/if} {if $script_name eq 'category'}{/if}>
-                {$nav.name}
-            </a>
-            <!-- {/foreach} -->
+        	<ul>
+               	<!-- 实现商品分类 -->
+                <li id="category">
+                	<a href="category.php?id=1" class="cur not-now-head-nav" style="width:140px;">商品分类</a>
+                    <div class="show-category">
+                        {if $parents_category}
+                        <ul>
+                            {foreach from=$parents_category item=parents name=key}
+                            <li class="category-name"><a href="{$parents.url}" class="not-now-head-nav" target="_blank" style="width:140px;margin:auto;height:36px;">
+                            <span class="category_url_text">{$parents.cat_name}></span>   
+                            </a></li>
+                            <!--<hr align="center" style="width:100px; height:1px; border:none;border-top:1px solid #fff;" />-->
+                            {/foreach}
+                        </ul>
+                        {/if}
+                    </div>
+                </li>
+                <!-- 实现商品分类end --> 
+                <!-- {foreach name=nav_middle_list from=$navigator_list.middle item=nav} -->
+                <li class="head-nav"><a href="{$nav.url}" class="not-now-head-nav" {if $nav.opennew} target="_blank"{/if} {if $script_name eq 'category'}{/if}>
+                    {$nav.name}
+                </a></li>
+                <!-- {/foreach} -->
+            </ul>
         </div>
     </div>
 </div>
@@ -240,15 +240,122 @@ $(".cate-panel .left-part").preventScroll();
 <!-- 商品分类 -->
 <script>
 	$(function(){
-		$("#category").hover(function() {
-            showCategory();
-        });
+		match_now_page();
+		headNavHighLight();
+		match_index();
+
+		/*导航栏选中时高亮*/
+		function headNavHighLight()
+		{
+			$(".head-nav a").each(function() {
+				var test = $(this).attr("class");
+				var arr = test.split(" ");
+				console.log(arr);
+				var href = window.location.href;
+				/*当前页面没有移入移出效果*/
+				if(arr[0] != "now-head-nav")
+				{
+					 $(this).mouseover(function() {
+						 $(this).css({"border-bottom":"4px solid #E31436", "color":"red"});
+						}).mouseout(function() {
+						$(this).css({"border-bottom":"0", "color":"#000"});
+					});
+				}
+			});
+		}
 		
+		/*判断当前页是否为首页，并做出不同的操作*/
+		function match_index()
+		{
+			var href = window.location.href;	//获取当前页面的url
+			var domain = window.location.host.trim();	//href去除http://后和域名比较，确定是否首页
+			/*匹配url，如果当前页面为首页则：*/
+			/*href为首页或可以匹配到index.php，则当前页面为首页*/
+			if(href.match("index.php") != null || href == "http://localhost/edustore/")
+			{
+				/*分类中高亮*/
+				$(".show-category ul li a").each(function() {
+					$(this).mouseover(function() {
+						$(this).css({"background":"#fff" , "color":"red"});
+					}).mouseout(function() {
+						$(this).css({"background":"rgba(255,255,255,0.1)" , "color":"#000"});
+					});
+				});
+				$(".cur").css({"border-bottom":"4px solid #E31436", "color":"red"});
+				$(".show-category").css({"display":"block"});
+			}
+			/*如果当前页面不为首页则：*/
+			else
+			{
+				$(".show-category").css({"background":"rgb(255,255,255)"});
+				$(".show-category ul li a").each(function() {
+					$(this).mouseover(function() {
+						$(this).css({"background":"#fff" , "color":"red"});
+					}).mouseout(function() {
+						$(this).css({"background":"rgb(255,255,255)" , "color":"#000"});
+					});
+				});
+				/*鼠标移入、移出的分类事件*/
+				$("#category").hover(function() {
+					showCategory();
+				},function(){
+					hideCategory();	
+				});
+			}
+		}
+		
+		/*头部导航栏在当前页面时高亮*/
+		function match_now_page()
+		{
+			/*拼接出当前的url，如果在服务器中，可能会做修改*/
+			var href = window.location.pathname;
+			var search = window.location.search;
+			href = href.replace("/edustore/","");
+			href += search;
+			
+			$(".head-nav a").each(function() {
+				var now_href = $(this).attr("href");	//每个标签的链接
+				/*确定当前url*/
+				if(href == now_href)
+				{
+					addNotNowHeadClass();
+					$(this).removeClass("not-now-head-nav");
+					$(this).addClass("now-head-nav");	
+				}
+            });
+			
+			/*处理第一个标签*/
+			/*后两个条件为判断处于首页时的第一个标签*/
+			if(href == "category.php?id=1" || href == "index.php" || href == "")
+			{
+				$(".cur").removeClass("not-now-head-nav");
+				$(".cur").addClass("now-head-nav");
+			}
+			else
+			{
+				$("#category").mouseover(function() {
+					$(".cur").css({"border-bottom":"4px solid #E31436", "color":"red"});
+					}).mouseout(function() {
+					$(".cur").css({"border-bottom":"0", "color":"#000"});
+				});
+			}
+		}
+		
+		/*在css中实现，可删除*/
+		function addNotNowHeadClass()
+		{
+			$(".head-nav a").each(function() {
+                $(this).addClass("not-now-head-nav");
+            });	
+		}
+		
+		/*显示分类*/
 		function showCategory()
 		{
 			$(".show-category").css({"display":"block"});
 		}
 		
+		/*隐藏分类*/
 		function hideCategory()
 		{
 			$(".show-category").css({"display":"none"});

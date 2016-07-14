@@ -20,6 +20,8 @@ require(dirname(__FILE__) . '/includes/init.php');
 /* 载入语言文件 */
 require_once(ROOT_PATH . 'languages/' .$_CFG['lang']. '/user.php');
 
+$smarty->assign('parents_category',  get_parents_category());    //获取所有分类中parent_id = 0的商品
+
 $user_id = $_SESSION['user_id'];
 $action  = isset($_REQUEST['act']) ? trim($_REQUEST['act']) : 'default';
 /*begin, added by chenggaoyuan*/

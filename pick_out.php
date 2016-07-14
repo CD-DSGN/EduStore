@@ -255,7 +255,7 @@ $smarty->assign('ur_here',          $position['ur_here']);  // 当前位置
 
 $smarty->assign('brand_list',       $brand_list);       //品牌
 $smarty->assign('cat_list',         $cat_list);        //分类列表
-
+$smarty->assign('parents_category',  get_parents_category());    //获取所有分类中parent_id = 0的商品
 $smarty->assign('categories',       get_categories_tree()); // 分类树
 $smarty->assign('helps',            get_shop_help());  // 网店帮助
 $smarty->assign('top_goods',        get_top10());      // 销售排行

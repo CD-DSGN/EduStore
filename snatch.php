@@ -16,6 +16,7 @@
 define('IN_ECS', true);
 
 require(dirname(__FILE__) . '/includes/init.php');
+$smarty->assign('parents_category',  get_parents_category());    //获取所有分类中parent_id = 0的商品
 
 /*------------------------------------------------------ */
 //-- 如果用没有指定活动id，将页面重定向到即将结束的活动
@@ -96,6 +97,7 @@ if ($_REQUEST['act'] == 'main')
     assign_dynamic('snatch');
     $smarty->assign('page_title',  $position['title']);
     $smarty->assign('ur_here',     $position['ur_here']);
+    $smarty->assign('parents_category',  get_parents_category());    //获取所有分类中parent_id = 0的商品
     $smarty->assign('categories',  get_categories_tree()); // 分类树
     $smarty->assign('helps',       get_shop_help());       // 网店帮助
     $smarty->assign('snatch_list', get_snatch_list());     //所有有效的夺宝奇兵列表
@@ -112,7 +114,7 @@ if ($_REQUEST['act'] == 'new_price_list')
 {
     $smarty->assign('price_list',  get_price_list($id));
     $smarty->display('library/snatch_price.lbi');
-
+    $smarty->assign('parents_category',  get_parents_category());    //获取所有分类中parent_id = 0的商品
     exit;
 }
 

@@ -190,6 +190,7 @@ if (!$smarty->is_cached('goods.dwt', $cache_id))
         $smarty->assign('goods',              $goods);
         $smarty->assign('goods_id',           $goods['goods_id']);
         $smarty->assign('promote_end_time',   $goods['gmt_end_time']);
+        $smarty->assign('parents_category',  get_parents_category());    //获取所有分类中parent_id = 0的商品
         $smarty->assign('categories',         get_categories_tree($goods['cat_id']));  // 分类树
 
         /* meta */
