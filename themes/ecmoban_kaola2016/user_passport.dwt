@@ -357,9 +357,9 @@
     <!--{if $action eq 'get_password'} -->
     {insert_scripts files='utils.js'}
     <script type="text/javascript">
-    {foreach from=$lang.password_js item=item key=key}
-      var {$key} = "{$item}";
-    {/foreach}
+//    {foreach from=$lang.password_js item=item key=key}
+//     var {$key} = "{$item}";
+//    {/foreach}
     </script>
 <div class="usBox">
   <div class="usBox_2 clearfix">
@@ -460,9 +460,9 @@
 
 <!-- {if $action eq 'reset_password'} -->
     <script type="text/javascript">
-    {foreach from=$lang.password_js item=item key=key}
-      var {$key} = "{$item}";
-    {/foreach}
+//    {foreach from=$lang.password_js item=item key=key}
+//      var {$key} = "{$item}";
+//    {/foreach}
     </script>
 <div class="usBox">
   <div class="usBox_2 clearfix">
@@ -499,9 +499,9 @@
 </body>
 <script type="text/javascript">
 var process_request = "{$lang.process_request}";
-{foreach from=$lang.passport_js item=item key=key}
-var {$key} = "{$item}";
-{/foreach}
+//{foreach from=$lang.passport_js item=item key=key}
+//var {$key} = "{$item}";
+//{/foreach}
 var username_exist = "{$lang.username_exist}";
 </script>
 </html>
