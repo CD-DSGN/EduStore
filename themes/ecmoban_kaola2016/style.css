@@ -799,7 +799,6 @@ font-size: 8pt;font-family: sans-serif;}
 /*关注教师页面返回按钮的样式*/
 .teacher_return_button{width:60px;height:30px;background-color:#CC0000;border:none;border-radius:12px;font-size:15px;margin-top:20px;color:#FFFFFF;cursor:pointer;}
 :hover.teacher_return_button{background-color:#0033FF;}
-<<<<<<< HEAD
 
 /*new 分类栏*/
 .main-nav-list ul li {float:left;}
@@ -810,7 +809,7 @@ font-size: 8pt;font-family: sans-serif;}
 .not-now-head-nav{color: #000;}
 .category_url_text{width:100px; border-bottom: 1px solid #fff; line-height: 50px; height:50px; display: inline-block;}
 .category-name span{}
-=======
+
 /*手机验证码获取按钮的样式*/
 #checkNumber{background-color:#DD1D1C;border:1px solid #DD1D1C;cursor:pointer;height:27px;color:#EEE;}
->>>>>>> 50169ede2ad11e655b158e06e78a481adf797696
+
