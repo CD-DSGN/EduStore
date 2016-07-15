@@ -1649,7 +1649,8 @@ function assign_template($ctype = '', $catlist = array())
     $smarty->assign('msn',           explode(',', $GLOBALS['_CFG']['msn']));
     $smarty->assign('skype',         explode(',', $GLOBALS['_CFG']['skype']));
     $smarty->assign('stats_code',    $GLOBALS['_CFG']['stats_code']);
-    $smarty->assign('copyright',     sprintf($GLOBALS['_LANG']['copyright'], date('Y'), $GLOBALS['_CFG']['shop_name']));
+    //$smarty->assign('copyright',     sprintf($GLOBALS['_LANG']['copyright'], date('Y'), $GLOBALS['_CFG']['shop_name']));
+    $smarty->assign('copyright',     sprintf($GLOBALS['_LANG']['copyright'], date('Y')));
     $smarty->assign('shop_name',     $GLOBALS['_CFG']['shop_name']);
     $smarty->assign('service_email', $GLOBALS['_CFG']['service_email']);
     $smarty->assign('service_phone', $GLOBALS['_CFG']['service_phone']);
