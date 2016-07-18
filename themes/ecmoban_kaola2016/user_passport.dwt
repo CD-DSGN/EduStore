@@ -107,6 +107,16 @@
             <span id="email_notice" style="color:#FF0000"> *</span>
           </td>
         </tr>
+		<!--added by dangxiaohui 手机验证码验证功能-->
+        <tr>
+          <td align="right">手机号码</td>
+          <td><input type="text" size="25" name="mobileNumber" id="mobileNumber" class="inputBg" onblur="numberjudge(this.value)"/><input type="button" id="checkNumber" value="获取验证码"/></td>
+        </tr>
+        <tr>
+          <td align="right">验证码</td>
+          <td><input type="text" class="inputBg"/>
+        </tr>
+		<!--end-->
         <tr>
           <td align="right">{$lang.label_password}</td>
           <td>
@@ -134,7 +144,7 @@
           </td>
         </tr>
         <!-- {foreach from=$extend_info_list item=field} -->
-	<!-- {if $field.id eq 6} -->
+  <!-- {if $field.id eq 6} -->
         <tr>
           <td align="right">{$lang.passwd_question}</td>
           <td>
@@ -259,6 +269,16 @@
           	</td>
         </tr>                    
         <!--end, added by chenggaoyuan -->
+		<!--added by dangxiaohui 手机验证码验证功能-->
+        <tr>
+          <td align="right">手机号码</td>
+          <td><input type="text" size="25" name="mobileNumber" id="mobileNumber" class="inputBg" onblur="numberjudge(this.value)"/><input type="button" id="checkNumber"  value="获取验证码"/></td>
+        </tr>
+        <tr>
+          <td align="right">验证码</td>
+          <td><input type="text" class="inputBg"/>
+        </tr>
+		<!--end-->
         <tr>
           <td align="right">{$lang.label_password}</td>
           <td>
@@ -503,5 +523,41 @@ var process_request = "{$lang.process_request}";
 //var {$key} = "{$item}";
 //{/foreach}
 var username_exist = "{$lang.username_exist}";
+</script>
+<!--added by dangxiaohui 手机验证码验证功能实现-->
+<script>
+  var btn=document.getElementById("checkNumber");
+  function numberjudge(tel){
+    var length=tel.length;
+    if(length==0){
+      alert("请输入手机号码！");
+      return false;
+    }
+    if(!/^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/i.test(tel)){
+      alert("手机号码不正确，请重新输入！");
+    }
+    else{
+      btn.onClick=showTime(5);
+    }
+  }
+function showTime(t){
+  btn.disabled=true;
+    for(i=1;i<=t;i++){
+    setTimeout("update("+i+","+t+")",i*1000);
+  }
+}
+function update(num,t){
+  if(num==5){
+    btn.disabled=false;
+    btn.value="重新发送";
+    btn.style.opacity=1;
+  }
+  else{
+    printer=t-num;
+    btn.value=printer+"秒后重新发送";
+    btn.style.opacity=0.5;
+  }
+}
+<!--end-->
 </script>
 </html>
