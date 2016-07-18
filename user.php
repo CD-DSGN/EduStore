@@ -51,6 +51,26 @@ $ui_arr = array('register', 'login', 'profile', 'order_list', 'order_detail', 'a
 'check_answer','register_teacher', 'teacher_subscription','teacher_subscription_act');
 //end zhangmengqi
 
+//begin nahuanjie, AJAX 处理，判断当前电话是否已存在
+    if(isset($_POST['mobile_phone']))
+    {
+        $mobile_phone = $_POST['mobile_phone'];
+        $sql = "SELECT user_id FROM" . $ecs->table('users') . "WHERE mobile_phone = '" . $mobile_phone . "' ";
+        $res = $db->query($sql);
+        $is_exist = mysql_num_rows($res);
+        if($is_exist)
+        {
+            echo "1";
+            exit;
+        }
+        else
+        {
+            echo "0";
+            exit;
+        }
+    }
+//end nahuanjie
+
 /* 未登录处理 */
 if (empty($_SESSION['user_id']))
 {
