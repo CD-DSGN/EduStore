@@ -80,10 +80,10 @@ function sendTemplateSMS($to,$datas,$tempId)
 function sendIdentifyCode()
 {
     //通过ajax得到用户注册时填写的手机号
-    if(isset($_POST['phone']))
+    if(isset($_POST['mobile_phone']))
     {
         $randomIdentifyCode = rand(1000,9999);  //生成4位数的随机码
-        $phone = $_POST['phone'];
+        $phone = $_POST['mobile_phone'];
         setcookie('identifyCode',$randomIdentifyCode,time()+300,'/');   //将随机码保存至cookie中，生命期120s
         sendTemplateSMS($phone, array($randomIdentifyCode,'5'),"1");
     }
