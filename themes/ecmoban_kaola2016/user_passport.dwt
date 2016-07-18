@@ -114,7 +114,7 @@
         </tr>
         <tr>
           <td align="right">验证码</td>
-          <td><input type="text" class="inputBg"/>
+          <td><input type="text" class="inputBg" name="identifyCode"/>
         </tr>
 		<!--end-->
         <tr>
@@ -276,7 +276,7 @@
         </tr>
         <tr>
           <td align="right">验证码</td>
-          <td><input type="text" class="inputBg"/>
+          <td><input type="text" class="inputBg" name="identifyCode"/>
         </tr>
 		<!--end-->
         <tr>
