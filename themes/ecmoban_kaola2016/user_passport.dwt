@@ -107,6 +107,7 @@
             <span id="email_notice" style="color:#FF0000"> *</span>
           </td>
         </tr>
+
         <tr>
           <td align="right">{$lang.label_password}</td>
           <td>
@@ -257,7 +258,7 @@
 				{html_options options=$course_id }</select>
                 <span id="coursename_notice" style="color:#FF0000"> *</span>
           	</td>
-        </tr>                    
+
         <!--end, added by chenggaoyuan -->
         <tr>
           <td align="right">{$lang.label_password}</td>
@@ -504,4 +505,5 @@ var process_request = "{$lang.process_request}";
 //{/foreach}
 var username_exist = "{$lang.username_exist}";
 </script>
+
 </html>
