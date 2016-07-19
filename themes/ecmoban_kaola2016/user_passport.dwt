@@ -7,6 +7,7 @@
 <!-- TemplateBeginEditable name="doctitle" -->
 <title>{$page_title}</title>
 <!-- TemplateEndEditable --><!-- TemplateBeginEditable name="head" --><!-- TemplateEndEditable -->
+<script src="http://apps.bdimg.com/libs/jquery/1.11.2/jquery.js"></script>
 <link rel="shortcut icon" href="favicon.ico" />
 <link rel="icon" href="animated_favicon.gif" type="image/gif" />
 <link href="{$ecs_css_path}" rel="stylesheet" type="text/css" />
@@ -527,7 +528,6 @@ var username_exist = "{$lang.username_exist}";
 <!--added by dangxiaohui 手机验证码验证功能实现-->
 <script>
   var btn=document.getElementById("checkNumber");
-  var mobileNumber=document.getElementById("mobileNumber");
   function numberjudge(tel){
     var length=tel.length;
     if(length==0){
@@ -538,32 +538,36 @@ var username_exist = "{$lang.username_exist}";
       alert("手机号码不正确，请重新输入！");
     }
     else{
-      btn.onClick=showTime(5);
-    }
-  }
-function showTime(t){
-  btn.disabled=true;
-    for(i=1;i<=t;i++){
-    setTimeout("update("+i+","+t+")",i*1000);
-  }
-  var request = new XMLHTTPRequest();
-  request.open("post","../user.php");
-  request.send("mobile_phone="+document.getElementById("mobileNumber"));
-  request.onreadystatechange=function(){
-    if(request.readyState===4){
-      if(request.status===200){
-        if (request.responseText===1) {
-          alert("此手机号码已经被注册过");
+      var request = new XMLHttpRequest();
+      request.open("post","../user.php");
+      request.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=UTF-8");
+      request.send("mobile_phone="+document.getElementById("mobileNumber").value);
+      request.onreadystatechange=function(){
+        if(request.readyState===4){
+          if(request.status===200){
+            if(request.responseText==1) {
+              alert("此手机号码已经被注册过");
+            }
+            else if(request.responseText==0){
+              btn.onclick=showTime(60);
+              var request2 = new XMLHttpRequest();
+              request2.open("post","../sms/SendTemplateSMS.php");
+              request2.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=UTF-8");
+              request2.send("mobile_phone="+document.getElementById("mobileNumber").value);
+            }
+          }
         }
       }
     }
   }
-  var request2 = new XMLHTTPRequest();
-  request2.open("post","../../ses/SendTemplateSMS.php");
-  request2.send("mobile_phone="+document.getElementById("mobileNumber"));
+function showTime(t){
+    btn.disabled=true;
+    for(i=1;i<=t;i++){
+    setTimeout("update("+i+","+t+")",i*1000);
+  }
 }
 function update(num,t){
-  if(num==5){
+  if(num==60){
     btn.disabled=false;
     btn.value="重新发送";
     btn.style.opacity=1;
