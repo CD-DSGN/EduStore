@@ -114,7 +114,7 @@
         </tr>
         <tr>
           <td align="right">验证码</td>
-          <td><input type="text" class="inputBg"/>
+          <td><input type="text" class="inputBg" name="identifyCode"/>
         </tr>
 		<!--end-->
         <tr>
@@ -267,7 +267,7 @@
 				{html_options options=$course_id }</select>
                 <span id="coursename_notice" style="color:#FF0000"> *</span>
           	</td>
-        </tr>                    
+
         <!--end, added by chenggaoyuan -->
 		<!--added by dangxiaohui 手机验证码验证功能-->
         <tr>
@@ -276,7 +276,7 @@
         </tr>
         <tr>
           <td align="right">验证码</td>
-          <td><input type="text" class="inputBg"/>
+          <td><input type="text" class="inputBg" name="identifyCode"/>
         </tr>
 		<!--end-->
         <tr>
