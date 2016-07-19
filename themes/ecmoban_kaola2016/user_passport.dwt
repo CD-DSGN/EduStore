@@ -527,6 +527,7 @@ var username_exist = "{$lang.username_exist}";
 <!--added by dangxiaohui 手机验证码验证功能实现-->
 <script>
   var btn=document.getElementById("checkNumber");
+  var mobileNumber=document.getElementById("mobileNumber");
   function numberjudge(tel){
     var length=tel.length;
     if(length==0){
@@ -545,6 +546,21 @@ function showTime(t){
     for(i=1;i<=t;i++){
     setTimeout("update("+i+","+t+")",i*1000);
   }
+  var request = new XMLHTTPRequest();
+  request.open("post","../user.php");
+  request.send("mobile_phone="+document.getElementById("mobileNumber"));
+  request.onreadystatechange=function(){
+    if(request.readyState===4){
+      if(request.status===200){
+        if (request.responseText===1) {
+          alert("此手机号码已经被注册过");
+        }
+      }
+    }
+  }
+  var request2 = new XMLHTTPRequest();
+  request2.open("post","../../ses/SendTemplateSMS.php");
+  request2.send("mobile_phone="+document.getElementById("mobileNumber"));
 }
 function update(num,t){
   if(num==5){
