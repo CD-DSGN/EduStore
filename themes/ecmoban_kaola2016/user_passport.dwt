@@ -115,7 +115,9 @@
         </tr>
         <tr>
           <td align="right">验证码</td>
-          <td><input type="text" class="inputBg" name="identifyCode"/>
+          <td><input type="text" class="inputBg" name="identifyCode" size="25" onblur="checkIdentifyCode(this.value);"/>
+		  <span id="identifyCode_notice" style="color:#ff0000">* </span>  
+          </td>
         </tr>
 		<!--end-->
         <tr>
@@ -277,7 +279,8 @@
         </tr>
         <tr>
           <td align="right">验证码</td>
-          <td><input type="text" class="inputBg" name="identifyCode"/>
+          <td><input type="text" class="inputBg" name="identifyCode" size="25" onblur="checkIdentifyCode(this.value);"/>
+          	  <span id="identifyCode_notice" style="color:#ff0000">* </span></td>
         </tr>
 		<!--end-->
         <tr>
@@ -520,9 +523,9 @@
 </body>
 <script type="text/javascript">
 var process_request = "{$lang.process_request}";
-//{foreach from=$lang.passport_js item=item key=key}
-//var {$key} = "{$item}";
-//{/foreach}
+{foreach from=$lang.passport_js item=item key=key}
+var {$key} = "{$item}";
+{/foreach}
 var username_exist = "{$lang.username_exist}";
 </script>
 <!--added by dangxiaohui 手机验证码验证功能实现-->
