@@ -541,9 +541,7 @@ var username_exist = "{$lang.username_exist}";
       alert("手机号码不正确，请重新输入！");
     }
     else{
-<<<<<<< HEAD
       btn.onClick=showTime(60);
-=======
       var request = new XMLHttpRequest();
       request.open("post","../user.php");
       request.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=UTF-8");
@@ -564,7 +562,6 @@ var username_exist = "{$lang.username_exist}";
           }
         }
       }
->>>>>>> 220b33494de7ccb5c341b424ae88f5a318b43ac0
     }
   }
 function Timelast(t){
@@ -574,12 +571,8 @@ function Timelast(t){
    }
 }
 function update(num,t){
-<<<<<<< HEAD
-  if(num==60){
-=======
   if(num==10){
     var i=0;
->>>>>>> 220b33494de7ccb5c341b424ae88f5a318b43ac0
     btn.disabled=false;
     btn.value="重新发送";
     btn.style.opacity=1;
