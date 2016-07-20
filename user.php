@@ -51,6 +51,26 @@ $ui_arr = array('register', 'login', 'profile', 'order_list', 'order_detail', 'a
 'check_answer','register_teacher', 'teacher_subscription','teacher_subscription_act');
 //end zhangmengqi
 
+//begin nahuanjie, AJAX 处理，判断当前电话是否已存在
+    if(isset($_POST['mobile_phone']))
+    {
+        $mobile_phone = $_POST['mobile_phone'];
+        $sql = "SELECT user_id FROM" . $ecs->table('users') . "WHERE mobile_phone = '" . $mobile_phone . "' ";
+        $res = $db->query($sql);
+        $is_exist = mysql_num_rows($res);
+        if($is_exist == 0)
+        {
+            echo "0";
+            exit;
+        }
+        else
+        {
+            echo "1";
+            exit;
+        }
+    }
+//end nahuanjie
+
 /* 未登录处理 */
 if (empty($_SESSION['user_id']))
 {
@@ -270,6 +290,30 @@ elseif ($action == 'act_register')
                 show_message($_LANG['invalid_captcha'], $_LANG['sign_up'], 'user.php?act=register', 'error');
             }
         }
+
+        //begin nahuanjie，新增手机验证码的检查
+        if(!empty($_POST['identifyCode']))
+        {
+            if(isset($_COOKIE['identifyCode']))
+            {
+                $server_identifyCode = trim($_COOKIE['identifyCode']);
+                $user_identifyCode = trim($_POST['identifyCode']);
+                //用户手机验证码不正确
+                if($server_identifyCode != $user_identifyCode)
+                {
+                    show_message("对不起，手机验证码错误。");
+                }
+            }
+            else    //验证码超时错误
+            {
+                show_message("您的验证码已超时，请重新获取。");
+            }
+        }
+        else    //用户输入的手机验证码不能为空
+        {
+            show_message("手机验证码不能为空。");
+        }
+        //end nahuanjie
 
         if (register($username, $password, $email, $other) !== false)
         {

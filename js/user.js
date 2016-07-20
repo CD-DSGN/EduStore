@@ -485,6 +485,27 @@ function checkCourseName(coursename)
 	  return true;
 }
 /*end, added by chenggaoyuan*/
+/*begin, nahuanjie: check identifyCode is empty?*/
+function checkIdentifyCode(identifyCode)
+{
+    var submit_disabled = false;
+
+    if(identifyCode == "")
+    {
+      document.getElementById('identifyCode_notice').innerHTML = identifyCode_blank;
+      submit_disabled = true;
+    }else{
+      document.getElementById('identifyCode_notice').innerHTML = msg_blank;
+      submit_disabled = false;
+    }
+    if( submit_disabled )
+    {
+      document.forms['formUser'].elements['Submit'].disabled = 'disabled';
+      return false;
+    }
+    return true;
+}
+/*end, nahuanjie*/
 /* *
  * 处理注册用户
  */

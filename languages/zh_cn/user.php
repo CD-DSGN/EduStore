@@ -521,6 +521,7 @@ $_LANG['passport_js']['course_name_empty'] = '- 任课课程不能为空。';
 $_LANG['passport_js']['msg_rn_blank'] = '* 教师姓名不能为空';
 $_LANG['passport_js']['msg_school_blank'] = '* 学校不能为空';
 $_LANG['passport_js']['msg_course_blank'] = '* 任课课程不能为空';
+$_LANG['passport_js']['identifyCode_blank'] = '* 验证码不能为空';
 $_LANG['passport_js']['msg_blank'] = '';
 /*end, added by chenggaoyuan*/
 

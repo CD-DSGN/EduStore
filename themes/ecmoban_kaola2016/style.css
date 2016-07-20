@@ -574,7 +574,7 @@ font-family: arial,"microsoft yahei"; font-size:18px; text-align:left}
 .login_tab ul li {width: 116px;text-align: center;font-size: 14px;font-weight: bold;height: 25px;line-height: 25px;float: left;background: url(images/login_tab_li.gif) no-repeat 0 0;
 margin-right: 6px;cursor: pointer;}
 .box_1 .userCenterBox{border:4px solid #f8f8f8; background-color:#fff;}
-.usBox{ padding:0 70px;  }
+.usBox{ padding:0 70px; position: relative; }
 .usBox .inputBg{ border:1px solid #ccc; background:none}
 .usBox  .inputBg { width:210px;}
 .usBox   form{ padding:20px 0}
