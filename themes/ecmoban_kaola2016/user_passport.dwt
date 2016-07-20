@@ -537,7 +537,7 @@ var username_exist = "{$lang.username_exist}";
       alert("手机号码不正确，请重新输入！");
     }
     else{
-      btn.onClick=showTime(5);
+      btn.onClick=showTime(60);
     }
   }
 function showTime(t){
@@ -547,7 +547,7 @@ function showTime(t){
   }
 }
 function update(num,t){
-  if(num==5){
+  if(num==60){
     btn.disabled=false;
     btn.value="重新发送";
     btn.style.opacity=1;
