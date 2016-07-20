@@ -7,7 +7,6 @@
 <!-- TemplateBeginEditable name="doctitle" -->
 <title>{$page_title}</title>
 <!-- TemplateEndEditable --><!-- TemplateBeginEditable name="head" --><!-- TemplateEndEditable -->
-<script src="http://apps.bdimg.com/libs/jquery/1.11.2/jquery.js"></script>
 <link rel="shortcut icon" href="favicon.ico" />
 <link rel="icon" href="animated_favicon.gif" type="image/gif" />
 <link href="{$ecs_css_path}" rel="stylesheet" type="text/css" />
@@ -111,7 +110,7 @@
 		<!--added by dangxiaohui 手机验证码验证功能-->
         <tr>
           <td align="right">手机号码</td>
-          <td><input type="text" size="25" name="mobileNumber" id="mobileNumber" class="inputBg" onblur="numberjudge(this.value)"/><input type="button" id="checkNumber" value="获取验证码"/></td>
+          <td><input type="text" size="25" id="mobileNumber" class="inputBg"/><input type="button" id="checkNumber" value="获取验证码" onclick="showTime()"/></td>
         </tr>
         <tr>
           <td align="right">验证码</td>
@@ -273,7 +272,7 @@
 		<!--added by dangxiaohui 手机验证码验证功能-->
         <tr>
           <td align="right">手机号码</td>
-          <td><input type="text" size="25" name="mobileNumber" id="mobileNumber" class="inputBg" onblur="numberjudge(this.value)"/><input type="button" id="checkNumber"  value="获取验证码"/></td>
+          <td><input type="text" size="25" id="mobileNumber" class="inputBg"/><input type="button" id="checkNumber"  value="获取验证码" onclick="showTime()"/></td>
         </tr>
         <tr>
           <td align="right">验证码</td>
@@ -528,13 +527,14 @@ var username_exist = "{$lang.username_exist}";
 <!--added by dangxiaohui 手机验证码验证功能实现-->
 <script>
   var btn=document.getElementById("checkNumber");
-  function numberjudge(tel){
-    var length=tel.length;
+  function showTime(){
+    var mobileNumber=document.getElementById("mobileNumber").value;
+    var length=mobileNumber.length;
     if(length==0){
       alert("请输入手机号码！");
       return false;
     }
-    if(!/^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/i.test(tel)){
+    else if(!/^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/i.test(mobileNumber)){
       alert("手机号码不正确，请重新输入！");
     }
     else{
@@ -548,8 +548,8 @@ var username_exist = "{$lang.username_exist}";
             if(request.responseText==1) {
               alert("此手机号码已经被注册过");
             }
-            else if(request.responseText==0){
-              btn.onclick=showTime(60);
+            else{
+              btn.onclick=Timelast(10);
               var request2 = new XMLHttpRequest();
               request2.open("post","../sms/SendTemplateSMS.php");
               request2.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=UTF-8");
@@ -560,17 +560,26 @@ var username_exist = "{$lang.username_exist}";
       }
     }
   }
-function showTime(t){
-    btn.disabled=true;
-    for(i=1;i<=t;i++){
-    setTimeout("update("+i+","+t+")",i*1000);
-  }
+function Timelast(t){
+  btn.disabled=true;
+  for(i=1;i<=t;i++){
+      setTimeout("update("+i+","+t+")",i*1000);
+   }
 }
 function update(num,t){
-  if(num==60){
+  if(num==10){
+    var i=0;
     btn.disabled=false;
     btn.value="重新发送";
     btn.style.opacity=1;
+    btn.onclick=function(){
+       i = 1;
+       if(i==1){
+         btn.onclick = showTime();
+      }
+    }
+    
+   
   }
   else{
     printer=t-num;
