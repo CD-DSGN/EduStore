@@ -565,6 +565,7 @@ var username_exist = "{$lang.username_exist}";
     }
   }
 function Timelast(t){
+
   btn.disabled=true;
   for(i=1;i<=t;i++){
       setTimeout("update("+i+","+t+")",i*1000);
@@ -582,8 +583,6 @@ function update(num,t){
          btn.onclick = showTime();
       }
     }
-    
-   
   }
   else{
     printer=t-num;
