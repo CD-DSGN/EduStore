@@ -110,12 +110,13 @@
 		<!--added by dangxiaohui 手机验证码验证功能-->
         <tr>
           <td align="right">手机号码</td>
-          <td><input type="text" size="25" id="mobileNumber" class="inputBg"/><input type="button" id="checkNumber" value="获取验证码" onclick="showTime()"/></td>
+          <td><input type="text" size="25" id="mobileNumber" class="inputBg"/><span id="Numbererror_notice" style="color:#ff0000">*</span></td>
         </tr>
         <tr>
           <td align="right">验证码</td>
-          <td><input type="text" class="inputBg" name="identifyCode" size="25" onblur="checkIdentifyCode(this.value);"/>
-		  <span id="identifyCode_notice" style="color:#ff0000">* </span>  
+          <td><input style="width:120px" type="text" class="inputBg" name="identifyCode" size="25" onblur="checkIdentifyCode(this.value);"/>
+              <input type="button" id="checkNumber" value="获取验证码" onclick="showTime()"/>
+		          <span id="identifyCode_notice" style="color:#ff0000">* </span>  
           </td>
         </tr>
 		<!--end-->
@@ -274,11 +275,12 @@
 		<!--added by dangxiaohui 手机验证码验证功能-->
         <tr>
           <td align="right">手机号码</td>
-          <td><input type="text" size="25" id="mobileNumber" class="inputBg"/><input type="button" id="checkNumber"  value="获取验证码" onclick="showTime()"/></td>
+          <td><input type="text" size="25" id="mobileNumber" class="inputBg"/><span id="Numbererror_notice" style="color:#ff0000">*</span></td>
         </tr>
         <tr>
           <td align="right">验证码</td>
-          <td><input type="text" class="inputBg" name="identifyCode" size="25" onblur="checkIdentifyCode(this.value);"/>
+          <td><input style="width:120px" type="text" class="inputBg" name="identifyCode" size="25" onblur="checkIdentifyCode(this.value);"/>
+              <input type="button" id="checkNumber"  value="获取验证码" onclick="showTime()"/>
           	  <span id="identifyCode_notice" style="color:#ff0000">* </span></td>
         </tr>
 		<!--end-->
@@ -534,14 +536,12 @@ var username_exist = "{$lang.username_exist}";
     var mobileNumber=document.getElementById("mobileNumber").value;
     var length=mobileNumber.length;
     if(length==0){
-      alert("请输入手机号码！");
-      return false;
+      document.getElementById("Numbererror_notice").innerHTML="*请输入手机号码！";
     }
     else if(!/^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/i.test(mobileNumber)){
-      alert("手机号码不正确，请重新输入！");
+      document.getElementById("Numbererror_notice").innerHTML="*手机号码不正确，请重新输入！";
     }
     else{
-      btn.onClick=showTime(60);
       //ajax传递数据判断手机号码是否能注册
       var request = new XMLHttpRequest();
       request.open("post","../user.php");
@@ -551,11 +551,12 @@ var username_exist = "{$lang.username_exist}";
         if(request.readyState===4){
           if(request.status===200){
             if(request.responseText==1) {
-              alert("此手机号码已经被注册过");
+              document.getElementById("Numbererror_notice").innerHTML="*此手机号码已经被注册过";
             }
             else{
               //ajax传递手机号码获取验证码
               btn.onclick=Timelast(60);
+              document.getElementById("Numbererror_notice").innerHTML="*";
               var request2 = new XMLHttpRequest();
               request2.open("post","../sms/SendTemplateSMS.php");
               request2.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=UTF-8");
@@ -582,13 +583,13 @@ function update(num,t){
       var mobileNumber=document.getElementById("mobileNumber").value;
       var length=mobileNumber.length;
       if(length==0){
-        alert("请输入手机号码！");
-        return false;
+        document.getElementById("Numbererror_notice").innerHTML="*请输入手机号码！";
       }
       else if(!/^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/i.test(mobileNumber)){
-        alert("手机号码不正确，请重新输入！");
+        document.getElementById("Numbererror_notice").innerHTML="*手机号码不正确，请重新输入！";
       }
       else{
+        document.getElementById("Numbererror_notice").innerHTML="*";
         btn.onclick=showTime();
       }
     }
