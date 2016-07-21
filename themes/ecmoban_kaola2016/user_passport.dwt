@@ -541,6 +541,7 @@ var username_exist = "{$lang.username_exist}";
       alert("手机号码不正确，请重新输入！");
     }
     else{
+      btn.onClick=showTime(60);
       //ajax传递数据判断手机号码是否能注册
       var request = new XMLHttpRequest();
       request.open("post","../user.php");
@@ -566,6 +567,7 @@ var username_exist = "{$lang.username_exist}";
     }
   }
 function Timelast(t){
+
   btn.disabled=true;
   for(i=1;i<=t;i++){
       setTimeout("update("+i+","+t+")",i*1000);

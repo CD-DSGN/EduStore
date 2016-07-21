@@ -271,15 +271,15 @@ var adminId = "<?php echo $this->_var['admin_id']; ?>";
 </head>
 <body>
 <div id="header-div">
-  <div id="logo-div" style="bgcolor:#000000;"><img src="images/topLogo.png" alt="ECSHOP - power for e-commerce" /></div>
+  <div id="logo-div" style="bgcolor:#000000;"><img src="images/topLogo.jpg" alt="ECSHOP - power for e-commerce" /></div>
   <div id="license-div" style="bgcolor:#000000;"></div>
   <div id="submenu-div">
     <ul>
     <li><a href="privilege.php?act=logout" target="main-frame"><img src="images/topmune_08.png" style="border:none;"/><span><?php echo $this->_var['lang']['signout']; ?></span></a></li>
      <li><a href="index.php?act=clear_cache" target="main-frame" class="fix-submenu"><img src="images/qingchu.png" style="border:none;"/><span><?php echo $this->_var['lang']['clear_cache']; ?></span></a></li>
-      <li><a href="http://www.ecmoban.com/ecshop_jieshao.html" target="main-frame"><img src="images/topmune_07.png" style="border:none;"/><span><?php echo $this->_var['lang']['about']; ?></span></a></li>
+      <!--deleted by chenggaoyuan<li><a href="http://www.ecmoban.com/ecshop_jieshao.html" target="main-frame"><img src="images/topmune_07.png" style="border:none;"/><span><?php echo $this->_var['lang']['about']; ?></span></a></li>-->
       
-      <li><a href="javascript:web_address();"><img src="images/topmune_007.png" style="border:none;"/><span><?php echo $this->_var['lang']['help']; ?></span></a></li>
+      <!--deleted by chenggaoyuan<li><a href="javascript:web_address();"><img src="images/topmune_007.png" style="border:none;"/><span><?php echo $this->_var['lang']['help']; ?></span></a></li>-->
       <li><a href="../" target="_blank"><img src="images/topmune_06.png" style="border:none;"/><span><?php echo $this->_var['lang']['preview']; ?></span></a></li>
       <li><a href="message.php?act=list" target="main-frame"><img src="images/topmune_05.png" style="border:none;"/><span><?php echo $this->_var['lang']['view_message']; ?></span></a></li>
       <li><a href="privilege.php?act=modif" target="main-frame"><img src="images/topmune_04.png" style="border:none;"/><span><?php echo $this->_var['lang']['profile']; ?></span></a></li>
@@ -287,7 +287,7 @@ var adminId = "<?php echo $this->_var['admin_id']; ?>";
       <li><a href="#"  onclick="ShowToDoList()"><img src="images/topmune_02.png" style="border:none;"/><span><?php echo $this->_var['lang']['todolist']; ?></span></a></li>
       
       <li style=""><a href="index.php?act=first" target="main-frame"><img src="images/topmune_01.png" style="border:none;"/><span><?php echo $this->_var['lang']['shop_guide']; ?></span></a></li>
-      <li style="width:102px;border-left:none;"><a href="http://www.ecmoban.com" target="main-frame" style="color:#ff0; width:102px; font-weight:bold;"><img src="images/topmune_09.png" style="border:none;"/><span>更多模板堂产品</span></a></li>
+      <!--deleted by chenggaoyuan<li style="width:102px;border-left:none;"><a href="http://www.ecmoban.com" target="main-frame" style="color:#ff0; width:102px; font-weight:bold;"><img src="images/topmune_09.png" style="border:none;"/><span>更多模板堂产品</span></a></li>-->
     </ul>
     <div id="send_info" style="padding: 5px 10px 0 0; clear:right;text-align: right; color: #FF9900;width:40%;float: right;  display:none;">
       <?php if ($this->_var['send_mail_on'] == 'on'): ?>
