@@ -541,7 +541,11 @@ var username_exist = "{$lang.username_exist}";
       alert("手机号码不正确，请重新输入！");
     }
     else{
+<<<<<<< HEAD
       btn.onClick=showTime(60);
+=======
+      //ajax传递数据判断手机号码是否能注册
+>>>>>>> 94fb342c722abea4cca0b80d0dc4d993d641d56d
       var request = new XMLHttpRequest();
       request.open("post","../user.php");
       request.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=UTF-8");
@@ -553,7 +557,8 @@ var username_exist = "{$lang.username_exist}";
               alert("此手机号码已经被注册过");
             }
             else{
-              btn.onclick=Timelast(10);
+              //ajax传递手机号码获取验证码
+              btn.onclick=Timelast(60);
               var request2 = new XMLHttpRequest();
               request2.open("post","../sms/SendTemplateSMS.php");
               request2.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=UTF-8");
@@ -572,15 +577,22 @@ function Timelast(t){
    }
 }
 function update(num,t){
-  if(num==10){
-    var i=0;
+  if(num==60){
     btn.disabled=false;
     btn.value="重新发送";
     btn.style.opacity=1;
     btn.onclick=function(){
-       i = 1;
-       if(i==1){
-         btn.onclick = showTime();
+      var mobileNumber=document.getElementById("mobileNumber").value;
+      var length=mobileNumber.length;
+      if(length==0){
+        alert("请输入手机号码！");
+        return false;
+      }
+      else if(!/^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/i.test(mobileNumber)){
+        alert("手机号码不正确，请重新输入！");
+      }
+      else{
+        btn.onclick=showTime();
       }
     }
   }
