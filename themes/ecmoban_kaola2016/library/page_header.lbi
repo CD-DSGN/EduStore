@@ -267,11 +267,12 @@ $(".cate-panel .left-part").preventScroll();
 		/*判断当前页是否为首页，并做出不同的操作*/
 		function match_index()
 		{
-			var href = window.location.href;	//获取当前页面的url
-			var domain = window.location.host.trim();	//href去除http://后和域名比较，确定是否首页
+			var href = getNowUrl();
+			console.log(href);
+			
 			/*匹配url，如果当前页面为首页则：*/
 			/*href为首页或可以匹配到index.php，则当前页面为首页*/
-			if(href.match("index.php") != null || href == "http://localhost/edustore/")
+			if(href.match("index.php") != null || href == "")
 			{
 				/*分类中高亮*/
 				$(".show-category ul li a").each(function() {
@@ -307,11 +308,8 @@ $(".cate-panel .left-part").preventScroll();
 		/*头部导航栏在当前页面时高亮*/
 		function match_now_page()
 		{
-			/*拼接出当前的url，如果在服务器中，可能会做修改*/
-			var href = window.location.pathname;
-			var search = window.location.search;
-			href = href.replace("/edustore/","");
-			href += search;
+			var href = getNowUrl();
+			console.log(href);
 			
 			$(".head-nav a").each(function() {
 				var now_href = $(this).attr("href");	//每个标签的链接
@@ -361,5 +359,13 @@ $(".cate-panel .left-part").preventScroll();
 			$(".show-category").css({"display":"none"});
 		}
 	});
+	
+		/*拼接出当前的url，如果在服务器中，可能会做修改*/
+		function getNowUrl(){
+			var href = window.location.pathname;
+			var search = window.location.search;
+			href = href.replace("/edustore/","");
+			return href += search;
+		}
 
 </script>
