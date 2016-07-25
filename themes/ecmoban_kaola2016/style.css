@@ -1,4 +1,4 @@
-/*
+﻿/*
 Template Name: EC模板堂正版授权模板
 Template URI: http://www.ecmoban.com/
 Description: 买模板请认准模板堂(ecmoban.com) <br/> 挑选优质商业模板：http://www.ecmoban.com/
@@ -811,5 +811,6 @@ font-size: 8pt;font-family: sans-serif;}
 .category-name span{}
 
 /*手机验证码获取按钮的样式*/
-#checkNumber{background-color:#DD1D1C;border:1px solid #DD1D1C;cursor:pointer;height:27px;color:#EEE;}
+/*按钮样式改进*/
+#checkNumber{background-color:#DD1D1C;border:none;cursor:pointer;height:27px;color:#EEE;}
 
