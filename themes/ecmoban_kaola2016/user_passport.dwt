@@ -568,7 +568,6 @@ var username_exist = "{$lang.username_exist}";
     }
   }
 function Timelast(t){
-
   btn.disabled=true;
   for(i=1;i<=t;i++){
       setTimeout("update("+i+","+t+")",i*1000);
@@ -578,7 +577,9 @@ function update(num,t){
   if(num==60){
     btn.disabled=false;
     btn.value="重新发送";
-    btn.style.opacity=1;
+    btn.style.background="#DD1D1C";
+    btn.style.color="#EEE";
+    btn.style.opacity="1";
     btn.onclick=function(){
       var mobileNumber=document.getElementById("mobileNumber").value;
       var length=mobileNumber.length;
@@ -597,7 +598,10 @@ function update(num,t){
   else{
     printer=t-num;
     btn.value=printer+"秒后重新发送";
-    btn.style.opacity=0.5;
+    //验证码获取按钮点击后样式改进
+    btn.style.background="#DDD";
+    btn.style.color="#000";
+    btn.style.opacity="0.6";
   }
 }
 <!--end-->
