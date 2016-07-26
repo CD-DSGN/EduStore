@@ -23,6 +23,21 @@ require(ROOT_PATH . 'includes/lib_order.php');
 require_once(ROOT_PATH . 'languages/' .$_CFG['lang']. '/user.php');
 require_once(ROOT_PATH . 'languages/' .$_CFG['lang']. '/shopping_flow.php');
 
+//nahuanjie, 查询是否真正支付成功
+    if(isset($_POST['log_id']))
+    {
+        $sql = "SELECT is_paid FROM " . $ecs->table('pay_log') . " WHERE log_id = '" . $_POST['log_id'] . "'";
+        $res = $db->getOne($sql);
+        if($res['is_paid'] == "1"){
+            echo "success";
+            exit();
+        }else{
+            echo "error";
+            exit();
+        }
+    }
+//end, nahuanjie
+
 /*------------------------------------------------------ */
 //-- INPUT
 /*------------------------------------------------------ */

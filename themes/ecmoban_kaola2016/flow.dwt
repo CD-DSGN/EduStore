@@ -703,6 +703,32 @@
           <p style="text-align:center; margin-bottom:20px;">{$order_submit_back}</p>
         </div>
         <!-- {/if} -->
+        
+        <!-- nahuanjie, 微信支付，二维码扫码界面 -->
+        <!-- {if $step eq "wxpay"} -->
+        <div class="flowBox" style="margin:0 auto 70px auto;">
+         <h6 style="text-align:center; height:30px; line-height:30px;">{$lang.remember_order_number}: <font style="color:red">订单编号</font></h6>
+          	<table width="99%" align="center" border="0" cellpadding="15" cellspacing="0" bgcolor="#fff" style="border:1px solid #ddd; margin:20px auto;" >
+           	 <tr>
+              <td align="center" bgcolor="#FFFFFF">
+              {$lang.select_shipping}: <strong>商品名称</strong>，{$lang.select_payment}: <strong>支付方式</strong>。{$lang.order_amount}: <strong>订单总额</strong>
+              </td>
+            </tr>
+            <tr>
+              <td align="center" bgcolor="#FFFFFF">支付描述</td>
+            </tr>
+            <tr>
+            	<td align="center">
+                	<div id="count">距二维码过期还剩<span class="countDown" style="color:red;">10</span>秒，过期后请刷新页面重新获取二维码
+                    </div>
+                	<img class="tdc" width="150px" height="150px" alt="微信支付二维码" src="http://paysdk.weixin.qq.com/example/qrcode.php?data=<!-- {param} -->"/>
+                </td>
+            </tr>
+          </table>
+        </div>
+        <!-- {/if} -->
+        <!-- nahuanjie, end -->
+        
         <!-- {if $step eq "login"} -->
         {insert_scripts files='utils.js,user.js'}
         <script type="text/javascript">
@@ -879,4 +905,52 @@ var btn_buy = "{$lang.btn_buy}";
 var is_cancel = "{$lang.is_cancel}";
 var select_spe = "{$lang.select_spe}";
 </script>
+<!-- nahuanjie, 每隔5s，动态查询支付是否成功 -->
+<script>
+$(document).ready(function() {
+    var confirmPay = setInterval(function(){
+	var log_id = {$order.log_id};
+		$.post("../flow.php",
+				{"log_id": log_id},
+				function(data){
+					if(data == "success"){
+						//如果支付成功，TODO
+						console.log(data);
+					}else{
+						//如果支付失败，TODO
+						console.log("pay fail");	
+					}
+				})
+	},5000);
+});
+</script>
+<!-- nahuanjie, end -->
+<!-- nahuanjie,二维码的过期与刷新 -->
+<script>
+$(document).ready(function() {
+	var count = 9;
+    var tdcCountDown = setInterval(function(){
+			$("#count span").html(count);
+			console.log(count);
+			count--;
+			if(count == -1)
+			{
+				//定时器到0，二维码失效，刷新按钮etc
+				clearInterval(tdcCountDown);
+				$("#count").html('二维码已过期，<a class="refresh" href="javascript:void(0);" onclick="refreshNow();">刷新</a>页面重新获取二维码。').css({'color':'red'});
+				$(".refresh").css({'color':'blue'}).hover(function(){
+														$(this).css({'color':'red'});
+													},function(){
+														$(this).css({'color':'blue'});
+													});
+			}
+		},
+	1000);
+});
+	function refreshNow()
+	{
+		window.location.reload();
+	}
+</script>
+<!-- nahuanjie, end -->
 </html>
