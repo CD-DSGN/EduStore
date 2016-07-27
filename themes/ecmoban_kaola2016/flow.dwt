@@ -178,8 +178,8 @@
             <td bgcolor="#ffffff" align="center" width="100"><a href="javascript:addToCart({$goods.goods_id})" class="f6">{$lang.collect_to_flow}</a></td>
           </tr>
       <!-- {/foreach} -->
-        </table> 
-        </div>
+    </table> 
+  </div>
       <!-- {/if} -->
  
     <div class="blank5"></div>
@@ -424,7 +424,7 @@
               <td bgcolor="#ffffff">{$consignee.best_time|escape}</td>
             </tr>
             <!-- {/if} -->
-          </table>
+        </table>
       </div>
      <div class="blank"></div>
     <!--{if $total.real_goods_count neq 0}-->
@@ -455,7 +455,7 @@
                 <input name="need_insure" id="ECS_NEEDINSURE" type="checkbox"  onclick="selectInsure(this.checked)" value="1" {if $order.need_insure}checked="true"{/if} {if $insure_disabled}disabled="true"{/if}  />
                 {$lang.need_insure} </label></td>
             </tr>
-          </table>
+      </table>
     </div>
     <div class="blank"></div>
         <!--{else}-->
@@ -480,7 +480,7 @@
               <td align="right" bgcolor="#ffffff" valign="top">{$payment.format_pay_fee}</td>
             </tr>
             <!-- {/foreach} 循环支付方式 -->
-          </table>
+      </table>
     </div>
     <!--{else}-->
         <input name = "payment" type="radio" value = "-1" checked="checked"  style="display:none"/>
@@ -517,7 +517,7 @@
                   <!-- {else} -->
                   {$lang.no}
                   <!-- {/if} -->
-               </td>
+              </td>
             </tr>
             <!-- {/foreach} 循环包装 -->
           </table>
@@ -556,7 +556,7 @@
                   <!-- {else} -->
                   {$lang.no}
                   <!-- {/if} -->
-                </td>
+              </td>
             </tr>
             <!-- {/foreach} 循环贺卡 -->
             <tr>
@@ -642,7 +642,7 @@
               </td>
             </tr>
             <!-- {/if} 缺货处理结束 -->
-          </table>
+        </table>
     </div>
     <div class="blank"></div>
     <div class="flowBox">
@@ -651,7 +651,7 @@
            <div align="center" style="margin:8px auto;">
             <input type="image" src="images/bnt_subOrder.gif" />
             <input type="hidden" name="step" value="done" />
-            </div>
+      </div>
     </div>
     </form>
         <!-- {/if} -->
@@ -707,25 +707,23 @@
         <!-- nahuanjie, 微信支付，二维码扫码界面 -->
         <!-- {if $step eq "wxpay"} -->
         <div class="flowBox" style="margin:0 auto 70px auto;">
-         <h6 style="text-align:center; height:30px; line-height:30px;">{$lang.remember_order_number}: <font style="color:red">订单编号</font></h6>
+         <h6 style="text-align:center; height:30px; line-height:30px;">{$lang.remember_order_number}:<font style="color:red">{$order.order_sn}</font></h6>
           	<table width="99%" align="center" border="0" cellpadding="15" cellspacing="0" bgcolor="#fff" style="border:1px solid #ddd; margin:20px auto;" >
            	 <tr>
               <td align="center" bgcolor="#FFFFFF">
-              {$lang.select_shipping}: <strong>商品名称</strong>，{$lang.select_payment}: <strong>支付方式</strong>。{$lang.order_amount}: <strong>订单总额</strong>
-              </td>
+              {$lang.select_shipping}: <strong>{$order.shipping_name}</strong>，{$lang.select_payment}: <strong>{$order.pay_name}</strong>。{$lang.order_amount}:<strong>{$total.amount_formated}</strong></td>
             </tr>
             <tr>
-              <td align="center" bgcolor="#FFFFFF">支付描述</td>
+              <td align="center" bgcolor="#FFFFFF">{$order.pay_desc}</td>
             </tr>
             <tr>
             	<td align="center">
-                	<div id="count">距二维码过期还剩<span class="countDown" style="color:red;">10</span>秒，过期后请刷新页面重新获取二维码
-                    </div>
-                	<img class="tdc" width="150px" height="150px" alt="微信支付二维码" src="http://paysdk.weixin.qq.com/example/qrcode.php?data=<!-- {param} -->"/>
-                </td>
+                	<div id="count">距二维码过期还剩<span class="countDown" style="color:red;">60</span>秒，过期后请刷新页面重新获取二维码                    </div>
+                    <img class="tdc" width="150px" height="150px" alt="微信支付二维码" src="qrcode.php?data={$url_data}"/>
+                </td>>
             </tr>
           </table>
-        </div>
+  </div>
         <!-- {/if} -->
         <!-- nahuanjie, end -->
         
@@ -835,7 +833,7 @@
                 </table>
               </form>
 
-              </td>
+            </td>
             <td valign="top" bgcolor="#ffffff">
             <h6><span>用户注册：</span></h6>
             <form action="flow.php?step=login" method="post" name="formUser" id="registerForm" onsubmit="return checkSignupForm(this)">
@@ -873,9 +871,9 @@
                         <input name="act" type="hidden" value="signup" />
                     </td>
                   </tr>
-                </table>
+              </table>
               </form>
-              </td>
+            </td>
           </tr>
           {if $need_rechoose_gift}
           <tr>
@@ -910,7 +908,7 @@ var select_spe = "{$lang.select_spe}";
 $(document).ready(function() {
     var confirmPay = setInterval(function(){
 	var log_id = {$order.log_id};
-		$.post("../flow.php",
+		$.post("flow.php",
 				{"log_id": log_id},
 				function(data){
 					if(data == "success"){
@@ -928,7 +926,7 @@ $(document).ready(function() {
 <!-- nahuanjie,二维码的过期与刷新 -->
 <script>
 $(document).ready(function() {
-	var count = 9;
+	var count = 60;
     var tdcCountDown = setInterval(function(){
 			$("#count span").html(count);
 			console.log(count);

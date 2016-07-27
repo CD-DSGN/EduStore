@@ -63,9 +63,11 @@ $smarty->assign('lang',             $_LANG);
 $smarty->assign('show_marketprice', $_CFG['show_marketprice']);
 $smarty->assign('data_dir',    DATA_DIR);       // 数据目录
 
+
 /*------------------------------------------------------ */
 //-- 添加商品到购物车
 /*------------------------------------------------------ */
+
 if ($_REQUEST['step'] == 'add_to_cart')
 {
     include_once('includes/cls_json.php');
@@ -2101,6 +2103,29 @@ elseif ($_REQUEST['step'] == 'add_package_to_cart')
     $result['confirm_type'] = !empty($_CFG['cart_confirm']) ? $_CFG['cart_confirm'] : 2;
     die($json->encode($result));
 }
+//begin zhangmengqi
+//生成微信付二维码,采用扫描支付方式二
+elseif ($_REQUEST['step'] == 'wxpay'){
+    //取得订单相关信息
+    $order['order_sn'] = $_REQUEST['product_id'];
+    $sql = 'select order_id,pay_name,pay_id,shipping_name,order_sn from ' . $ecs->table('order_info') . " where `order_sn` = $order[order_sn] ";
+    $res = $GLOBALS['db']->getRow($sql);
+    $order = $res;
+    //取得支付方式信息，主要是支付方式配置信息
+    $payment = payment_info($order['pay_id']);
+    $order['pay_desc'] = $payment['pay_desc'];
+    $sql = 'select log_id, order_amount from ' . $ecs->table('pay_log') . " where `order_id` = $order[order_id] ";
+    $res = $GLOBALS['db']->getRow($sql);
+    foreach ($res as $key => $val) {
+        $order["$key"] = $val;
+    }
+    $url_data = generate_wx_qrcode($order);
+    $smarty->assign('order', $order);
+    $total['amount_formated'] = $order['order_amount'];
+    $smarty->assign('total', $total);
+    $smarty->assign('url_data', $url_data);
+}
+//end zhangmengqi
 else
 {
     /* 标记购物流程为普通商品 */
@@ -2786,4 +2811,48 @@ function cart_favourable_amount($favourable)
     /* 优惠范围内的商品总额 */
     return $GLOBALS['db']->getOne($sql);
 }
+//begin zhangmengqi
+//产生微信支付二维码
+function generate_wx_qrcode($order)
+{
+    require_once ROOT_PATH."includes/modules/payment/lib/WxPay.Api.php";
+    require_once ROOT_PATH."includes/modules/payment/WxPay.NativePay.php";
+    require_once ROOT_PATH."includes/modules/payment/lib/log.php";
+
+    global $_CFG;
+    require_once(ROOT_PATH . 'languages/' .$_CFG['lang']. '/payment/wxpay.php');
+
+    global $_LANG;
+    $notify = new NativePay();
+    $input = new WxPayUnifiedOrder();
+    $input->SetBody($_LANG['mall_name']);
+    $input->SetAttach($_LANG['mall_name']);
+
+    //从参数中取得订单信息
+    $order_sn = $order['order_sn'];
+    $order_amount = $order['order_amount'];
+    $out_trade_no = $order['order_sn'] . "_" . $order['log_id'];
+
+    //订单号设置
+    $input->SetOut_trade_no("$out_trade_no");
+    //支付金额
+    $order_amount = $order_amount * 100; //以分为单位
+//    $order_amount = 1; //测试省钱
+    $input->SetTotal_fee($order_amount);
+    //开始时间
+    $input->SetTime_start(date("YmdHis"));
+    //过期时间
+    $input->SetTime_expire(date("YmdHis", time() + 600));
+    //商品标牌
+    $input->SetGoods_tag("test");
+    $notify_url = 'http://' . $_SERVER['SERVER_NAME'] . '/wx_respond.php';
+    $input->SetNotify_url("$notify_url");
+    //native方式，第二种模式
+    $input->SetTrade_type("NATIVE");
+    $input->SetProduct_id("$order_sn");
+    $result = $notify->GetPayUrl($input);
+    $url = $result["code_url"];
+    return $url;
+}
+//end zhangmengqi
 ?>

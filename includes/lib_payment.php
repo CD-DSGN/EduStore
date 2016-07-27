@@ -147,6 +147,10 @@ function order_paid($log_id, $pay_status = PS_PAYED, $note = '')
         $sql = "SELECT * FROM " . $GLOBALS['ecs']->table('pay_log') .
                 " WHERE log_id = '$log_id'";
         $pay_log = $GLOBALS['db']->getRow($sql);
+        //begin zhangmengqi
+        log::DEBUG("pay_log['is_paid']". $pay_log['is_paid']);
+        //end zhangmengqi
+
         if ($pay_log && $pay_log['is_paid'] == 0)
         {
             /* 修改此次支付操作的状态为已付款 */
