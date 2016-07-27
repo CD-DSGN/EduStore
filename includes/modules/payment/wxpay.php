@@ -166,7 +166,9 @@ class wxpay extends  WxPayNotify
 //        $order_sn = substr($out_trade_no, 0, $pos); //订单序列号
         $log_id = substr($out_trade_no, $pos + 1);
         log::DEBUG("log_id:" . $log_id);
-        if (!check_money($log_id, $_GET['total_fee']))
+        log::DEBUG("total_fee:" . $data['total_fee']);
+        $total_fee = $data['total_fee']/100;
+        if (!check_money($log_id, $total_fee))
         {
             return false;
         }
