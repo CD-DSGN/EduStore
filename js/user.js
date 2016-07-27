@@ -852,6 +852,9 @@ function returnToCartResponse(result)
  */
 function checkIntensity(pwd)
 {
+  //显示密码强度检测条
+  var password_intensity=document.getElementById("password_intensity");
+  password_intensity.style.display="";
   var Mcolor = "#FFF",Lcolor = "#FFF",Hcolor = "#FFF";
   var m=0;
 

@@ -114,7 +114,7 @@
         </tr>
         <tr>
           <td align="right">验证码</td>
-          <td><input style="width:120px" type="text" class="inputBg" name="identifyCode" size="25" onblur="checkIdentifyCode(this.value);"/>
+          <td><input style="width:120px" type="text" class="inputBg" name="identifyCode" size="25" oninput="checkIdentify(this.value)" onblur="checkIdentifyCode(this.value);"/>
               <input type="button" id="checkNumber" value="获取验证码" onclick="showTime()"/>
 		          <span id="identifyCode_notice" style="color:#ff0000">* </span>  
           </td>
@@ -127,7 +127,7 @@
             <span style="color:#FF0000" id="password_notice"> *</span>
           </td>
         </tr>
-        <tr>
+        <tr style="display:none" id="password_intensity">
           <td align="right">{$lang.label_password_intensity}</td>
           <td>
             <table width="145" border="0" cellspacing="0" cellpadding="1">
@@ -279,7 +279,7 @@
         </tr>
         <tr>
           <td align="right">验证码</td>
-          <td><input style="width:120px" type="text" class="inputBg" name="identifyCode" size="25" onblur="checkIdentifyCode(this.value);"/>
+          <td><input style="width:120px" type="text" class="inputBg" name="identifyCode" size="25" oninput="checkIdentify(this.value)" onblur="checkIdentifyCode(this.value);"/>
               <input type="button" id="checkNumber"  value="获取验证码" onclick="showTime()"/>
           	  <span id="identifyCode_notice" style="color:#ff0000">* </span></td>
         </tr>
@@ -291,7 +291,7 @@
             <span style="color:#FF0000" id="password_notice"> *</span>
           </td>
         </tr>
-        <tr>
+        <tr style="display:none" id="password_intensity">
           <td align="right">{$lang.label_password_intensity}</td>
           <td>
             <table width="145" border="0" cellspacing="0" cellpadding="1">
@@ -586,7 +586,7 @@ function update(num,t){
       if(length==0){
         document.getElementById("Numbererror_notice").innerHTML="*请输入手机号码！";
       }
-      else if(!/^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/i.test(mobileNumber)){
+      else if(!/^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/.test(mobileNumber)){
         document.getElementById("Numbererror_notice").innerHTML="*手机号码不正确，请重新输入！";
       }
       else{
@@ -603,6 +603,22 @@ function update(num,t){
     btn.style.color="#000";
     btn.style.opacity="0.6";
   }
+}
+//检验验证码提示方式改进
+function checkIdentify(number){
+  var request = new XMLHttpRequest();
+  request.open("post","../user.php");
+  request.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=UTF-8");
+  request.send("number");
+  request.onreadystatechange=function(){
+    if(request.readyState===4){
+        if(request.status===200){
+          if(request.responseText==1) {
+            document.getElementById("identifyCode_notice").innerHTML="填写正确";
+          }
+        }
+      }
+   }
 }
 <!--end-->
 </script>
