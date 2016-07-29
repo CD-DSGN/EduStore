@@ -606,19 +606,37 @@ function update(num,t){
 }
 //检验验证码提示方式改进
 function checkIdentify(number){
-  var request = new XMLHttpRequest();
-  request.open("post","../user.php");
-  request.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=UTF-8");
-  request.send("number");
-  request.onreadystatechange=function(){
-    if(request.readyState===4){
-        if(request.status===200){
-          if(request.responseText==1) {
-            document.getElementById("identifyCode_notice").innerHTML="填写正确";
+  // var request = new XMLHttpRequest();
+  // request.open("post","../user.php");
+  // request.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=UTF-8");
+  // request.send("number");
+  // request.onreadystatechange=function(){
+  //   if(request.readyState===4){
+  //       if(request.status===200){
+  //         if(request.responseText==1) {
+  //           document.getElementById("identifyCode_notice").innerHTML="填写正确";
+  //         }
+  //       }
+  //     }
+  //  }
+  if(number.length == 4) {
+    $.post("../user.php",
+          {'code':number},
+          function(data) {
+            console.log(data);
+            if(data == 'correct') {
+              $("#identifyCode_notice").html("验证码正确");
+            }else if(data == 'error') {
+              $("#identifyCode_notice").html("验证码错误");
+            }else if(data == 'timeout') {
+              $("#identifyCode_notice").html("验证码已超时，请重新获取");
+            }
           }
-        }
-      }
-   }
+    );
+  }else {
+    //验证码长度不正确
+    $("#identifyCode_notice").html("请输入4位验证码");
+  }
 }
 <!--end-->
 </script>

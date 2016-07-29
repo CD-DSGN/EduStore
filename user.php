@@ -52,21 +52,38 @@ $ui_arr = array('register', 'login', 'profile', 'order_list', 'order_detail', 'a
 //end zhangmengqi
 
 //begin nahuanjie, AJAX 处理，判断当前电话是否已存在
-    if(isset($_POST['mobile_phone']))
-    {
+    if(isset($_POST['mobile_phone'])){
         $mobile_phone = $_POST['mobile_phone'];
         $sql = "SELECT user_id FROM" . $ecs->table('users') . "WHERE mobile_phone = '" . $mobile_phone . "' ";
         $res = $db->query($sql);
         $is_exist = mysql_num_rows($res);
-        if($is_exist == 0)
-        {
+        if($is_exist == 0){
             echo "0";
-            exit;
-        }
-        else
-        {
+            exit();
+        }else{
             echo "1";
-            exit;
+            exit();
+        }
+    }
+//end nahuanjie
+
+//begin nahuanjie, AJAX 处理，判断当前手机验证码是否正确
+    if(isset($_POST['code'])){
+        if(isset($_COOKIE['identifyCode'])){
+            $identifyCode = $_COOKIE['identifyCode'];
+            if($_POST['code'] == $identifyCode){
+                //当前验证码正确
+                echo "correct";
+                exit();
+            }else{
+                //当前验证码不正确
+                echo "error";
+                exit();
+            }
+        }else{
+            //说明当前cookie已过期，TODO
+            echo "timeout";
+            exit();
         }
     }
 //end nahuanjie
