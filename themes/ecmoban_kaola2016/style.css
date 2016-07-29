@@ -817,3 +817,14 @@ font-size: 8pt;font-family: sans-serif;}
 /*按钮样式改进*/
 #checkNumber{background-color:#DD1D1C;border:none;cursor:pointer;height:27px;color:#EEE;}
 
+/* 微信支付成功弹窗 */
+#pay_success{position:absolute; width:700px; height:250px; top:300px; left:600px; z-index:99; background-color:#fff; border:1px solid #000; display:none;}
+#pay_success_mask{width:1903px; height:1115px; background-color:rgba(224,224,224,0.5); z-index:98; position:absolute; top:0; margin:auto; display:none;}
+#pay_success_head{height:40px; width:100%; border-bottom:1px solid #CCC; background-color:#ECF5FF; vertical-align:middle;}
+#pay_success_body{width:650px; height:150px; margin:auto; position:relative; top:20px;}
+#pay_success_body ul li{float:left; margin-top:40px;}
+#success_img{ margin-left:40px;	}
+#success_content{ margin-left:20px;}
+.pay_success_count_down{ font-size:24px; font-weight:bold;}
+.pay_account{ font-size:16px; margin-top:15px;}
+.success{font-size:18px; line-height:40px; float:left; margin-left:15px}

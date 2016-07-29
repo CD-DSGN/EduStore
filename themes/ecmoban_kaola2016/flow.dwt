@@ -723,7 +723,7 @@
                 </td>>
             </tr>
           </table>
-  </div>
+  		</div>
         <!-- {/if} -->
         <!-- nahuanjie, end -->
         
@@ -884,10 +884,27 @@
         </div>
         <!-- 结束用户登录注册界面 -->
         <!-- {/if} -->
+</div>
 
+<!-- 支付成功后遮罩及提示 -->
+<div id="pay_success_mask" style="display: ;"></div>
 
-
-
+<div id="pay_success" style="display: ;">
+	<div id="pay_success_head" style="clear:both;">
+    	<p class="success" style="float:left">支付成功</p>
+        <a href="../../index.php" style="float:right; width:40px; height:40px;"><img height="25px" width="25px" src="../data/images/close.png" style="margin-top:8px;" /></a>
+    </div>
+    <div id="pay_success_body">
+    	<ul style="clear:both;">
+        	<li id="success_img">
+            	<img width="60px" height="60px" src="../data/images/success.png" />
+            </li>
+            <li id="success_content">
+            	<p class="pay_success_count_down">订单支付成功，<span style="color:#0072E3">5</span> 秒后自动跳转回商家页面</p>
+                <p class="pay_account">订单金额：<span style="color:#F60;">{$total.amount_formated}</span>元，已支付给商家 <span><a href="../../index.php" style="color:#0072E3;">直接返回商家 ></a></span></p>
+            </li>
+        </ul>
+    </div>
 </div>
 
 <!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
@@ -912,21 +929,31 @@ $(document).ready(function() {
 				{"log_id": log_id},
 				function(data){
 					if(data == "success"){
-						//如果支付成功，TODO
-						console.log(data);
+						clearInterval(confirmPay); //关闭查询是否成功的计时器
+						var count = 4;
+						$("#pay_success_mask, #pay_success").css({'display' : 'block'});
+						var paySuccessSkip = setInterval(function() {
+								$(".pay_success_count_down > span").html(count);
+								count--;
+								console.log(count);
+								if(count == -1) {
+									clearInterval(paySuccessSkip);
+									window.location.href = "./index.php";
+								}
+							}, 1000);
 					}else{
 						//如果支付失败，TODO
 						console.log("pay fail");	
 					}
 				})
-	},5000);
+	},3000);
 });
 </script>
 <!-- nahuanjie, end -->
 <!-- nahuanjie,二维码的过期与刷新 -->
 <script>
 $(document).ready(function() {
-	var count = 60;
+	var count = 59;
     var tdcCountDown = setInterval(function(){
 			$("#count span").html(count);
 			console.log(count);
