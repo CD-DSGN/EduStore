@@ -474,7 +474,7 @@ elseif ($action == 'login')
     }
 
     $smarty->assign('back_act', $back_act);
-    $smarty->display('user_passport.dwt');
+    $smarty->display('login.dwt');
 }
 
 /* 处理会员的登录 */
