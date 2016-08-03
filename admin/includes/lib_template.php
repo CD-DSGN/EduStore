@@ -47,6 +47,7 @@ $template_files = array(
     'auction.dwt',
     'message_board.dwt',
     'exchange_list.dwt',
+    'login.dwt',
 );
 
 /* 每个模板允许设置的库项目 */

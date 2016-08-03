@@ -2826,7 +2826,7 @@ function generate_wx_qrcode($order)
     $notify = new NativePay();
     $input = new WxPayUnifiedOrder();
     $input->SetBody($_LANG['mall_name']);
-    $input->SetAttach($_LANG['mall_name']);
+//    $input->SetAttach($_LANG['mall_name']);
 
     //从参数中取得订单信息
     $order_sn = $order['order_sn'];
@@ -2842,7 +2842,7 @@ function generate_wx_qrcode($order)
     //开始时间
     $input->SetTime_start(date("YmdHis"));
     //过期时间
-    $input->SetTime_expire(date("YmdHis", time() + 600));
+    $input->SetTime_expire(date("YmdHis", time() + 60)); //失效时间定为一分钟，参照京东
     //商品标牌
     $input->SetGoods_tag("test");
     $notify_url = 'http://' . $_SERVER['SERVER_NAME'] . '/wx_respond.php';
