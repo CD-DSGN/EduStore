@@ -626,16 +626,20 @@ function checkIdentify(number){
             console.log(data);
             if(data == 'correct') {
               $("#identifyCode_notice").html("验证码正确");
+              document.forms['formUser'].elements['Submit'].disabled = 'disabled';
             }else if(data == 'error') {
               $("#identifyCode_notice").html("验证码错误");
+              document.forms['formUser'].elements['Submit'].disabled = 'disabled';
             }else if(data == 'timeout') {
               $("#identifyCode_notice").html("验证码已超时，请重新获取");
+              document.forms['formUser'].elements['Submit'].disabled = 'disabled';
             }
           }
     );
   }else {
     //验证码长度不正确
     $("#identifyCode_notice").html("请输入4位验证码");
+    document.forms['formUser'].elements['Submit'].disabled = 'disabled';
   }
 }
 <!--end-->

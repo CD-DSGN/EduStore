@@ -828,3 +828,37 @@ font-size: 8pt;font-family: sans-serif;}
 .pay_success_count_down{ font-size:24px; font-weight:bold;}
 .pay_account{ font-size:16px; margin-top:15px;}
 .success{font-size:18px; line-height:40px; float:left; margin-left:15px}
+
+/* 教师注册样式 */
+#register_head{ width: 1920px; height: 100px; background: #fff; margin: auto; position: relative; clear: both; }
+.head_logo{ position: relative; float: left; width: 156px; height: 100px; left: 400px;  }
+.head_text{ position: relative; float: right; height: 100px; width: 200px; font-size: 16px; right: 450px; top: 58px;}
+#body_img{ width:1920px; height:698px; background:url(../../data/images/bkg.png) no-repeat; border-top:1px solid #ecebeb; border-bottom:1px solid #ecebeb;}
+#teacher_register{ position: relative; width: 865px; height: 700px; margin: auto; top: 68px; border:1px solid #eee; border-radius: 6px; background-color: #fff; }
+#register_status{ position: relative; width: 740px; height: 90px; border-bottom: 2px solid #d0d0d0; clear: both;  }
+#register_status p{ width: 100px; height: 40px; float: left; margin-left: 40px; line-height: 40px; margin-top: 50px; font-size: 24px;  }
+#register_status ul{ float: right; clear: both; margin-top: -33px; }
+#register_status ul li{ float: left;position: relative; margin-left: 70px; width: 48px; height: 33px;}
+.status{ position: absolute; top: -20px; left: -12px; }
+#register_form{ width: 865px; height: 610px; }
+#create_account{ position: relative; width: 100%; height: 450px; margin: auto; top: 112px; }
+#create_account div{ width: 450px; height: 80px; position: relative; }
+.register_info{ width: 90px; height:80px; text-align: right; font-size: 18px; display: inline-block; line-height: 40px; }
+.register_input{ width: 300px; height: 42px; border: 2px solid #d3d3d3; border-radius: 6px; margin-left: 22px; font-size: 20px; outline: none; }
+.register_input:focus{ border:2px solid #ff6825; border-radius: 6px; }
+.identifyCode_input{ width: 155px; height: 42px; border: 2px solid #d3d3d3; border-radius: 6px; margin-left: 22px; font-size: 20px; outline: none; }
+.identifyCode_input:focus{ border:2px solid #ff6825; border-radius: 6px; }
+.get_identifyCode{ width: 134px; height: 48px; border: 2px solid #d3d3d3; border-radius: 6px; background-color: #f1f1f1; margin-left: 10px; color: #353032; font-size: 16px; outline: none; }
+.next_step{ width: 300px; height: 52px; background-color: #ff6825; color: #fdfdfd; border: 2px solid #ff6825; border-radius: 6px; font-size: 30px; margin-left: 112px; text-align: center; line-height: 52px; outline: none; }
+.select_button{ width: 200px; height: 48px; margin-left: 22px; border: 2px solid #d3d3d3; border-radius: 6px; background-color: #efeeed; font-size: 20px; outline: none;}
+.buy_now_button{ width: 178px; height: 54px; background-color: #ff6825; color: #fff; font-size: 30px; border:2px solid #ff6825; border-radius: 6px; outline: none; }
+#improve_info{ position: relative; width: 100%; height: 450px; margin: auto; top: 46px; }
+#improve_info div{ width: 450px; height: 80px; position: relative; }
+.register{ width: 300px; height: 48px; border:2px solid #ff6825; border-radius: 6px; color: #ff6825; background-color: #fff; margin-left: 112px; font-size: 22px; margin-top: 5px; outline: none; }
+#register_success{ position: relative; width: 100%; height: 450px; margin: auto; top: 116px; }
+#register_success div{ width: 450px; height: 60px; margin: auto; text-align: center;}
+#foot{ height: 170px; width: 1920px; text-align: center; line-height: 260px; background-color: #f9f9f9; }
+.input_tip{ position: absolute; top: 52px; left: 116px; font-size: 12px; line-height: 16px; }
+.correct_input{ position: absolute; top:16px; left: 382px; display: none; }
+.correct_input_identifyCode{ position: absolute; top:16px; left: 237px; display: none; }
+.correct_select{ position: absolute; top:16px; left: 337px; display: none; }
