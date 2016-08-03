@@ -40,7 +40,7 @@ $back_act='';
 $not_login_arr =array('login','act_login','register','act_register','act_edit_password','get_password','send_pwd_email',
 'password', 'signin', 'add_tag', 'collect', 'return_to_cart', 'logout', 'email_list', 'validate_email', 'send_hash_mail', 
 'order_query', 'is_registered', 'check_email','clear_history','qpassword_name', 'get_passwd_question', 'check_answer', 
-'register_teacher');
+'register_teacher', 'get_course');
 
 /* 显示页面的action列表 */
 //Todo 有可能需要增加，看界面的情况
@@ -229,6 +229,19 @@ elseif($action == 'register_teacher')
     $smarty->display('user_passport.dwt');
 }
 //end zhangmengqi
+//begin 那奂捷，数据库查询课程
+elseif($action == 'get_course')
+{
+    $sql = 'SELECT * FROM ' . $ecs->table('courses') . ' ORDER BY course_id';
+    $course_info = $db->getAll($sql);
+    $course_id = array();
+    foreach ($course_info as $item) {
+        $course_id[$item['course_id']] = $item['course_name'];
+    }
+    $course = implode('@', $course_id);
+    echo $course;
+}
+//end 那奂捷
 /* 注册会员的处理 */
 elseif ($action == 'act_register')
 {

@@ -7,7 +7,7 @@
  
   {else} 
   
-<a href="user.php">登录</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a  href="user.php?act=register">学生注册</a>&nbsp;&nbsp;<a  href="user.php?act=register_teacher">教师注册</a> 
+<a href="user.php">登录</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a  href="user.php?act=register">学生注册</a>&nbsp;&nbsp;<a  href="themes/ecmoban_kaola2016/teacher_register.html">教师注册</a> 
  
  
  {/if}
