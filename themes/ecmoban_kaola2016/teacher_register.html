@@ -41,7 +41,7 @@
 						</div>
 						<div>
 							<label for="mobileNumber" class="register_info">手机号码</label>
-							<input name="mobile_phone" type="text" id="mobileNumber" class="register_input" oninput="checkMobileNumber();" onfocus="mobileNumberTips();" onblur="checkMobileNumber();" />
+							<input name="mobile_phone_register" type="text" id="mobileNumber" class="register_input" oninput="checkMobileNumber();" onfocus="mobileNumberTips();" onblur="checkMobileNumber();" />
 							<span class="correct_input" id="mobileNumber_correct"><img src="../../data/images/register/success.png" width="18px" height="18px" alt="correct" /></span>
 							<span class="input_tip" id="mobileNumber_tips"></span>
 							<span id="mobileNumber_status"></span>
@@ -54,8 +54,9 @@
 							<span class="input_tip" id="identifyCode_tips"></span>
 						</div>
 						<div style="margin-left:322px; line-height:50px;">
-							<input type="checkbox" name="agreement" checked="checked" value="1">
+							<input type="checkbox" name="agreement" id="agreement" checked="checked" value="1" onblur="checkAgreement();">
 							<span>我已看过并接受<a href="" style="color:green;">《用户协议》</a></span>
+							<span class="agreement_tip" id="agreement_tips"></span>
 						</div>
 						<div>
 							<button class="next_step" id="next" onclick="nextStep(); return false;">
@@ -100,6 +101,7 @@
 						
 						<div>
 							<input type="hidden" name="is_teacher" value="1">
+							<input name="act" type="hidden" value="act_register" >
 							<input type="submit" name="" value="会员注册" class="register" id="submit">
 						</div>
 					</div>

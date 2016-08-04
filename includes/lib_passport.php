@@ -50,18 +50,19 @@ function register($username, $password, $email,$other = array())
         }
     }
 
+    //change，那奂捷，不检测email状态
     /* 检查email */
-    if (empty($email))
-    {
-        $GLOBALS['err']->add($GLOBALS['_LANG']['email_empty']);
-    }
-    else
-    {
-        if (!is_email($email))
-        {
-            $GLOBALS['err']->add(sprintf($GLOBALS['_LANG']['email_invalid'], htmlspecialchars($email)));
-        }
-    }
+    // if (empty($email))
+    // {
+    //     $GLOBALS['err']->add($GLOBALS['_LANG']['email_empty']);
+    // }
+    // else
+    // {
+    //     if (!is_email($email))
+    //     {
+    //         $GLOBALS['err']->add(sprintf($GLOBALS['_LANG']['email_invalid'], htmlspecialchars($email)));
+    //     }
+    // }
 
     if ($GLOBALS['err']->error_no > 0)
     {
@@ -91,15 +92,15 @@ function register($username, $password, $email,$other = array())
         }
         elseif ($GLOBALS['user']->error == ERR_INVALID_EMAIL)
         {
-            $GLOBALS['err']->add(sprintf($GLOBALS['_LANG']['email_invalid'], $email));
+            // $GLOBALS['err']->add(sprintf($GLOBALS['_LANG']['email_invalid'], $email));
         }
         elseif ($GLOBALS['user']->error == ERR_EMAIL_NOT_ALLOW)
         {
-            $GLOBALS['err']->add(sprintf($GLOBALS['_LANG']['email_not_allow'], $email));
+           // $GLOBALS['err']->add(sprintf($GLOBALS['_LANG']['email_not_allow'], $email));
         }
         elseif ($GLOBALS['user']->error == ERR_EMAIL_EXISTS)
         {
-            $GLOBALS['err']->add(sprintf($GLOBALS['_LANG']['email_exist'], $email));
+           // $GLOBALS['err']->add(sprintf($GLOBALS['_LANG']['email_exist'], $email));
         }
         else
         {

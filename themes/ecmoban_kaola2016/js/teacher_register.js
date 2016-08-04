@@ -1,5 +1,5 @@
 /* 使用一组全局变量，存储每一个输入框的状态 */
-var username_status = 0;		
+var username_status = 0;
 var phone_status = 0;
 var identifyCode_status = 0;
 var realName_status = 0;
@@ -7,6 +7,7 @@ var school_status = 0;
 var course_status = 0;
 var password_status = 0;
 var confirmPassword_status = 0;
+var agreement_status = 1;
 /* 默认为0，表示为空/错误，1：正确 */
 
 function checkMobileNumber() {
@@ -14,7 +15,7 @@ function checkMobileNumber() {
 	var reg = /^13[\d]{9}$|^14[5,7]{1}\d{8}$|^15[^4]{1}\d{8}$|^17[0,6,7,8]{1}\d{8}$|^18[\d]{9}$/;
 	if(mobile_phone.length == 11){
 		if(mobile_phone.match(reg) != null){
-			 $.post("../../user.php",
+			 $.post("../../user.php?act=check_mobile_phone",
 					{"mobile_phone" : mobile_phone}, 
 		   			function(data){
 			   			if(data == 0){
@@ -97,7 +98,7 @@ function getIdentifyCode() {
 	var reg = /^13[\d]{9}$|^14[5,7]{1}\d{8}$|^15[^4]{1}\d{8}$|^17[0,6,7,8]{1}\d{8}$|^18[\d]{9}$/;
 	if(mobile_phone.length == 11){
 		if(mobile_phone.match(reg) != null){
-			 $.post("../../user.php",
+			 $.post("../../user.php?act=check_mobile_phone",
 					{"mobile_phone" : mobile_phone}, 
 		   			function(data){
 			   			if(data == 0){
@@ -139,7 +140,7 @@ function getIdentifyCode() {
 function checkIdentifyCode() {
 	var identifyCode = $("#identifyCode").val();
 	if(identifyCode.length == 4) {
-	    $.post("../../user.php",
+	    $.post("../../user.php?act=check_identifyCode",
 	          {'code':identifyCode},
 	          function(data) {
 	            console.log(data);
@@ -166,6 +167,16 @@ function checkIdentifyCode() {
 	}
 }
 
+function checkAgreement() {
+	if(document.getElementById('agreement').checked == false) {
+		$("#agreement_tips").html('<img height="16px" width="16px" src="../../data/images/register/error.png" style="float:left; padding-right: 10px;" /> 请同意用户协议后再进行注册');
+		agreement_status = 0;
+	}else {
+		$("#agreement_tips").html('');
+		agreement_status = 1;
+	}
+}
+
 function nextStep() {
 	if( username_status != 1) {
 		$("#username").focus().select();
@@ -175,6 +186,9 @@ function nextStep() {
 		return 0;
 	}else if( identifyCode_status != 1) {
 		$("#identifyCode").focus().select();
+		return 0;
+	}else if( agreement_status != 1) {
+		$("#agreement_tips").html('<img height="16px" width="16px" src="../../data/images/register/error.png" style="float:left; padding-right: 10px;" /> 请同意用户协议后再进行注册');
 		return 0;
 	}else {
 		$(".step_one").css({'color' : '#666'});

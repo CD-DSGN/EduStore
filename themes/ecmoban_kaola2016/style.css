@@ -859,6 +859,7 @@ font-size: 8pt;font-family: sans-serif;}
 #register_success div{ width: 450px; height: 60px; margin: auto; text-align: center;}
 #foot{ height: 170px; width: 1920px; text-align: center; line-height: 260px; background-color: #f9f9f9; }
 .input_tip{ position: absolute; top: 52px; left: 116px; font-size: 12px; line-height: 16px; }
+.agreement_tip{ position: absolute; top: 42px; left: 2px; font-size: 12px; line-height: 16px; }
 .correct_input{ position: absolute; top:16px; left: 382px; display: none; }
 .correct_input_identifyCode{ position: absolute; top:16px; left: 237px; display: none; }
 .correct_select{ position: absolute; top:16px; left: 337px; display: none; }

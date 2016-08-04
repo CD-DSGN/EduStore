@@ -40,7 +40,7 @@ $back_act='';
 $not_login_arr =array('login','act_login','register','act_register','act_edit_password','get_password','send_pwd_email',
 'password', 'signin', 'add_tag', 'collect', 'return_to_cart', 'logout', 'email_list', 'validate_email', 'send_hash_mail', 
 'order_query', 'is_registered', 'check_email','clear_history','qpassword_name', 'get_passwd_question', 'check_answer', 
-'register_teacher', 'get_course');
+'register_teacher', 'get_course', 'check_mobile_phone', 'check_identifyCode');
 
 /* 显示页面的action列表 */
 //Todo 有可能需要增加，看界面的情况
@@ -50,43 +50,6 @@ $ui_arr = array('register', 'login', 'profile', 'order_list', 'order_detail', 'a
 'affiliate', 'comment_list','validate_email','track_packages', 'transform_points','qpassword_name', 'get_passwd_question', 
 'check_answer','register_teacher', 'teacher_subscription','teacher_subscription_act');
 //end zhangmengqi
-
-//begin nahuanjie, AJAX 处理，判断当前电话是否已存在
-    if(isset($_POST['mobile_phone'])){
-        $mobile_phone = $_POST['mobile_phone'];
-        $sql = "SELECT user_id FROM" . $ecs->table('users') . "WHERE mobile_phone = '" . $mobile_phone . "' ";
-        $res = $db->query($sql);
-        $is_exist = mysql_num_rows($res);
-        if($is_exist == 0){
-            echo "0";
-            exit();
-        }else{
-            echo "1";
-            exit();
-        }
-    }
-//end nahuanjie
-
-//begin nahuanjie, AJAX 处理，判断当前手机验证码是否正确
-    if(isset($_POST['code'])){
-        if(isset($_COOKIE['identifyCode'])){
-            $identifyCode = $_COOKIE['identifyCode'];
-            if($_POST['code'] == $identifyCode){
-                //当前验证码正确
-                echo "correct";
-                exit();
-            }else{
-                //当前验证码不正确
-                echo "error";
-                exit();
-            }
-        }else{
-            //说明当前cookie已过期，TODO
-            echo "timeout";
-            exit();
-        }
-    }
-//end nahuanjie
 
 /* 未登录处理 */
 if (empty($_SESSION['user_id']))
@@ -191,6 +154,47 @@ if ($action == 'register')
 //    $smarty->assign('back_act', $back_act);
     $smarty->display('user_passport.dwt');
 }
+//begin nahuanjie, AJAX 处理，判断当前电话是否已存在
+elseif($action == 'check_mobile_phone')
+{
+   if(isset($_POST['mobile_phone'])){
+       $mobile_phone = $_POST['mobile_phone'];
+       $sql = "SELECT user_id FROM" . $ecs->table('users') . "WHERE mobile_phone_register = '" . $mobile_phone . "' ";
+       $res = $db->query($sql);
+       $is_exist = mysql_num_rows($res);
+       if($is_exist == 0){
+           echo "0";
+           exit();
+       }else{
+           echo "1";
+           exit();
+       }
+   }
+}
+//end nahuanjie
+//begin nahuanjie, AJAX 处理，判断当前手机验证码是否正确
+elseif($action == 'check_identifyCode')
+{
+    if(isset($_POST['code'])){
+        if(isset($_COOKIE['identifyCode'])){
+            $identifyCode = $_COOKIE['identifyCode'];
+            if($_POST['code'] == $identifyCode){
+                //当前验证码正确
+                echo "correct";
+                exit();
+            }else{
+                //当前验证码不正确
+                echo "error";
+                exit();
+            }
+        }else{
+            //说明当前cookie已过期，TODO
+            echo "timeout";
+            exit();
+        }
+    } 
+} 
+//end nahuanjie
 //begin zhangmengqi
 elseif($action == 'register_teacher')
 {
@@ -280,7 +284,6 @@ elseif ($action == 'act_register')
         $teacher_info['course_id'] = addslashes($teacher_info['course_id']);
         $other['mobile_phone'] = addslashes($other['mobile_phone']);
         //end zhangmengqi
-
 
         $back_act = isset($_POST['back_act']) ? trim($_POST['back_act']) : '';
 
@@ -400,6 +403,12 @@ elseif ($action == 'act_register')
             if ($GLOBALS['_CFG']['member_email_validate'] && $GLOBALS['_CFG']['send_verify_email'])
             {
                 send_regiter_hash($_SESSION['user_id']);
+            }
+            /* 那奂捷，写入电话号码（mobile_phone_register） */
+            if( isset($_POST['mobile_phone_register'])) {
+                $mobile_phone = $_POST['mobile_phone_register'];
+                $sql = 'UPDATE '. $ecs->table('users') . "SET `mobile_phone_register` = '$mobile_phone' WHERE `user_id`='" . $_SESSION['user_id'] . "'";
+                $db->query($sql);
             }
             $ucdata = empty($user->ucdata)? "" : $user->ucdata;
             show_message(sprintf($_LANG['register_success'], $username . $ucdata), array($_LANG['back_up_page'], $_LANG['profile_lnk']), array($back_act, 'user.php'), 'info');
