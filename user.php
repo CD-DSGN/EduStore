@@ -159,7 +159,7 @@ elseif($action == 'check_mobile_phone')
 {
    if(isset($_POST['mobile_phone'])){
        $mobile_phone = $_POST['mobile_phone'];
-       $sql = "SELECT user_id FROM" . $ecs->table('users') . "WHERE mobile_phone_register = '" . $mobile_phone . "' ";
+       $sql = "SELECT user_id FROM" . $ecs->table('users') . "WHERE mobile_phone = '" . $mobile_phone . "' ";
        $res = $db->query($sql);
        $is_exist = mysql_num_rows($res);
        if($is_exist == 0){
@@ -408,7 +408,7 @@ elseif ($action == 'act_register')
             /* 那奂捷，写入电话号码（mobile_phone_register） */
             if( isset($_POST['mobile_phone_register'])) {
                 $mobile_phone = $_POST['mobile_phone_register'];
-                $sql = 'UPDATE '. $ecs->table('users') . "SET `mobile_phone_register` = '$mobile_phone' WHERE `user_id`='" . $_SESSION['user_id'] . "'";
+                $sql = 'UPDATE '. $ecs->table('users') . "SET `mobile_phone` = '$mobile_phone' WHERE `user_id`='" . $_SESSION['user_id'] . "'";
                 $db->query($sql);
             }
             $ucdata = empty($user->ucdata)? "" : $user->ucdata;
