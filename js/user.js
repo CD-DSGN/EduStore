@@ -129,7 +129,38 @@ function submitMsg()
     return true;
   }
 }
+/* *
+ * 找回密码时，对输入手机号和验证码作处理 added by chenggaoyuan
+ */
+function submitPhoneAndIdentifyCode()
+{
+  var frm = document.forms['mobilephoneIdentifyCodeForm'];
+  var mobilephone = frm.elements['fpw_mobilephone'].value;
+  var identifyCode = frm.elements['fpw_identifyCode'].value;
 
+  var errorMsg = '';
+  if (mobilephone == 0)
+  {
+    errorMsg += "手机号码为空" + '\n';
+  }
+
+  if (identifyCode.length == 0)
+  {
+    errorMsg += "短信验证码为空" + '\n';
+  }
+  else
+  {
+    //is not a cell phone
+  }
+
+  if (errorMsg.length > 0)
+  {
+    alert(errorMsg);
+    return false;
+  }
+
+  return true;
+}
 /* *
  * 会员找回密码时，对输入作处理
  */

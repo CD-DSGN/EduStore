@@ -11,7 +11,7 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-session_start();    //开启session会话
+//session_start();    //开启session会话
 
 include_once("./CCPRestSmsSDK.php");
 
