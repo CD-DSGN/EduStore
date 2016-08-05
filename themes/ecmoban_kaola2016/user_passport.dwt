@@ -110,7 +110,7 @@
 		<!--added by dangxiaohui 手机验证码验证功能-->
         <tr>
           <td align="right">手机号码</td>
-          <td><input type="text" size="25" id="mobileNumber" class="inputBg"/><span id="Numbererror_notice" style="color:#ff0000">*</span></td>
+          <td><input type="text" size="25" id="mobileNumber" class="inputBg" name="mobile_phone_register"/><span id="Numbererror_notice" style="color:#ff0000">*</span></td>
         </tr>
         <tr>
           <td align="right">验证码</td>
@@ -275,7 +275,7 @@
 		<!--added by dangxiaohui 手机验证码验证功能-->
         <tr>
           <td align="right">手机号码</td>
-          <td><input type="text" size="25" id="mobileNumber" class="inputBg"/><span id="Numbererror_notice" style="color:#ff0000">*</span></td>
+          <td><input type="text" size="25" id="mobileNumber" class="inputBg" name="mobile_phone_register"/><span id="Numbererror_notice" style="color:#ff0000">*</span></td>
         </tr>
         <tr>
           <td align="right">验证码</td>
@@ -377,6 +377,42 @@
 <!--{/if}-->
 <!--{/if}-->
 <!--教师用户这册 end added by chenggaoyuan -->
+
+<!--忘记密码 手机验证码验证用户 added by chenggaoyuan -->
+   	<!--{if $action eq 'phoneAndMessageCode'} -->
+    {insert_scripts files='utils.js,jquery-1.11.3.min.js,findpassword.js'}
+<div class="usBox">
+  <div class="usBox_2 clearfix">
+    <form action="user.php" method="post" name="mobilephoneIdentifyCodeForm" onsubmit="return submitPhoneAndIdentifyCode();">
+        <table width="90%" border="0" align="center">
+          <tr>
+            <td colspan="2" align="center"><strong>请输入用户注册手机及短信验证码</strong></td>
+          </tr>
+          <tr>
+            <td width="29%" align="right">注册手机号</td>
+            <td width="61%"><input name="fpw_mobilephone" id="fpw_mobilephoneId" type="text" size="30" class="inputBg" oninput="checkmobilephone()" />
+            <span id="mobilePhone_notice" style="color:#ff0000">* </span></td>
+          </tr>
+          <tr>
+            <td align="right">短信验证码</td>
+            <td><input name="fpw_identifyCode" id="fpw_identifyCodeID" type="text" size="30" class="inputBg" oninput="check_fpw_identifyCode()"/>
+            <input type="button" name="sendMessageBtn" id="sendMessageBtnId" onclick="startSendMessage()" value="获取验证码" class="bnt_blue"/>
+             <span id="identifyCode_notice" style="color:#ff0000">* </span></td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td><input type="hidden" name="act" value="sendPhoneAndIdentifyCode" />
+              <input type="submit" name="submit" value="下一步" class="bnt_blue" style="border:none;" />
+              <input name="button" type="button" onclick="history.back()" value="{$lang.back_page_up}" style="border:none;" class="bnt_blue_1" />
+	    </td>
+          </tr>
+        </table>
+        <br />
+      </form>
+  </div>
+</div>
+<!--{/if}-->
 
 <!--*找回密码界面 -->
     <!--{if $action eq 'get_password'} -->

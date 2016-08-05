@@ -40,7 +40,7 @@ $back_act='';
 $not_login_arr =array('login','act_login','register','act_register','act_edit_password','get_password','send_pwd_email',
 'password', 'signin', 'add_tag', 'collect', 'return_to_cart', 'logout', 'email_list', 'validate_email', 'send_hash_mail', 
 'order_query', 'is_registered', 'check_email','clear_history','qpassword_name', 'get_passwd_question', 'check_answer', 
-'register_teacher', 'get_course', 'check_mobile_phone', 'check_identifyCode');
+'register_teacher', 'phoneAndMessageCode','sendPhoneAndIdentifyCode','get_course', 'check_mobile_phone', 'check_identifyCode');
 
 /* 显示页面的action列表 */
 //Todo 有可能需要增加，看界面的情况
@@ -48,7 +48,7 @@ $ui_arr = array('register', 'login', 'profile', 'order_list', 'order_detail', 'a
 'message_list', 'tag_list', 'get_password', 'reset_password', 'booking_list', 'add_booking', 'account_raply',
 'account_deposit', 'account_log', 'account_detail', 'act_account', 'pay', 'default', 'bonus', 'group_buy', 'group_buy_detail', 
 'affiliate', 'comment_list','validate_email','track_packages', 'transform_points','qpassword_name', 'get_passwd_question', 
-'check_answer','register_teacher', 'teacher_subscription','teacher_subscription_act');
+'check_answer','register_teacher', 'teacher_subscription','teacher_subscription_act','phoneAndMessageCode','sendPhoneAndIdentifyCode');
 //end zhangmengqi
 
 /* 未登录处理 */
@@ -267,7 +267,8 @@ elseif ($action == 'act_register')
         $other['qq'] = isset($_POST['extend_field2']) ? $_POST['extend_field2'] : '';
         $other['office_phone'] = isset($_POST['extend_field3']) ? $_POST['extend_field3'] : '';
         $other['home_phone'] = isset($_POST['extend_field4']) ? $_POST['extend_field4'] : '';
-        $other['mobile_phone'] = isset($_POST['extend_field5']) ? $_POST['extend_field5'] : '';
+        //$other['mobile_phone'] = isset($_POST['extend_field5']) ? $_POST['extend_field5'] : '';
+        $other['mobile_phone'] = isset($_POST['mobile_phone_register']) ? $_POST['mobile_phone_register'] : '';
         $sel_question = empty($_POST['sel_question']) ? '' : compile_str($_POST['sel_question']);
         $passwd_answer = isset($_POST['passwd_answer']) ? compile_str(trim($_POST['passwd_answer'])) : '';
 
@@ -777,7 +778,39 @@ elseif ($action == 'act_edit_profile')
         show_message($msg, '', '', 'info');
     }
 }
-
+//begin, added by chenggaoyuan
+/* 密码找回-->输入手机号及验证码界面*/
+elseif ($action == 'phoneAndMessageCode')
+{
+    $smarty->display('user_passport.dwt');
+}
+elseif($action =='sendPhoneAndIdentifyCode'){
+    if(!isset($_POST['fpw_mobilephone']) || !isset($_POST['fpw_identifyCode'])){
+        show_message("手机号或验证码信息不完整");
+    }elseif(!isset($_COOKIE['identifyCode'])){
+        show_message("手机验证码过期");
+    }else{
+        $fpw_mobilephone=trim($_POST['fpw_mobilephone']);
+        $fpw_identifyCode=trim($_POST['fpw_identifyCode']);
+        $cookie_code=trim($_COOKIE['identifyCode']);
+        if($fpw_identifyCode == $cookie_code){
+            $sql="SELECT user_id, user_name FROM ".$ecs->table('users') . " WHERE mobile_phone = '$fpw_mobilephone'";
+            $user_info_arr = $db->getRow($sql);
+            if (empty($user_info_arr['user_id']))
+            {
+                show_message("查无此用户");
+            }
+            $_SESSION['tmp_user_id'] = $user_info_arr['user_id'];  //设置临时用户，不具有有效身份
+            $_SESSION['tmp_user_name']= $user_info_arr['user_name'];  //设置临时用户，不具有有效身份
+            $smarty->assign('uid',    $_SESSION['tmp_user_id']);
+            $smarty->assign('action', 'reset_password');
+            $smarty->display('user_passport.dwt');
+        }else {
+            show_message("手机验证码填写错误");
+        }
+    }
+}
+//end, added by chenggaoyuan
 /* 密码找回-->修改密码界面 */
 elseif ($action == 'get_password')
 {
@@ -929,6 +962,10 @@ elseif ($action == 'send_pwd_email')
 elseif ($action == 'reset_password')
 {
     //显示重置密码的表单
+//     $_SESSION['user_name']=$_SESSION['tmp_user_name'];
+//     $_SESSION['user_id']=$_SESSION['tmp_user_id'];
+//     unset($_SESSION['tmp_user_id']);
+//     unset($_SESSION['tmp_user_name']);
     $smarty->display('user_passport.dwt');
 }
 
@@ -946,13 +983,15 @@ elseif ($action == 'act_edit_password')
     {
         show_message($_LANG['passport_js']['password_shorter']);
     }
+    if(empty($_SESSION['tmp_user_id']) || empty($_SESSION['tmp_user_id'])){
+        show_message("error");
+    }
 
     $user_info = $user->get_profile_by_id($user_id); //论坛记录
 
-    if (($user_info && (!empty($code) && md5($user_info['user_id'] . $_CFG['hash_code'] . $user_info['reg_time']) == $code)) || ($_SESSION['user_id']>0 && $_SESSION['user_id'] == $user_id && $user->check_user($_SESSION['user_name'], $old_password)))
+    if (($user_info && (!empty($code) && md5($user_info['user_id'] . $_CFG['hash_code'] . $user_info['reg_time']) == $code)) || ($_SESSION['tmp_user_id']>0 && $_SESSION['tmp_user_id'] == $user_id && $user->check_user($_SESSION['tmp_user_name'], $old_password)))
     {
-		
-        if ($user->edit_user(array('username'=> (empty($code) ? $_SESSION['user_name'] : $user_info['user_name']), 'old_password'=>$old_password, 'password'=>$new_password), empty($code) ? 0 : 1))
+        if ($user->edit_user(array('username'=> (empty($code) ? $_SESSION['tmp_user_name'] : $user_info['user_name']), 'old_password'=>$old_password, 'password'=>$new_password), empty($code) ? 0 : 1))
         {
 			$sql="UPDATE ".$ecs->table('users'). "SET `ec_salt`='0' WHERE user_id= '".$user_id."'";
 			$db->query($sql);

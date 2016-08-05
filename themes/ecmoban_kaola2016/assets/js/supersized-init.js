@@ -20,8 +20,8 @@ jQuery(function($){
         // Components
         slide_links        : 'blank',    // Individual links for each slide (Options: false, 'num', 'name', 'blank')
         slides             : [    // Slideshow Images
-                                 {image : './themes/ecmoban_kaola2016/assets/img/backgrounds/1.jpg'},
-                                 {image : './themes/ecmoban_kaola2016/assets/img/backgrounds/2.jpg'}
+                                 {image : './themes/ecmoban_kaola2016/assets/img/backgrounds/2.jpg'},
+                                 {image : './themes/ecmoban_kaola2016/assets/img/backgrounds/1.jpg'}
                        ]
 
     });
