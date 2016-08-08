@@ -232,11 +232,11 @@ function checkCourseName() {
 	//可能根据实际情况设置value来更改判断条件
 	if(course == 0) {
 		$("#select_correct").css({'display':'none'});
-		$("#select_tips").html('<img height="16px" width="16px" src="./data/images/register/error.png" style="float:left; padding-right: 10px;" /> 请选择课程');
+		$("#course_name_tips").html('<img height="16px" width="16px" src="./data/images/register/error.png" style="float:left; padding-right: 10px;" /> 请选择课程');
 		course_status = 0;
 	}else {
 		$("#select_correct").css({'display':'block'});
-		$("#select_tips").html("");
+		$("#course_name_tips").html("");
 		course_status = 1;
 	}
 }
@@ -388,35 +388,35 @@ function register() {
         	return false;
 }
 
-function usernameTips() {
-	$("#username_tips").html('<img height="16px" width="16px" src="./data/images/register/notice.png" style="float:left; padding-right: 10px;" /> 支持中文、英文、数字，3-20个字符');
-}
-
-function mobileNumberTips() {
-	$("#mobileNumber_tips").html('<img height="16px" width="16px" src="./data/images/register/notice.png" style="float:left; padding-right: 10px;" /> 请输入电话号码');
-}
-
-function identifyCodeTips() {
-	$("#identifyCode_tips").html('<img height="16px" width="16px" src="./data/images/register/notice.png" style="float:left; padding-right: 10px;" /> 请输入验证码');
-}
-
-function realNameTips() {
-	$("#real_name_tips").html('<img height="16px" width="16px" src="./data/images/register/notice.png" style="float:left; padding-right: 10px;" /> 请输入您的姓名');
-}
-
-function schoolTips() {
-	$("#school_tips").html('<img height="16px" width="16px" src="./data/images/register/notice.png" style="float:left; padding-right: 10px;" /> 请输入您的学校');
-}
-
-function passwordTips() {
-	$("#password_tips").html('<img height="16px" width="16px" src="./data/images/register/notice.png" style="float:left; padding-right: 10px;" /> 请输入密码');
-}
-
-function confirmPasswordTips() {
-	$("#confirm_password_tips").html('<img height="16px" width="16px" src="./data/images/register/notice.png" style="float:left; padding-right: 10px;" /> 请再次输入密码');
-}
-
-// function focusTips( message ) {
-// 	console.log($(this).next('span'));
-// 	$(this).nextAll('.input_tip').html('<img height="16px" width="16px" src="./data/images/register/notice.png" style="float:left; padding-right: 10px;" /> ' + message);
+// function usernameTips() {
+// 	$("#username_tips").html('<img height="16px" width="16px" src="./data/images/register/notice.png" style="float:left; padding-right: 10px;" /> 支持中文、英文、数字，3-20个字符');
 // }
+
+// function mobileNumberTips() {
+// 	$("#mobileNumber_tips").html('<img height="16px" width="16px" src="./data/images/register/notice.png" style="float:left; padding-right: 10px;" /> 请输入电话号码');
+// }
+
+// function identifyCodeTips() {
+// 	$("#identifyCode_tips").html('<img height="16px" width="16px" src="./data/images/register/notice.png" style="float:left; padding-right: 10px;" /> 请输入验证码');
+// }
+
+// function realNameTips() {
+// 	$("#real_name_tips").html('<img height="16px" width="16px" src="./data/images/register/notice.png" style="float:left; padding-right: 10px;" /> 请输入您的姓名');
+// }
+
+// function schoolTips() {
+// 	$("#school_tips").html('<img height="16px" width="16px" src="./data/images/register/notice.png" style="float:left; padding-right: 10px;" /> 请输入您的学校');
+// }
+
+// function passwordTips() {
+// 	$("#password_tips").html('<img height="16px" width="16px" src="./data/images/register/notice.png" style="float:left; padding-right: 10px;" /> 请输入密码');
+// }
+
+// function confirmPasswordTips() {
+// 	$("#confirm_password_tips").html('<img height="16px" width="16px" src="./data/images/register/notice.png" style="float:left; padding-right: 10px;" /> 请再次输入密码');
+// }
+
+function focusTips( id, message ) {
+	var tips = id + '_tips';
+	document.getElementById(tips).innerHTML = '<img height="16px" width="16px" src="./data/images/register/notice.png" style="float:left; padding-right: 10px;" /> ' + message;
+}

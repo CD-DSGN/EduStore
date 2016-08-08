@@ -35,20 +35,20 @@
 					<div id="create_account" style="display:">
 						<div>
 							<label for="username" class="register_info">用户名</label>
-							<input name="username" type="text" id="username" class="register_input" onblur="checkUsername();" onfocus="usernameTips();" />
+							<input name="username" type="text" id="username" class="register_input" onblur="checkUsername();" onfocus="focusTips(this.id , '支持中文、英文、数字，3-20个字符');" />
 							<span class="correct_input" id="username_correct"><img src="./data/images/register/success.png" width="18px" height="18px" alt="correct" /></span>
 							<span class="input_tip" id="username_tips"></span>
 						</div>
 						<div>
 							<label for="mobileNumber" class="register_info">手机号码</label>
-							<input name="mobile_phone_register" type="text" id="mobileNumber" class="register_input" oninput="checkMobileNumber();" onfocus="mobileNumberTips();" onblur="checkMobileNumber();" />
+							<input name="mobile_phone_register" type="text" id="mobileNumber" class="register_input" oninput="checkMobileNumber();" onfocus="focusTips(this.id, '请输入手机号码');" onblur="checkMobileNumber();" />
 							<span class="correct_input" id="mobileNumber_correct"><img src="./data/images/register/success.png" width="18px" height="18px" alt="correct" /></span>
 							<span class="input_tip" id="mobileNumber_tips"></span>
 							<span id="mobileNumber_status"></span>
 						</div>
 						<div>
 							<label for="identifyCode" class="register_info">验证码</label>
-							<input name="identifyCode" type="text" id="identifyCode" class="identifyCode_input" onblur="checkIdentifyCode();" oninput="checkIdentifyCode()" onfocus="identifyCodeTips();" />
+							<input name="identifyCode" type="text" id="identifyCode" class="identifyCode_input" onblur="checkIdentifyCode();" oninput="checkIdentifyCode()" onfocus="focusTips(this.id, '请输入验证码');" />
 							<button class="get_identifyCode" onclick="getIdentifyCode(); return false;">点击获取</button>
 							<span class="correct_input_identifyCode" id="identifyCode_correct"><img src="./data/images/register/success.png" width="18px" height="18px" /></span>
 							<span class="input_tip" id="identifyCode_tips"></span>
@@ -68,13 +68,13 @@
 					<div id="improve_info" style="display:none">
 						<div>
 							<label for="real_name" class="register_info">教师姓名</label>
-							<input type="text" class="register_input" id="real_name" name="real_name" onblur="checkRealName();" onfocus="realNameTips()" />
+							<input type="text" class="register_input" id="real_name" name="real_name" onblur="checkRealName();" onfocus="focusTips(this.id, '请输入您的姓名')" />
 							<span class="correct_input" id="real_name_correct"><img src="./data/images/register/success.png" width="18px" height="18px" alt="correct" /></span>
 							<span class="input_tip" id="real_name_tips"></span>
 						</div>
 						<div>
 							<label for="school" class="register_info">学校</label>
-							<input type="text" class="register_input" id="school" name="school" onblur="checkSchool();" onfocus="schoolTips()" />
+							<input type="text" class="register_input" id="school" name="school" onblur="checkSchool();" onfocus="focusTips(this.id, '请输入您的学校')" />
 							<span class="correct_input" id="school_correct"><img src="./data/images/register/success.png" width="18px" height="18px" alt="correct" /></span>
 							<span class="input_tip" id="school_tips"></span>
 						</div>
@@ -88,17 +88,17 @@
 							</div>
 							</div>
 							<span class="correct_select" id="select_correct"><img src="./data/images/register/success.png" width="18px" height="18px" alt="correct" /></span>
-							<span class="input_tip" id="select_tips"></span>
+							<span class="input_tip" id="course_name_tips"></span>
 						</div>
 						<div>
 							<label for="password" class="register_info">密码</label>
-							<input type="password" class="register_input" id="password" name="password" onblur="checkPassword();" oninput="checkPassword();" onfocus="passwordTips()" />
+							<input type="password" class="register_input" id="password" name="password" onblur="checkPassword();" oninput="checkPassword();" onfocus="focusTips(this.id, '请输入密码')" />
 							<span class="correct_input" id="password_correct"><img src="./data/images/register/success.png" width="18px" height="18px" alt="correct" /></span>
 							<span class="input_tip" id="password_tips"></span>
 						</div>
 						<div>
 							<label for="confirm_password" class="register_info">确认密码</label>
-							<input type="password" class="register_input" id="confirm_password" name="confirm_password" onblur="checkConfirmPassword();" oninput="checkConfirmPassword();" onfocus="confirmPasswordTips();" />
+							<input type="password" class="register_input" id="confirm_password" name="confirm_password" onblur="checkConfirmPassword();" oninput="checkConfirmPassword();" onfocus="focusTips(this.id, '请再次输入密码');" />
 							<span class="correct_input" id="confirm_password_correct"><img src="./data/images/register/success.png" width="18px" height="18px" alt="correct" /></span>
 							<span class="input_tip" id="confirm_password_tips"></span>
 						</div>
