@@ -833,7 +833,7 @@ font-size: 8pt;font-family: sans-serif;}
 #register_head{ width: 1920px; height: 100px; background: #fff; margin: auto; position: relative; clear: both; }
 .head_logo{ position: relative; float: left; width: 156px; height: 100px; left: 400px;  }
 .head_text{ position: relative; float: right; height: 100px; width: 200px; font-size: 16px; right: 450px; top: 58px;}
-#body_img{ width:1920px; height:698px; background:url(./data/images/bkg.png) no-repeat; border-top:1px solid #ecebeb; border-bottom:1px solid #ecebeb;}
+#body_img{ width:1920px; height:698px; background:url(../../data/images/bkg.png) no-repeat; border-top:1px solid #ecebeb; border-bottom:1px solid #ecebeb;}
 #teacher_register{ position: relative; width: 865px; height: 700px; margin: auto; top: 68px; border:2px solid #eee; border-radius: 6px; background-color: #fff; }
 #register_status{ position: relative; width: 740px; height: 90px; border-bottom: 2px solid #d0d0d0; clear: both;  }
 #register_status p{ width: 100px; height: 40px; float: left; margin-left: 40px; line-height: 40px; margin-top: 50px; font-size: 24px;  }
