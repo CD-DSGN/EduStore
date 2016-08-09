@@ -58,7 +58,7 @@
         		</tr>
 				<tr>
           			<td></td>
-          			<td><input name="agreement" type="checkbox" checked="checked" value="1" onfocus="focuse()" onblur="unfocuse()"/>我已看过并接受<a href="#">《用户协议》</a>
+          			<td><input type="checkbox" name="agreement" id="agreement" checked="checked" value="1" onblur="agreementchecked();">我已看过并接受<a href="#">《用户协议》</a>
 						<p id="agreement_notice"></p></td>
         		</tr>
 				<tr>
@@ -83,7 +83,7 @@
 	var conform_password_checked=0;
 	var phone_number=0;
 	var number_checked=0;
-	var checked_notice=0;
+	var checked=1;
 	var user_name=document.getElementById("username");
 	function focues(){
     	var p = document.getElementById("username_notice");
@@ -102,16 +102,14 @@
 						user_name.style.background="url(../../data/images/studentregister/icon1.png) center right no-repeat";
 						p.innerHTML="";
 						p.style.background="none";
-						userame_checked=1;
-						return username_checked;
+						userame_checked=1;					
 					}
 					else
 					{
 					    p.innerHTML="此用户名已被注册";
 						p.style.background="url(../../data/images/studentregister/icon3.png) center left no-repeat"
 						user_name.style.background="none";
-						username_checked=0;
-						return username_checked;
+						username_checked=0;						
 					}
 	    		}
 	    	);
@@ -120,15 +118,13 @@
 			p.innerHTML="用户名长度只能是3-20个字符！";
 			user_name.style.background="none";
 			p.style.background="url(../../data/images/studentregister/icon3.png) center left no-repeat";
-			userame_checked=0;
-			return username_checked; 	
+			userame_checked=0;			 	
 		}
 		else if(unlen.length==0){
 			p.innerHTML="请输入用户名！";
 			p.style.background="url(../../data/images/studentregister/icon3.png) center left no-repeat";
 			user_name.style.background="none";
-			username_checked=0;
-			return username_checked;
+			username_checked=0;			
 		}
 	}
 	var password1=document.getElementById("password1");
@@ -144,19 +140,16 @@
 			password1.style.background="none";
 			p.style.background="url(../../data/images/studentregister/icon3.png) center left no-repeat";
 			password_checked=0;
-			return password_checked;
 		}
 		else if(number.length>0&&number.length<6){
 			p.innerHTML="不能少于6个字符!";
 			password1.style.background="none";
 			p.style.background="url(../../data/images/studentregister/icon3.png) center left no-repeat";
 			password_checked=0;
-			return password_checked;
 		}
 		else{
 			password1.style.background="url(../../data/images/studentregister/icon1.png) center right no-repeat";
 			password_checked=1;
-			return password_checked;
 		}
 	}
 	function checkIntensity(pwd)
@@ -232,21 +225,18 @@
 			conform_password.style.background="none";
 			p.style.background="url(../../data/images/studentregister/icon3.png) center left no-repeat";
 			conform_password_checked=0;
-			return conform_password_checked;
 		}
 		else if(conform_password.value==0){
 			p.innerHTML="密码不能为空！";
 			conform_password.style.background="none";
 			p.style.background="url(../../data/images/studentregister/icon3.png) center left no-repeat";
 			conform_password_checked=0;
-			return conform_password_checked;
 		}
 		else{
 			conform_password.style.background="url(../../data/images/studentregister/icon1.png) center right no-repeat";
 			p.innerHTML="";
 			p.style.background="none";
 			conform_password_checked=1;
-			return conform_password_checked;
 		}
 	}
 	var btn=document.getElementById("checkNumber");
@@ -260,14 +250,12 @@
 		  p.style.background="url(../../data/images/studentregister/icon3.png) center left no-repeat";
 		  mobile_Number.style.background="none";
 		  phone_number=0;
-		  return phone_number;
 	    }
 	    else if(!/^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/i.test(mobileNumber)){
 	      p.innerHTML="手机号码不正确，请重新输入！";
 		  p.style.background="url(../../data/images/studentregister/icon3.png) center left no-repeat";
 		  mobile_Number.style.background="none";
 		  phone_number=0;
-		  return phone_number;
 	    }
 	    else{
 	      //ajax传递数据判断手机号码是否能注册
@@ -284,7 +272,6 @@
 				  p.innerHTML="此手机号码已经被注册过";
 				  p.style.background="url(../../data/images/studentregister/icon3.png) center left no-repeat";
 				  phone_number=0;
-				  return phone_number;
 				}
             	else{
             		console.log(request.responseText);
@@ -297,7 +284,6 @@
 				  request2.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=UTF-8");
 				  request2.send("mobile_phone="+document.getElementById("mobileNumber").value);
 				  phone_number=1;
-				  return phone_number;
 				  }
 			   }
 			}
@@ -330,7 +316,6 @@
 			p.style.background="url(../../data/images/studentregister/icon3.png) center left no-repeat";
 			mobile_Number.style.background="none";
 			phone_number=0;
-		  	return phone_number;
 	      }
 	      else{
 	        p.innerHTML="";
@@ -338,7 +323,6 @@
 			mobile_Number.style.background="url(../../data/images/studentregister/icon1.png) center right no-repeat";
 	        btn.onclick=showTime();
 			phone_number=1;
-		  	return phone_number;
 	      }
 	    }
 	  }
@@ -348,7 +332,7 @@
 	    //验证码获取按钮点击后样式改进
 	    btn.style.background="#DDD";
 	    btn.style.color="#000";
-	    btn.style.opacity="0.6";
+	    btn.style.opacity="0.4";
 	  }
 	}
 	//检验验证码提示方式改进
@@ -360,19 +344,15 @@
 	          function(data) {
 	            if(data == 'correct') {
 	              $("#identifyCode_notice").html("验证码正确");
-				  
 				  	number_checked=1;
-					return number_checked;
 	            }else if(data == 'error') {
 	              $("#identifyCode_notice").html("验证码错误");
 				  identifyCode_notice.style.background="url(../../data/images/studentregister/icon3.png) center left no-repeat";
 				  	number_checked=0;
-					return number_checked;
 	            }else if(data == 'timeout') {
 	              $("#identifyCode_notice").html("验证码已超时，请重新获取");
 				  identifyCode_notice.style.background="url(../../data/images/studentregister/icon3.png) center left no-repeat";
 				  number_checked=0;
-				  return number_checked;
 	            }
 	          }
 	    );
@@ -380,8 +360,16 @@
 	    //验证码长度不正确
 	    $("#identifyCode_notice").html("请输入4位验证码");
 		number_checked=0;
-		return number_checked;
 	  }
+	}
+	var agreement = document.getElementById("agreement");
+	function agreementchecked(){
+		if(agreement.checked==true){
+			checked=1;
+		}
+		else{
+			checked=0;
+		}
 	}
 	function register(){
 		if(userame_checked==0){
@@ -410,6 +398,11 @@
 			mobileNumber.style.border="2px solid #d3d3d3";
 			numberchecked.style.border="2px solid #FFB392";
 			numberchecked.focus();
+			return false;
+		}else if(checked==0){
+			var agreement_notice=document.getElementById("agreement_notice");
+			agreement_notice.innerHTML="请同意用户协议后再进行注册";
+			agreement_notice.style.background="url(../../data/images/studentregister/icon3.png) center left no-repeat";
 			return false;
 		}else{	
 				$("#formUser").ajaxSubmit({
