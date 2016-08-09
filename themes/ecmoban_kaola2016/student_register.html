@@ -366,12 +366,12 @@
 	            }else if(data == 'error') {
 	              $("#identifyCode_notice").html("验证码错误");
 				  identifyCode_notice.style.background="url(../../data/images/studentregister/icon3.png) center left no-repeat";
-				  	number_checked=1;
+				  	number_checked=0;
 					return number_checked;
 	            }else if(data == 'timeout') {
 	              $("#identifyCode_notice").html("验证码已超时，请重新获取");
 				  identifyCode_notice.style.background="url(../../data/images/studentregister/icon3.png) center left no-repeat";
-				  number_checked=1;
+				  number_checked=0;
 				  return number_checked;
 	            }
 	          }
@@ -379,36 +379,36 @@
 	  }else {
 	    //验证码长度不正确
 	    $("#identifyCode_notice").html("请输入4位验证码");
-		number_checked=1;
+		number_checked=0;
 		return number_checked;
 	  }
 	}
 	function register(){
 		if(userame_checked==0){
-			user_name.style.border="2px solid #C81522";
+			user_name.style.border="2px solid #FFB392";
 			user_name.focus();
 			return false;
 		}else if(password_checked==0){
 			user_name.style.border="2px solid #d3d3d3";
-			password1.style.border="2px solid #C81522";
+			password1.style.border="2px solid #FFB392";
 			password1.focus();
 			return false;
 		}else if(conform_password_checked==0){
 			password1.style.border="2px solid #d3d3d3";
-			conform_password.style.border="2px solid #C81522";
+			conform_password.style.border="2px solid #FFB392";
 			conform_password.focus();
 			return false;
 		}else if(phone_number==0){
 			var mobileNumber=document.getElementById("mobileNumber");
 			conform_password.style.border="2px solid #d3d3d3";
-			mobileNumber.style.border="2px solid #C81522";
+			mobileNumber.style.border="2px solid #FFB392";
 			mobileNumber.focus();
 			return false;
 		}else if(number_checked==0){
 			var mobileNumber=document.getElementById("mobileNumber");
 			var numberchecked=document.getElementById("numberchecked");
 			mobileNumber.style.border="2px solid #d3d3d3";
-			numberchecked.style.border="2px solid #C81522";
+			numberchecked.style.border="2px solid #FFB392";
 			numberchecked.focus();
 			return false;
 		}else{	
