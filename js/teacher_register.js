@@ -1,14 +1,21 @@
 /* 使用一组全局变量，存储每一个输入框的状态 */
-var username_status = 0;
-var phone_status = 0;
-var identifyCode_status = 0;
-var realName_status = 0;
-var school_status = 0;
-var course_status = 0;
-var password_status = 0;
-var confirmPassword_status = 0;
-var agreement_status = 1;
+var username_status = 0;				// 0表示为空，1表示正确，2表示已被注册，3表示用户名中有非法字符，4表示位数错误
+var phone_status = 0;					// 0表示为空，1表示正确，2表示电话已被注册，3表示电话不符合规则，4表示位数错误
+var identifyCode_status = 0;			// 0表示为空，1表示正确，2表示验证码错误，3表示验证码超时，4表示验证码位数错误
+var realName_status = 0;				// 0表示为空，1表示正确
+var school_status = 0;					// 0表示为空，1表示正确
+var course_status = 0;					// 0表示为空，1表示正确	
+var password_status = 0;				// 0表示为空，1表示正确，2表示两次密码不一致,3表示密码过短
+var confirmPassword_status = 0;			// 0表示为空，1表示正确，2表示两次密码不一致
+var agreement_status = 1;				// 0表示为空，1表示正确
 /* 默认为0，表示为空/错误，1：正确 */
+
+/* 定义错误提示的图片语句 */
+var error_info = '<img height="16px" width="16px" src="./data/images/register/error.png" style="float:left; padding-right: 10px;" /> ';
+var low_strength = '<img height="16px" width="16px" src="./data/images/register/low.png" style="float:left; padding-right: 10px;" /> ';
+var middle_strength = '<img height="16px" width="16px" src="./data/images/register/middle.png" style="float:left; padding-right: 10px;" /> ';
+var high_strength = '<img height="16px" width="16px" src="./data/images/register/high.png" style="float:left; padding-right: 10px;" /> ';
+var notice = '<img height="16px" width="16px" src="./data/images/register/notice.png" style="float:left; padding-right: 10px;" /> ';
 
 function checkMobileNumber() {
 	var mobile_phone = $.trim($("#mobileNumber").val());
@@ -25,21 +32,21 @@ function checkMobileNumber() {
 						}
 						else{	//电话已被注册
 							$("#mobileNumber_correct").css({'display':'none'});
-							$("#mobileNumber_tips").html('<img height="16px" width="16px" src="./data/images/register/error.png" style="float:left; padding-right: 10px;" /> 该电话已被注册');
-							phone_status = 0;
+							$("#mobileNumber_tips").html(error_info + '该电话已被注册');
+							phone_status = 2;
 						}
 			});
 		}
 		else{	//电话不符合规则
 			$("#mobileNumber_correct").css({'display':'none'});
-			$("#mobileNumber_tips").html('<img height="16px" width="16px" src="./data/images/register/error.png" style="float:left; padding-right: 10px;" /> 该电话格式不符合规则');
-			phone_status = 0;
+			$("#mobileNumber_tips").html(error_info + '该电话格式不符合规则');
+			phone_status = 3;
 		}
 	}
 	else{	//电话位数错误
-		$("#mobileNumber_tips").html('<img height="16px" width="16px" src="./data/images/register/error.png" style="float:left; padding-right: 10px;" /> 请输入11位电话号码');
+		$("#mobileNumber_tips").html(error_info + '请输入11位电话号码');
 		$("#mobileNumber_correct").css({'display':'none'});
-		phone_status = 0;
+		phone_status = 4;
 	}
 }
 
@@ -49,15 +56,15 @@ function checkUsername() {
 
     if ( !chkstr( username ) )
     {
-        $("#username_tips").html('<img height="16px" width="16px" src="./data/images/register/error.png" style="float:left; padding-right: 10px;" /> 用户名中含有非法字符');
+        $("#username_tips").html(error_info + '用户名中含有非法字符');
         $("#username_correct").css({'display' : 'none'});
-        username_status = 0;
+        username_status = 3;
     }
     else if ( unlen < 3 || unlen > 20 )
     { 
-       $("#username_tips").html('<img height="16px" width="16px" src="./data/images/register/error.png" style="float:left; padding-right: 10px;" /> 请输入3-20字符的用户名');
+       $("#username_tips").html(error_info + '请输入3-20字符的用户名');
        $("#username_correct").css({'display' : 'none'});
-       username_status = 0;
+       username_status = 4;
     }
     else {
 		$.get( "./user.php?act=is_registered",
@@ -71,9 +78,9 @@ function checkUsername() {
 					}
 					else
 					{
-					    $("#username_tips").html('<img height="16px" width="16px" src="./data/images/register/error.png" style="float:left; padding-right: 10px;" /> 用户名已被注册');
+					    $("#username_tips").html(error_info + '用户名已被注册');
 					    $("#username_correct").css({'display' : 'none'});
-					    username_status = 0;
+					    username_status = 2;
 					}
 	    		}
 	    );
@@ -102,10 +109,11 @@ function getIdentifyCode() {
 					{"mobile_phone" : mobile_phone}, 
 		   			function(data){
 			   			if(data == 0){
+			   				$(".get_identifyCode").attr({'disabled':true}).css({'background-color' : '#fafafa', 'color' : '#c4c4c4'});
 							$.post("./sms/SendTemplateSMS.php",
 									{"mobile_phone" : mobile_phone},
 									function(data){
-										console.log(data);	
+										console.log(data);
 									});
 							var count = 60;
 							var countDown = setInterval( function() {
@@ -149,27 +157,27 @@ function checkIdentifyCode() {
 	            	$("#identifyCode_correct").css({'display' : 'block'});
 	            	identifyCode_status = 1;
 	            }else if(data == 'error') {
-	            	$("#identifyCode_tips").html('<img height="16px" width="16px" src="./data/images/register/error.png" style="float:left; padding-right: 10px;" /> 验证码错误');
+	            	$("#identifyCode_tips").html(error_info + '验证码错误');
 	            	$("#identifyCode_correct").css({'display' : ''});
-	            	identifyCode_status = 0;
+	            	identifyCode_status = 2;
 	            }else if(data == 'timeout') {
-	            	$("#identifyCode_tips").html('<img height="16px" width="16px" src="./data/images/register/error.png" style="float:left; padding-right: 10px;" /> 验证码已超时，请重新获取');
+	            	$("#identifyCode_tips").html(error_info + '验证码已超时，请重新获取');
 	            	$("#identifyCode_correct").css({'display' : ''});
-	            	identifyCode_status = 0;
+	            	identifyCode_status = 3;
 	            }
 	        }
 	    );
 	}else {
 	    //验证码长度不正确
-	    $("#identifyCode_tips").html('<img height="16px" width="16px" src="./data/images/register/error.png" style="float:left; padding-right: 10px;" /> 请输入4位验证码');
+	    $("#identifyCode_tips").html(error_info + '请输入4位验证码');
 	    $("#identifyCode_correct").css({'display' : ''});
-	    identifyCode_status = 0;
+	    identifyCode_status = 4;
 	}
 }
 
 function checkAgreement() {
 	if(document.getElementById('agreement').checked == false) {
-		$("#agreement_tips").html('<img height="16px" width="16px" src="./data/images/register/error.png" style="float:left; padding-right: 10px;" /> 请同意用户协议后再进行注册');
+		$("#agreement_tips").html(error_info + '请同意用户协议后再进行注册');
 		agreement_status = 0;
 	}else {
 		$("#agreement_tips").html('');
@@ -180,15 +188,63 @@ function checkAgreement() {
 function nextStep() {
 	if( username_status != 1) {
 		$("#username").focus().select();
+		switch(username_status) {
+		case 0:case 4:
+			$("#username_tips").html(error_info + '请输入3-20字符的用户名');
+       		$("#username_correct").css({'display' : 'none'});
+       		break;
+       	case 2:
+       		$("#username_tips").html(error_info + '用户名已被注册');
+       		$("#username_correct").css({'display' : 'none'});
+       		break;
+       	case 3:
+       		$("#username_tips").html(error_info + '用户名中含有非法字符');
+       		$("#username_correct").css({'display' : 'none'});
+       		break;
+       	default:
+       		break;
+		}
 		return 0;
 	}else if( phone_status != 1) {
 		$("#mobileNumber").focus().select();
+		switch(phone_status) {
+		case 0:case 4:
+			$("#mobileNumber_correct").css({'display':'none'});
+			$("#mobileNumber_tips").html(error_info + '请输入11位电话号码');
+			break;
+		case 2:
+			$("#mobileNumber_correct").css({'display':'none'});
+			$("#mobileNumber_tips").html(error_info + '该电话已被注册');
+			break;
+		case 3:
+			$("#mobileNumber_correct").css({'display':'none'});
+			$("#mobileNumber_tips").html(error_info + '该电话格式不符合规则');
+			break;
+		default:
+			break;
+		}
 		return 0;
 	}else if( identifyCode_status != 1) {
 		$("#identifyCode").focus().select();
+		switch (identifyCode_status) {
+		case 0: case 4:
+        	$("#identifyCode_tips").html(error_info + '请输入4位验证码');
+	        $("#identifyCode_correct").css({'display' : ''});
+	        break;
+		case 2:
+			$("#identifyCode_tips").html(error_info + '验证码错误');
+	        $("#identifyCode_correct").css({'display' : ''});
+	        break;
+		case 3:
+			$("#identifyCode_tips").html(error_info + '验证码已超时，请重新获取');
+	        $("#identifyCode_correct").css({'display' : ''});
+	        break;
+		default:
+			break;
+		}
 		return 0;
 	}else if( agreement_status != 1) {
-		$("#agreement_tips").html('<img height="16px" width="16px" src="./data/images/register/error.png" style="float:left; padding-right: 10px;" /> 请同意用户协议后再进行注册');
+		$("#agreement_tips").html(error_info + '同意用户协议才可以进行注册');
 		return 0;
 	}else {
 		$(".step_one").css({'color' : '#666'});
@@ -204,7 +260,7 @@ function checkRealName() {
 	var realName = $.trim($("#real_name").val());
 	if(realName == '') {
 		$("#real_name_correct").css({'display':'none'});
-		$("#real_name_tips").html('<img height="16px" width="16px" src="./data/images/register/error.png" style="float:left; padding-right: 10px;" /> 教师姓名不能为空');
+		$("#real_name_tips").html(error_info + '教师姓名不能为空');
 		realName_status = 0;
 	}else {
 		$("#real_name_correct").css({'display':'block'});
@@ -217,7 +273,7 @@ function checkSchool() {
 	var school = $.trim($("#school").val());
 	if(school == '') {
 		$("#school_correct").css({'display':'none'});
-		$("#school_tips").html('<img height="16px" width="16px" src="./data/images/register/error.png" style="float:left; padding-right: 10px;" /> 学校不能为空');
+		$("#school_tips").html(error_info + '学校不能为空');
 		school_status = 0;
 	}else {
 		$("#school_correct").css({'display':'block'});
@@ -231,7 +287,7 @@ function checkCourseName() {
 	//可能根据实际情况设置value来更改判断条件
 	if(course == 0) {
 		$("#select_correct").css({'display':'none'});
-		$("#course_name_tips").html('<img height="16px" width="16px" src="./data/images/register/error.png" style="float:left; padding-right: 10px;" /> 请选择课程');
+		$("#course_name_tips").html(error_info + '请选择课程');
 		course_status = 0;
 	}else {
 		$("#select_correct").css({'display':'block'});
@@ -252,8 +308,8 @@ function checkPassword() {
 			confirmPassword_status = 1;
 		}else {
 			$("#confirm_password_correct").css({'display' : 'none'});
-			$("#confirm_password_tips").html('<img height="16px" width="16px" src="./data/images/register/error.png" style="float:left; padding-right: 10px;" /> 两次密码不一致');
-			confirmPassword_status = 0;
+			$("#confirm_password_tips").html(error_info + '两次密码不一致');
+			confirmPassword_status = 2;
 		}
 	}
 
@@ -283,42 +339,42 @@ function checkPassword() {
 	if( password.length < 6) {
 		//小于6位，不可注册
 		$("#password_correct").css({'display' : 'none'});
-		$("#password_tips").html('<img height="16px" width="16px" src="./data/images/register/error.png" style="float:left; padding-right: 10px;" /> 密码长度过短');
-		password_status = 0;
+		$("#password_tips").html(error_info + '密码长度过短');
+		password_status = 3;
 		return 0;
 	}else if( password.length < 10) {
 		//小于10位，密码强度弱
 		$("#password_correct").css({'display' : 'block'});
-		$("#password_tips").html('<img height="16px" width="16px" src="./data/images/register/low.png" style="float:left; padding-right: 10px;" /> 密码强度弱');
+		$("#password_tips").html(low_strength + '密码强度弱');
 		password_status = 1;
 		return 0;
 	}else if( password.length < 14){
 		//小于14位，密码强度中、弱
 		if( m >= 2) {
 			$("#password_correct").css({'display' : 'block'});
-			$("#password_tips").html('<img height="16px" width="16px" src="./data/images/register/middle.png" style="float:left; padding-right: 10px;" /> 密码强度中');
+			$("#password_tips").html(middle_strength + '密码强度中');
 			password_status = 1;
 			return 0;
 		}else {
 			$("#password_correct").css({'display' : 'block'});
-			$("#password_tips").html('<img height="16px" width="16px" src="./data/images/register/low.png" style="float:left; padding-right: 10px;" /> 密码强度弱');
+			$("#password_tips").html(low_strength + '密码强度弱');
 			password_status = 1;
 			return 0;
 		}
 	}else {
 		if( m >= 3) {
 			$("#password_correct").css({'display' : 'block'});
-			$("#password_tips").html('<img height="16px" width="16px" src="./data/images/register/high.png" style="float:left; padding-right: 10px;" /> 密码强度强');
+			$("#password_tips").html(high_strength + '密码强度强');
 			password_status = 1;
 			return 0;
 		}else if( m == 2) {
 			$("#password_correct").css({'display' : 'block'});
-			$("#password_tips").html('<img height="16px" width="16px" src="./data/images/register/middle.png" style="float:left; padding-right: 10px;" /> 密码强度中');
+			$("#password_tips").html(middle_strength + '密码强度中');
 			password_status = 1;
 			return 0;
 		}else {
 			$("#password_correct").css({'display' : 'block'});
-			$("#password_tips").html('<img height="16px" width="16px" src="./data/images/register/low.png" style="float:left; padding-right: 10px;" /> 密码强度弱');
+			$("#password_tips").html(low_strength + '密码强度弱');
 			password_status = 1;
 			return 0;
 		}
@@ -336,55 +392,70 @@ function checkConfirmPassword() {
 			confirmPassword_status = 1;
 		}else {
 			$("#confirm_password_correct").css({'display' : 'none'});
-			$("#confirm_password_tips").html('<img height="16px" width="16px" src="./data/images/register/error.png" style="float:left; padding-right: 10px;" /> 两次密码不一致');
-			confirmPassword_status = 0;
+			$("#confirm_password_tips").html(error_info + '两次密码不一致');
+			confirmPassword_status = 2;
 		}
 	}else {
 		$("#confirm_password_correct").css({'display' : 'none'});
-		$("#confirm_password_tips").html('<img height="16px" width="16px" src="./data/images/register/error.png" style="float:left; padding-right: 10px;" /> 两次密码不一致');
-		confirmPassword_status = 0;
+		$("#confirm_password_tips").html(error_info + '两次密码不一致');
+		confirmPassword_status = 2;
 	}
 }
 
 function register() {
 	if( realName_status != 1) {
-				$("#real_name").focus().select();
-				return false;
-			}else if( school_status != 1) {
-				$("#school").focus().select();
-				return false;
-			}else if(course_status != 1) {
-				$("#course_name").focus().select();
-				return false;
-			}else if(password_status != 1) {
-				$("#password").focus().select();
-				return false;
-			}else if(confirmPassword_status != 1) {
-				$("#confirm_password").focus().select();
-				return false;
-			}else {
-				$("#formTeacher").ajaxSubmit({
-	        		success : function() {
-	        			$(".step_two").css({'color' : '#666'});
-						$("#img_step_two").attr({'src' : './data/images/register/icon_gray2.png'});
-						$(".step_three").css({'color' : '#65bf92'});
-						$("#img_step_three").attr({'src' : './data/images/register/icon3.png'});
-						$("#register_success").css({'display' : ''});
-						$("#improve_info").css({'display' : 'none'});
-						var count = 2;
-						var countDownIndex = setInterval(function() {
-							$("#goIndex").html(count);
-							count--;
-							if(count == -1) {
-								clearInterval(countDownIndex);
-								//最后修改为网站首页域名
-								window.location.href = './';
-							}
-						}, 1000) 
-	        		}
-	        	});
-			}
-        	return false;
+		$("#real_name").focus().select();
+		$("#real_name_correct").css({'display':'none'});
+		$("#real_name_tips").html(error_info + '教师姓名不能为空');
+		return false;
+	}else if( school_status != 1) {
+		$("#school").focus().select();
+		$("#school_correct").css({'display':'none'});
+		$("#school_tips").html(error_info + '学校不能为空');
+		return false;
+	}else if(course_status != 1) {
+		$("#course_name").focus().select();
+		$("#select_correct").css({'display':'none'});
+		$("#course_name_tips").html(error_info + '请选择课程');
+		return false;
+	}else if(password_status != 1) {
+		$("#password").focus().select();
+		if(password_status == 0 || password_status == 3) {
+			$("#password_correct").css({'display' : 'none'});
+			$("#password_tips").html(error_info + '密码长度过短');
+		} else if(password_status == 2) {
+			$("#confirm_password_correct").css({'display' : 'none'});
+			$("#confirm_password_tips").html(error_info + '两次密码不一致');
+		}
+		return false;
+	}else if(confirmPassword_status != 1) {
+		$("#password").focus().select();
+		$("#confirm_password_correct").css({'display' : 'none'});
+		$("#confirm_password_tips").html(error_info + '两次密码不一致');
+		return false;
+	}else {
+		$("#formTeacher").ajaxSubmit({
+    		success : function() {
+    			$(".step_two").css({'color' : '#666'});
+				$("#img_step_two").attr({'src' : './data/images/register/icon_gray2.png'});
+				$(".step_three").css({'color' : '#65bf92'});
+				$("#img_step_three").attr({'src' : './data/images/register/icon3.png'});
+				$("#register_success").css({'display' : ''});
+				$("#improve_info").css({'display' : 'none'});
+				var count = 2;
+				var countDownIndex = setInterval(function() {
+					$("#goIndex").html(count);
+					count--;
+					if(count == -1) {
+						clearInterval(countDownIndex);
+						//最后修改为网站首页域名
+						window.location.href = './';
+					}
+				}, 1000) 
+    		}
+    	});
+	}
+	return false;
 }
 
 // function usernameTips() {
@@ -417,5 +488,9 @@ function register() {
 
 function focusTips( id, message ) {
 	var tips = id + '_tips';
-	document.getElementById(tips).innerHTML = '<img height="16px" width="16px" src="./data/images/register/notice.png" style="float:left; padding-right: 10px;" /> ' + message;
+	document.getElementById(tips).innerHTML = notice + message;
+}
+
+function jumpToIndex() {
+	window.location.href = "./index.php";
 }

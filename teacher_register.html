@@ -118,7 +118,7 @@
 							恭喜您，注册成功！
 						</div>
 						<div>
-							<button class="buy_now_button">立即购物</button>
+							<button class="buy_now_button" onclick="jumpToIndex()">立即购物</button>
 						</div>
 						<div style="font-size:14px; color:#353032; line-height: 40px;">
 							<span id="goIndex">3</span>秒后自动返回......
@@ -148,6 +148,11 @@
 						$(this).css({'background-color' : '#fdfdfd', 'color' : '#ff6825'});
 					}
 		);
+		$(".buy_now_button").hover(function() {
+								$(this).css({'background-color' : '#e65d22', 'border' : '2px solid #e65d22'});
+							}, function() {
+								$(this).css({'background-color' : '#ff6825', 'border' : '2px solid #ff6825'});
+							});
 		$.ajaxSetup({   
             async : false  
         }); 
