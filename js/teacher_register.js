@@ -53,6 +53,7 @@ function checkMobileNumber() {
 function checkUsername() {
 	var username = $.trim($("#username").val());
 	var unlen = username.replace(/[^\x00-\xff]/g, "**").length;
+	console.log(username +'...'+ unlen);
 
     if ( !chkstr( username ) )
     {

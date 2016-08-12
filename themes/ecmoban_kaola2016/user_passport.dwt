@@ -574,7 +574,7 @@ var username_exist = "{$lang.username_exist}";
     if(length==0){
       document.getElementById("Numbererror_notice").innerHTML="*请输入手机号码！";
     }
-    else if(!/^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/i.test(mobileNumber)){
+    else if(!/^(13[0-9]|14[0-9]|15[0-9]|17[0-9]|18[0-9])\d{8}$/i.test(mobileNumber)){
       document.getElementById("Numbererror_notice").innerHTML="*手机号码不正确，请重新输入！";
     }
     else{
