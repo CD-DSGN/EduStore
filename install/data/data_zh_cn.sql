@@ -3803,7 +3803,7 @@ INSERT INTO `ecs_reg_fields` (`id`, `reg_field_name`, `dis_order`, `display`, `t
 (2, 'QQ', 0, 0, 1, 0),
 (3, '办公电话', 0, 0, 1, 0),
 (4, '家庭电话', 0, 0, 1, 0),
-(5, '手机', 0, 1, 1, 1),
+(5, '手机', 0, 0, 1, 0),
 (6, '密码找回问题', 0, 0, 1, 0);
 --end zhangmengqi
 
