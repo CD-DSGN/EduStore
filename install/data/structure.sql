@@ -1823,6 +1823,10 @@ CREATE TABLE `ecs_teachers` (
   `course_id` tinyint(8) unsigned NOT NULL,
   `real_name` varchar (50)  NOT NULL,
   `school` varchar (90)  NOT NULL,
+  `country` smallint(5) NOT NULL default '0',
+  `province` smallint(5) NOT NULL default '0',
+  `city` smallint(5) NOT NULL default '0',
+  `district` smallint(5) NOT NULL default '0',
   PRIMARY KEY  (`teacher_id`)
 ) ENGINE=MyISAM;
 

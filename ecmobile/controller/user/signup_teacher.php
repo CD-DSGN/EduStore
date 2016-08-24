@@ -65,12 +65,22 @@ $teacher_info['real_name'] = isset($_POST['real_name']) ? trim($_POST['real_name
 $teacher_info['school'] = isset($_POST['school']) ? trim($_POST['school']): '';
 $teacher_info['course_id'] = isset($_POST['course']) ? $_POST['course'] : '';
 
+
+$teacher_info['country'] = isset($_POST['country']) ? trim($_POST['country']): 0;
+$teacher_info['province'] = isset($_POST['province']) ? trim($_POST['province']): 0;
+$teacher_info['city'] = isset($_POST['city']) ? trim($_POST['city']): 0;
+$teacher_info['district'] = isset($_POST['district']) ? trim($_POST['district']): 0;
+
 //防止sql注入
 $teacher_info['real_name'] = addslashes($teacher_info['real_name']);
 $teacher_info['school'] = addslashes($teacher_info['school']);
 $teacher_info['course_id'] = addslashes($teacher_info['course_id']);
 $other['mobile_phone'] = addslashes($other['mobile_phone']);
 
+$teacher_info['country'] = addslashes($teacher_info['country']);
+$teacher_info['province'] = addslashes($teacher_info['province']);
+$teacher_info['city'] = addslashes($teacher_info['city']);
+$teacher_info['district'] = addslashes($teacher_info['district']);
 //修改相应的数据库
 $values = array();
 $values[] = $_SESSION['user_id'];
@@ -78,7 +88,12 @@ $values[] = $teacher_info['course_id'];
 $values[] = $teacher_info['real_name'];
 $values[] = $teacher_info['school'];
 
-$sql = 'INSERT INTO '. $ecs->table('teachers') . ' (`user_id`, `course_id`, `real_name`, `school`)'. " VALUES ('" . implode("', '", $values) . "')";
+$values[] = $teacher_info['country'];
+$values[] = $teacher_info['province'];
+$values[] = $teacher_info['city'];
+$values[] = $teacher_info['district'];
+
+$sql = 'INSERT INTO '. $ecs->table('teachers') . ' (`user_id`, `course_id`, `real_name`, `school`, `country`, `province`, `city`, `district`)'. " VALUES ('" . implode("', '", $values) . "')";
 $db->query($sql);
 //更新教师字段信息
 $sql = 'UPDATE ' . $ecs->table('users') . " SET `is_teacher`='1' WHERE `user_id`='" . $_SESSION['user_id'] . "'";
