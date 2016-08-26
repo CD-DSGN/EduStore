@@ -10,7 +10,7 @@
 <body>
 <div id="head">
 	<div class="headcontent">
-		<div class="divleft"><img src="../../data/images/studentregister/logo.png" alt="汇师网logo"></div>
+		<div class="divleft"><a href="../../index.php"><img src="../../data/images/studentregister/logo.png" alt="汇师网logo"></a></div>
 		<div class="divright"><span>欢迎光临汇师网，请<a href="../../user.php">登录</a></span></div>
 	</div>
 </div>
@@ -40,8 +40,7 @@
 				</tr>
 				<tr>
 					<td class="label">确认密码</td>
-					<td><i></i>
-						<input name="confirm_password" type="password" id="conform_password" onblur="check_conform_password(this.value);"  class="inputBg"/>
+					<td><input name="confirm_password" type="password" id="conform_password" onblur="check_conform_password(this.value);"  class="inputBg"/>
             			<p id="conform_password_notice"></p>
 					</td>
 				</tr>
@@ -78,7 +77,7 @@
 </div>
 </body>
 <script type="text/javascript">
-	var userame_checked=0;
+	var username_checked=0;
 	var password_checked=0;
 	var conform_password_checked=0;
 	var phone_number=0;
@@ -93,39 +92,56 @@
 	function is_registered(number){
 		var p = document.getElementById("username_notice");
 		var unlen = number.replace(/[^\x00-\xff]/g, "**");
-		if(unlen.length>=3&&unlen.length<=20){
+		if(unlen.length==0){
+			p.innerHTML="请输入用户名！";
+			p.style.background="url(../../data/images/studentregister/icon3.png) center left no-repeat";
+			user_name.style.background="none";
+			username_checked=0;			
+		}
+		else if(!chkstr(number)){
+			p.innerHTML="用户名中含有非法字符，请重新输入！";
+			user_name.style.background="none";
+			p.style.background="url(../../data/images/studentregister/icon3.png) center left no-repeat";
+			username_checked=4;	
+		}
+		else if(unlen.length<3&&unlen.length>0||unlen.length>20){
+			p.innerHTML="用户名长度只能是3-20个字符！";
+			user_name.style.background="none";
+			p.style.background="url(../../data/images/studentregister/icon3.png) center left no-repeat";
+			username_checked=2;			 	
+		}
+		else if(unlen.length>=3&&unlen.length<=20){
 			$.get( "../../user.php?act=is_registered",
 	    		{"username" : number},
 	    		function(data) {
 	    			if ( data == "true" )
 					{	
-						user_name.style.background="url(../../data/images/studentregister/icon1.png) center right no-repeat";
+						user_name.style.background="url(../../data/images/studentregister/icon1.png) center left+265px no-repeat";
 						p.innerHTML="";
 						p.style.background="none";
-						userame_checked=1;					
+						username_checked=1;					
 					}
 					else
 					{
 					    p.innerHTML="此用户名已被注册";
 						p.style.background="url(../../data/images/studentregister/icon3.png) center left no-repeat"
 						user_name.style.background="none";
-						username_checked=0;						
+						username_checked=3;						
 					}
 	    		}
 	    	);
 		}
-		else if(unlen.length<3&&unlen.length>0||unlen.length>20){
-			p.innerHTML="用户名长度只能是3-20个字符！";
-			user_name.style.background="none";
-			p.style.background="url(../../data/images/studentregister/icon3.png) center left no-repeat";
-			userame_checked=0;			 	
+	}
+	function chkstr(str)
+	{
+		for (var i = 0; i < str.length; i++)
+		{
+			if (str.charCodeAt(i) < 127 && !str.substr(i,1).match(/^\w+$/ig))
+			{
+				return false;
+			}
 		}
-		else if(unlen.length==0){
-			p.innerHTML="请输入用户名！";
-			p.style.background="url(../../data/images/studentregister/icon3.png) center left no-repeat";
-			user_name.style.background="none";
-			username_checked=0;			
-		}
+		return true;
 	}
 	var password1=document.getElementById("password1");
 	password1.onfocus=function(){
@@ -142,13 +158,13 @@
 			password_checked=0;
 		}
 		else if(number.length>0&&number.length<6){
-			p.innerHTML="不能少于6个字符!";
+			p.innerHTML="密码长度不能少于6个字符！";
 			password1.style.background="none";
 			p.style.background="url(../../data/images/studentregister/icon3.png) center left no-repeat";
-			password_checked=0;
+			password_checked=2;
 		}
 		else{
-			password1.style.background="url(../../data/images/studentregister/icon1.png) center right no-repeat";
+			password1.style.background="url(../../data/images/studentregister/icon1.png) center left+265px no-repeat";
 			password_checked=1;
 		}
 	}
@@ -224,26 +240,26 @@
 			p.innerHTML="前后密码不一致！";
 			conform_password.style.background="none";
 			p.style.background="url(../../data/images/studentregister/icon3.png) center left no-repeat";
-			conform_password_checked=0;
+			conform_password_checked=2;
 		}
 		else if(conform_password.value==0){
 			p.innerHTML="密码不能为空！";
 			conform_password.style.background="none";
 			p.style.background="url(../../data/images/studentregister/icon3.png) center left no-repeat";
-			conform_password_checked=0;
+			conform_password_checked=3;
 		}
 		else{
-			conform_password.style.background="url(../../data/images/studentregister/icon1.png) center right no-repeat";
+			conform_password.style.background="url(../../data/images/studentregister/icon1.png) center left+265px no-repeat";
 			p.innerHTML="";
 			p.style.background="none";
 			conform_password_checked=1;
 		}
 	}
 	var btn=document.getElementById("checkNumber");
+	var mobile_Number=document.getElementById("mobileNumber");
   	function showTime(){
 		var p = document.getElementById("Numbererror_notice");
 	    var mobileNumber=document.getElementById("mobileNumber").value;
-		var mobile_Number=document.getElementById("mobileNumber");
 	    var length=mobileNumber.length;
 	    if(length==0){
 	      p.innerHTML="请输入手机号码！";
@@ -255,7 +271,7 @@
 	      p.innerHTML="手机号码不正确，请重新输入！";
 		  p.style.background="url(../../data/images/studentregister/icon3.png) center left no-repeat";
 		  mobile_Number.style.background="none";
-		  phone_number=0;
+		  phone_number=2;
 	    }
 	    else{
 	      //ajax传递数据判断手机号码是否能注册
@@ -263,22 +279,19 @@
 		  request.open("post","../../user.php?act=check_mobile_phone");
 		  request.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=UTF-8");
 		  request.send("mobile_phone="+document.getElementById("mobileNumber").value);
-		  console.log(document.getElementById("mobileNumber").value);
 		  request.onreadystatechange=function(){
 			if(request.readyState===4){
 			  if(request.status===200){
 				if(request.responseText==1) {
-					console.log(request.responseText);
-				  p.innerHTML="此手机号码已经被注册过";
+				  p.innerHTML="此手机号码已经被注册！";
 				  p.style.background="url(../../data/images/studentregister/icon3.png) center left no-repeat";
-				  phone_number=0;
+				  phone_number=3;
 				}
             	else{
-            		console.log(request.responseText);
 				  p.innerHTML="";
 				  p.style.background="none";
 	              btn.onclick=Timelast(60);
-				  mobile_Number.style.background="url(../../data/images/studentregister/icon1.png) center right no-repeat";
+				  mobile_Number.style.background="url(../../data/images/studentregister/icon1.png) center left+265px no-repeat";
 				  var request2 = new XMLHttpRequest();
 				  request2.open("post","../../sms/SendTemplateSMS.php");
 				  request2.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=UTF-8");
@@ -301,7 +314,6 @@
 	    btn.disabled=false;
 	    btn.value="重新发送";
 	    var p = document.getElementById("Numbererror_notice");
-		var mobile_Number=document.getElementById("mobileNumber");
 	    btn.style.opacity="1";
 	    btn.onclick=function(){
 	      var mobileNumber=document.getElementById("mobileNumber").value;
@@ -310,19 +322,19 @@
 	        p.innerHTML="请输入手机号码！";
 			p.style.background="url(../../data/images/studentregister/icon3.png) center left no-repeat";
 			mobile_Number.style.background="none";
+			phone_number=0;
 	      }
 	      else if(!/^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/.test(mobileNumber)){
 	        p.innerHTML="手机号码不正确，请重新输入！";
 			p.style.background="url(../../data/images/studentregister/icon3.png) center left no-repeat";
 			mobile_Number.style.background="none";
-			phone_number=0;
+			phone_number=2;
 	      }
 	      else{
 	        p.innerHTML="";
 			p.style.background="none";
-			mobile_Number.style.background="url(../../data/images/studentregister/icon1.png) center right no-repeat";
+			mobile_Number.style.background="url(../../data/images/studentregister/icon1.png) center left+265px no-repeat";
 	        btn.onclick=showTime();
-			phone_number=1;
 	      }
 	    }
 	  }
@@ -336,30 +348,37 @@
 	  }
 	}
 	//检验验证码提示方式改进
+	var numberchecked=document.getElementById("numberchecked");
 	function checkIdentify(number){
-	   var identifyCode_notice=document.getElementById("identifyCode_notice");
+	var identifyCode_notice=document.getElementById("identifyCode_notice");
 	  if(number.length == 4) {
 	    $.post("../../user.php?act=check_identifyCode",
 	          {'code':number},
 	          function(data) {
 	            if(data == 'correct') {
-	              $("#identifyCode_notice").html("验证码正确");
-				  	number_checked=1;
+				  numberchecked.style.background="url(../../data/images/studentregister/icon1.png) center left+120px no-repeat";
+				  identifyCode_notice.style.background="none";
+				  $("#identifyCode_notice").html("");
+				  number_checked=1;
 	            }else if(data == 'error') {
 	              $("#identifyCode_notice").html("验证码错误");
 				  identifyCode_notice.style.background="url(../../data/images/studentregister/icon3.png) center left no-repeat";
-				  	number_checked=0;
+				  numberchecked.style.background="none";
+				  	number_checked=4;
 	            }else if(data == 'timeout') {
 	              $("#identifyCode_notice").html("验证码已超时，请重新获取");
 				  identifyCode_notice.style.background="url(../../data/images/studentregister/icon3.png) center left no-repeat";
-				  number_checked=0;
+				  numberchecked.style.background="none";
+				  number_checked=2;
 	            }
 	          }
 	    );
 	  }else {
 	    //验证码长度不正确
 	    $("#identifyCode_notice").html("请输入4位验证码");
-		number_checked=0;
+		identifyCode_notice.style.background="url(../../data/images/studentregister/icon2.png) center left no-repeat";
+		numberchecked.style.background="none";
+		number_checked=3;
 	  }
 	}
 	var agreement = document.getElementById("agreement");
@@ -372,33 +391,125 @@
 		}
 	}
 	function register(){
-		if(userame_checked==0){
+		if(username_checked!=1){
+			var p = document.getElementById("username_notice");
 			user_name.style.border="2px solid #FFB392";
 			user_name.focus();
-			return false;
-		}else if(password_checked==0){
+			switch(username_checked){
+			case 3:
+				p.innerHTML="此用户名已被注册";
+				p.style.background="url(../../data/images/studentregister/icon3.png) center left no-repeat"
+				user_name.style.background="none";
+				break;
+			case 2:
+				p.innerHTML="用户名长度只能是3-20个字符！";
+				user_name.style.background="none";
+				p.style.background="url(../../data/images/studentregister/icon3.png) center left no-repeat";
+				break;
+			case 0:
+				p.innerHTML="请输入用户名！";
+				p.style.background="url(../../data/images/studentregister/icon3.png) center left no-repeat";
+				user_name.style.background="none";
+				break;
+			case 4:
+				p.innerHTML="用户名中含有非法字符，请重新输入！";
+				user_name.style.background="none";
+				p.style.background="url(../../data/images/studentregister/icon3.png) center left no-repeat";
+				break;
+			default:
+				break;
+			} 
+		}else if(password_checked!=1){
+			var p=document.getElementById("password_notice");
 			user_name.style.border="2px solid #d3d3d3";
 			password1.style.border="2px solid #FFB392";
 			password1.focus();
-			return false;
-		}else if(conform_password_checked==0){
+			switch(password_checked){
+			case 2:
+				p.innerHTML="密码长度不能少于6个字符！";
+				password1.style.background="none";
+				p.style.background="url(../../data/images/studentregister/icon3.png) center left no-repeat";
+				break;
+			case 0:
+				p.innerHTML="请输入密码！";
+				p.style.background="url(../../data/images/studentregister/icon3.png) center left no-repeat";
+				password1.style.background="none";
+				break;
+			default:
+				break;
+			}	
+		}else if(conform_password_checked!=1){
+			var p=document.getElementById("conform_password_notice");
 			password1.style.border="2px solid #d3d3d3";
 			conform_password.style.border="2px solid #FFB392";
 			conform_password.focus();
-			return false;
-		}else if(phone_number==0){
-			var mobileNumber=document.getElementById("mobileNumber");
+			switch(conform_password_checked){
+			case 2:
+				p.innerHTML="前后密码不一致！";
+				conform_password.style.background="none";
+				p.style.background="url(../../data/images/studentregister/icon3.png) center left no-repeat";
+				break;
+			case 0:
+				p.innerHTML="请再次输入密码！";
+				p.style.background="url(../../data/images/studentregister/icon3.png) center left no-repeat";
+				conform_password.style.background="none";
+				break;
+			default:
+				break;
+			}	
+		}else if(phone_number!=1){
+			var p = document.getElementById("Numbererror_notice");
 			conform_password.style.border="2px solid #d3d3d3";
-			mobileNumber.style.border="2px solid #FFB392";
-			mobileNumber.focus();
-			return false;
-		}else if(number_checked==0){
-			var mobileNumber=document.getElementById("mobileNumber");
-			var numberchecked=document.getElementById("numberchecked");
-			mobileNumber.style.border="2px solid #d3d3d3";
+			mobile_Number.style.border="2px solid #FFB392";
+			mobile_Number.focus();
+			switch(phone_number){
+			case 0:
+				p.innerHTML="请输入手机号码！";
+				mobile_Number.style.background="none";
+				p.style.background="url(../../data/images/studentregister/icon3.png) center left no-repeat";
+				break;
+			case 2:
+				p.innerHTML="手机号码不正确，请重新输入！";
+				p.style.background="url(../../data/images/studentregister/icon3.png) center left no-repeat";
+				mobile_Number.style.background="none";
+				break;
+			case 3:
+				p.innerHTML="此手机号码已经被注册！";
+				p.style.background="url(../../data/images/studentregister/icon3.png) center left no-repeat";
+				mobile_Number.style.background="none";
+				break;
+			default:
+				break;
+			}
+		}else if(number_checked!=1){
+			var p=document.getElementById("identifyCode_notice");
 			numberchecked.style.border="2px solid #FFB392";
+			mobile_Number.style.border="2px solid #d3d3d3";
 			numberchecked.focus();
-			return false;
+			switch(number_checked){
+			case 0:
+				p.innerHTML="请输入验证码";
+				numberchecked.style.background="none";
+				p.style.background="url(../../data/images/studentregister/icon3.png) center left no-repeat";
+				break;
+			case 2:
+				p.innerHTML="验证码已超时，请重新获取！";
+				p.style.background="url(../../data/images/studentregister/icon3.png) center left no-repeat";
+				numberchecked.style.background="none";
+				break;
+			case 3:
+				p.innerHTML="请输入4位验证码！....";
+				p.style.background="url(../../data/images/studentregister/icon3.png) center left no-repeat";
+				numberchecked.style.background="none";
+				break;
+			case 4:
+				p.innerHTML="验证码错误，请重新输入！";
+				p.style.background="url(../../data/images/studentregister/icon3.png) center left no-repeat";
+				numberchecked.style.background="none";
+				break;
+			default:
+				break;
+			}
 		}else if(checked==0){
 			var agreement_notice=document.getElementById("agreement_notice");
 			agreement_notice.innerHTML="请同意用户协议后再进行注册";
