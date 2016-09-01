@@ -339,7 +339,8 @@ h6 span{float:left; padding-left:15px; font-size:14px;}
 
 /*商品分类*/
 #category_tree{  }
-#category_tree .tit  {background:#E31436;height:32px;line-height: 32px;font-weight: normal;color: #fff;text-align: center;font-size: 14px;}
+#category_tree .tit  {background:#E31436;height:32px;line-height: 32px;font-weight: normal;text-align: center;font-size: 14px;}
+#category_tree .tit a{color:#FFF;}
 #category_tree dl{float:left; width:238px; border:1px solid #e6e6e6; position:relative; padding-bottom:5px; background:#FFF }
 #category_tree .dt{font-size:12px;position:relative; margin:0 20px; border-bottom:1px dotted #ccc; }
 #category_tree .dt .a{ color:#dd2727; font-family:"微软雅黑"; padding-left:20px; font-size:12px; font-weight:bold;  text-decoration:none; display:block; height:45px; line-height:48px;
@@ -348,21 +349,25 @@ h6 span{float:left; padding-left:15px; font-size:14px;}
 #category_tree .dt .t{ }
 #category_tree .dt .a:hover{  color:#dd2727}
 #category_tree .current .a{  color:#dd2727; width:238px; }
-#category_tree  .cate{ line-height:22px; font-weight:bold; padding:5px 20px;}
+#category_tree  .cate{ line-height:22px; font-weight:bold;}
 #category_tree  .cate .clearfix a{ font-weight:normal; float:left; width:100px; }
-#category_tree  .cate .sub-tree{padding-left: 70px;}
+#category_tree  .cate .sub-tree{text-align:left;}
+#category_tree  .cate .sub-tree li{padding-left:70px;}
 #category_tree  .cate .sub-tree div{padding-left: 10px;}
 #category_tree dd{padding:3px 10px 3px 10px; line-height:24px; position:absolute; left:216px; top:0 ; width:400px;   background:#fff }
 #category_tree dd .over_3{color:#666; text-decoration:none; padding-right:10px; float:left; width:90px;  }
 #category_tree dd .clearfix{ border-bottom:1px solid #e5e5e5; line-height:30px;}
 #category_tree dd .over_3:hover{color:#dd2727; text-decoration: underline;}
 #category_tree dd .over_2{ display:block; height:30px; line-height:30px; color:#666;font-weight:bold;}
-#category_tree .over_2:hover{color:#0D88E8;}
+/*点击分类树样式改变*/
+.num1{height:38px;line-height:38px;}
+.num1:hover{background-color:#F6F6F6;}
+.num2{height:30px;line-height:30px;}
+.num2:hover{background-color:#F6F6F6;}
 
 /*里页分类树*/
 #category_tree .cate h1{ font-size:12px; font-weight: bold; font-family:"微软雅黑"; height:35px; line-height:35px;border-top:1px solid #eee; width:30%; float:left; clear:both  }
 #category_tree .cate  .f_ll{ float:left; height:35px; line-height:35px; width:70%;border-top:1px solid #eee;}
-#category_tree .cate  .f_ll:hover{color:#0D88E8;}
 #category_tree .cate h1 a{ font-size:12px; color:#666 }
 #category_tree {   }
 .sale_box{  width:948px; float:right ; border:1px solid #e6e6e6; font-family:"微软雅黑";}

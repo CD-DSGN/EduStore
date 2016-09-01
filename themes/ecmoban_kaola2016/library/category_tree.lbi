@@ -1,16 +1,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <div id="category_tree">
-<div class="tit">所有商品分类</div>
+<div class="tit"><a href="category.php?id=1">所有商品分类</a></div>
 <dl class="clearfix" style=" overflow:hidden;" >
 <div class="box1 cate" id="cate">
   <!--{foreach from=$categories item=cat name=no}-->
-  <h1 onclick="tab({$smarty.foreach.no.index})"  <!-- {if $smarty.foreach.no.first} --> style="border-top:none" <!-- {/if} -->  >
-  <span class="f_l"><img src="images/btn_fold.gif" style="padding-top:10px;padding-right:6px;cursor:pointer;"></span>
+  <li class="num1"><h1 onclick="tab({$smarty.foreach.no.index})"  <!-- {if $smarty.foreach.no.first} --> style="border-top:none" <!-- {/if} -->  >
+  <span class="f_l"><img src="images/btn_fold.gif" style="padding-top:12px;padding-right:6px;padding-left:20px;cursor:pointer;"></span>
   </h1>
-  <a  <!-- {if $smarty.foreach.no.first} --> style="border-top:none" <!-- {/if} --> href="{$cat.url}" class="  f_ll" >{$cat.name|escape:html}</a>
+  <a  <!-- {if $smarty.foreach.no.first} --> style="border-top:none" <!-- {/if} --> href="{$cat.url}" class="  f_ll" >{$cat.name|escape:html}</a></li>
   <ul style="display:none" class="sub-tree">
     <!--{foreach from=$cat.cat_id item=child}-->
-    <a id="over_1" class="over_2" href="{$child.url}">{$child.name|escape:html}</a>
+    <li class="num2"><a id="over_1" class="over_2" href="{$child.url}">{$child.name|escape:html}</a></li>
     <div class="clearfix">
       <!--{foreach from=$child.cat_id item=childer}-->
       <a class="over_3" href="{$childer.url}">{$childer.name|escape:html}</a>
@@ -31,6 +31,7 @@ find=false;
 for(var i = 0;i<as.length;i++){
 	if(as[i].href.indexOf(pn)!=-1){
 		as[i].style.color="#0D88E8";
+		as[i].parentNode.style.background="#E5E5E5";
 		find = true;
 		break;
 		}
