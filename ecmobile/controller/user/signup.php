@@ -58,6 +58,11 @@ if (register($username, $password, $email, $other) === false) {
 	GZ_Api::outPut(11);
 }
 
+if( isset($_POST['phoneNumber'])) {
+    $phoneNumber = $_POST['phoneNumber'];
+    $sql = 'UPDATE '. $ecs->table('users') . "SET `mobile_phone` = '$phoneNumber' WHERE `user_id`='" . $_SESSION['user_id'] . "'";
+    $db->query($sql);
+}
 /*把新注册用户的扩展信息插入数据库*/
 $sql = 'SELECT id FROM ' . $ecs->table('reg_fields') . ' WHERE type = 0 AND display = 1 ORDER BY dis_order, id';   //读出所有自定义扩展字段的id
 $fields_arr = $db->getAll($sql);
