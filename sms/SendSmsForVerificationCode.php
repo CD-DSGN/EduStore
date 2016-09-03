@@ -79,7 +79,7 @@ class SendSmsForVerificationCode {
             // echo "smsMessageSid:".$smsmessage->smsMessageSid."<br/>";
             //TODO 添加成功处理逻辑
             $out = array(
-                'code' => strval($this->temp_verification_code)
+                'veri_code' => strval($this->temp_verification_code)
             );
             GZ_Api::outPut($out);
             

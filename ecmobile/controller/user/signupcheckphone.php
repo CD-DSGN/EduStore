@@ -18,11 +18,11 @@ $user_id_all=$db->getAll($sql);
 if(!empty($user_id_all)){
     GZ_Api::outPut(12);
 }else{
-//     $sendSms = new SendSmsForVerificationCode($phone_num, $time);
-//     $sendSms->sendSmsForVeriCode();
-    $out = array(
-        'veri_code' => '888888'
-    );
-    GZ_Api::outPut($out);
+    $sendSms = new SendSmsForVerificationCode($phone_num, $time);
+    $sendSms->sendSmsForVeriCode();
+//     $out = array(
+//         'veri_code' => '888888'
+//     );
+//     GZ_Api::outPut($out);
 }
 
