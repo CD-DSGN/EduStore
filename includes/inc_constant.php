@@ -157,6 +157,12 @@ define('GAT_PACKAGE',               4); // 超值礼包
 define('ACT_SAVING',                0);     // 帐户冲值
 define('ACT_DRAWING',               1);     // 帐户提款
 define('ACT_ADJUSTING',             2);     // 调节帐户
+
+//begin zhangmengqi
+define('ACT_AFFILIATE_TEACHER_INTEGRAL',    3);  //推荐获得的教师积分
+define('ACT_SUBSCRIPTION_TEACHER_INTEGRAL',    4);  // 学生购买获得的教师积分
+//end zhangmengqi
+
 define('ACT_OTHER',                99);     // 其他类型
 
 /* 密码加密方法 */

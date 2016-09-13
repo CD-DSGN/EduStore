@@ -26,63 +26,64 @@
  *  Mail:       info@geek-zoo.com
  */
 
+
 function GZ_user_info($user_id)
 {
-	global $db,$ecs;
+    global $db,$ecs;
 
-	$user_info = user_info($user_id);
+    $user_info = user_info($user_id);
 
-	$collection_num = $db->getOne("SELECT COUNT(*) FROM " .$ecs->table('collect_goods')." WHERE user_id='$user_id' ORDER BY add_time DESC");
-	
-	$await_pay = $db->getOne("SELECT COUNT(*) FROM " .$ecs->table('order_info'). " WHERE user_id = '$user_id'". GZ_order_query_sql('await_pay'));
-	$await_ship = $db->getOne("SELECT COUNT(*) FROM " .$ecs->table('order_info'). " WHERE user_id = '$user_id'". GZ_order_query_sql('await_ship'));
-	$shipped = $db->getOne("SELECT COUNT(*) FROM " .$ecs->table('order_info'). " WHERE user_id = '$user_id'". GZ_order_query_sql('shipped'));
-	$finished = $db->getOne("SELECT COUNT(*) FROM " .$ecs->table('order_info'). " WHERE user_id = '$user_id'". GZ_order_query_sql('finished'));
-	
-	// include_once(ROOT_PATH .'includes/lib_clips.php');
-	// $rank = get_rank_info();
-	// print_r($rank);exit;
+    $collection_num = $db->getOne("SELECT COUNT(*) FROM " .$ecs->table('collect_goods')." WHERE user_id='$user_id' ORDER BY add_time DESC");
 
-	/* 取得用户等级 */
-	if ($user_info['user_rank'] == 0) {
-		// 非特殊等级，根据等级积分计算用户等级（注意：不包括特殊等级）
-		$sql = 'SELECT rank_id, rank_name FROM ' . $GLOBALS['ecs']->table('user_rank') . " WHERE special_rank = '0' AND min_points <= " . intval($user_info['rank_points']) . ' AND max_points > ' . intval($user_info['rank_points']);
-	} else {
-		// 特殊等级
-		$sql = 'SELECT rank_id, rank_name FROM ' . $GLOBALS['ecs']->table('user_rank') . " WHERE rank_id = '$user_info[user_rank]'";
-	}
+    $await_pay = $db->getOne("SELECT COUNT(*) FROM " .$ecs->table('order_info'). " WHERE user_id = '$user_id'". GZ_order_query_sql('await_pay'));
+    $await_ship = $db->getOne("SELECT COUNT(*) FROM " .$ecs->table('order_info'). " WHERE user_id = '$user_id'". GZ_order_query_sql('await_ship'));
+    $shipped = $db->getOne("SELECT COUNT(*) FROM " .$ecs->table('order_info'). " WHERE user_id = '$user_id'". GZ_order_query_sql('shipped'));
+    $finished = $db->getOne("SELECT COUNT(*) FROM " .$ecs->table('order_info'). " WHERE user_id = '$user_id'". GZ_order_query_sql('finished'));
 
-	if ($row = $GLOBALS['db']->getRow($sql)) {
+    // include_once(ROOT_PATH .'includes/lib_clips.php');
+    // $rank = get_rank_info();
+    // print_r($rank);exit;
+
+    /* 取得用户等级 */
+    if ($user_info['user_rank'] == 0) {
+        // 非特殊等级，根据等级积分计算用户等级（注意：不包括特殊等级）
+        $sql = 'SELECT rank_id, rank_name FROM ' . $GLOBALS['ecs']->table('user_rank') . " WHERE special_rank = '0' AND min_points <= " . intval($user_info['rank_points']) . ' AND max_points > ' . intval($user_info['rank_points']);
+    } else {
+        // 特殊等级
+        $sql = 'SELECT rank_id, rank_name FROM ' . $GLOBALS['ecs']->table('user_rank') . " WHERE rank_id = '$user_info[user_rank]'";
+    }
+
+    if ($row = $GLOBALS['db']->getRow($sql)) {
         $user_info['user_rank_name']=$row['rank_name'];
     } else {
         $user_info['user_rank_name']='非特殊等级';
-    } 
+    }
 
     $sql = 'SELECT * FROM ' . $GLOBALS['ecs']->table('user_rank') . " WHERE special_rank = '0' AND min_points = '0'";
     $row = $GLOBALS['db']->getRow($sql);
 
     if ($user_info['user_rank_name'] == $row['rank_name']) {
-    	$level = 0;
+        $level = 0;
     } else {
-    	$level = 1;
+        $level = 1;
     }
 
-	return array(
-		'id' => $user_info['user_id'],
-		'name'=>$user_info['user_name'],
-		'rank_name'=>$user_info['user_rank_name'],
-		'rank_level' => $level,
-		'collection_num' => $collection_num,
+    return array(
+        'id' => $user_info['user_id'],
+        'name'=>$user_info['user_name'],
+        'rank_name'=>$user_info['user_rank_name'],
+        'rank_level' => $level,
+        'collection_num' => $collection_num,
         'email' => $user_info['email'],
-		"order_num" => array(
-			'await_pay' => $await_pay,
-			'await_ship' => $await_ship,
-			'shipped' => $shipped,
-			'finished' =>$finished
-		)
-	);
+        "order_num" => array(
+            'await_pay' => $await_pay,
+            'await_ship' => $await_ship,
+            'shipped' => $shipped,
+            'finished' =>$finished
+        ),
+        "is_teacher" => $user_info['is_teacher']
+    );
 }
-
 /**
  * 生成查询订单的sql
  * @param   string  $type   类型
@@ -284,6 +285,7 @@ function API_DATA($type, $readData)
 				)
 			);
 			break;
+
 		case 'ADDRESS':
 			$outData = array(
 				"id"       => 15,

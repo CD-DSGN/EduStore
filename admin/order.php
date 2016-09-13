@@ -869,7 +869,7 @@ elseif ($_REQUEST['act'] == 'delivery_ship')
 
             if($integral_arr){
                 foreach ($integral_arr as $user_id => $teacher_integral) {
-                    log_account_change($user_id, 0, 0, 0, 0, sprintf($_LANG['order_gift_teacher_integral'], $order['order_sn']),ACT_OTHER,$teacher_integral);
+                    log_account_change($user_id, 0, 0, 0, 0, sprintf($_LANG['order_gift_teacher_integral'], $order['order_sn']),ACT_SUBSCRIPTION_TEACHER_INTEGRAL,$teacher_integral);
                 }
 
             }
@@ -1042,7 +1042,7 @@ elseif ($_REQUEST['act'] == 'delivery_cancel_ship')
             $integral_arr = teacher_integral_to_give($order);
             if($integral_arr){
                 foreach ($integral_arr as $user_id => $teacher_integral) {
-                    log_account_change($user_id, 0, 0, 0, 0, sprintf($_LANG['return_order_gift_teacher_integral'], $order['order_sn']), ACT_OTHER, -$teacher_integral);
+                    log_account_change($user_id, 0, 0, 0, 0, sprintf($_LANG['return_order_gift_teacher_integral'], $order['order_sn']), ACT_SUBSCRIPTION_TEACHER_INTEGRAL, -$teacher_integral);
                 }
             }
 
@@ -3911,7 +3911,7 @@ elseif ($_REQUEST['act'] == 'operate_post')
             $integral_arr = teacher_integral_to_give($order);
             if($integral_arr){
                 foreach ($integral_arr as $user_id => $teacher_integral) {
-                    log_account_change($user_id, 0, 0, 0, 0, sprintf($_LANG['return_order_gift_teacher_integral'], $order['order_sn']), ACT_OTHER, -$teacher_integral);
+                    log_account_change($user_id, 0, 0, 0, 0, sprintf($_LANG['return_order_gift_teacher_integral'], $order['order_sn']), ACT_SUBSCRIPTION_TEACHER_INTEGRAL, -$teacher_integral);
                 }
             }
 
@@ -4093,7 +4093,7 @@ elseif ($_REQUEST['act'] == 'operate_post')
                 $integral_arr = teacher_integral_to_give($order);
                 if($integral_arr){
                     foreach ($integral_arr as $user_id => $teacher_integral) {
-                        log_account_change($user_id, 0, 0, 0, 0, sprintf($_LANG['return_order_gift_teacher_integral'], $order['order_sn']), ACT_OTHER, -$teacher_integral);
+                        log_account_change($user_id, 0, 0, 0, 0, sprintf($_LANG['return_order_gift_teacher_integral'], $order['order_sn']), ACT_SUBSCRIPTION_TEACHER_INTEGRAL, -$teacher_integral);
                     }
                 }
                 give_integral_to_affiliate_teacher($integral_arr,$order,-1);  //退回因为推荐获得的分成
@@ -6443,7 +6443,7 @@ function give_integral_to_affiliate_teacher($integral_arr, $order, $give){
                 break;
             } else {
                 $info = sprintf($_LANG['separate_info_teacher'], $pre_user_id, $order_sn, 0, 0, $set_teacher_point);
-                log_account_change($up_uid, 0, 0, 0, 0, $info, ACT_OTHER, $set_teacher_point);
+                log_account_change($up_uid, 0, 0, 0, 0, $info, ACT_AFFILIATE_TEACHER_INTEGRAL, $set_teacher_point);
                 write_separate_log($oid, $up_uid, $row['user_name'], 0, 0, 0, $set_teacher_point); //只有按注册分配
             }
         }
@@ -6462,7 +6462,7 @@ function roll_back_affiliate($oid, $_LANG, $order_sn)
     foreach ($res as $log_info) {
         $set_teacher_point = $log_info['teacher_integral'];
         $info = sprintf($_LANG['return_separate_info_teacher'], $order_sn, 0, 0, -$set_teacher_point);
-        log_account_change($log_info['user_id'], 0, 0, 0, 0, $info, ACT_OTHER, -$set_teacher_point);
+        log_account_change($log_info['user_id'], 0, 0, 0, 0, $info, ACT_AFFILIATE_TEACHER_INTEGRAL, -$set_teacher_point);
         rollBack_separate_log($oid, $log_info['user_id'], -2);
     }
     return;
