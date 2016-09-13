@@ -151,17 +151,18 @@ if (!$smarty->is_cached('index.dwt', $cache_id))
     {
         $cat_rec_array = array();
         foreach($cat_recommend_res as $cat_recommend_data)
-        {
+        {   
             $cat_rec[$cat_recommend_data['recommend_type']][] = array('cat_id' => $cat_recommend_data['cat_id'], 'cat_name' => $cat_recommend_data['cat_name']);
+            
         }
         $smarty->assign('cat_rec', $cat_rec);
+        
     }
-
     /* 页面中的动态内容 */
     assign_dynamic('index');
 }
-
 $smarty->display('index.dwt', $cache_id);
+$i=0;
 
 /*------------------------------------------------------ */
 //-- PRIVATE FUNCTIONS

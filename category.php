@@ -392,7 +392,7 @@ if (!$smarty->is_cached('category.dwt', $cache_id))
         }
     }
     $smarty->assign('goods_list',       $goodslist);
-    $smarty->assign('category',         $cat_id);
+     $smarty->assign('category',         $cat_id);
     $smarty->assign('script_name', 'category');
 
     assign_pager('category',            $cat_id, $count, $size, $sort, $order, $page, '', $brand, $price_min, $price_max, $display, $filter_attr_str); // 分页

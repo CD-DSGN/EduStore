@@ -14,8 +14,8 @@ Logo filename: logo.gif
 body{font-family:"Microsoft YaHei",Arial;font: 12px/1.5 arial;color: #666; margin: 0; padding:0; background: #f6f6f6;}
 div{margin:0 auto; padding:0;}
 h1,h2,h3,h4,h5,h6,ul,li,dl,dt,dd,form,img,p{margin:0; padding:0; border:none; list-style-type:none;}
-.block{width:1200px;  margin:0 auto; position: relative;}
-.index_body .block{width:1200px;   margin:0 auto;}
+.block{width:1210px;  margin:0 auto; position: relative;}
+.index_body .block{width:1210px;   margin:0 auto;}
 .table td,.table th{ padding:5px;}
 .f_l{float:left;}
 .f_r{float:right;}
@@ -81,7 +81,7 @@ h6 span{float:left; padding-left:15px; font-size:14px;}
 .blank{height:15px; line-height:15px; clear:both; visibility:hidden;}
 .blank5{height:5px; line-height:5px;/* _margin:-3px 0;e c m o b a n*/ clear:both; visibility:hidden;}
 /*布局*/
-.AreaL{width:240px; float:left; }
+.AreaL{width:240px; float:left; margin-right:10px;}
 .index_page .AreaL{ background:#FFF}
 .AreaR{width:944px; float:right;  }
 .indexw_content {width: 100%;height: auto;overflow: hidden; padding-top:15px;}
@@ -444,9 +444,10 @@ _padding:12px 0px 0px 0px;}
 .goodsBox  .goodsItem .goodsimg  { width:200px; height:200px; }
 .goodsItem .goodsimg { width:220px;}
 .goodsItem{ float: left; font-size: 12px; margin: 0 15px 15px 0; width: 223px; border: 1px solid #f2f2f2; background: #fff;}
-.goodsItem:hover{border: 1px solid #bc0000;
+.goodsItem:hover{border: 1px solid #ooo;
     transition: border-color .2s;
-    -webkit-transition: border-color .2s;}
+    -webkit-transition: border-color .2s;
+	box-shadow: 0 0 1px;}
 .goodsItem .goodsimg{width: 219px; height: 219px;}
 .goodsItem .name a{ height: 30px; line-height: 27px;  overflow: hidden; color: #000; display: block; padding-left: 5px;}
 .goodsItem .info{ height: 45px; padding: 5px; line-height: 30px;}
@@ -475,9 +476,11 @@ _padding:12px 0px 0px 0px;}
  /*商品分类*/
 .xm-box{margin: 20px 0 0; font-family: "microsoft yahei";}
 .xm-box .title{ position: relative; height: 40px; }
-.xm-box .title em{ color: #333; line-height: 50px; font-size: 22px; font-weight: 700; font-style: normal;}
-.xm-box .title .more{ float: right; line-height: 50px; padding-right: 20px;}
+.xm-box .title em{ color: #333; line-height: 50px; font-size: 20px; font-weight: 650; font-style: normal;}
+.xm-box .title .more{ float: right; line-height: 50px; padding-right: 30px;}
+.xm-box .title .more1{ float: right; line-height: 50px; padding-right: 20px;}
 .xm-box .title .more:hover {text-decoration: underline;}
+.xm-box .title .more1:hover {text-decoration: underline;}
 .xm-box .body{ padding: 14px 0 0 0;  height: 325px;}
 .top_nav .header_r{ color:#cbcbcb; float:right; color:#818181}
 .top_nav a{ color:#616161; padding:0 3px;}
