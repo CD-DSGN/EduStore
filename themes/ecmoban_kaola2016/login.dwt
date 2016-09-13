@@ -37,9 +37,8 @@
         <script src="./themes/ecmoban_kaola2016/assets/js/supersized-init.js"></script>
         <script src="./themes/ecmoban_kaola2016/assets/js/scripts.js"></script>
         <!-- <script src="../../js/user.js"></script>-->
-        <div class="reg_and_fpw"><a href="">注册帐号</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="user.php?act=phoneAndMessageCode">忘记密码</a></div>
-        
-        
+        <div class="reg_and_fpw"><a href="themes/ecmoban_kaola2016/student_register.html">学生注册</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="teacher_register.html">教师注册</a></div>
+        <div class="reg_and_fpw"><a href="user.php?act=phoneAndMessageCode">忘记密码</a></div>
         <div class="footer-copyright">
         <div class="container">
             <!-- {if $navigator_list.bottom} --> 
