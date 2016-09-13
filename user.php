@@ -175,7 +175,6 @@ elseif($action == 'check_mobile_phone')
 //begin nahuanjie, AJAX 处理，判断当前手机验证码是否正确
 elseif($action == 'check_identifyCode')
 {
-
     if(isset($_POST['code'])){
         if(isset($_COOKIE['identifyCode'])){
             $identifyCode = $_COOKIE['identifyCode'];
