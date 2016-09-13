@@ -1,0 +1,8 @@
+﻿ecmobile相关alipay文件说明
+ecmobile/respond.php 接口回调文件
+ecmobile/readme.txt alipay文件说明
+ecmobile/cacert.pem alipay包
+ecmobile/alipay.config.php 配置地址
+
+ecmobile/key/public_key.pem 公钥
+ecmobile/key/private_key.pem 密钥
