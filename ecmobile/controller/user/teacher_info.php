@@ -9,7 +9,7 @@
 
 define('INIT_NO_USERS', true);
 require(EC_PATH . '/includes/init.php');
-require_once(EC_PATH . '/Utils.php');
+//require_once(EC_PATH . '/Utils.php');
 
 GZ_Api::authSession();
 $user_id = GZ_Api::$session['uid'];
@@ -37,7 +37,7 @@ if ($res) {
 
 $affiliate_change_type = ACT_SUBSCRIPTION_TEACHER_INTEGRAL;
 $sql = 'select sum(`teacher_integral`) from ' . $ecs->table('account_log').  " where `user_id` = '$user_id' and  `change_type` = $affiliate_change_type";
-putString($sql);
+//putString($sql);
 $res = $db->getOne($sql);
 
 if ($res) {
