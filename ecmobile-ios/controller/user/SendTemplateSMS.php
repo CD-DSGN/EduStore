@@ -98,10 +98,10 @@ function sendIdentifyCode()
     sendTemplateSMS($phone, array($randomIdentifyCode,'5'),"1",$randomIdentifyCode);
 }
     $identifyCode = rand(1000,9999);
-    // $out = array(
-    //         'identifyCode' => $identifyCode
-    //     );
-    // GZ_Api::outPut($out);
+    $out = array(
+            'identifyCode' => $identifyCode
+        );
+    GZ_Api::outPut($out);
 sendIdentifyCode();
 /*end nahuanjie*/
 ?>
