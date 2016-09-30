@@ -30,7 +30,7 @@ var as = document.getElementById("cate").getElementsByTagName("a");
 find=false;
 for(var i = 0;i<as.length;i++){
 	if(as[i].href.indexOf(pn)!=-1){
-		as[i].style.color="#0D88E8";
+		as[i].style.color="#1F6299";
 		as[i].parentNode.style.background="#E5E5E5";
 		find = true;
 		break;

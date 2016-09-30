@@ -686,10 +686,11 @@ function user_list()
             $filter['keywords'] = json_str_iconv($filter['keywords']);
         }
         $filter['rank'] = empty($_REQUEST['rank']) ? 0 : intval($_REQUEST['rank']);
+        $filter['users'] = empty($_REQUEST['users']) ? 0 : intval($_REQUEST['users']);
         $filter['pay_points_gt'] = empty($_REQUEST['pay_points_gt']) ? 0 : intval($_REQUEST['pay_points_gt']);
         $filter['pay_points_lt'] = empty($_REQUEST['pay_points_lt']) ? 0 : intval($_REQUEST['pay_points_lt']);
 
-        $filter['sort_by']    = empty($_REQUEST['sort_by'])    ? 'user_id' : trim($_REQUEST['sort_by']);
+        $filter['sort_by']    = empty($_REQUEST['sort_by'])    ? 'teacher_integral' : trim($_REQUEST['sort_by']);
         $filter['sort_order'] = empty($_REQUEST['sort_order']) ? 'DESC'     : trim($_REQUEST['sort_order']);
 
         $ex_where = ' WHERE 1 ';
@@ -711,6 +712,17 @@ function user_list()
                 $ex_where .= " AND rank_points >= " . intval($row['min_points']) . " AND rank_points < " . intval($row['max_points']);
             }
         }
+        /*增加会员分类的判断*/
+        if ($filter['users'])
+        {
+            if($filter['users']==1){
+                $ex_where .=" AND is_teacher = 1";
+            }
+            else if($filter['users']==2){
+                $ex_where .=" AND is_teacher = 0";
+            }
+        }
+        /*end*/
         if ($filter['pay_points_gt'])
         {
              $ex_where .=" AND pay_points >= '$filter[pay_points_gt]' ";
@@ -719,12 +731,21 @@ function user_list()
         {
             $ex_where .=" AND pay_points < '$filter[pay_points_lt]' ";
         }
-
+        /*增加汇师积分升序、降序排列的判断*/
+        if ($filter['sort_order']){
+            if($filter['sort_order']==1){
+                $filter['sort_order']='DESC';
+            }
+            else if($filter['sort_order']==0){
+                $filter['sort_order']='ASC';
+            }
+        }
+        /*end*/
         $filter['record_count'] = $GLOBALS['db']->getOne("SELECT COUNT(*) FROM " . $GLOBALS['ecs']->table('users') . $ex_where);
 
         /* 分页大小 */
         $filter = page_and_size($filter);
-        $sql = "SELECT user_id, user_name, email, is_validated, user_money, frozen_money, rank_points, pay_points, reg_time ".
+        $sql = "SELECT user_id, user_name, email, is_validated, teacher_integral, user_money, frozen_money, rank_points, pay_points, reg_time ".
                 " FROM " . $GLOBALS['ecs']->table('users') . $ex_where .
                 " ORDER by " . $filter['sort_by'] . ' ' . $filter['sort_order'] .
                 " LIMIT " . $filter['start'] . ',' . $filter['page_size'];
