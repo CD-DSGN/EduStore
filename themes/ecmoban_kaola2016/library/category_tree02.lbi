@@ -1,20 +1,19 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <div id="category_tree">
-<div class="tit"><a href="category.php?id=1">所有商品分类</a></div>
+<div class="tit"><a href="file:///D|/wamp/www/EduStore/themes/ecmoban_kaola2016/library/category.php?id=1">所有商品分类</a></div>
 <dl class="clearfix" style=" overflow:hidden;" >
 <div class="box1 cate" id="cate">
   <!--{foreach from=$categories item=cat name=no}-->
-  <li class="num1" {if $cat.id eq $category}style="background:#E5E5E5"{/if}><h1 onclick="tab({$smarty.foreach.no.index})"  <!-- {if $smarty.foreach.no.first} --> style="border-top:none" <!-- {/if} -->  >
+  <li class="num1" {if $goods.cat_id eq $cat.id}style="background:#E5E5E5"{/if}><h1 onclick="tab({$smarty.foreach.no.index})"  <!-- {if $smarty.foreach.no.first} --> style="border-top:none" <!-- {/if} -->  >
   <span class="f_l"><img src="images/btn_fold.gif" style="padding-top:12px;padding-right:6px;padding-left:20px;cursor:pointer;"></span>
   </h1>
-  <a href="{$cat.url}" {if $cat.id eq $category}style="color:#FF6825"{/if}class="f_ll" >{$cat.name|escape:html}</a></li>
+  <a href="{$cat.url}" {if $goods.cat_id eq $cat.id}style="color:#FF6825"{/if}class="f_ll" >{$cat.name|escape:html}</a></li>
   <ul style="display:none" class="sub-tree">
     <!--{foreach from=$cat.cat_id item=child}-->
     <li class="num2"><a id="over_1" class="over_2" href="{$child.url}" {if $child.id eq $category}style="color:#1F6299"{/if}>{$child.name|escape:html}</a></li>
     <div class="clearfix">
       <!--{foreach from=$child.cat_id item=childer}-->
-	  <!--注释掉三级目录的获取-->
-      <!--<a class="over_3" href="{$childer.url}" {if $childer.id eq $category}style="color:#1F6299"{/if}>{$childer.name|escape:html}</a>-->
+      <a class="over_3" href="{$childer.url}" {if $childer.id eq $category}style="color:#1F6299"{/if}>{$childer.name|escape:html}</a>
       <!--{/foreach}-->
     </div>
     <!--{/foreach}-->

@@ -365,8 +365,8 @@ h6 span{float:left; padding-left:15px; font-size:14px;}
 .num2:hover{background-color:#F6F6F6;}
 
 /*里页分类树*/
-#category_tree .cate h1{ font-size:12px; font-weight: bold; font-family:"微软雅黑"; height:35px; line-height:35px;border-top:1px solid #eee; width:30%; float:left; clear:both  }
-#category_tree .cate  .f_ll{ float:left; height:35px; line-height:35px; width:70%;border-top:1px solid #eee;}
+#category_tree .cate h1{ font-size:12px; font-weight: bold; font-family:"微软雅黑"; height:35px; line-height:35px;width:30%; float:left; clear:both  }
+#category_tree .cate  .f_ll{ float:left; height:38px; line-height:38px; width:70%;}
 #category_tree .cate h1 a{ font-size:12px; color:#666 }
 #category_tree {   }
 .sale_box{  width:948px; float:right ; border:1px solid #e6e6e6; font-family:"微软雅黑";}

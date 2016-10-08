@@ -51,7 +51,7 @@ function reg(str){
   <!--left start-->
   <div class="AreaL">
     <!-- TemplateBeginEditable name="左边区域" -->
-<!-- #BeginLibraryItem "/library/category_tree.lbi" -->
+<!-- #BeginLibraryItem "/library/category_tree02.lbi" -->
 
 
   <div id="category_tree">
