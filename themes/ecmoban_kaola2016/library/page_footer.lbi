@@ -21,7 +21,7 @@
         <!-- {/if} -->
         <!-- {/foreach} -->
         <dl class="qr-code">
-            <dt><span class="on">ECjia</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>ECtouch</span></dt>
+            <dt><span class="on">Android</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>iOS</span></dt>
             <dd>
                 <img src="../images/ECJia_code.png" alt="">
                 <img class="none" src="../images/ECtouch_code.png">
