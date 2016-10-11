@@ -38,7 +38,14 @@ function GZ_user_info($user_id)
 	$await_ship = $db->getOne("SELECT COUNT(*) FROM " .$ecs->table('order_info'). " WHERE user_id = '$user_id'". GZ_order_query_sql('await_ship'));
 	$shipped = $db->getOne("SELECT COUNT(*) FROM " .$ecs->table('order_info'). " WHERE user_id = '$user_id'". GZ_order_query_sql('shipped'));
 	$finished = $db->getOne("SELECT COUNT(*) FROM " .$ecs->table('order_info'). " WHERE user_id = '$user_id'". GZ_order_query_sql('finished'));
-	
+
+	$sql = "SELECT is_teacher FROM ". $ecs->table('users') ."WHERE `user_id` = '". $user_id ."'";
+	$res = $db->getAll($sql);
+	if ( is_array($res) ) {
+		foreach ($res as $key => $value) {
+			$is_teacher = $value['is_teacher'];		
+		}	
+	}
 	// include_once(ROOT_PATH .'includes/lib_clips.php');
 	// $rank = get_rank_info();
 	// print_r($rank);exit;
@@ -71,6 +78,7 @@ function GZ_user_info($user_id)
 		'id' => $user_info['user_id'],
 		'name'=>$user_info['user_name'],
 		'rank_name'=>$user_info['user_rank_name'],
+		'is_teacher'=>$is_teacher,
 		'rank_level' => $level,
 		'collection_num' => $collection_num,
         'email' => $user_info['email'],

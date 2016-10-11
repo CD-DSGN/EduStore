@@ -193,7 +193,7 @@ elseif($action == 'check_identifyCode')
             exit();
         }
     } 
-} 
+}
 //end nahuanjie
 //begin zhangmengqi
 elseif($action == 'register_teacher')

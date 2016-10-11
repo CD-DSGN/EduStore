@@ -162,7 +162,6 @@ if (!$smarty->is_cached('index.dwt', $cache_id))
     assign_dynamic('index');
 }
 $smarty->display('index.dwt', $cache_id);
-$i=0;
 
 /*------------------------------------------------------ */
 //-- PRIVATE FUNCTIONS

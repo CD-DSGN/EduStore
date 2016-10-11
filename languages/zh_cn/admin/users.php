@@ -41,6 +41,8 @@ $_LANG['birthday'] = '出生日期';
 $_LANG['sex'][0] = '保密';
 $_LANG['sex'][1] = '男';
 $_LANG['sex'][2] = '女';
+//增加汇师积分 by dangxiaohui；
+$_LANG['teacher_integral'] = '汇师积分';
 $_LANG['pay_points'] = '消费积分';
 $_LANG['rank_points'] = '等级积分';
 $_LANG['user_money'] = '可用资金';

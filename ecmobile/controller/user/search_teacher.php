@@ -15,7 +15,7 @@ $_REQUEST['page'] = GZ_Api::$pagination['page'];
 $page = !empty($_REQUEST['page']) && intval($_REQUEST['page']) > 0 ? intval($_REQUEST['page']) : 1;
 $size = !empty($_REQUEST['page_size']) && intval($_REQUEST['page_size']) > 0 ? intval($_REQUEST['page_size']) : 10;
 
-$sql = 'SELECT count(*) FROM ' . $ecs->table('teachers') . " WHERE `school` LIKE '%$keywords%' or `real_name` LIKE '%$keywords%' AND `course_id` = $course_id";
+$sql = 'SELECT count(*) FROM ' . $ecs->table('teachers') . " WHERE (`school` LIKE '%$keywords%' or `real_name` LIKE '%$keywords%') AND `course_id` = $course_id";
 $count = $db->getOne($sql);
 
 $max_page = ($count > 0) ? ceil($count / $size) : 1;
@@ -27,8 +27,8 @@ if ($page > $max_page) {
 //$sql = 'SELECT t.*, c.course_name FROM ' . $ecs->table('teachers') . "as t join" . $ecs->table('courses') . " as c on t.course_id=c.course_id
 //WHERE `school` LIKE '%$keywords%' or `real_name` LIKE '%$keywords%' ";
 
-$sql = 'SELECT * FROM ' . $ecs->table('teachers') . "  WHERE `school` 
-LIKE '%$keywords%' or `real_name` LIKE '%$keywords%' AND `course_id`=$course_id";
+$sql = 'SELECT * FROM ' . $ecs->table('teachers') . "  WHERE (`school` 
+LIKE '%$keywords%' or `real_name` LIKE '%$keywords%') AND `course_id`=$course_id";
 
 $res = $db->selectLimit($sql, $size, ($page - 1) * $size);
 
