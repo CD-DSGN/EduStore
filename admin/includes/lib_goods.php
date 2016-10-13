@@ -29,6 +29,7 @@ function get_intro_list()
         'is_new'     => $GLOBALS['_LANG']['is_new'],
         'is_hot'     => $GLOBALS['_LANG']['is_hot'],
         'is_promote' => $GLOBALS['_LANG']['is_promote'],
+        'is_presell' => '预售',
         'all_type' => $GLOBALS['_LANG']['all_type'],
     );
 }
@@ -854,6 +855,9 @@ function goods_list($is_delete, $real_goods=1, $conditions = '')
             case 'is_promote':
                 $where .= " AND is_promote = 1 AND promote_price > 0 AND promote_start_date <= '$today' AND promote_end_date >= '$today'";
                 break;
+            case 'is_presell':
+                $where .= ' AND is_presell=1';
+                break;
             case 'all_type';
                 $where .= " AND (is_best=1 OR is_hot=1 OR is_new=1 OR (is_promote = 1 AND promote_price > 0 AND promote_start_date <= '" . $today . "' AND promote_end_date >= '" . $today . "'))";
         }
@@ -908,7 +912,7 @@ function goods_list($is_delete, $real_goods=1, $conditions = '')
         /* 分页大小 */
         $filter = page_and_size($filter);
 
-        $sql = "SELECT goods_id, goods_name, goods_type, goods_sn, shop_price, is_on_sale, is_best, is_new, is_hot, sort_order, goods_number, integral, " .
+        $sql = "SELECT goods_id, goods_name, goods_type, goods_sn, shop_price, is_on_sale, is_best, is_new, is_hot, is_presell, presell_shipping_time, sort_order, goods_number, integral, " .
                     " (promote_price > 0 AND promote_start_date <= '$today' AND promote_end_date >= '$today') AS is_promote ".
                     " FROM " . $GLOBALS['ecs']->table('goods') . " AS g WHERE is_delete='$is_delete' $where" .
                     " ORDER BY $filter[sort_by] $filter[sort_order] ".
@@ -923,6 +927,12 @@ function goods_list($is_delete, $real_goods=1, $conditions = '')
         $filter = $result['filter'];
     }
     $row = $GLOBALS['db']->getAll($sql);
+    foreach ($row as $key => $value) {
+        if($value['is_presell'] == '1')
+        {
+             $row[$key]['presell_shipping_time'] = local_date('Y-m-d', $value['presell_shipping_time']);
+        }   
+    }
 
     return array('goods' => $row, 'filter' => $filter, 'page_count' => $filter['page_count'], 'record_count' => $filter['record_count']);
 }

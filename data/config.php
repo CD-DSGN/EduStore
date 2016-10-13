@@ -9,7 +9,7 @@ $db_name   = "test";
 $db_user   = "root";
 
 // database password
-$db_pass   = "";
+$db_pass   = "111111";
 
 // table prefix
 $prefix    = "ecs_";
