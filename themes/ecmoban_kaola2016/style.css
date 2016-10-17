@@ -286,7 +286,7 @@ h6 span{float:left; padding-left:15px; font-size:14px;}
 
 /*页面底部*/
 .footer{border-top: 1px solid #D1D7DC; clear: both; margin: 0; text-align: center; background: #FFF; position: relative; font-family: "Microsoft YaHei";}
-.footer-ensure{width: 1190px; height: 100px; background: url('images/footer_ensure.jpg') no-repeat; margin: 25px auto; padding: 0;}
+.footer-ensure{width: 1190px; height: 100px; background: url('images/footer_ensure.png') no-repeat; margin: 25px auto; padding: 0;}
 .footer-ensure a{float: left; display: block; width: 297px; height: 100px; text-indent: -1000em;}
 .footer-desc{width: 1190px; padding-top: 22px; height: 190px; margin: auto; border-top: 1px solid #EDEDED; }
 .footer-desc dl{float: left; width: 150px; padding-left: 47px;}

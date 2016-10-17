@@ -4922,6 +4922,8 @@ function order_list()
         $filter['user_name'] = empty($_REQUEST['user_name']) ? '' : trim($_REQUEST['user_name']);
         $filter['composite_status'] = isset($_REQUEST['composite_status']) ? intval($_REQUEST['composite_status']) : -1;
         $filter['group_buy_id'] = isset($_REQUEST['group_buy_id']) ? intval($_REQUEST['group_buy_id']) : 0;
+        $filter['is_presell'] = isset($_REQUEST['is_presell']) ? intval($_REQUEST['is_presell']) : 2;
+        // $filter['presell_shipping_time'] = isset($_REQUEST['presell_shipping_time']) ? intval($_REQUEST['presell_shipping_time']) : 0;
 
         $filter['sort_by'] = empty($_REQUEST['sort_by']) ? 'add_time' : trim($_REQUEST['sort_by']);
         $filter['sort_order'] = empty($_REQUEST['sort_order']) ? 'DESC' : trim($_REQUEST['sort_order']);
@@ -5010,6 +5012,15 @@ function order_list()
         {
             $where .= " AND o.add_time <= '$filter[end_time]'";
         }
+        // 0：非预售商品，1：预售商品，2：无约束
+        if ($filter['is_presell'] == 0)
+        {
+            $where .= " AND o.is_presell = '0'";
+        }
+        else if ($filter['is_presell'] == 1)
+        {
+            $where .= " AND o.is_presell = '1'";
+        }
 
         //综合状态
         switch($filter['composite_status'])
@@ -5089,16 +5100,15 @@ function order_list()
         $filter['record_count']   = $GLOBALS['db']->getOne($sql);
         $filter['page_count']     = $filter['record_count'] > 0 ? ceil($filter['record_count'] / $filter['page_size']) : 1;
 
-        /* 查询 */
-        $sql = "SELECT o.order_id, o.order_sn, o.add_time, o.order_status, o.shipping_status, o.order_amount, o.money_paid," .
-                    "o.pay_status, o.consignee, o.address, o.email, o.tel, o.extension_code, o.extension_id, " .
+        /* 查询 */ 
+        $sql = "SELECT o.order_id, o.order_sn, o.add_time, o.order_status, o.shipping_status, o.order_amount, o.money_paid, " .
+                    "o.is_presell, o.presell_shipping_time, o.pay_status, o.consignee, o.address, o.email, o.tel, o.extension_code, o.extension_id, " .
                     "(" . order_amount_field('o.') . ") AS total_fee, " .
                     "IFNULL(u.user_name, '" .$GLOBALS['_LANG']['anonymous']. "') AS buyer ".
                 " FROM " . $GLOBALS['ecs']->table('order_info') . " AS o " .
                 " LEFT JOIN " .$GLOBALS['ecs']->table('users'). " AS u ON u.user_id=o.user_id ". $where .
                 " ORDER BY $filter[sort_by] $filter[sort_order] ".
                 " LIMIT " . ($filter['page'] - 1) * $filter['page_size'] . ",$filter[page_size]";
-
         foreach (array('order_sn', 'consignee', 'email', 'address', 'zipcode', 'tel', 'user_name') AS $val)
         {
             $filter[$val] = stripslashes($filter[$val]);
@@ -5110,9 +5120,8 @@ function order_list()
         $sql    = $result['sql'];
         $filter = $result['filter'];
     }
-
+    // echo $sql;
     $row = $GLOBALS['db']->getAll($sql);
-
     /* 格式话数据 */
     foreach ($row AS $key => $value)
     {
@@ -5129,9 +5138,15 @@ function order_list()
         {
             $row[$key]['can_remove'] = 0;
         }
+        /* 如果订单为预售订单,格式化时间 */
+        if ($value['is_presell'] == '1')
+        {
+            $row[$key]['presell_shipping_time'] = local_date('Y-m-d', $value['presell_shipping_time']);
+        }
     }
-    $arr = array('orders' => $row, 'filter' => $filter, 'page_count' => $filter['page_count'], 'record_count' => $filter['record_count']);
 
+    $arr = array('orders' => $row, 'filter' => $filter, 'page_count' => $filter['page_count'], 'record_count' => $filter['record_count']);
+    // var_dump($arr);
     return $arr;
 }
 

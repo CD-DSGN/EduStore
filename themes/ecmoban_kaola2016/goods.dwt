@@ -153,8 +153,11 @@ function tab(id)
      <div class="textInfo">
      <form action="javascript:addToCart({$goods.goods_id})" method="post" name="ECS_FORMBUY" id="ECS_FORMBUY" >
 	  <h1 class="clearfix" >
+      <!-- {if $goods.is_presell} --> 
+      <strong style="color: red;">[预售]</strong>
+      <!-- {/if} -->
       {$goods.goods_style_name}
-      </h1> 
+    </h1> 
  
        <!-- {if $promotion} -->
       <div class="padd">
@@ -248,6 +251,13 @@ function tab(id)
        <strong>{$lang.goods_click_count}：</strong>{$goods.click_count}
        </dd>
       </li>
+      <!-- {if $goods.is_presell} 预售商品发货时间-->
+        <li class="clearfix">
+          <dd>
+            <strong>发货时间：</strong>{$goods.presell_shipping_time}
+          </dd>
+        </li>
+      <!-- {/if}-->
 	  </ul>
 	  
 	  

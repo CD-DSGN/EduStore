@@ -105,7 +105,6 @@ if ($_REQUEST['act'] == 'list' || $_REQUEST['act'] == 'trash')
 elseif ($_REQUEST['act'] == 'add' || $_REQUEST['act'] == 'edit' || $_REQUEST['act'] == 'copy')
 {
     include_once(ROOT_PATH . 'includes/fckeditor/fckeditor.php'); // 包含 html editor 类文件
-
     $is_add = $_REQUEST['act'] == 'add'; // 添加还是编辑的标识
     $is_copy = $_REQUEST['act'] == 'copy'; //是否复制
     $code = empty($_REQUEST['extension_code']) ? '' : trim($_REQUEST['extension_code']);
@@ -164,6 +163,8 @@ elseif ($_REQUEST['act'] == 'add' || $_REQUEST['act'] == 'edit' || $_REQUEST['ac
             'is_on_sale'    => '1',
             'is_alone_sale' => '1',
             'is_shipping' => '0',
+            'is_presell'    => '0',
+            'presell_shipping_time' => '0',
             'other_cat'     => array(), // 扩展分类
             'goods_type'    => 0,       // 商品类型
             'shop_price'    => 0,
@@ -208,7 +209,7 @@ elseif ($_REQUEST['act'] == 'add' || $_REQUEST['act'] == 'edit' || $_REQUEST['ac
         $db->query($sql);
 
         /* 图片列表 */
-        $img_list = array();
+        $img_list = array(); 
     }
     else
     {
@@ -232,6 +233,8 @@ elseif ($_REQUEST['act'] == 'add' || $_REQUEST['act'] == 'edit' || $_REQUEST['ac
                 'is_on_sale'    => '1',
                 'is_alone_sale' => '1',
                 'is_shipping' => '0',
+                'is_presell'    => '0',
+                'presell_shipping_time' => '0',
                 'other_cat'     => array(), // 扩展分类
                 'goods_type'    => 0,       // 商品类型
                 'shop_price'    => 0,
@@ -281,6 +284,11 @@ elseif ($_REQUEST['act'] == 'add' || $_REQUEST['act'] == 'edit' || $_REQUEST['ac
         {
             $goods['promote_start_date'] = local_date('Y-m-d', $goods['promote_start_date']);
             $goods['promote_end_date'] = local_date('Y-m-d', $goods['promote_end_date']);
+        }
+        /* 处理预售商品的发货时间 */
+        if ($goods['presell_shipping_time'])
+        {
+            $goods['presell_shipping_time'] = local_date('Y-m-d', $goods['presell_shipping_time']);
         }
 
         /* 如果是复制商品，处理 */
@@ -466,7 +474,6 @@ elseif ($_REQUEST['act'] == 'add' || $_REQUEST['act'] == 'edit' || $_REQUEST['ac
 elseif ($_REQUEST['act'] == 'insert' || $_REQUEST['act'] == 'update')
 {
     $code = empty($_REQUEST['extension_code']) ? '' : trim($_REQUEST['extension_code']);
-
     /* 是否处理缩略图 */
     $proc_thumb = (isset($GLOBALS['shop_id']) && $GLOBALS['shop_id'] > 0)? false : true;
     if ($code == 'virtual_card')
@@ -671,7 +678,6 @@ elseif ($_REQUEST['act'] == 'insert' || $_REQUEST['act'] == 'update')
         // 如果系统支持GD，缩放商品图片，且给商品图片和相册图片加水印
         if ($proc_thumb && $image->gd_version() > 0 && $image->check_img_function($_FILES['goods_img']['type']) || $is_url_goods_img)
         {
-
             if (empty($is_url_goods_img))
             {
                 // 如果设置大小不为0，缩放图片
@@ -774,7 +780,6 @@ elseif ($_REQUEST['act'] == 'insert' || $_REQUEST['act'] == 'update')
         }
     }
 
-
     /* 删除下载的外链原图 */
     if (!empty($is_url_goods_img))
     {
@@ -816,6 +821,17 @@ elseif ($_REQUEST['act'] == 'insert' || $_REQUEST['act'] == 'update')
     $rank_integral = isset($_POST['rank_integral']) ? intval($_POST['rank_integral']) : '-1';
     $suppliers_id = isset($_POST['suppliers_id']) ? intval($_POST['suppliers_id']) : '0';
 
+    // add nhj
+    $is_presell = isset($_POST['is_presell']) ? $_POST['is_presell'] : '0';
+    if ($is_presell && isset($_POST['presell_shipping_time']))
+    {
+        $presell_shipping_time = local_strtotime($_POST['presell_shipping_time']);
+    }
+    else
+    {
+        $presell_shipping_time = '0';
+    }
+
     $goods_name_style = $_POST['goods_name_color'] . '+' . $_POST['goods_name_style'];
 
     $catgory_id = empty($_POST['cat_id']) ? '' : intval($_POST['cat_id']);
@@ -823,6 +839,93 @@ elseif ($_REQUEST['act'] == 'insert' || $_REQUEST['act'] == 'update')
 
     $goods_thumb = (empty($goods_thumb) && !empty($_POST['goods_thumb_url']) && goods_parse_url($_POST['goods_thumb_url'])) ? htmlspecialchars(trim($_POST['goods_thumb_url'])) : $goods_thumb;
     $goods_thumb = (empty($goods_thumb) && isset($_POST['auto_thumb']))? $goods_img : $goods_thumb;
+
+    // add nhj，如果预售，给商品图片与缩略图加预售水印
+    if ( $_POST['is_presell'] == 1 )
+    {
+        $presell_img = '../images/' .$GLOBALS['_CFG']['presell_image'];
+        $presell_img_im = imagecreatefrompng($presell_img);
+        // 生成格式需要匹配，商品
+        $goods_img_info = @getimagesize('../' .$goods_img);
+        switch ( $goods_img_info[2] )
+        {
+            case 'image/gif':
+            case 1:
+                $goods_img_im = imagecreatefromgif('../' .$goods_img);
+                break;
+            case 'image/pjpeg':
+            case 'image/jpeg':
+            case 2:
+                $goods_img_im = imagecreatefromjpeg('../' .$goods_img);
+                break;
+            case 'image/x-png':
+            case 'image/png':
+            case 3:
+                $goods_img_im = imagecreatefrompng('../' .$goods_img);
+                break;
+            default:
+                break;
+        }
+        // 缩略图
+        $goods_thumb_info = @getimagesize('../' .$goods_thumb);
+        switch ( $goods_thumb_info[2] )
+        {
+            case 'image/gif':
+            case 1:
+                $goods_thumb_im = imagecreatefromgif('../' .$goods_thumb);
+                break;
+            case 'image/pjpeg':
+            case 'image/jpeg':
+            case 2:
+                $goods_thumb_im = imagecreatefromjpeg('../' .$goods_thumb);
+                break;
+            case 'image/x-png':
+            case 'image/png':
+            case 3:
+                $goods_thumb_im = imagecreatefrompng('../' .$goods_thumb);
+                break;
+            default:
+                break;
+        }      
+
+        if ( $presell_img_im && $goods_img_im )
+        {
+            $w = $GLOBALS['_CFG']['image_width'];
+            $h = $GLOBALS['_CFG']['image_height'];
+            $size_res = getimagesize($presell_img);                         // 获取水印图片的大小
+            $new_im = imagecreatetruecolor($w, $h);                         // 创建一个画板，宽高为shop_config中写定
+            $color=imagecolorallocatealpha($new_im, 0, 0, 0, 127);          // 拾取一个完全透明的颜色
+            imagealphablending($new_im, false);                             // 关闭混合模式，以便透明色能覆盖原画板
+            imagefill($new_im, 0, 0, $color);                               // 填充
+            imagecopyresampled($new_im, $presell_img_im, 0, 0, 0, 0, $w, $h, $size_res['0'], $size_res['1']);               // 压缩图片 
+            imagecopy($goods_img_im, $new_im, 0, 0, 0, 0, $w, $h);                              // 上水印
+            imagesavealpha($goods_img_im, true);                            // 设置保存时保留透明通道信息
+            imagejpeg($goods_img_im, '../' .$goods_img);
+
+            imagedestroy($new_im);
+            imagedestroy($goods_img_im);
+        }   
+        if ( $presell_img_im && $goods_thumb_im )
+        {
+            // 需要将预售缩略图压缩
+            $w = $GLOBALS['_CFG']['thumb_width'];
+            $h = $GLOBALS['_CFG']['thumb_height'];
+            $size_res = getimagesize($presell_img);
+            $small_presell_im = imagecreatetruecolor($w, $h);
+            $color=imagecolorallocatealpha($small_presell_im, 0, 0, 0, 127);          
+            imagealphablending($small_presell_im, false);                             
+            imagefill($small_presell_im, 0, 0, $color); 
+            imagecopyresampled($small_presell_im, $presell_img_im, 0, 0, 0, 0, $w, $h, $size_res['0'], $size_res['1']); 
+            // 为缩略图加上水印
+            imagecopy($goods_thumb_im, $small_presell_im, 0, 0, 0, 0, $w, $h);
+            imagesavealpha($goods_thumb_im, true); 
+            imagejpeg($goods_thumb_im, '../' .$goods_thumb);
+
+            imagedestroy($small_presell_im);
+            imagedestroy($goods_thumb_im);
+            imagedestroy($presell_img_im);
+        }  
+    }
 
     /* 入库 */
     if ($is_insert)
@@ -833,13 +936,13 @@ elseif ($_REQUEST['act'] == 'insert' || $_REQUEST['act'] == 'update')
                     "cat_id, brand_id, shop_price, market_price, is_promote, promote_price, " .
                     "promote_start_date, promote_end_date, goods_img, goods_thumb, original_img, keywords, goods_brief, " .
                     "seller_note, goods_weight, goods_number, warn_number, integral, give_integral, is_best, is_new, is_hot, " .
-                    "is_on_sale, is_alone_sale, is_shipping, goods_desc, add_time, last_update, goods_type, rank_integral, suppliers_id)" .
+                    "is_on_sale, is_alone_sale, is_shipping, goods_desc, add_time, last_update, goods_type, rank_integral, suppliers_id, is_presell, presell_shipping_time)" .
                 "VALUES ('$_POST[goods_name]', '$goods_name_style', '$goods_sn', '$catgory_id', " .
                     "'$brand_id', '$shop_price', '$market_price', '$is_promote','$promote_price', ".
                     "'$promote_start_date', '$promote_end_date', '$goods_img', '$goods_thumb', '$original_img', ".
                     "'$_POST[keywords]', '$_POST[goods_brief]', '$_POST[seller_note]', '$goods_weight', '$goods_number',".
                     " '$warn_number', '$_POST[integral]', '$give_integral', '$is_best', '$is_new', '$is_hot', '$is_on_sale', '$is_alone_sale', $is_shipping, ".
-                    " '$_POST[goods_desc]', '" . gmtime() . "', '". gmtime() ."', '$goods_type', '$rank_integral', '$suppliers_id')";
+                    " '$_POST[goods_desc]', '" . gmtime() . "', '". gmtime() ."', '$goods_type', '$rank_integral', '$suppliers_id', '$is_presell', '$presell_shipping_time')";
         }
         else
         {
@@ -847,13 +950,13 @@ elseif ($_REQUEST['act'] == 'insert' || $_REQUEST['act'] == 'update')
                     "cat_id, brand_id, shop_price, market_price, is_promote, promote_price, " .
                     "promote_start_date, promote_end_date, goods_img, goods_thumb, original_img, keywords, goods_brief, " .
                     "seller_note, goods_weight, goods_number, warn_number, integral, give_integral, is_best, is_new, is_hot, is_real, " .
-                    "is_on_sale, is_alone_sale, is_shipping, goods_desc, add_time, last_update, goods_type, extension_code, rank_integral)" .
+                    "is_on_sale, is_alone_sale, is_shipping, goods_desc, add_time, last_update, goods_type, extension_code, rank_integral, is_presell, presell_shipping_time)" .
                 "VALUES ('$_POST[goods_name]', '$goods_name_style', '$goods_sn', '$catgory_id', " .
                     "'$brand_id', '$shop_price', '$market_price', '$is_promote','$promote_price', ".
                     "'$promote_start_date', '$promote_end_date', '$goods_img', '$goods_thumb', '$original_img', ".
                     "'$_POST[keywords]', '$_POST[goods_brief]', '$_POST[seller_note]', '$goods_weight', '$goods_number',".
                     " '$warn_number', '$_POST[integral]', '$give_integral', '$is_best', '$is_new', '$is_hot', 0, '$is_on_sale', '$is_alone_sale', $is_shipping, ".
-                    " '$_POST[goods_desc]', '" . gmtime() . "', '". gmtime() ."', '$goods_type', '$code', '$rank_integral')";
+                    " '$_POST[goods_desc]', '" . gmtime() . "', '". gmtime() ."', '$goods_type', '$code', '$rank_integral', '$is_presell', '$presell_shipping_time')";
         }
     }
     else
@@ -886,7 +989,9 @@ elseif ($_REQUEST['act'] == 'insert' || $_REQUEST['act'] == 'update')
                 "promote_price = '$promote_price', " .
                 "promote_start_date = '$promote_start_date', " .
                 "suppliers_id = '$suppliers_id', " .
-                "promote_end_date = '$promote_end_date', ";
+                "promote_end_date = '$promote_end_date', " .
+                "is_presell = '$is_presell', " .
+                "presell_shipping_time = '$presell_shipping_time' ,";
 
         /* 如果有上传图片，需要更新数据库 */
         if ($goods_img)
@@ -1562,6 +1667,23 @@ elseif ($_REQUEST['act'] == 'toggle_hot')
     {
         clear_cache_files();
         make_json_result($is_hot);
+    }
+}
+
+/*------------------------------------------------------ */
+//-- 修改预售状态，nhj
+/*------------------------------------------------------ */
+elseif ($_REQUEST['act'] == 'toggle_presell')
+{
+    check_authz_json('goods_manage');
+
+    $goods_id         = intval($_POST['id']);
+    $is_presell       = intval($_POST['val']);
+
+    if ($exc->edit("is_presell = '$is_presell', last_update=" .gmtime(), $goods_id))
+    {
+        clear_cache_files();
+        make_json_result($is_presell);
     }
 }
 

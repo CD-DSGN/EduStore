@@ -570,6 +570,9 @@ function get_goods_info($goods_id)
         /* 修正上架时间显示 */
         $row['add_time']      = local_date($GLOBALS['_CFG']['date_format'], $row['add_time']);
 
+        /* nhj，格式化预售商品发货时间*/
+        $row['presell_shipping_time'] = local_date($GLOBALS['_CFG']['date_format'], $row['presell_shipping_time']);
+
         /* 促销时间倒计时 */
         $time = gmtime();
         if ($time >= $row['promote_start_date'] && $time <= $row['promote_end_date'])

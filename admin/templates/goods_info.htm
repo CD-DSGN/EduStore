@@ -53,6 +53,7 @@
             <td><input type="text" name="goods_sn" value="{$goods.goods_sn|escape}" size="20" onblur="checkGoodsSn(this.value,'{$goods.goods_id}')" /><span id="goods_sn_notice"></span><br />
             <span class="notice-span" {if $help_open}style="display:block" {else} style="display:none" {/if} id="noticeGoodsSN">{$lang.notice_goods_sn}</span></td>
           </tr>
+          <!--商品分类-->
           <tr>
             <td class="label">{$lang.lab_goods_cat}</td>
             <td><select name="cat_id" onchange="hideCatDiv()" ><option value="0">{$lang.select_please}</option>{$cat_list}</select>
@@ -66,6 +67,19 @@
                </span>
                {/if}
                {$lang.require_field}
+            </td>
+          </tr>
+          <!--是否预售-->
+          <tr>
+            <td class="label">是否预售：</td>
+            <td><select id="is_presell" name="is_presell" onchange="hideShippingTime()">
+                  <option value="0">不预售该图书</option>
+                  <option value="1" {if $goods.is_presell}selected="selected"{/if}>预售该图书</option>
+                </select>
+              <span id="shipping_time" {if !$goods.is_presell}style="display: none;"{/if}>
+                <input name="presell_shipping_time" type="text" id="presell_shipping_time" size="12" {if $goods.presell_shipping_time}value='{$goods.presell_shipping_time}'{else}value='请选择发货时间'{/if} readonly />
+                <input name="selbtn1" type="button" id="selbtn1" onclick="return showCalendar('presell_shipping_time', '%Y-%m-%d', false, false, 'selbtn1');" value="{$lang.btn_select}" class="button"/>
+              </span>
             </td>
           </tr>
           <tr>
@@ -432,7 +446,7 @@
           {if $code neq ''}
           <input type="hidden" name="extension_code" value="{$code}" />
           {/if}
-          <input type="button" value="{$lang.button_submit}" class="button" onclick="validate('{$goods.goods_id}')" />
+          <input type="button" value="{$lang.button_submit}" class="button" onclick="checkPresell(),validate('{$goods.goods_id}')" />
           <input type="reset" value="{$lang.button_reset}" class="button" />
         </div>
         <input type="hidden" name="act" value="{$form_act}" />
@@ -450,6 +464,7 @@
   var sz3 = new SelectZone(1, elements['source_select3'], elements['target_select3']);
   var marketPriceRate = {$cfg.market_price_rate|default:1};
   var integralPercent = {$cfg.integral_percent|default:0};
+  var isSelectShippingTime = 1;
 
   {literal}
   onload = function()
@@ -508,9 +523,9 @@
       }
       else
       {
-         if(validator.passed())
+         if(validator.passed() && isSelectShippingTime)
          {
-         document.forms['theForm'].submit();
+          document.forms['theForm'].submit();
          }
       }
   }
@@ -1121,6 +1136,37 @@
         validator.addErrorMsg(volume_price_not_number);
         priErrNum++;
       }
+    }
+  }
+
+  // add nhj, 所有可以使用lang的我全是本地写定，可能导致以后修改复杂吧
+  function hideShippingTime()
+  {
+    var isPresell = document.getElementById('is_presell');
+    var index = isPresell.selectedIndex;
+    var is_presell = isPresell.options[index].value;
+    var shippingTime = document.getElementById('shipping_time');
+    if (is_presell == 1)
+    {
+      shippingTime.style.display = '';
+    }
+    else
+    {
+      shippingTime.style.display = 'none';
+    }
+  }
+
+  function checkPresell()
+  {
+    var isPresell = document.getElementById('is_presell');
+    var index = isPresell.selectedIndex;
+    var is_presell = isPresell.options[index].value;
+    var shippingTime = document.getElementById('presell_shipping_time').value;
+    isSelectShippingTime = 1;
+    if (is_presell == 1 && shippingTime == '请选择发货时间')
+    {
+      isSelectShippingTime = 0;
+      alert('选择预售的图书必须确定发货时间');
     }
   }
   {/literal}
