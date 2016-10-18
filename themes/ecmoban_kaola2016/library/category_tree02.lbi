@@ -1,6 +1,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <div id="category_tree">
-<div class="tit"><a href="file:///D|/wamp/www/EduStore/themes/ecmoban_kaola2016/library/category.php?id=1">所有商品分类</a></div>
+<div class="tit"><a href="category.php?id=1">所有商品分类</a></div>
 <dl class="clearfix" style=" overflow:hidden;" >
 <div class="box1 cate" id="cate">
   <!--{foreach from=$categories item=cat name=no}-->

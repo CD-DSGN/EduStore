@@ -40,7 +40,7 @@ $back_act='';
 $not_login_arr =array('login','act_login','register','act_register','act_edit_password','get_password','send_pwd_email',
 'password', 'signin', 'add_tag', 'collect', 'return_to_cart', 'logout', 'email_list', 'validate_email', 'send_hash_mail', 
 'order_query', 'is_registered', 'check_email','clear_history','qpassword_name', 'get_passwd_question', 'check_answer', 
-'register_teacher', 'phoneAndMessageCode','sendPhoneAndIdentifyCode','get_course', 'check_mobile_phone', 'check_identifyCode');
+'register_teacher', 'phoneAndMessageCode','sendPhoneAndIdentifyCode','get_course','get_province', 'get_city','get_town','check_mobile_phone', 'check_identifyCode');
 
 /* 显示页面的action列表 */
 //Todo 有可能需要增加，看界面的情况
@@ -233,6 +233,64 @@ elseif($action == 'register_teacher')
     $smarty->display('user_passport.dwt');
 }
 //end zhangmengqi
+//begin dxh 数据库查询省市县
+else if($action == 'get_province'){
+    $sql = 'SELECT * FROM'. $ecs->table('region').'WHERE region_type = 1 ORDER BY region_id';
+    $province = $db->getAll($sql);
+    $province_id = array();
+    foreach ($province as $item){
+        $province_id[$item['region_id']] = $item[region_name];
+    }
+    $province = implode('@',$province_id);
+    $province_option = $db->getAll($sql);
+    $province_option_id = array();
+    foreach($province_option as $item){
+        $province_option_id[$item['region_id']] = $item[region_id];
+    }
+    $province_option = implode('@', $province_option_id);
+    echo "{\"province\":\"$province\",\"province_option\":\"$province_option\"}";
+}
+else if($action == 'get_city'){
+    if (isset($_POST['province'])) {
+        $is = isset($_POST['province']) ? $_POST['province'] : '0';
+        $id = $is;
+    }
+    $sql = 'SELECT * FROM'. $ecs->table('region')."WHERE parent_id = '$id' ORDER BY region_id";
+    $city = $db->getAll($sql);
+    $city_id = array();
+    foreach($city as $item){
+        $city_id[$item['region_id']] = $item[region_name];
+    }
+    $city = implode('@',$city_id);
+    $city_option = $db->getAll($sql);
+    $city_option_id = array();
+    foreach($city_option as $item){
+        $city_option_id[$item['region_id']] = $item[region_id];
+    }
+    $city_option = implode('@',$city_option_id);
+    echo "{\"city\":\"$city\",\"city_option\":\"$city_option\"}";
+}
+else if($action == 'get_town'){
+    if (isset($_POST['city'])) {
+        $is = isset($_POST['city']) ? $_POST['city'] : '0';
+        $id = $is;
+    }
+    $sql = 'SELECT * FROM'. $ecs->table('region')."WHERE parent_id = '$id' ORDER BY region_id";
+    $town = $db->getAll($sql);
+    $town_id = array();
+    foreach($town as $item){
+        $town_id[$item['region_id']] = $item[region_name];
+    }
+    $town = implode('@',$town_id);
+    $town_option = $db->getAll($sql);
+    $town_option_id = array();
+    foreach($town_option as $item){
+        $town_option_id[$item['region_id']] = $item[region_id];
+    }
+    $town_option = implode('@',$town_option_id);
+    echo "{\"town\":\"$town\",\"town_option\":\"$town_option\"}";
+}
+//end dxh
 //begin 那奂捷，数据库查询课程
 elseif($action == 'get_course')
 {
@@ -279,11 +337,16 @@ elseif ($action == 'act_register')
         $teacher_info['real_name'] = isset($_POST['real_name']) ? trim($_POST['real_name']): '';
         $teacher_info['school'] = isset($_POST['school']) ? trim($_POST['school']): '';
         $teacher_info['course_id'] = isset($_POST['course_name']) ? $_POST['course_name'] : '';
-        
+        $teacher_info['province'] = isset($_POST['province']) ? trim($_POST['province']):'';
+        $teacher_info['city'] = isset($_POST['city']) ? trim($_POST['city']):'';
+        $teacher_info['district'] = isset($_POST['district']) ? trim($_POST['district']):'';
         //防止sql注入
         $teacher_info['real_name'] = addslashes($teacher_info['real_name']);
         $teacher_info['school'] = addslashes($teacher_info['school']);
         $teacher_info['course_id'] = addslashes($teacher_info['course_id']);
+        $teacher_info['province'] = addslashes($_POST['province']) ? trim($_POST['province']):'';
+        $teacher_info['city'] = addslashes($_POST['city']) ? trim($_POST['city']):'';
+        $teacher_info['district'] = addslashes($_POST['district']) ? trim($_POST['district']):'';
         $other['mobile_phone'] = addslashes($other['mobile_phone']);
         //end zhangmengqi
 
@@ -365,8 +428,11 @@ elseif ($action == 'act_register')
                 $values[] = $teacher_info['course_id'];
                 $values[] = $teacher_info['real_name'];
                 $values[] = $teacher_info['school'];
+                $values[] = $teacher_info['province'];
+                $values[] = $teacher_info['city'];
+                $values[] = $teacher_info['district'];
 
-                $sql = 'INSERT INTO '. $ecs->table('teachers') . ' (`user_id`, `course_id`, `real_name`, `school`)'. " VALUES ('" . implode("', '", $values) . "')";
+                $sql = 'INSERT INTO '. $ecs->table('teachers') . ' (`user_id`, `course_id`, `real_name`,  `school`, `province`, `city`, `district`)'. " VALUES ('" . implode("', '", $values) . "')";
                 $db->query($sql);
                 $sql = 'UPDATE ' . $ecs->table('users') . " SET `is_teacher`='$is_teacher' WHERE `user_id`='" . $_SESSION['user_id'] . "'";
                 $db->query($sql);

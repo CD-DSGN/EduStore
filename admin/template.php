@@ -175,7 +175,7 @@ if ($_REQUEST['act'] == 'setup')
             }
         }
     }
-
+    //在这改
     foreach ($temp_libs AS $val)
     {
         /* 对动态内容赋值 */

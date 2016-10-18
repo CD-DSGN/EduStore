@@ -72,6 +72,30 @@
 							<span class="correct_input" id="real_name_correct"><img src="./data/images/register/success.png" width="18px" height="18px" alt="correct" /></span>
 							<span class="input_tip" id="real_name_tips"></span>
 						</div>
+						<div style="height:70px">
+							<tr style="margin-bottom:0px">
+								<label class="register_info"style="margin-right:20px;">所在区域</label>
+								<td>
+									<select name="province" id="province" class="select_button1" onblur="checkAddressName();" onmouseup="checkAddressName();">
+										<option value="0">请选择省</option>
+									</select>
+								</td>
+								<td>
+									<select name="city" id="city" class="select_button1" onblur="checkAddressName();" onmouseup="checkAddressName();">
+										<option value="0">请选择市</option>
+									</select>
+								</td>
+								<td>
+									<select name="district" id="town" class="select_button1" onblur="checkAddressName();" onmouseup="checkAddressName();">
+										<option value="0">请选择区/县</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><span id="address_notice"></span></td>
+							</tr>
+						</div>
 						<div>
 							<label for="school" class="register_info">学校</label>
 							<input type="text" class="register_input" id="school" name="school" onblur="checkSchool();" onfocus="focusTips(this.id, '请输入您的学校')" />
@@ -155,7 +179,66 @@
 							});
 		$.ajaxSetup({   
             async : false  
-        }); 
+        });
+		//ajax查询省市县
+		$.post('user.php?act=get_province',
+				{},
+				function(msg){
+					var province = msg.province.split('@');
+					var province_option = msg.province_option.split('@');
+					for (var i=0;i<province.length;i++){
+						$("#province").append('<option value='+province_option[i]+'>'+province[i]+'</option>');
+					}
+				},"json"
+			);
+		$("#province").change(function(){
+			var province = $("#province").val();
+			$("#city").empty("option");
+			$("#city").prepend("<option value='0'>请选择市</option>");
+			if(province != 0){
+				$.ajax({
+					type:"POST",
+					url:"user.php?act=get_city",
+					data:"province="+province,
+					dataType:"json",
+					success:function(msg){
+						var city = msg.city.split('@');
+						var city_option = msg.city_option.split('@');
+						for (var i=0;i<city.length;i++){
+							$("#city").append('<option value='+city_option[i]+'>'+city[i]+'</option>');
+						}
+					}
+				});
+			}
+			else{
+				$("#city").empty("option");
+				$("#city").append("<option value='0'>请选择市</option>");
+			}
+		});
+		$("#city").change(function(){
+			var city = $("#city").val();
+			$("#town").empty("option");
+			$("#town").append("<option value='0'>请选择县/区</option>");
+			if(city != 0){
+				$.ajax({
+					type:"POST",
+					url:"user.php?act=get_town",
+					data:"city="+city,
+					dataType:"json",
+					success:function(msg){
+						var town = msg.town.split('@');
+						var town_option = msg.town_option.split('@');
+						for (var i=0;i<town.length;i++){
+							$("#town").append('<option value='+town_option[i]+'>'+town[i]+'</option>');
+						}
+					}
+				});
+			}
+			else{
+				$("#town").empty("option");
+				$("#town").append("<option value='0'>请选择县/区</option>");
+			}
+		});
         // ajax 查询课程，并增加到option中
         $.post('./user.php?act=get_course',
         		{},

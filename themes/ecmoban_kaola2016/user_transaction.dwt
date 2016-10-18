@@ -168,15 +168,29 @@
     <h5><span>{$lang.teacher_sub_act}</span></h5>
 <!--    <div class="blank"></div>-->
     <div class="teacher-search">
-            <form method="get" action="user.php" onSubmit="return checkSearchForm(this)" class="teacherSearch-form">
+            <form method="get" action="user.php" onSubmit="return checkSearchForm()" class="teacherSearch-form">
                 <div class="teacherSearch-input-wp">
                     <input type="text" name="keywords" id="mq" class="teacherSearch-input" value="请搜索教师姓名" onfocus="javascript:if(this.value=='请搜索教师姓名'){this.value=''}" onblur="javascript:if(this.value==''){this.value='请搜索教师姓名'}" >
                     <label for="mq"></label>
                 </div>
                 <input type="hidden" name="act" value="teacher_subscription_act">
                 <input type="hidden" name="cour" value="{$course_id}">
-                <button type="submit" class="w-icon w-icon-27"></button>
+                <button type="submit" class="w-icon w-icon-27" id="anniu" onclick="check()"></button>
                 <script type="text/javascript">
+					var searchnumber = document.getElementById("mq").value;
+					var reg =/^[\u4e00-\u9fa5]{2,4}$/i;
+					var anniu = document.getElementById("anniu");
+					function check(){
+						if(reg.test(searchnumber)){
+							anniu.disabled = false;
+							return true;
+						}
+						else{
+							alert("请输入教师全名");
+							anniu.disabled = true;
+							return false;						
+						}
+					}
                     {literal}
                     <!--
                     function checkSearchForm()
@@ -192,7 +206,7 @@
                     }
                     }
                     -->
-                    {/literal}
+					{/literal}
                 </script>
             </form>
         </div>
@@ -213,7 +227,7 @@
     {/foreach}
     </table>
 	<!--增加按钮-->
-	<p align="center"><input type="button" name="back" value="返回" class="teacher_return_button"  onclick="history.back()"/></p>
+	<p align="center"><a href="../../user.php?act=teacher_subscription"><input type="button" name="back" value="返回" class="teacher_return_button"/></a></p>
     <!--{/if}-->
     <!-- 教师关注操作界面 end -->
 	
