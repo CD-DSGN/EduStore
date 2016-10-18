@@ -1672,12 +1672,36 @@ elseif ($_REQUEST['step'] == 'done')
     /* 插入订单商品 */
     $sql = "INSERT INTO " . $ecs->table('order_goods') . "( " .
                 "order_id, goods_id, goods_name, goods_sn, product_id, goods_number, market_price, ".
-                "goods_price, goods_attr, is_real, extension_code, parent_id, is_gift, goods_attr_id) ".
+                "goods_price, goods_attr, is_real, extension_code, parent_id, is_gift, goods_attr_id, is_presell, presell_shipping_time) ".
             " SELECT '$new_order_id', goods_id, goods_name, goods_sn, product_id, goods_number, market_price, ".
-                "goods_price, goods_attr, is_real, extension_code, parent_id, is_gift, goods_attr_id".
+                "goods_price, goods_attr, is_real, extension_code, parent_id, is_gift, goods_attr_id, is_presell, presell_shipping_time".
             " FROM " .$ecs->table('cart') .
             " WHERE session_id = '".SESS_ID."' AND rec_type = '$flow_type'";
     $db->query($sql);
+
+    /* 通过订单编号获取订单id，查询订单商品是否存在预售商品 */
+    $sql = "SELECT order_id FROM" . $ecs->table('order_info') . "WHERE `order_sn` = '" . $order['order_sn'] ."'";
+    $res = $db->getRow($sql);
+    $order_id = $res['order_id'];
+
+    $sql = "SELECT is_presell, presell_shipping_time FROM ". $ecs->table('order_goods') ."WHERE `order_id` = '" .$order_id. "'";
+    $res = $db->getAll($sql);
+    if ($res) {
+        foreach ($res as $item) {
+            foreach ($item as $key => $value) {
+                if ($key == 'is_presell') {
+                    $order['is_presell'] = $value;
+                }
+                if ($key == 'presell_shipping_time') {
+                    $order['presell_shipping_time'] = $value;
+                }
+            }
+        }
+        /* 有预售商品，更新表order_info */
+        $sql = "UPDATE ". $ecs->table('order_info') ." SET `is_presell` = '". $order['is_presell'] ."', `presell_shipping_time` = '". $order['presell_shipping_time'] ."' WHERE `order_id` = '" . $order_id . "'";
+        $db->query($sql);
+    }
+
     /* 修改拍卖活动状态 */
     if ($order['extension_code']=='auction')
     {

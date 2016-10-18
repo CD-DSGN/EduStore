@@ -347,6 +347,11 @@ elseif ($_REQUEST['act'] == 'info')
             $row['package_goods_list'] = get_package_goods($row['goods_id']);
         }
 
+        /* add nhj, 格式化预售商品发货时间 */
+        if($row['is_presell']) {
+            $row['presell_shipping_time'] = local_date("Y-m-d", $row['presell_shipping_time']);
+        }
+
         $goods_list[] = $row;
     }
 
@@ -5143,6 +5148,30 @@ function order_list()
         {
             $row[$key]['presell_shipping_time'] = local_date('Y-m-d', $value['presell_shipping_time']);
         }
+
+        /* add nhj */
+        /* 对于is_presell，这的逻辑会和之前的有所覆盖：返回值0没有预售，返回值1部分预售，返回值2全部预售 */
+        $sql = "SELECT is_presell FROM " . $GLOBALS['ecs']->table('order_goods') . "WHERE `order_id` = '" . $row[$key]['order_id'] . "'";
+        $res = $GLOBALS['db']->getAll($sql);
+        $presell = array();
+        foreach ($res as $presell_item) {
+            $presell[$row[$key]['order_id']][] = $presell_item['is_presell'];
+        }
+        foreach ($presell as $value) {
+            $count = count($value);
+            $sum = 0;
+            foreach ($value as $keys => $values) {
+                $sum += $values;
+            }
+            if ($count == $sum && $sum > 0) {            // 全部是预售书
+                $row[$key]['is_presell'] = 2;
+            } else if ($sum > 0 && $count > $sum) {       // 部分是预售书
+                $row[$key]['is_presell'] = 1;
+            } else {
+                $row[$key]['is_presell'] = 0;               // 没有预售书
+            }
+        }
+
     }
 
     $arr = array('orders' => $row, 'filter' => $filter, 'page_count' => $filter['page_count'], 'record_count' => $filter['record_count']);

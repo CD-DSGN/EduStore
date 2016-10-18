@@ -33,8 +33,7 @@
     <th><a href="javascript:listTable.sort('consignee', 'DESC'); ">{$lang.consignee}</a>{$sort_consignee}</th>
     <th><a href="javascript:listTable.sort('total_fee', 'DESC'); ">{$lang.total_fee}</a>{$sort_total_fee}</th>
     <th><a href="javascript:listTable.sort('order_amount', 'DESC'); ">{$lang.order_amount}</a>{$sort_order_amount}</th>
-    <th><a href="javascript:listTable.sort('is_presell', 'DESC'); ">预售</a>{$sort_is_presell}</th>                       <!--预售列头，$sort_is_presell为正降排序三角-->   
-    <th><a>预售发货时间</a></th> 
+    <th><a href="javascript:listTable.sort('is_presell', 'DESC'); ">预售商品</a>{$sort_is_presell}</th>                       <!--预售列头，$sort_is_presell为正降排序三角-->   
     <th>{$lang.all_status}</th>
     <th>{$lang.handler}</th>
   <tr>
@@ -45,8 +44,7 @@
     <td align="left" valign="top"><a href="mailto:{$order.email}"> {$order.consignee|escape}</a>{if $order.tel} [TEL: {$order.tel|escape}]{/if} <br />{$order.address|escape}</td>
     <td align="right" valign="top" nowrap="nowrap">{$order.formated_total_fee}</td>
     <td align="right" valign="top" nowrap="nowrap">{$order.formated_order_amount}</td>
-    <td align="center" valign="top" nowrap="nowrap">{if $order.is_presell}是{else}否{/if}</td>
-    <td align="center" valign="top" nowrap="nowrap">{$order.presell_shipping_time}</td>
+    <td align="center" valign="top" nowrap="nowrap">{if $order.is_presell eq 2}全部{elseif $order.is_presell eq 1}部分{else}无{/if}</td>
     <td align="center" valign="top" nowrap="nowrap">{$lang.os[$order.order_status]},{$lang.ps[$order.pay_status]},{$lang.ss[$order.shipping_status]}</td>
     <td align="center" valign="top"  nowrap="nowrap">
      <a href="order.php?act=info&order_id={$order.order_id}">{$lang.detail}</a>

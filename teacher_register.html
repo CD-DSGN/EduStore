@@ -160,11 +160,16 @@
         $.post('./user.php?act=get_course',
         		{},
         		function(data) {
-        			var course_info = data.split('@');
-        			for (var i = 0; i < course_info.length; i++) {
-        				var temp = i + 1;
-        				$("#course_name").append('<option value='+temp+'>'+course_info[i]+'</option>');
-        			}
+        			var dataObj = eval("("+data+")");
+        			$.each(dataObj, function(name, item)
+        			{
+        				$("#course_name").append('<option value='+item.course_id+'>'+item.course_name+'</option>');
+        			});
+        			// var course_info = data.split('@');
+        			// for (var i = 0; i < course_info.length; i++) {
+        			// 	var temp = i + 1;
+        			// 	$("#course_name").append('<option value='+temp+'>'+course_info[i]+'</option>');
+        			// }
         		}
         );
 	});

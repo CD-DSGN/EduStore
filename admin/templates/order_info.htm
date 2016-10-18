@@ -178,7 +178,7 @@
 <div class="list-div" style="margin-bottom: 5px">
 <table width="100%" cellpadding="3" cellspacing="1">
   <tr>
-    <th colspan="8" scope="col">{$lang.goods_info}<a href="order.php?act=edit&order_id={$order.order_id}&step=goods" class="special">{$lang.edit}</a></th>
+    <th colspan="10" scope="col">{$lang.goods_info}<a href="order.php?act=edit&order_id={$order.order_id}&step=goods" class="special">{$lang.edit}</a></th>
     </tr>
   <tr>
     <td scope="col"><div align="center"><strong>{$lang.goods_name_brand}</strong></div></td>
@@ -186,6 +186,8 @@
     <td scope="col"><div align="center"><strong>{$lang.product_sn}</strong></div></td>
     <td scope="col"><div align="center"><strong>{$lang.goods_price}</strong></div></td>
     <td scope="col"><div align="center"><strong>{$lang.goods_number}</strong></div></td>
+    <td scope="col"><div align="center"><strong>预售</strong></div></td>
+    <td scope="col"><div align="center"><strong>发货时间</strong></div></td>
     <td scope="col"><div align="center"><strong>{$lang.goods_attr}</strong></div></td>
     <td scope="col"><div align="center"><strong>{$lang.storage}</strong></div></td>
     <td scope="col"><div align="center"><strong>{$lang.subtotal}</strong></div></td>
@@ -211,6 +213,9 @@
     <td><div align="right">{$goods.formated_goods_price}</div></td>
     <td><div align="right">{$goods.goods_number}
     </div></td>
+    <!-- 预售与发货时间 -->
+    <td><div align="center">{if $goods.is_presell}是{else}否{/if}</div></td>
+    <td><div align="center">{$goods.presell_shipping_time}</div></td>
     <td>{$goods.goods_attr|nl2br}</td>
     <td><div align="right">{$goods.storage}</div></td>
     <td><div align="right">{$goods.formated_subtotal}</div></td>
@@ -224,6 +229,8 @@
     </strong></div>{/if}</td>
     <td>{if $order.total_weight}<div align="right">{$order.total_weight}
     </div>{/if}</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
     <td>&nbsp;</td>
     <td><div align="right"><strong>{$lang.label_total}</strong></div></td>
     <td><div align="right">{$order.formated_goods_amount}</div></td>

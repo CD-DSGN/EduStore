@@ -238,12 +238,13 @@ elseif($action == 'get_course')
 {
     $sql = 'SELECT * FROM ' . $ecs->table('courses') . ' ORDER BY course_id';
     $course_info = $db->getAll($sql);
-    $course_id = array();
+    $course = array();
     foreach ($course_info as $item) {
-        $course_id[$item['course_id']] = $item['course_name'];
+        $course[$item['course_id']]['course_id'] = $item['course_id'];
+        $course[$item['course_id']]['course_name'] = $item['course_name'];
     }
-    $course = implode('@', $course_id);
-    echo $course;
+    // $course = implode('@', $course_id);
+    echo json_encode($course);
 }
 //end 那奂捷
 /* 注册会员的处理 */

@@ -880,6 +880,23 @@ function cart_goods($type = CART_GENERAL_GOODS)
         }
     }
 
+    /* add nhj, 通过取得的商品列表，判断商品中是否存在预售的商品（如果有预售商品，则需要在订单中增加相应字段）*/
+    foreach ($arr as $key => $value) {
+        $temp_goods_id = $value['goods_id'];
+        $sql = "SELECT is_presell, presell_shipping_time FROM". $GLOBALS['ecs']->table('goods') ."WHERE `goods_id` = '". $temp_goods_id ."'";
+        $result = $GLOBALS['db']->getAll($sql);
+        $result = $result[0];
+        if ($result) {
+            foreach ($result as $keys => $item) {
+                if ($keys == 'presell_shipping_time')
+                {
+                    $item = local_date("Y-m-d", $item);
+                }
+                $arr[$key][$keys] = $item;
+            }
+        }
+    }
+
     return $arr;
 }
 
@@ -1019,7 +1036,7 @@ function addto_cart($goods_id, $num = 1, $spec = array(), $parent = 0)
     $sql = "SELECT g.goods_name, g.goods_sn, g.is_on_sale, g.is_real, ".
                 "g.market_price, g.shop_price AS org_price, g.promote_price, g.promote_start_date, ".
                 "g.promote_end_date, g.goods_weight, g.integral, g.extension_code, ".
-                "g.goods_number, g.is_alone_sale, g.is_shipping,".
+                "g.goods_number, g.is_alone_sale, g.is_shipping, g.is_presell, g.presell_shipping_time, ".
                 "IFNULL(mp.user_price, g.shop_price * '$_SESSION[discount]') AS shop_price ".
             " FROM " .$GLOBALS['ecs']->table('goods'). " AS g ".
             " LEFT JOIN " . $GLOBALS['ecs']->table('member_price') . " AS mp ".
@@ -1111,6 +1128,11 @@ function addto_cart($goods_id, $num = 1, $spec = array(), $parent = 0)
     $goods_attr             = get_goods_attr_info($spec);
     $goods_attr_id          = join(',', $spec);
 
+    // 格式化预售商品的发货时间
+    // if ($goods['presell_shipping_time']) {
+    //     $goods['presell_shipping_time'] = local_date("Y-m-d", $goods['presell_shipping_time']);
+    // }
+    
     /* 初始化要插入购物车的基本件数据 */
     $parent = array(
         'user_id'       => $_SESSION['user_id'],
@@ -1126,7 +1148,9 @@ function addto_cart($goods_id, $num = 1, $spec = array(), $parent = 0)
         'extension_code'=> $goods['extension_code'],
         'is_gift'       => 0,
         'is_shipping'   => $goods['is_shipping'],
-        'rec_type'      => CART_GENERAL_GOODS
+        'rec_type'      => CART_GENERAL_GOODS,
+        'is_presell'    => $goods['is_presell'],
+        'presell_shipping_time'  => $goods['presell_shipping_time']
     );
 
     /* 如果该配件在添加为基本件的配件时，所设置的“配件价格”比原价低，即此配件在价格上提供了优惠， */
