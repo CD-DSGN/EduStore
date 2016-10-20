@@ -1146,7 +1146,7 @@
     var index = isPresell.selectedIndex;
     var is_presell = isPresell.options[index].value;
     var shippingTime = document.getElementById('shipping_time');
-    if (is_presell == 1)
+    if (is_presell > 0)
     {
       shippingTime.style.display = '';
     }
@@ -1163,7 +1163,7 @@
     var is_presell = isPresell.options[index].value;
     var shippingTime = document.getElementById('presell_shipping_time').value;
     isSelectShippingTime = 1;
-    if (is_presell == 1 && shippingTime == '请选择发货时间')
+    if (is_presell > 0 && shippingTime == '请选择发货时间')
     {
       isSelectShippingTime = 0;
       alert('选择预售的图书必须确定发货时间');

@@ -341,6 +341,7 @@ function API_DATA($type, $readData)
 			  "total_fee" => $readData['total_fee'],
 			);
 			break;
+		// modify nhj, 增加is_presell,presell_shipping_time
 		case 'GOODS':
             $readData['original_img'] || $readData['original_img'] = $readData['goods_thumb'];
 			$outData = array(
@@ -371,7 +372,9 @@ function API_DATA($type, $readData)
 				"rank_prices" => array(),
 				"pictures" => array(),
 				"properties" => array(),
-				"specification" => array()
+				"specification" => array(),
+				"is_presell"	=> $readData['is_presell'],
+				"presell_shipping_time" 	=> $readData['presell_shipping_time']
 			);
 			foreach ($readData['rank_prices'] as $key => $value) {
 				$outData['rank_prices'][] = array(

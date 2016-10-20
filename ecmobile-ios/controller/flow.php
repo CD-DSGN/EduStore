@@ -860,11 +860,12 @@ switch ($tmp[0]) {
 	    $order['order_id'] = $new_order_id;
 
 	    /* 插入订单商品 */
+	    // modify nhj, 往order_goods表中插入is_presell、presell_shipping_time
 	    $sql = "INSERT INTO " . $ecs->table('order_goods') . "( " .
 	                "order_id, goods_id, goods_name, goods_sn, product_id, goods_number, market_price, ".
-	                "goods_price, goods_attr, is_real, extension_code, parent_id, is_gift, goods_attr_id) ".
+	                "goods_price, goods_attr, is_real, extension_code, parent_id, is_gift, goods_attr_id, is_presell, presell_shipping_time) ".
 	            " SELECT '$new_order_id', goods_id, goods_name, goods_sn, product_id, goods_number, market_price, ".
-	                "goods_price, goods_attr, is_real, extension_code, parent_id, is_gift, goods_attr_id".
+	                "goods_price, goods_attr, is_real, extension_code, parent_id, is_gift, goods_attr_id, is_presell, presell_shipping_time".
 	            " FROM " .$ecs->table('cart') .
 	            " WHERE session_id = '".SESS_ID."' AND rec_type = '$flow_type'";
 	    $db->query($sql);
@@ -967,7 +968,29 @@ switch ($tmp[0]) {
 	                }
 	            }
 	        }
+	    }
 
+	    /* add nhj, 修改order_info表is_presell字段的状态：0：没有预售商品，1：部分预售商品，2：全部预售商品 */
+	    $sql = "SELECT is_presell FROM " . $ecs->table('order_goods') . "WHERE `order_id` = '" .$order['order_id']. "'";
+	    $res = $db->getAll($sql);
+	    if ($res) {
+	    	$order['is_presell'] = 0;
+	    	$count = 0;
+	    	foreach ($res as $item) {
+	    		foreach ($item as $key => $value) {
+	    			if ($key == 'is_presell') {
+	    				$order['is_presell'] += $value;
+	    				$count++;
+	    			}
+	    		}
+	    	}
+	    	if ($order['is_presell'] > 0 && $order['is_presell'] == $count) {		// 全部预售
+	    		$sql = "UPDATE ". $ecs->table('order_info') ."SET `is_presell` = '2' WHERE `order_id` = '" .$order['order_id'] . "'";
+	    		$db->query($sql);
+	    	} else if ($order['is_presell'] > 0) {									// 部分预售
+	    		$sql = "UPDATE ". $ecs->table('order_info') ."SET `is_presell` = '1' WHERE `order_id` = '" .$order['order_id'] . "'";
+	    		$db->query($sql);
+	    	}
 	    }
 
 	    /* 清空购物车 */

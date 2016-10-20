@@ -4927,9 +4927,19 @@ function order_list()
         $filter['user_name'] = empty($_REQUEST['user_name']) ? '' : trim($_REQUEST['user_name']);
         $filter['composite_status'] = isset($_REQUEST['composite_status']) ? intval($_REQUEST['composite_status']) : -1;
         $filter['group_buy_id'] = isset($_REQUEST['group_buy_id']) ? intval($_REQUEST['group_buy_id']) : 0;
-        $filter['is_presell'] = isset($_REQUEST['is_presell']) ? intval($_REQUEST['is_presell']) : 2;
+        if (isset($_REQUEST['is_presell'])) {
+            if (intval($_REQUEST['is_presell']) == 0) {
+                $filter['is_presell'] = 0;
+            } else if (intval($_REQUEST['is_presell']) == 1) {
+                $filter['is_presell'] = 1;
+            } else if (intval($_REQUEST['is_presell']) == 2) {
+                $filter['is_presell'] = 2;
+            } else {
+                $filter['is_presell'] = 3;
+            }
+        }
+        // $filter['is_presell'] = isset($_REQUEST['is_presell']) ? intval($_REQUEST['is_presell']) : 2;
         // $filter['presell_shipping_time'] = isset($_REQUEST['presell_shipping_time']) ? intval($_REQUEST['presell_shipping_time']) : 0;
-
         $filter['sort_by'] = empty($_REQUEST['sort_by']) ? 'add_time' : trim($_REQUEST['sort_by']);
         $filter['sort_order'] = empty($_REQUEST['sort_order']) ? 'DESC' : trim($_REQUEST['sort_order']);
 
@@ -5017,14 +5027,18 @@ function order_list()
         {
             $where .= " AND o.add_time <= '$filter[end_time]'";
         }
-        // 0：非预售商品，1：预售商品，2：无约束
-        if ($filter['is_presell'] == 0)
+        // 0：没有预售商品，1：部分预售商品，2：全部预售商品，3：没有约束
+        if (isset($filter['is_presell']) && $filter['is_presell'] == 0)
         {
             $where .= " AND o.is_presell = '0'";
         }
         else if ($filter['is_presell'] == 1)
         {
             $where .= " AND o.is_presell = '1'";
+        }
+        else if ($filter['is_presell'] == 2)
+        {
+            $where .= " AND o.is_presell = '2'";
         }
 
         //综合状态

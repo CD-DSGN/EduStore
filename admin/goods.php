@@ -841,90 +841,16 @@ elseif ($_REQUEST['act'] == 'insert' || $_REQUEST['act'] == 'update')
     $goods_thumb = (empty($goods_thumb) && isset($_POST['auto_thumb']))? $goods_img : $goods_thumb;
 
     // add nhj，如果预售，给商品图片与缩略图加预售水印
+    // 可以封装函数，不过以后再说吧
     if ( $_POST['is_presell'] == 1 )
     {
         $presell_img = '../images/' .$GLOBALS['_CFG']['presell_image'];
-        $presell_img_im = imagecreatefrompng($presell_img);
-        // 生成格式需要匹配，商品
-        $goods_img_info = @getimagesize('../' .$goods_img);
-        switch ( $goods_img_info[2] )
-        {
-            case 'image/gif':
-            case 1:
-                $goods_img_im = imagecreatefromgif('../' .$goods_img);
-                break;
-            case 'image/pjpeg':
-            case 'image/jpeg':
-            case 2:
-                $goods_img_im = imagecreatefromjpeg('../' .$goods_img);
-                break;
-            case 'image/x-png':
-            case 'image/png':
-            case 3:
-                $goods_img_im = imagecreatefrompng('../' .$goods_img);
-                break;
-            default:
-                break;
-        }
-        // 缩略图
-        $goods_thumb_info = @getimagesize('../' .$goods_thumb);
-        switch ( $goods_thumb_info[2] )
-        {
-            case 'image/gif':
-            case 1:
-                $goods_thumb_im = imagecreatefromgif('../' .$goods_thumb);
-                break;
-            case 'image/pjpeg':
-            case 'image/jpeg':
-            case 2:
-                $goods_thumb_im = imagecreatefromjpeg('../' .$goods_thumb);
-                break;
-            case 'image/x-png':
-            case 'image/png':
-            case 3:
-                $goods_thumb_im = imagecreatefrompng('../' .$goods_thumb);
-                break;
-            default:
-                break;
-        }      
-
-        if ( $presell_img_im && $goods_img_im )
-        {
-            $w = $GLOBALS['_CFG']['image_width'];
-            $h = $GLOBALS['_CFG']['image_height'];
-            $size_res = getimagesize($presell_img);                         // 获取水印图片的大小
-            $new_im = imagecreatetruecolor($w, $h);                         // 创建一个画板，宽高为shop_config中写定
-            $color=imagecolorallocatealpha($new_im, 0, 0, 0, 127);          // 拾取一个完全透明的颜色
-            imagealphablending($new_im, false);                             // 关闭混合模式，以便透明色能覆盖原画板
-            imagefill($new_im, 0, 0, $color);                               // 填充
-            imagecopyresampled($new_im, $presell_img_im, 0, 0, 0, 0, $w, $h, $size_res['0'], $size_res['1']);               // 压缩图片 
-            imagecopy($goods_img_im, $new_im, 0, 0, 0, 0, $w, $h);                              // 上水印
-            imagesavealpha($goods_img_im, true);                            // 设置保存时保留透明通道信息
-            imagejpeg($goods_img_im, '../' .$goods_img);
-
-            imagedestroy($new_im);
-            imagedestroy($goods_img_im);
-        }   
-        if ( $presell_img_im && $goods_thumb_im )
-        {
-            // 需要将预售缩略图压缩
-            $w = $GLOBALS['_CFG']['thumb_width'];
-            $h = $GLOBALS['_CFG']['thumb_height'];
-            $size_res = getimagesize($presell_img);
-            $small_presell_im = imagecreatetruecolor($w, $h);
-            $color=imagecolorallocatealpha($small_presell_im, 0, 0, 0, 127);          
-            imagealphablending($small_presell_im, false);                             
-            imagefill($small_presell_im, 0, 0, $color); 
-            imagecopyresampled($small_presell_im, $presell_img_im, 0, 0, 0, 0, $w, $h, $size_res['0'], $size_res['1']); 
-            // 为缩略图加上水印
-            imagecopy($goods_thumb_im, $small_presell_im, 0, 0, 0, 0, $w, $h);
-            imagesavealpha($goods_thumb_im, true); 
-            imagejpeg($goods_thumb_im, '../' .$goods_thumb);
-
-            imagedestroy($small_presell_im);
-            imagedestroy($goods_thumb_im);
-            imagedestroy($presell_img_im);
-        }  
+        add_presell_watermark('../'. $goods_thumb, $presell_img);
+        add_presell_watermark('../'. $goods_img, $presell_img);
+        add_presell_watermark('../'. $original_img, $presell_img);
+        add_presell_watermark('../'. $gallery_img, $presell_img);
+        add_presell_watermark('../'. $gallery_thumb, $presell_img);
+        add_presell_watermark('../'. $img, $presell_img);
     }
 
     /* 入库 */
@@ -2808,4 +2734,82 @@ function update_goods_stock($goods_id, $value)
         return false;
     }
 }
+
+/**
+ * add nhj
+ * 给商品($src_img)添加预售字样的水印(除非原图片是透明的，不然不会有问题)
+ * @param   string  $src_img           要加水印的图片，目标图片
+ * @param   string  $presell_img       水印图片，格式为png
+ * @param   string  $width             缩放后的宽度，为0不缩放（默认为0）
+ * @param   string  $height            缩放后的高度
+ * @return  void                       直接生成图片在本地
+ */
+function add_presell_watermark($src_img, $presell_img, $width = 0, $height = 0)
+{
+    // 如果$width，$height不为0，同时缩放目标图片、水印图片，为缩放结果生成两块画板；如果为0，将水印图片缩放至与目标图片一样大
+    $target = $src_img;
+    $src_img_info = getimagesize($src_img);
+    $presell_img_info = getimagesize($presell_img);
+    /* 目标图片按格式生成画板 */
+    switch ($src_img_info['2']) {
+        case 'image/gif':
+        case 1:
+            $src_img_im = imagecreatefromgif($src_img);
+            break;
+        case 'image/pjpeg':
+        case 'image/jpeg':
+        case 2:
+            $src_img_im = imagecreatefromjpeg($src_img);
+            break;
+        case 'image/x-png':
+        case 'image/png':
+        case 3:
+            $src_img_im = imagecreatefrompng($src_img);
+            break;
+        default:
+            break;
+    }
+    /* 确定缩放后的大小 */
+    if ($width != 0 && $height != 0)
+    {
+        $w = $width;
+        $h = $height;
+        $src_zoom_im = imagecreatetruecolor($w, $h);                            // 创建一个缩放大小的画板
+        // $color = imagecolorallocatealpha($src_zoom_im, 0, 0, 0, 127);           // 拾取一个完全透明的颜色
+        // imagealphablending($src_zoom_im, false);                                // 关闭混合模式，以便透明色能覆盖原画板
+        // imagefill($src_zoom_im, 0, 0, $color);                                  // 填充
+        imagecopyresampled($src_zoom_im, $src_img_im, 0, 0, 0, 0, $w, $h, $src_img_info['0'], $src_img_info['1']);      // 缩放
+    }
+    else
+    { 
+        $w = $src_img_info['0'];
+        $h = $src_img_info['1'];
+    }
+    
+    /* 将水印图片缩放至指定大小 */
+    $presell_img_im = imagecreatefrompng($presell_img);              // 水印图片格式png，写定的
+    $presell_zoom_im = imagecreatetruecolor($w, $h);                         
+    $color=imagecolorallocatealpha($presell_zoom_im, 255, 255, 255, 127);          
+    imagealphablending($presell_zoom_im, false);                             
+    imagefill($presell_zoom_im, 0, 0, $color);                             
+    imagecopyresampled($presell_zoom_im, $presell_img_im, 0, 0, 0, 0, $w, $h, $presell_img_info['0'], $presell_img_info['1']);
+
+    if ($src_zoom_im)   /* 目标图片被压缩 */
+    {
+        imagecopy($src_zoom_im, $presell_zoom_im, 0, 0, 0, 0, $w, $h);              // 上水印                                  
+        imagejpeg($src_zoom_im, $target);
+        imagedestroy($src_zoom_im);
+    }
+    else                /* 目标图片未被压缩 */
+    {
+        imagecopy($src_img_im, $presell_zoom_im, 0, 0, 0, 0, $w, $h);
+        imagesavealpha($src_img_im, true);                                          // 设置保存时保留透明通道信息
+        imagepng($src_img_im, $target);
+    }
+
+    imagedestroy($src_img_im);
+    imagedestroy($presell_img_im);
+    imagedestroy($presell_zoom_im);
+}
+
 ?>

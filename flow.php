@@ -1679,7 +1679,7 @@ elseif ($_REQUEST['step'] == 'done')
             " WHERE session_id = '".SESS_ID."' AND rec_type = '$flow_type'";
     $db->query($sql);
 
-    /* 通过订单编号获取订单id，查询订单商品是否存在预售商品 */
+    /* add nhj,通过订单编号获取订单id，查询订单商品是否存在预售商品 */
     $sql = "SELECT order_id FROM" . $ecs->table('order_info') . "WHERE `order_sn` = '" . $order['order_sn'] ."'";
     $res = $db->getRow($sql);
     $order_id = $res['order_id'];
@@ -1687,19 +1687,27 @@ elseif ($_REQUEST['step'] == 'done')
     $sql = "SELECT is_presell, presell_shipping_time FROM ". $ecs->table('order_goods') ."WHERE `order_id` = '" .$order_id. "'";
     $res = $db->getAll($sql);
     if ($res) {
+        $order['is_presell'] = 0;
+        $count = 0;
         foreach ($res as $item) {
             foreach ($item as $key => $value) {
                 if ($key == 'is_presell') {
-                    $order['is_presell'] = $value;
+                    $order['is_presell'] += $value;
+                    $count++;
                 }
                 if ($key == 'presell_shipping_time') {
                     $order['presell_shipping_time'] = $value;
                 }
             }
         }
-        /* 有预售商品，更新表order_info */
-        $sql = "UPDATE ". $ecs->table('order_info') ." SET `is_presell` = '". $order['is_presell'] ."', `presell_shipping_time` = '". $order['presell_shipping_time'] ."' WHERE `order_id` = '" . $order_id . "'";
-        $db->query($sql);
+        /* 有预售商品，更新表order_info，is_presell：2表示全部为预售商品，1为部分预售商品，0没有预售商品 */
+        if ($order['is_presell'] > 0 && $order['is_presell'] == $count) {
+            $sql = "UPDATE ". $ecs->table('order_info') ." SET `is_presell` = '2', `presell_shipping_time` = '". $order['presell_shipping_time'] ."' WHERE `order_id` = '" . $order_id . "'";
+            $db->query($sql);
+        }  else if ($order['is_presell'] > 0) {
+            $sql = "UPDATE ". $ecs->table('order_info') ." SET `is_presell` = '1', `presell_shipping_time` = '". $order['presell_shipping_time'] ."' WHERE `order_id` = '" . $order_id . "'";
+            $db->query($sql);
+        }
     }
 
     /* 修改拍卖活动状态 */
