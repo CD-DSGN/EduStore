@@ -451,7 +451,7 @@ class WxPayApi
 	 */
 	public static function replyNotify($xml)
 	{
-		log::DEBUG("xml: " . $xml); //Todo, 测试用，上线的时候去掉
+//		log::DEBUG("xml: " . $xml); //Todo, 测试用，上线的时候去掉
 	    echo $xml;
 	}
 	

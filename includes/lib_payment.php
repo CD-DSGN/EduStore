@@ -148,7 +148,7 @@ function order_paid($log_id, $pay_status = PS_PAYED, $note = '')
                 " WHERE log_id = '$log_id'";
         $pay_log = $GLOBALS['db']->getRow($sql);
         //begin zhangmengqi
-        log::DEBUG("pay_log['is_paid']". $pay_log['is_paid']);
+//        log::DEBUG("pay_log['is_paid']". $pay_log['is_paid']);
         //end zhangmengqi
 
         if ($pay_log && $pay_log['is_paid'] == 0)

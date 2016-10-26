@@ -137,7 +137,7 @@ class wxpay extends  WxPayNotify
      */
     function respond()
     {
-        Log::DEBUG("wxpay.php: respond");
+//        Log::DEBUG("wxpay.php: respond");
         $this->Handle(false);
     }
 
@@ -147,7 +147,7 @@ class wxpay extends  WxPayNotify
         $input = new WxPayOrderQuery();
         $input->SetTransaction_id($transaction_id);
         $result = WxPayApi::orderQuery($input);
-        Log::DEBUG("query:" . json_encode($result));
+//        Log::DEBUG("query:" . json_encode($result));
         if(array_key_exists("return_code", $result)
             && array_key_exists("result_code", $result)
             && $result["return_code"] == "SUCCESS"
@@ -165,8 +165,8 @@ class wxpay extends  WxPayNotify
         $pos = strpos($out_trade_no, '_');
 //        $order_sn = substr($out_trade_no, 0, $pos); //订单序列号
         $log_id = substr($out_trade_no, $pos + 1);
-        log::DEBUG("log_id:" . $log_id);
-        log::DEBUG("total_fee:" . $data['total_fee']);
+//        log::DEBUG("log_id:" . $log_id);
+//        log::DEBUG("total_fee:" . $data['total_fee']);
         $total_fee = $data['total_fee']/100;
         if (!check_money($log_id, $total_fee))
         {
@@ -175,14 +175,14 @@ class wxpay extends  WxPayNotify
 
         //修改数据库,改变订单的支付状态
         order_paid($log_id, 2);
-        Log::DEBUG("order_paid", 2);
+//        Log::DEBUG("order_paid", 2);
         return true;
     }
     //end zhangmengqi
 
     public function NotifyProcess($data, &$msg)
     {
-        Log::DEBUG("call back:" . json_encode($data));
+//        Log::DEBUG("call back:" . json_encode($data));
 
         if(!array_key_exists("transaction_id", $data)){
             $msg = "输入参数不正确";
