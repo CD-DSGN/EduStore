@@ -29,7 +29,8 @@ GZ_Api::outPut($out);
 function getOrderInfo($order_id, $user_id)
 {
     require_once(EC_PATH . '/ecmobile/payment/alipay/sdk/alipay.config.php');
-    $sql = "SELECT order_id, order_sn, order_amount " .
+    $sql = "SELECT order_id, order_sn, order_amount
+     " .
         " FROM " . $GLOBALS['ecs']->table('order_info') .
         " WHERE user_id = '$user_id' " . "and order_id = '$order_id'";
     $res = $GLOBALS['db']->getRow($sql);
