@@ -105,7 +105,11 @@ if ($_REQUEST['act'] == 'edit')
     admin_priv('shopinfo_manage');
 
     /* 取得文章数据 */
-    $sql = "SELECT article_id, title, content FROM ".$ecs->table('article')."WHERE article_id =".$_REQUEST['id'];
+    //begin zhangmengqi
+    //修正整形id型sql注入
+    $id = intval($_REQUEST['id']);
+    $sql = "SELECT article_id, title, content FROM ".$ecs->table('article')."WHERE article_id =".$id;
+    //end zhangmengqi
     $article = $db->GetRow($sql);
 
     /* 创建 html editor */

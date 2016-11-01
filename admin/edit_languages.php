@@ -117,7 +117,9 @@ elseif ($_REQUEST['act'] == 'edit')
         else
         {
             $_POST['item_content'][$i] = str_replace('\\\\n', '\\n', $_POST['item_content'][$i]);
-            $dst_items[$i] = $_POST['item_id'][$i] .' = '. '"' .$_POST['item_content'][$i]. '";';
+            //begin zhangmengqi, 防止代码注入
+            $dst_items[$i] = $_POST['item_id'][$i] .' = '. '\'' .$_POST['item_content'][$i]. '\';';
+            //end zhangmengqi
         }
     }
 

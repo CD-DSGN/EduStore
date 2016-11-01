@@ -223,7 +223,7 @@ function get_affiliate_ck()
     }
     if (isset($_GET['auid']))
     {
-        $sqladd = ' AND a.user_id=' . $_GET['auid'];
+        $sqladd = ' AND a.user_id=' . intval($_GET['auid']);
     }
 
     if(!empty($affiliate['on']))

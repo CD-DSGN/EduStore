@@ -157,7 +157,9 @@ if ($_REQUEST['act'] == 'update')
     /* 检查重名 */
     if ($_POST['title'] != $_POST['old_title'] )
     {
-        $exc_article->is_only('title', $_POST['title'], $_LANG['articlename_exist'], $_POST['id']);
+        //begin zhangmengqi, 防止sql注入
+        $exc_article->is_only('title', $_POST['title'], $_LANG['articlename_exist'], intval($_POST['id']));
+        //end zhangmengqi
     }
     /* 更新 */
     if ($exc_article->edit("title = '$_POST[title]', cat_id = '$_POST[cat_id]', article_type = '$_POST[article_type]', content = '$_POST[FCKeditor1]'", $_POST['id']))
