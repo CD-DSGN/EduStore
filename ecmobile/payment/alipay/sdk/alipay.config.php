@@ -45,4 +45,6 @@ $alipay_config['cacert']    = getcwd().'\\cacert.pem';
 //访问模式,根据自己的服务器是否支持ssl访问，若支持请选择https；若不支持请选择http
 $alipay_config['transport']    = 'http';
 $alipay_config['notify_url']   = "http://60.205.92.85/ecmobile/payment/alipay/sdk/notify_url.php";
+
+$alipay_config['public_key_client'] = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCnxj/9qwVfgoUh/y2W89L6BkRAFljhNhgPdyPuBV64bfQNN1PjbCzkIM6qRdKBoLPXmKKMiFYnkd6rAoprih3/PrQEB/VsW8OoM8fxn67UDYuyBTqA23MML9q1+ilIZwBC2AQ2UBVOrFXfFl75p6/B5KsiNG9zpgmLCUYuLkxpLQIDAQAB";
 ?>
