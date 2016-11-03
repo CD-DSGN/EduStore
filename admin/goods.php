@@ -845,12 +845,24 @@ elseif ($_REQUEST['act'] == 'insert' || $_REQUEST['act'] == 'update')
     if ( $_POST['is_presell'] == 1 )
     {
         $presell_img = '../images/' .$GLOBALS['_CFG']['presell_image'];
-        add_presell_watermark('../'. $goods_thumb, $presell_img);
-        add_presell_watermark('../'. $goods_img, $presell_img);
-        add_presell_watermark('../'. $original_img, $presell_img);
-        add_presell_watermark('../'. $gallery_img, $presell_img);
-        add_presell_watermark('../'. $gallery_thumb, $presell_img);
-        add_presell_watermark('../'. $img, $presell_img);
+        if (!empty($goods_thumb)) {
+            add_presell_watermark('../'. $goods_thumb, $presell_img);
+        }
+        if (!empty($goods_img)) {
+            add_presell_watermark('../'. $goods_img, $presell_img);
+        }
+        if (!empty($original_img)) {
+            add_presell_watermark('../'. $original_img, $presell_img);
+        }
+        if (!empty($gallery_img)) {
+            add_presell_watermark('../'. $gallery_img, $presell_img);
+        }
+        if (!empty($gallery_thumb)) {
+            add_presell_watermark('../'. $gallery_thumb, $presell_img);
+        }
+        if (!empty($img)) {
+            add_presell_watermark('../'. $img, $presell_img);
+        }
     }
 
     /* 入库 */
