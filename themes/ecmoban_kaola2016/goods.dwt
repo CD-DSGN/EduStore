@@ -380,6 +380,7 @@ function tab(id)
        </li>
       
       <li class="padd">
+	  <a  class="btn_pink_138x32" href="javascript:addToCart2({$goods.goods_id})" style="color:#FFF;text-decoration:none;background:#FF6825;">立即购买</a>
       <a  class="btn_pink_138x32" href="javascript:addToCart({$goods.goods_id})" style="color:#FFF;text-decoration:none;">加入购物车</a>
      
       </li>
