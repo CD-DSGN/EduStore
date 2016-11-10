@@ -1,6 +1,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <div class="xm-box">
-  <h4 class="title"><a class="more" href="{$goods_cat.url}">更多</a><em><span class="floornumber"></span>L {$goods_cat.name|escape:html}</em> </h4>
+  <h4 class="title"><a class="more" href="{$goods_cat.url}">更多</a><li><span class="floornumber"></span>L {$goods_cat.name|escape:html}</li> </h4>
   <div id="show_hot_area" class="clearfix body">
     <!--{foreach from=$cat_goods item=goods}-->
     <div class="goodsItem"> <a href="{$goods.url}" target="_blank"><img src="{$goods.thumb}" alt="{$goods.name|escape:html}" class="goodsimg" /></a><br />
