@@ -1840,6 +1840,16 @@ CREATE TABLE `ecs_subscription` (
 
 --end zhangmengqi
 
+--增加教师to学生微博功能表 begin by chenggaoyuan
+DROP TABLE IF EXISTS `estr_teacher_publish`;
+CREATE TABLE `estr_teacher_publish`(
+  `news_id` int(10) unsigned NOT NULL auto_increment,
+  `news_content` text NOT NULL,
+  `publish_time` int(10) unsigned NOT NULL default '0',
+  `user_id` int(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`news_id`)
+) ENGINE=MyISAM;
+--end chenggaoyuan
 
 
 

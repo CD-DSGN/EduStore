@@ -52,7 +52,7 @@ if(isMobile($name))
 
 function logResult($word='') 
 {
-	$fp = fopen("log.txt","a");
+	$fp = fopen("login_log.txt","a");
 	flock($fp, LOCK_EX) ;
 	fwrite($fp,"执行日期：".strftime("%Y%m%d%H%M%S",time())."\n".$word."\n");
 	flock($fp, LOCK_UN);
