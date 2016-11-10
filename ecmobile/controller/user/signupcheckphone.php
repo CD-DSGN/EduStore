@@ -20,9 +20,9 @@ if(!empty($user_id_all)){
 }else{
     $sendSms = new SendSmsForVerificationCode($phone_num, $time);
     $sendSms->sendSmsForVeriCode();
-//     $out = array(
-//         'veri_code' => '888888'
-//     );
-//     GZ_Api::outPut($out);
+    //$out = array(
+    //    'veri_code' => '888888'
+    //);
+    //GZ_Api::outPut($out);
 }
 

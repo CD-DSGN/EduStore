@@ -66,7 +66,7 @@
     $.toJSON = function(o)
     {
         var type = typeof(o);
-		
+
         if (type == "undefined")
             return "undefined";
         else if (type == "number" || type == "boolean")
