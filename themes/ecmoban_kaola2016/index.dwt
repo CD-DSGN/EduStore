@@ -56,10 +56,10 @@
 	<div class="wrap">
 		<div class="logo">
 			<div class="logo-left">
-				<a href="index.php"><img src="./themes/ecmoban_kaola2016/img/logo.png" alt="" width="125" height="80"></a>
+				<a href="index.php"><img src="images/logo.png" alt="" width="125" height="80"></a>
 			</div>
 			<div class="logo-right">
-				<a href=""><img  src="./themes/ecmoban_kaola2016/img/mobilephone.png" alt="" width="21" height="21">手机汇师
+				<a href=""><img  src="images/mobilephone.png" alt="" width="21" height="21">手机汇师
                     <ul>
                     	<li><img src="images/2dcode-app3.jpg" alt="" width="100" height="100"></li>
                     </ul>
@@ -126,7 +126,7 @@
 <div class="mid">
   
    <div class="mid-img">
-    <a href=""><img src="./themes/ecmoban_kaola2016/img/T.jpg" alt="" ></a>
+    <a href=""><img src="images/T.jpg" alt="" ></a>
    </div>
 </div>
     
@@ -144,7 +144,7 @@
        <h4>{$goods.short_name}</h4><br/>
        <strong>
 	   	  <!-- {if $goods.promote_price neq ""} -->
-          {$goods.promote_price}
+          {$goods.promote_price}<script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
           <!-- {else}-->
           {$goods.shop_price}
           <!--{/if}-->
