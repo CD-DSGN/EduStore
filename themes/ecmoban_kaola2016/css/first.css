@@ -133,7 +133,7 @@ span{
 }
 .nav-left{
 	width:10px;
-	background: url(../img/nav_left.jpg)no-repeat;    
+	background: url(../images/nav_left.jpg)no-repeat;    
 	float: left;
 	height:40px;
 }
@@ -157,14 +157,14 @@ span{
 }
 .nav-mid{
 	width:1280px;
-	background:url(../img/nav_bg.jpg)repeat-x;	
+	background:url(../images/nav_bg.jpg)repeat-x;	
 	float: left;
 	height:40px;
 
 }
 .nav-right{
 	width:10px;
-	background:url(../img/nav_right.jpg)no-repeat;
+	background:url(../images/nav_right.jpg)no-repeat;
 	float: left;
 	height:40px;
 	
@@ -201,7 +201,7 @@ span{
 	width:190px;
 	height:25px;
 	margin-top:6px;
-    background:url(../img/search.jpg)no-repeat right center;
+    background:url(../images/search.jpg)no-repeat right center;
     background-color:#fff;
     padding-right: 25px;
     border: 1px solid #fff;
