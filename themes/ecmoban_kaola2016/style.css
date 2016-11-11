@@ -474,13 +474,13 @@ _padding:12px 0px 0px 0px;}
 
  /*商品分类*/
 .xm-box{margin: 20px 0 0; font-family: "microsoft yahei";}
-.xm-box .title{ position: relative; height: 40px; }
-.xm-box .title em{ color: #333; line-height: 50px; font-size: 20px; font-weight:570; font-style: normal;}
-.xm-box .title .more{ float: right; line-height: 50px; padding-right: 30px;}
-.xm-box .title .more1{ float: right; line-height: 50px; padding-right: 20px;}
+.xm-box .title{ position: relative;}
+.xm-box .title li{ color: #FFF; height: 40px; line-height: 40px; width:100px; text-align:center; font-size: 15px; font-weight:normal; font-style: normal; background:#FF5B00;}
+.xm-box .title .more{ float: right; line-height: 40px; padding-right: 30px;color:#DD2727;}
+.xm-box .title .more1{ float: right; line-height: 40px; padding-right: 20px;}
 .xm-box .title .more:hover {text-decoration: underline;}
 .xm-box .title .more1:hover {text-decoration: underline;}
-.xm-box .body{ padding: 14px 0 0 0;  height: 325px;}
+.xm-box .body{ padding: 0 0 0 0;  height: 325px;}
 .top_nav .header_r{ color:#cbcbcb; float:right; color:#818181}
 .top_nav a{ color:#616161; padding:0 3px;}
 .top_nav {}

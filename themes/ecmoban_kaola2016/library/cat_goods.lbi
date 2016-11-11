@@ -1,23 +1,26 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<div class="xm-box">
-  <h4 class="title"><a class="more" href="{$goods_cat.url}">更多</a><em><span class="floornumber"></span>L {$goods_cat.name|escape:html}</em> </h4>
-  <div id="show_hot_area" class="clearfix body">
-    <!--{foreach from=$cat_goods item=goods}-->
-    <div class="goodsItem"> <a href="{$goods.url}" target="_blank"><img src="{$goods.thumb}" alt="{$goods.name|escape:html}" class="goodsimg" /></a><br />
-      <p class="name"><a href="{$goods.url}" title="{$goods.name|escape:html}" target="_blank">{$goods.short_name}</a></p>
-      <div class="info">
-        <p class="price">
-          <!-- {if $goods.promote_price neq ""} -->
+<div>
+<h2><span class="floornumber"></span>L {$goods_cat.name|escape:html}</h2>
+<a href="{$goods_cat.url}"><input id="first-in" type="text" value="更多 >"/></a>	
+<div class="goods-showing">
+	{foreach from=$cat_goods item=goods}
+	<a href="{$goods.url}"><div class="one">
+       <img src="{$goods.thumb}" alt="{$goods.name|escape:html}" width="100%" height="230">
+       <h4>{$goods.short_name}</h4><br/>
+       <strong>
+	   	  <!-- {if $goods.promote_price neq ""} -->
           {$goods.promote_price}
           <!-- {else}-->
           {$goods.shop_price}
           <!--{/if}-->
-        </p>
-        <p class="market">{$goods.market_price}</p>
-        <a href="{$goods.url}" class="buy" target="_blank">立即购买</a>
-      </div>
-     </div>
-    <!--{/foreach}-->
-  </div>
+		</strong> 
+       <a href="{$goods.url}"><input id="sec-in" type="text" value="立即购买"/></a>
+		</div></a>
+		<!--<a href=""><div class="two">1</div></a>
+		<a href=""><div class="three">1</div></a>
+		<a href=""><div class="four">1</div></a>
+		<a href=""><div class="five">1</div></a>-->
+	{/foreach}
+	-->
 </div>
-<div class="blank"></div>
+</div>

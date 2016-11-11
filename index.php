@@ -147,14 +147,6 @@ if (!$smarty->is_cached('index.dwt', $cache_id))
 
     /* 首页推荐分类 */
     $cat_recommend_res = $db->getAll("SELECT c.cat_id, c.cat_name, cr.recommend_type FROM " . $ecs->table("cat_recommend") . " AS cr INNER JOIN " . $ecs->table("category") . " AS c ON cr.cat_id=c.cat_id");
-    //新添加的功能
-    // $page = isset($_REQUEST['page'])   && intval($_REQUEST['page'])  > 0 ? intval($_REQUEST['page'])  : 1;
-    // $size = isset($_CFG['page_size'])  && intval($_CFG['page_size']) > 0 ? intval($_CFG['page_size']) : 10;
-    // $brand = isset($_REQUEST['brand']) && intval($_REQUEST['brand']) > 0 ? intval($_REQUEST['brand']) : 0;
-    // $price_max = isset($_REQUEST['price_max']) && intval($_REQUEST['price_max']) > 0 ? intval($_REQUEST['price_max']) : 0;
-    // $price_min = isset($_REQUEST['price_min']) && intval($_REQUEST['price_min']) > 0 ? intval($_REQUEST['price_min']) : 0;
-    // $goodslist = category_get_goods($children, $brand, $price_min, $price_max, $ext, $size, $page, $sort, $order);
-    // $smarty->assign('goods_list',       $goodslist);
     if (!empty($cat_recommend_res))
     {
         $cat_rec_array = array();
@@ -164,7 +156,6 @@ if (!$smarty->is_cached('index.dwt', $cache_id))
             
         }
         $smarty->assign('cat_rec', $cat_rec);
-        
     }
     /* 页面中的动态内容 */
     assign_dynamic('index');
