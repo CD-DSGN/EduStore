@@ -1,153 +1,175 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
+<!DOCTYPE html>
+<html>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="Keywords" content="{$keywords}" />
-<meta name="Description" content="{$description}" />
-<!-- TemplateBeginEditable name="doctitle" -->
-<title>{$page_title}</title>
-<!-- TemplateEndEditable -->
-<!-- TemplateBeginEditable name="head" -->
-<!-- TemplateEndEditable -->
-<link rel="shortcut icon" href="favicon.ico" />
-<link rel="icon" href="animated_favicon.gif" type="image/gif" />
-<link href="{$ecs_css_path}" rel="stylesheet" type="text/css" />
-<link rel="alternate" type="application/rss+xml" title="RSS|{$page_title}" href="{$feed_url}" />
-{* 包含脚本文件 *}
-{insert_scripts files='common.js,index.js'}
-</head>
-<body class="index_page" style="min-width:1200px;">
-<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem -->
-<script type="text/javascript">
-  $(function(){
-      //如果是首页，让分类树直接显示
-      $(".cate-tree").each(function(){
-        var _this = $(this);
-        _this.removeClass("none").addClass("cate-tree-index");
-      });
-  });
-</script>
-{insert_scripts files='jquery.SuperSlide.js'}
-<!-- #BeginLibraryItem "/library/index_ad.lbi" --><!-- #EndLibraryItem -->
-<div class="indexw_content">
-<div class="block clearfix" >
-<div class="AreaL">
- <!-- TemplateBeginEditable name="商店公告" -->
-<!-- TemplateEndEditable -->  
+ <head>
+	<title>huishi首页</title>
+	<link rel="stylesheet" type="text/css" href="./themes/ecmoban_kaola2016/css/first.css">
+	<script type="text/javascript" src="./themes/ecmoban_kaola2016/js/setHomeSetFav.js"></script>
+	<script type="text/javascript" src="./themes/ecmoban_kaola2016/js/myfocus-2.0.1.min.js"></script>
+	<script type="text/javascript" src="./themes/ecmoban_kaola2016/js/mF_fancy.js"></script>
+	<link rel="stylesheet" type="text/css" href="./themes/ecmoban_kaola2016/css/mF_fancy.css">
+	<script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		myFocus.set({
+			id:'picBox'
+		});
+	</script>
+ </head>
 
-<!-- TemplateBeginEditable name="商店公告下广告" -->
-<!-- TemplateEndEditable -->
-</div>
-<div class="Arear">
-<!-- TemplateBeginEditable name="促销商品区域" -->
-<!-- TemplateEndEditable --> 
-</div> 
-  <div class="goodsBox_1">
-  <!-- TemplateBeginEditable name="首页右侧区域" -->
-<!-- #BeginLibraryItem "/library/cat_goods.lbi" -->
+<body>
 
-<div class="xm-box">
-  <h4 class="title"><a class="more" href="{$goods_cat.url}">更多</a><li><span class="floornumber"></span>L {$goods_cat.name|escape:html}</li> </h4>
-  <div id="show_hot_area" class="clearfix body">
-    <!--{foreach from=$cat_goods item=goods}-->
-    <div class="goodsItem"> <a href="{$goods.url}" target="_blank"><img src="{$goods.thumb}" alt="{$goods.name|escape:html}" class="goodsimg" /></a><br />
-      <p class="name"><a href="{$goods.url}" title="{$goods.name|escape:html}" target="_blank">{$goods.short_name}</a></p>
-      <div class="info">
-        <p class="price">
-          <!-- {if $goods.promote_price neq ""} -->
-          {$goods.promote_price}
-          <!-- {else}-->
-          {$goods.shop_price}
-          <!--{/if}-->
-        </p>
-        <p class="market">{$goods.market_price}</p>
-        <a href="{$goods.url}" class="buy" target="_blank">立即购买</a>
-      </div>
-     </div>
-    <!--{/foreach}-->
-  </div>
-</div>
-<div class="blank"></div>
- <!-- #EndLibraryItem -->
-<!-- #BeginLibraryItem "/library/cat_goods.lbi" -->
+	<div class="top">
 
-<div class="xm-box">
-  <h4 class="title"><a class="more" href="{$goods_cat.url}">更多</a><li><span class="floornumber"></span>L {$goods_cat.name|escape:html}</li> </h4>
-  <div id="show_hot_area" class="clearfix body">
-    <!--{foreach from=$cat_goods item=goods}-->
-    <div class="goodsItem"> <a href="{$goods.url}" target="_blank"><img src="{$goods.thumb}" alt="{$goods.name|escape:html}" class="goodsimg" /></a><br />
-      <p class="name"><a href="{$goods.url}" title="{$goods.name|escape:html}" target="_blank">{$goods.short_name}</a></p>
-      <div class="info">
-        <p class="price">
-          <!-- {if $goods.promote_price neq ""} -->
-          {$goods.promote_price}
-          <!-- {else}-->
-          {$goods.shop_price}
-          <!--{/if}-->
-        </p>
-        <p class="market">{$goods.market_price}</p>
-        <a href="{$goods.url}" class="buy" target="_blank">立即购买</a>
-      </div>
-     </div>
-    <!--{/foreach}-->
-  </div>
-</div>
-<div class="blank"></div>
- <!-- #EndLibraryItem -->
-<!-- #BeginLibraryItem "/library/cat_goods.lbi" -->
+	<div class="topContent">
+			<div class="leftArea">
+					<span class="fl gotoindex" style="margin-right:15px;">汇师网欢迎您！</span>
+					{* ECSHOP 提醒您：根据用户id来调用member_info.lbi显示不同的界面  *}{insert name='member_info'}
+			</div>
 
-<div class="xm-box">
-  <h4 class="title"><a class="more" href="{$goods_cat.url}">更多</a><li><span class="floornumber"></span>L {$goods_cat.name|escape:html}</li> </h4>
-  <div id="show_hot_area" class="clearfix body">
-    <!--{foreach from=$cat_goods item=goods}-->
-    <div class="goodsItem"> <a href="{$goods.url}" target="_blank"><img src="{$goods.thumb}" alt="{$goods.name|escape:html}" class="goodsimg" /></a><br />
-      <p class="name"><a href="{$goods.url}" title="{$goods.name|escape:html}" target="_blank">{$goods.short_name}</a></p>
-      <div class="info">
-        <p class="price">
-          <!-- {if $goods.promote_price neq ""} -->
-          {$goods.promote_price}
-          <!-- {else}-->
-          {$goods.shop_price}
-          <!--{/if}-->
-        </p>
-        <p class="market">{$goods.market_price}</p>
-        <a href="{$goods.url}" class="buy" target="_blank">立即购买</a>
-      </div>
-     </div>
-    <!--{/foreach}-->
-  </div>
+			<div class="rightArea">
+				<ul>
+					<!--{if $navigator_list.top}-->
+            		<!-- {foreach name=nav_top_list from=$navigator_list.top item=nav} -->
+                    <li><a href="{$nav.url}"<!-- {if $nav.opennew eq 1} --> target="_blank" <!-- {/if} -->>{$nav.name}</a></li>
+					<!--<li><a href="">查看购物车</a></li>
++				    <li><a href="">选购中心</a></li>
++				    <li><a href="">标签云</a></li>					
++					<li><a href="">报价单</a></li>-->
+					<!-- {/foreach} -->
+            		<!-- {/if} -->
+					<li><a href="user.php">个人中心 |</a>
+						<ul>
+	                    <li><a href="user.php?act=order_list">我的订单</a></li>
+	                    <li><a href="user.php?act=account_log">我的余额</a></li>
+	                    <li><a href="user.php?act=collection_list">我的收藏</a></li>
+	                    <li><a href="user.php?act=bonus">我的红包</a></li>
+	                    </ul>		
+					</li>
+				</ul>
+		    </div>
+	</div>
+		
+	</div>
+    
+
+   <div class="wrap-all">
+	<div class="wrap">
+		<div class="logo">
+			<div class="logo-left">
+				<a href="index.php"><img src="./themes/ecmoban_kaola2016/img/logo.png" alt="" width="125" height="80"></a>
+			</div>
+			<div class="logo-right">
+				<a href=""><img  src="./themes/ecmoban_kaola2016/img/mobilephone.png" alt="" width="21" height="21">手机汇师
+                    <ul>
+                    	<li><img src="images/2dcode-app3.jpg" alt="" width="100" height="100"></li>
+                    </ul>
+				</a>
+			</div>
+		</div>
+
+		<div class="nav">
+			<div class="nav-left"></div>
+			<div class="nav-mid">
+				<div class="nav-mid-left">
+					<ul>
+						<!--实现商品分类-->
+					    <li><a href="category.php?id=1">商品分类</a>
+							{if $parents_category}
+                             <ul>
+							 	{foreach from=$parents_category item=parents name=key}
+                             	<li><a href="{$parents.url}">{$parents.cat_name}></a></li>
+                             	<!--<li><a href="">二年级 ></a></li>
+                             	<li><a href="">三年级 ></a></li>-->
+								{/foreach}
+                             </ul>
+                             {/if}
+					    </li>
+						<!--商品分类end-->
+						<li><a href="">首页</a></li>
+						{foreach name=nav_middle_list from=$navigator_list.middle item=nav}
+						<li><a href="{$nav.url}" {if $nav.opennew}{/if} {if $script_name eq 'category'}{/if}>{$nav.name}</a></li>
+						{/foreach}
+						<!--<li><a href="">关于汇师</a></li>
+						<li><a href="">老师推荐</a></li>
+						<li><a href="">新品上架</a></li>
+						<li><a href="">留言板</a></li>-->
+					</ul>
+				</div>
+				<div class="nav-mid-right">
+					<form action="" method="post">
+					<input type="text" class="search-text" />
+					</form>
+				</div>
+			</div>
+			<div class="nav-right"></div>
+		</div>
+
+		<div class="ad" id="picBox">
+		<div class="pic">
+			<ul>
+				<!--{foreach from=$flash name=myflash item=flash}-->
+				<li><img src="{$flash.src}" alt="" width="1300" height="310"></li>
+				<!--<li><img src="img/08.jpg" alt="" width="1300" height="310"></li>
+				<li><img src="img/09.jpg" alt="" width="1300" height="310"></li>
+				<li><img src="img/10.jpg" alt="" width="1300" height="310"></li>
+				<li><img src="img/03.png" alt="" width="1300" height="310"></li>-->
+				{/foreach}
+			</ul>
+			</div>
+		</div>
+	
+	</div>
+
+
 </div>
-<div class="blank"></div>
- <!-- #EndLibraryItem -->
-<!-- TemplateEndEditable -->
+
+<div class="mid">
   
-  <!-- TemplateBeginEditable name="全宽行" -->
-<!-- TemplateEndEditable -->
-</div> 
+   <div class="mid-img">
+    <a href=""><img src="./themes/ecmoban_kaola2016/img/T.jpg" alt="" ></a>
+   </div>
 </div>
-  <!--right end-->
+    
+    <div class="goods-show" >
+	<!-- TemplateBeginEditable name="首页商品展示区域" -->
+<!-- #BeginLibraryItem "/library/cat_goods.lbi" -->
 
- </div>
-<div class="bottom_ad">
-            <!-- TemplateBeginEditable name="底部通栏广告" -->
-<!-- TemplateEndEditable -->
-
+<div>
+<h2><span class="floornumber"></span>L {$goods_cat.name|escape:html}</h2>
+<a href="{$goods_cat.url}"><input id="first-in" type="text" value="更多 >"/></a>	
+<div class="goods-showing">
+	{foreach from=$cat_goods item=goods}
+	<a href="{$goods.url}"><div class="one">
+       <img src="{$goods.thumb}" alt="{$goods.name|escape:html}" width="100%" height="230">
+       <h4>{$goods.short_name}</h4><br/>
+       <strong>
+	   	  <!-- {if $goods.promote_price neq ""} -->
+          {$goods.promote_price}
+          <!-- {else}-->
+          {$goods.shop_price}
+          <!--{/if}-->
+		</strong> 
+       <a href="{$goods.url}"><input id="sec-in" type="text" value="立即购买"/></a>
+		</div></a>
+		<!--<a href=""><div class="two">1</div></a>
+		<a href=""><div class="three">1</div></a>
+		<a href=""><div class="four">1</div></a>
+		<a href=""><div class="five">1</div></a>-->
+	{/foreach}
+	-->
 </div>
-<div class="resetClear"></div>
-
-    <!-- #BeginLibraryItem "/library/help.lbi" --><!-- #EndLibraryItem -->
- 
-
-<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
-</body>
+</div>
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+	</div>
 <script>
-window.onload = function(){
+$(function(){
 	$floornumber=$(".floornumber");
 	var i=1;
 	$floornumber.each(function() {
 		$(this).html(i);
 		i++;
 	});
-}
+})
 </script>
-</html>
+</body>
