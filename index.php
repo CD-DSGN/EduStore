@@ -126,6 +126,7 @@ if (!$smarty->is_cached('index.dwt', $cache_id))
     $smarty->assign('new_articles',    index_get_new_articles());   // 最新文章
     $smarty->assign('group_buy_goods', index_get_group_buy());      // 团购商品
     $smarty->assign('auction_list',    index_get_auction());        // 拍卖活动
+    $smarty->assign('cat_id_goods', cat_id_goods(1,8));
     $smarty->assign('shop_notice',     $_CFG['shop_notice']);       // 商店公告
     /*jdy add 0816 添加首页幻灯插件*/
     $smarty->assign("flash",get_flash_xml());
@@ -380,4 +381,40 @@ function get_flash_xml()
         }
     }
     return $flashdb;
+}
+//按照商品一级分类查询 dxh
+function cat_id_goods($cat_id, $num)
+{
+    $sql = 'Select g.goods_id, g.goods_name, g.goods_name_style, g.market_price, g.shop_price, g.promote_price, ' .
+                "promote_start_date, promote_end_date, g.goods_brief, g.goods_thumb, goods_img, " .
+                "g.is_best, g.is_new, g.is_hot, g.is_promote " .
+            'FROM ' . $GLOBALS['ecs']->table('goods') . ' AS g ' .
+            "Where g.is_on_sale = 1 AND g.is_alone_sale = 1 AND g.is_delete = 0 AND g.is_best = 1 AND (" . $cat_id . " OR " . get_extension_goods($cat_id) .")";
+ 
+$cats = get_children($cat_id);
+$where = !empty($cats) ? "AND ($cats OR " . get_extension_goods($cats) . ") " : '';
+$sql .=$where." LIMIT $num";
+    $res = $GLOBALS['db']->getAll($sql);
+ 
+    $goods = array();
+    foreach ($res AS $idx => $row)
+    {
+        $goods[$idx]['id']           = $row['article_id'];
+        $goods[$idx]['id']           = $row['goods_id'];
+        $goods[$idx]['name']         = $row['goods_name'];
+        $goods[$idx]['brief']        = $row['goods_brief'];
+        $goods[$idx]['brand_name']   = $row['brand_name'];
+        $goods[$idx]['goods_style_name']   = add_style($row['goods_name'],$row['goods_name_style']);
+ 
+        $goods[$idx]['short_name']   = $GLOBALS['_CFG']['goods_name_length'] > 0 ?
+                                           sub_str($row['goods_name'], $GLOBALS['_CFG']['goods_name_length']) : $row['goods_name'];
+        $goods[$idx]['short_style_name']   = add_style($goods[$idx]['short_name'],$row['goods_name_style']);
+        $goods[$idx]['market_price'] = price_format($row['market_price']);
+        $goods[$idx]['shop_price']   = price_format($row['shop_price']);
+        $goods[$idx]['thumb']        = empty($row['goods_thumb']) ? $GLOBALS['_CFG']['no_picture'] : $row['goods_thumb'];
+        $goods[$idx]['goods_img']    = empty($row['goods_img'])   ? $GLOBALS['_CFG']['no_picture'] : $row['goods_img'];
+        $goods[$idx]['url']          = build_uri('goods', array('gid' => $row['goods_id']), $row['goods_name']);
+    }
+ 
+    return $goods;
 }

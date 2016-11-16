@@ -132,14 +132,13 @@
     
     <div class="goods-show" >
 	<!-- TemplateBeginEditable name="首页商品展示区域" -->
-<!-- #BeginLibraryItem "/library/cat_goods.lbi" -->
-
+{foreach from=$parents_category item=parents name=key}
 <div class="module">
 <div class="more">
-	<h2><span class="floornumber"></span>L {$goods_cat.name|escape:html}</h2>
-	<a href="{$goods_cat.url}"><input id="first-in" type="text" value="更多 >"/></a></div>	
+	<h2><span class="floornumber"></span>L {$parents.cat_name}</h2>
+	<a href="{$parents.url}"><input id="first-in" type="text" value="更多 >"/></a></div>	
 	<div class="goods-showing">
-		{foreach from=$cat_goods item=goods}
+		{foreach from=$cat_id_goods item=goods}
 		<a href="{$goods.url}"><div class="one">
 		   <img src="{$goods.thumb}" alt="{$goods.name|escape:html}" width="100%" height="230">
 		   <h4>{$goods.short_name}</h4><br/>
@@ -157,68 +156,9 @@
 			<a href=""><div class="four">1</div></a>
 			<a href=""><div class="five">1</div></a>-->
 		{/foreach}
-		
 	</div>
 </div>
- <!-- #EndLibraryItem -->
-<!-- #BeginLibraryItem "/library/cat_goods.lbi" -->
-
-<div class="module">
-<div class="more">
-	<h2><span class="floornumber"></span>L {$goods_cat.name|escape:html}</h2>
-	<a href="{$goods_cat.url}"><input id="first-in" type="text" value="更多 >"/></a></div>	
-	<div class="goods-showing">
-		{foreach from=$cat_goods item=goods}
-		<a href="{$goods.url}"><div class="one">
-		   <img src="{$goods.thumb}" alt="{$goods.name|escape:html}" width="100%" height="230">
-		   <h4>{$goods.short_name}</h4><br/>
-		   <strong>
-			  <!-- {if $goods.promote_price neq ""} -->
-			  {$goods.promote_price}
-			  <!-- {else}-->
-			  {$goods.shop_price}
-			  <!--{/if}-->
-			</strong> 
-		   <a href="{$goods.url}"><input id="sec-in" type="text" value="立即购买"/></a>
-			</div></a>
-			<!--<a href=""><div class="two">1</div></a>
-			<a href=""><div class="three">1</div></a>
-			<a href=""><div class="four">1</div></a>
-			<a href=""><div class="five">1</div></a>-->
-		{/foreach}
-		
-	</div>
-</div>
- <!-- #EndLibraryItem -->
-<!-- #BeginLibraryItem "/library/cat_goods.lbi" -->
-
-<div class="module">
-<div class="more">
-	<h2><span class="floornumber"></span>L {$goods_cat.name|escape:html}</h2>
-	<a href="{$goods_cat.url}"><input id="first-in" type="text" value="更多 >"/></a></div>	
-	<div class="goods-showing">
-		{foreach from=$cat_goods item=goods}
-		<a href="{$goods.url}"><div class="one">
-		   <img src="{$goods.thumb}" alt="{$goods.name|escape:html}" width="100%" height="230">
-		   <h4>{$goods.short_name}</h4><br/>
-		   <strong>
-			  <!-- {if $goods.promote_price neq ""} -->
-			  {$goods.promote_price}
-			  <!-- {else}-->
-			  {$goods.shop_price}
-			  <!--{/if}-->
-			</strong> 
-		   <a href="{$goods.url}"><input id="sec-in" type="text" value="立即购买"/></a>
-			</div></a>
-			<!--<a href=""><div class="two">1</div></a>
-			<a href=""><div class="three">1</div></a>
-			<a href=""><div class="four">1</div></a>
-			<a href=""><div class="five">1</div></a>-->
-		{/foreach}
-		
-	</div>
-</div>
- <!-- #EndLibraryItem -->
+{/foreach}
 <!-- TemplateEndEditable --> 
 </div>
 <div class="footer">
