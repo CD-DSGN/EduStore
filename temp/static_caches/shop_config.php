@@ -150,7 +150,7 @@ scrollAmount=3><U><FONT color=red>
   'integrate_code' => 'ecshop',
   'integrate_config' => '',
   'hash_code' => '3bd0eaa7fd59141f3b0cacf884e94874',
-  'template' => 'default',
+  'template' => 'ecmoban_kaola2016',
   'install_date' => '1479111808',
   'ecs_version' => 'v2.7.3',
   'sms_user_name' => '',
