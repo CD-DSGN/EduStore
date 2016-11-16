@@ -259,7 +259,7 @@ span{
 
 .one{
 	background:#DCD8D8;
-    width:230px;
+    width:240px;
 	height:300px;
 	float: left;
 	margin-right:18px;
@@ -273,7 +273,8 @@ span{
 	-webkit-box-shadow:10px 10px 10px rgba(0,0,0,0.3);
     -moz-box-shadow:10px 10px 10px rgba(0,0,0,0.3);
     -o-box-shadow:10px 10px 10px rgba(0,0,0,0.3);
-	background:#FF0033;
+	background:#e07f6a;
+	border:1px solid #99CCFF;
 }
 
 .one h4{
