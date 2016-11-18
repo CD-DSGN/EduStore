@@ -127,7 +127,7 @@ if (!$smarty->is_cached('index.dwt', $cache_id))
     $smarty->assign('new_articles',    index_get_new_articles());   // 最新文章
     $smarty->assign('group_buy_goods', index_get_group_buy());      // 团购商品
     $smarty->assign('auction_list',    index_get_auction());        // 拍卖活动
-    $smarty->assign('cat_id_goods',    cat_id_goods(10));
+    $smarty->assign('cat_id_goods',    cat_id_goods(8));
     $smarty->assign('shop_notice',     $_CFG['shop_notice']);       // 商店公告
     /*jdy add 0816 添加首页幻灯插件*/
     $smarty->assign("flash",get_flash_xml());
@@ -396,7 +396,7 @@ function cat_id_goods($num)
 {
     $arr = get_parents_category1();
     foreach ($arr AS $v) {
-        $cat_id = $v['id'][6];
+        $cat_id = $v['id'][0];
         $sql = 'Select g.goods_id, g.goods_name, g.goods_name_style, g.market_price, g.shop_price, g.promote_price, ' .
                         "promote_start_date, promote_end_date, g.goods_brief, g.goods_thumb, goods_img, " .
                         "g.is_best, g.is_new, g.is_hot, g.is_promote " .
