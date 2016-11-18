@@ -29,7 +29,10 @@ define('ADMIN_PATH','admin');
 define('AUTH_KEY', 'this is a key');
 
 define('OLD_AUTH_KEY', '');
+<<<<<<< HEAD
 
 define('API_TIME', '2016-11-18 14:39:51');
 
+=======
+>>>>>>> d1ec40b4814cd8479ff88c67ee4dbe0aa8fa4e0a
 ?>
