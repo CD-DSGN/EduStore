@@ -214,32 +214,54 @@ span{
 
  }
  .goods-show{
+
  	//background:#FCF8F8;
- 	text-align:center;
-	padding:20px 0;
+ 	//text-align:center;
+	//padding:20px 0;
 
  }
+ 
  .module{
 	width:1300px;
  	margin:0 auto;
- 	margin-top:30px;}
- h2{
- 	color:#665F5F;
- 	font-family:"宋体";
+ 	//margin-top:30px;
 
  }
  .more{
+ 	//color:#665F5F;
+ 	font-family:"宋体";
  	width:1300px;
+ 	//float:left;
+ 	height:40px;
+ 	vertical-align:middle;
+ }
+ .more-left{
+ 	margin-left:25px;
+ 	width:1200px;
+ 	float:left;
+    //color:#665F5F;
+ 	font-family:"宋体";
+ 	padding-top: 20px;
+ 	font-weight:normal;
+ }
+ .more-left .icon{
+ 	width:44px;
+ 	height:44px;
+ 	display:inline-block;
+ 	background:url(../images/address-book.png)top no-repeat;
  	float:left;
  }
-  #first-in{
-  	cursor:pointer;
- 	margin-top:20px;
- 	width:80px;
-    height:30px;
-    text-align:center;
-    color:#8FBBEA;
-    border:2px solid #8FBBEA;
+ .more-right{
+ 	padding-top: 20px;
+ 	float:right;
+ 	font-size:16px;
+ }
+ .duo:hover{
+ 	text-decoration:underline;
+ }
+ .goods-showing img{
+ 	float:left;
+
  }
  #sec-in{
  	cursor:pointer;
@@ -259,11 +281,12 @@ span{
 
 .one{
 	background:#DCD8D8;
-    width:240px;
+    width:230px;
 	height:300px;
 	float: left;
 	margin-right:18px;
-	margin-top:30px;
+	margin-left: 15px;
+	//margin-top:30px;
 	
 	
 }
@@ -273,8 +296,7 @@ span{
 	-webkit-box-shadow:10px 10px 10px rgba(0,0,0,0.3);
     -moz-box-shadow:10px 10px 10px rgba(0,0,0,0.3);
     -o-box-shadow:10px 10px 10px rgba(0,0,0,0.3);
-	background:#e07f6a;
-	border:1px solid #99CCFF;
+	background:#FF0033;
 }
 
 .one h4{
