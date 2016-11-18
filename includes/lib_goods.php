@@ -1523,11 +1523,30 @@ function get_parents_category()
         $parentsArr[$index]['url'] = build_uri('category', array('cid' => $row['cat_id']), $row['cat_name']);
         $index++;
     }
+    if(isset($parentsArr))
+    {
+        return $parentsArr;
+    }
+    
+}
+$index = 0;
+function get_parents_category1()
+{
+    $parentsArr = array();
 
+    $sql = 'SELECT * FROM ' . $GLOBALS['ecs']->table('category') . " WHERE parent_id = 0 AND is_show = 1 ";
+    $res = $GLOBALS['db']->getAll($sql);
+
+    foreach ($res as $row) {
+        $parentsArr[$index]['id'] = $row['cat_id'];
+        $parentsArr[$index]['cat_name'] = $row['cat_name'];
+        $parentsArr[$index]['parent_id'] = $row['parent_id'];
+        $parentsArr[$index]['url'] = build_uri('category', array('cid' => $row['cat_id']), $row['cat_name']);
+        $index++;
+    }
     if(isset($parentsArr))
     {
         return $parentsArr;
     }
 }
-
 ?>

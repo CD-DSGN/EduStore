@@ -1,7 +1,7 @@
 <div class="module">
 <div class="more">
-	<h2><span class="floornumber"></span>L {$goods.cat_name}</h2>
-	<a href="{$goods.cat_url}"><input id="first-in" type="text" value="更多 >"/></a></div>	
+	<h2><span class="floornumber"></span>L {$goods_cat.name}</h2>
+	<a href="{$goods_cat.url}"><input id="first-in" type="text" value="更多 >"/></a></div>	
 	<div class="goods-showing">
 		{foreach from=$cat_id_goods item=goods}
 		<a href="{$goods.url}"><div class="one">

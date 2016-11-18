@@ -2,7 +2,7 @@
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
  <head>
-	<title>huishi首页</title>
+	<title>汇师网</title>
 	<link rel="stylesheet" type="text/css" href="./themes/ecmoban_kaola2016/css/first.css">
 	<script type="text/javascript" src="./themes/ecmoban_kaola2016/js/setHomeSetFav.js"></script>
 	<script type="text/javascript" src="./themes/ecmoban_kaola2016/js/myfocus-2.0.1.min.js"></script>
@@ -131,7 +131,7 @@
 </div>
     
     <div class="goods-show" >
-	<!-- TemplateBeginEditable name="首页商品展示区域" -->
+<!-- TemplateBeginEditable name="首页商品展示区域" -->
 {foreach from=$parents_category item=parents name=key}
 <div class="module">
 <div class="more">
