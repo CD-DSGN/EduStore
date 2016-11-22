@@ -39,13 +39,18 @@ function GZ_user_info($user_id)
 	$shipped = $db->getOne("SELECT COUNT(*) FROM " .$ecs->table('order_info'). " WHERE user_id = '$user_id'". GZ_order_query_sql('shipped'));
 	$finished = $db->getOne("SELECT COUNT(*) FROM " .$ecs->table('order_info'). " WHERE user_id = '$user_id'". GZ_order_query_sql('finished'));
 
-	$sql = "SELECT is_teacher FROM ". $ecs->table('users') ."WHERE `user_id` = '". $user_id ."'";
+	$sql = "SELECT is_teacher,avatar FROM ". $ecs->table('users') ."WHERE `user_id` = '". $user_id ."'";
 	$res = $db->getAll($sql);
 	if ( is_array($res) ) {
 		foreach ($res as $key => $value) {
 			$is_teacher = $value['is_teacher'];		
+			$avatar = $value['avatar'];
 		}	
 	}
+	if ($avatar) {
+		$avatar = dirname($GLOBALS['ecs']->url()) . "/" . $avatar;
+	}
+
 	// include_once(ROOT_PATH .'includes/lib_clips.php');
 	// $rank = get_rank_info();
 	// print_r($rank);exit;
@@ -82,6 +87,7 @@ function GZ_user_info($user_id)
 		'rank_level' => $level,
 		'collection_num' => $collection_num,
         'email' => $user_info['email'],
+        'avatar' => $avatar,
 		"order_num" => array(
 			'await_pay' => $await_pay,
 			'await_ship' => $await_ship,

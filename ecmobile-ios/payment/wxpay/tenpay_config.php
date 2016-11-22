@@ -2,11 +2,11 @@
 
 $DEBUG_ = false;
 //财付通商户号
-$PARTNER = "Your Infomation";
+$PARTNER = "1403289802";
 //财付通密钥
-$PARTNER_KEY = "Your Infomation";
+$PARTNER_KEY = "gao35162016lichenzhangliu2016ohy";
 //appid
-$APP_ID="Your Infomation";
+$APP_ID="wxac39735575af3099";
 //appsecret
 $APP_SECRET= "Your Infomation";	
 

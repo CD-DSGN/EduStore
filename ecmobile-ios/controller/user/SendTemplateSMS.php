@@ -99,7 +99,7 @@ function sendIdentifyCode()
 }
     $identifyCode = rand(1000,9999);
     $out = array(
-            'identifyCode' => $identifyCode
+            'identifyCode' => '8888'
         );
     GZ_Api::outPut($out);
 sendIdentifyCode();
