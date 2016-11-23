@@ -20,7 +20,7 @@
  
 //↓↓↓↓↓↓↓↓↓↓请在这里配置您的基本信息↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 //合作身份者id，以2088开头的16位纯数字
-$alipay_config['partner']		= 'Your Infomation';
+$alipay_config['partner']		= '2088911655683743';
 
 //商户的私钥（后缀是.pen）文件相对路径
 $alipay_config['private_key_path']	= dirname(__FILE__) . '/../key/rsa_private_key.pem';
@@ -44,4 +44,5 @@ $alipay_config['cacert']    = getcwd().'\\cacert.pem';
 
 //访问模式,根据自己的服务器是否支持ssl访问，若支持请选择https；若不支持请选择http
 $alipay_config['transport']    = 'http';
+$alipay_config['notify_url']   = "http://nhj.s1.natapp.cc/edustore/ecmobile/payment/alipay/sdk/notify_url.php";
 ?>

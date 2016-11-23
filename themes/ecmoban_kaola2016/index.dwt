@@ -4,12 +4,11 @@
  <head>
 	<title>汇师网</title>
 	<link rel="stylesheet" type="text/css" href="./themes/ecmoban_kaola2016/css/first.css">
-	<script type="text/javascript" src="js/goods.js"></
 	<script type="text/javascript" src="./themes/ecmoban_kaola2016/js/setHomeSetFav.js"></script>
 	<script type="text/javascript" src="./themes/ecmoban_kaola2016/js/myfocus-2.0.1.min.js"></script>
 	<script type="text/javascript" src="./themes/ecmoban_kaola2016/js/mF_fancy.js"></script>
 	<link rel="stylesheet" type="text/css" href="./themes/ecmoban_kaola2016/css/mF_fancy.css">
-	<script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="../js/jquery-1.11.3.min.js"></script>
 	<script type="text/javascript">
 		myFocus.set({
 			id:'picBox'
@@ -158,10 +157,15 @@
 	</div>
 </div>	
 	<div class="goods-showing">
-	<!-- <img src="images/book.jpg" width="230px" height="600px"> -->
-		{foreach from=$cat_id_goods item=goods}
+
+		{foreach from=$cat_id_goods key=myId item=goodss}
+		{if $myId eq $parents.id}
+		{foreach from=$goodss item=goods}
+
 		<a href="{$goods.url}">
+
 		<div class="one">
+
 		   <img src="{$goods.thumb}" alt="{$goods.name|escape:html}" width="210px" height="210px">
 		  <div class="des">
 		   <strong>
@@ -175,7 +179,8 @@
 			 </div>
 		   <!-- <a href="{$goods.url}"><input id="sec-in" type="text" value="立即购买"/></a> -->
 			</div></a>
-			
+		{/foreach}
+		{/if}
 		{/foreach}
 	</div>
 </div>
@@ -193,15 +198,25 @@
 	
 	
 	
-<script>
+<!--<script>
 $(function(){
 	$floornumber=$(".floornumber");
-	var i=1;
-	$floornumber.each(function() {
+	$module = $(".module");
+	$module.each(function(){
+		$goods_showing=$(this).find(".one");
+		$goods_showing.each(function(){
+		var num=$goods_showing.index(this);
+		if(num%8==7||num%8==4||num%8==5||num%8==6){
+			$(this).css({"width":"230px","height":"150px"});
+			$(this).find("img").css("height","80px");	
+		}
+	});
+});
+	$floornumber.each(function(){
 		$(this).html(i);
 		i++;
 	});
 })
-</script>
+</script>-->
 
 </body>

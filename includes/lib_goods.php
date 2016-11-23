@@ -1523,11 +1523,10 @@ function get_parents_category()
         $parentsArr[$index]['url'] = build_uri('category', array('cid' => $row['cat_id']), $row['cat_name']);
         $index++;
     }
-
     if(isset($parentsArr))
     {
         return $parentsArr;
     }
+    
 }
-
 ?>

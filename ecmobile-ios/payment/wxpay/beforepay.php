@@ -6,8 +6,8 @@
 //---------------------------------------------------------
 define('IN_ECS', true);
 // GZ_Api::authSession();
-require($_SERVER ['DOCUMENT_ROOT'] . '/includes/init.php');
-require($_SERVER ['DOCUMENT_ROOT'] . '/includes/lib_order.php');
+require($_SERVER ['DOCUMENT_ROOT'] . '/edustore/includes/init.php');
+require($_SERVER ['DOCUMENT_ROOT'] . '/edustore/includes/lib_order.php');
 require_once ("classes/RequestHandler.class.php");
 require_once ("./tenpay_config.php");
 require_once ("classes/ResponseHandler.class.php");
@@ -15,7 +15,6 @@ require ("./classes/client/TenpayHttpClient.class.php");
 require ("./classes/function.php");
 
 require ("../../Library/function.php");
-
 $inputParams = array();
  if (!empty($_POST['json'])) {
             if (!get_magic_quotes_gpc()) {
@@ -105,7 +104,7 @@ $sign = $reqHandler->createMd5Sign($packetParams);
 $packetParams['sign'] = $sign;
 
 $time_stamp = strval(time());
-
+//echo json_encode($packetParams);
 //获取prepayid
 $prepayid = $reqHandler->sendPrepay($packetParams);
 

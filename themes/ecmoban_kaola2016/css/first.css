@@ -284,40 +284,18 @@ span{
  .duo:hover{
  	text-decoration:underline;
  }
- 
- // .goods-showing img{
- // 	float:left;
-   
- // }
  .goods-showing{
  	width:1300px;
  	margin:0 auto;
  }
- // #sec-in{
- // 	cursor:pointer;
- // 	width:60px;
- // 	height:20px;
- // 	text-align:center;
- // 	color:red;
- // 	border:1px dotted red;
- // 	float:right;
- // 	margin-top:20px;
- // 	margin-right:5px;
- // }
- // #sec-in:hover{
- // 	background:red;
- // 	color:white;
- // }
-
 .one{
+
 	//background:#DCD8D8;
     width:250px;
-	height:356px;
+	height:356px;	
 	float: left;
 	margin-right:4px;
 	border:1px solid #C2C1C1;
-	//margin-left: 15px;
-	//margin-top:30px;
 	
 	
 }
@@ -332,13 +310,11 @@ span{
     -moz-box-shadow:10px 10px 10px rgba(0,0,0,0.3);
     -o-box-shadow:10px 10px 10px rgba(0,0,0,0.3);
 	background:#ff6825;
-	//border:1px solid #ff6825;
 }
 .des{
 	width:210px;
 	height:40px;
 	padding:20px;
-	//border:1px solid black;
 	text-align:center;
 }
  h4{
