@@ -222,8 +222,8 @@ span{
  .enough{
  	width:100%;
  	height:540px;
- 	//background-image: url(../images/bg_back1.jpg);
- 	//clear:both;
+ 	background-image: url(../images/bg_back1.jpg);
+ 	clear:both;
  	
  }
  .enough ul{
