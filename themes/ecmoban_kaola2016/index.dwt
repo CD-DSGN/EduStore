@@ -8,7 +8,7 @@
 	<script type="text/javascript" src="./themes/ecmoban_kaola2016/js/myfocus-2.0.1.min.js"></script>
 	<script type="text/javascript" src="./themes/ecmoban_kaola2016/js/mF_fancy.js"></script>
 	<link rel="stylesheet" type="text/css" href="./themes/ecmoban_kaola2016/css/mF_fancy.css">
-	<script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="../js/jquery-1.11.3.min.js"></script>
 	<script type="text/javascript">
 		myFocus.set({
 			id:'picBox'
@@ -144,8 +144,11 @@
 </div>	
 	<div class="goods-showing">
 	<img src="images/book.jpg" width="230px" height="330px">
-		{foreach from=$cat_id_goods item=goods}
+		{foreach from=$cat_id_goods key=myId item=goodss}
+		{if $myId eq $parents.id}
+		{foreach from=$goodss item=goods}
 		<a href="{$goods.url}">
+
 		<div class="one">
 		   <img src="{$goods.thumb}" alt="{$goods.name|escape:html}" width="100%">
 		   <h4>{$goods.short_name}</h4><br/>
@@ -158,7 +161,8 @@
 			</strong> 
 		   <a href="{$goods.url}"><input id="sec-in" type="text" value="立即购买"/></a>
 			</div></a>
-			
+			{/foreach}
+			{/if}
 		{/foreach}
 	</div>
 </div>
@@ -173,7 +177,7 @@
 	
 	
 	
-<script>
+<!--<script>
 $(function(){
 	$floornumber=$(".floornumber");
 	$module = $(".module");
@@ -192,6 +196,6 @@ $(function(){
 		i++;
 	});
 })
-</script>
+</script>-->
 
 </body>
