@@ -130,6 +130,20 @@
     <a href=""><img src="images/T.jpg" alt="" ></a>
    </div>
 </div>
+
+<div class="enough">
+  <ul>
+  	<li></li>
+  	<li></li>
+  	<li></li>
+  	<li></li>
+  	<li></li>
+  	<li></li>
+  	<li></li>
+  	<li></li>
+
+  </ul>
+</div>
     
     <div class="goods-show" >
 <!-- TemplateBeginEditable name="首页商品展示区域" -->
@@ -144,20 +158,22 @@
 	</div>
 </div>	
 	<div class="goods-showing">
-	<img src="images/book.jpg" width="230px">
+	<!-- <img src="images/book.jpg" width="230px" height="600px"> -->
 		{foreach from=$cat_id_goods item=goods}
 		<a href="{$goods.url}">
 		<div class="one">
-		   <img src="{$goods.thumb}" alt="{$goods.name|escape:html}" width="100%" height="230">
-		   <h4>{$goods.short_name}</h4><br/>
+		   <img src="{$goods.thumb}" alt="{$goods.name|escape:html}" width="210px" height="210px">
+		  <div class="des">
 		   <strong>
 			  <!-- {if $goods.promote_price neq ""} -->
 			  {$goods.promote_price}
 			  <!-- {else}-->
 			  {$goods.shop_price}
 			  <!--{/if}-->
-			</strong> 
-		   <a href="{$goods.url}"><input id="sec-in" type="text" value="立即购买"/></a>
+			</strong> <br/>
+			 <h4>{$goods.short_name}</h4>
+			 </div>
+		   <!-- <a href="{$goods.url}"><input id="sec-in" type="text" value="立即购买"/></a> -->
 			</div></a>
 			
 		{/foreach}
@@ -166,6 +182,9 @@
 {/foreach}
 <!-- TemplateEndEditable --> 
 </div>
+
+
+
 <div class="footer">
 	<p><a href="">免责条款&nbsp;&nbsp;</a><a href="">隐私保护&nbsp;&nbsp;</a> <a href="">咨询热点&nbsp;&nbsp;</a> <a href=""> 联系我们&nbsp;&nbsp;</a> <a href=""> 公司简介&nbsp;&nbsp;</a> <a href="">批发方案</a> <a href="">  配送方式</a></p>
 	<p>辽ICP备12014775号-2</p>
