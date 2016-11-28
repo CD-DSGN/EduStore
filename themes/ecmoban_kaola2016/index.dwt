@@ -97,7 +97,7 @@
 				</div>
 				<div class="nav-mid-right">
 					<form action="" method="post">
-					<input type="text" class="search-text" />
+					<input type="text" class="search-text" /><button class="btn-search" type="submit">搜索</button>
 					</form>
 				</div>
 			</div>
@@ -108,7 +108,7 @@
 		<div class="pic">
 			<ul>
 				<!--{foreach from=$flash name=myflash item=flash}-->
-				<li><img src="{$flash.src}" alt="" width="1300" height="310"></li>
+				<li><img src="{$flash.src}" alt="" width="1300" height="350"></li>
 				<!--<li><img src="img/08.jpg" alt="" width="1300" height="310"></li>
 				<li><img src="img/09.jpg" alt="" width="1300" height="310"></li>
 				<li><img src="img/10.jpg" alt="" width="1300" height="310"></li>
@@ -123,28 +123,25 @@
 
 </div>
 
-<div class="mid">
-  
-   <div class="mid-img">
-    <a href=""><img src="images/T.jpg" alt="" ></a>
-   </div>
-</div>
 
-<div class="enough">
-  <ul>
-  	<li></li>
-  	<li></li>
-  	<li></li>
-  	<li></li>
-  	<li></li>
-  	<li></li>
-  	<li></li>
-  	<li></li>
 
-  </ul>
+<div class="tuijian">
+    <div class="tuijian-text">
+    <b>教师推荐</b>
+   	<span>RECOMMEND</span>
+   	<img src="images/line1.png" >
+   	</div>
+  <div class="enough">
+	  <ul>
+	  	<li><img src="images/book1.jpg"></li>
+	  	<li><img src="images/book2.jpg"></li>
+	  	<li><img src="images/book3.jpg"></li>
+	  	<li><img src="images/book4.jpg"></li>
+	  </ul>
+  </div>
 </div>
     
-    <div class="goods-show" >
+    <div class="goods-show">
 <!-- TemplateBeginEditable name="首页商品展示区域" -->
 {foreach from=$parents_category item=parents name=key}
 <div class="module">
@@ -153,7 +150,18 @@
 	<h2><span class="icon"></span>{$parents.cat_name}</h2>
 	</div>
 	<div class="more-right">
-	<a href="{$parents.url}" class="duo">更多&gt;&gt;</a>
+		
+		<span><a href="{$parents.url}" class="duo">更多&gt;&gt;</a></span>
+		  <em class="floor-line"></em>
+
+			<span><a href="">二级</a></span>
+			<em class="floor-line"></em>
+
+			<span><a href="">二级</a></span>
+			<em class="floor-line"></em>
+
+			<span><a href="">二级</a></span>
+		     <em class="floor-line"></em>
 	</div>
 </div>	
 	<div class="goods-showing">
@@ -188,7 +196,12 @@
 <!-- TemplateEndEditable --> 
 </div>
 
-
+<div class="mid">
+  
+   <div class="mid-img">
+    <a href=""><img src="images/T.jpg" alt="" ></a>
+   </div>
+</div>
 
 <div class="footer">
 	<p><a href="">免责条款&nbsp;&nbsp;</a><a href="">隐私保护&nbsp;&nbsp;</a> <a href="">咨询热点&nbsp;&nbsp;</a> <a href=""> 联系我们&nbsp;&nbsp;</a> <a href=""> 公司简介&nbsp;&nbsp;</a> <a href="">批发方案</a> <a href="">  配送方式</a></p>
