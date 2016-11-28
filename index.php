@@ -16,8 +16,6 @@
 define('IN_ECS', true);
 
 require(dirname(__FILE__) . '/includes/init.php');
-$arr=array();
-$arr=get_categories_tree();
 if ((DEBUG_MODE & 2) != 2)
 {
     $smarty->caching = true;
@@ -127,7 +125,7 @@ if (!$smarty->is_cached('index.dwt', $cache_id))
     $smarty->assign('new_articles',    index_get_new_articles());   // 最新文章
     $smarty->assign('group_buy_goods', index_get_group_buy());      // 团购商品
     $smarty->assign('auction_list',    index_get_auction());        // 拍卖活动
-    $smarty->assign('cat_id_goods',    cat_id_goods(8));
+    $smarty->assign('cat_id_goods',    cat_id_goods(10));
     $smarty->assign('shop_notice',     $_CFG['shop_notice']);       // 商店公告
     /*jdy add 0816 添加首页幻灯插件*/
     $smarty->assign("flash",get_flash_xml());
@@ -388,13 +386,13 @@ function cat_id_goods($num)
         $cat_id = $v['id'];
         $sql = 'Select g.goods_id, g.goods_name, g.goods_name_style, g.market_price, g.shop_price, g.promote_price, ' .
                         "promote_start_date, promote_end_date, g.goods_brief, g.goods_thumb, goods_img, " .
-                        "g.is_best, g.is_new, g.is_hot, g.is_promote " .
+                        " g.is_promote " .
                     'FROM ' . $GLOBALS['ecs']->table('goods') . ' AS g ' .
-                    "Where (" . $cat_id . " OR " . get_extension_goods($cat_id) .")";
+                    "Where(" . $cat_id . " OR " . get_extension_goods($cat_id) .")";
 
         $cats = get_children($cat_id);
         $where = !empty($cats) ? "AND ($cats OR " . get_extension_goods($cats) . ") " : '';
-        $sql .=$where." LIMIT $num";
+        $sql .=$where."AND g.is_delete=0"." LIMIT $num";
         $res = $GLOBALS['db']->getAll($sql); 
         foreach ($res AS $idx => $row)
         {
@@ -410,6 +408,7 @@ function cat_id_goods($num)
             $goods[$cat_id][$idx]['thumb']        = empty($row['goods_thumb']) ? $GLOBALS['_CFG']['no_picture'] : $row['goods_thumb'];
             $goods[$cat_id][$idx]['goods_img']    = empty($row['goods_img'])   ? $GLOBALS['_CFG']['no_picture'] : $row['goods_img'];
             $goods[$cat_id][$idx]['url']          = build_uri('goods', array('gid' => $row['goods_id']), $row['goods_name']);
+            $idx++;
         }
     }
     if(isset($goods))

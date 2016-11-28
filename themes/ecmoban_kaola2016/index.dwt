@@ -146,26 +146,23 @@
     
     <div class="goods-show" >
 <!-- TemplateBeginEditable name="首页商品展示区域" -->
-{foreach from=$parents_category item=parents name=key}
+
+{foreach from=$categories item=cat}
 <div class="module">
 <div class="more">
 <div class="more-left">
-	<h2><span class="icon"></span>{$parents.cat_name}</h2>
+	<h2><span class="icon"></span>{$cat.name}</h2>
 	</div>
 	<div class="more-right">
-	<a href="{$parents.url}" class="duo">更多&gt;&gt;</a>
+	<a href="{$cat.url}" class="duo">更多&gt;&gt;</a>
 	</div>
 </div>	
 	<div class="goods-showing">
-
 		{foreach from=$cat_id_goods key=myId item=goodss}
-		{if $myId eq $parents.id}
+		{if $myId eq $cat.id}
 		{foreach from=$goodss item=goods}
-
 		<a href="{$goods.url}">
-
 		<div class="one">
-
 		   <img src="{$goods.thumb}" alt="{$goods.name|escape:html}" width="210px" height="210px">
 		  <div class="des">
 		   <strong>
@@ -206,9 +203,9 @@ $(function(){
 		$goods_showing=$(this).find(".one");
 		$goods_showing.each(function(){
 		var num=$goods_showing.index(this);
-		if(num%8==7||num%8==4||num%8==5||num%8==6){
-			$(this).css({"width":"230px","height":"150px"});
-			$(this).find("img").css("height","80px");	
+		if(num%10==5||num%10==6||num%10==7||num%10==8||num%10==9){
+			$(this).css({"height":"150px"});
+			$(this).find("img").css({"height":"80px","width":"80px"});	
 		}
 	});
 });
