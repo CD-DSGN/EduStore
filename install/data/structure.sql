@@ -310,6 +310,8 @@ CREATE TABLE `ecs_card` (
 --
 -- 表的结构 `ecs_cart`
 --
+-- add nahuanjie
+-- 增加字段is_presell、presell_shipping_time表示是否预售及预售时间
 
 DROP TABLE IF EXISTS `ecs_cart`;
 CREATE TABLE `ecs_cart` (
@@ -332,6 +334,8 @@ CREATE TABLE `ecs_cart` (
   `is_shipping` tinyint(1) unsigned NOT NULL default '0',
   `can_handsel` tinyint(3) unsigned NOT NULL default '0',
   `goods_attr_id` varchar(255) NOT NULL default '',
+  `is_presell` tinyint(1) unsigned NOT NULL default '0',
+  `presell_shipping_time` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`rec_id`),
   KEY `session_id` (`session_id`)
 )  ENGINE=MyISAM;
@@ -498,6 +502,8 @@ CREATE TABLE `ecs_friend_link` (
 --
 -- 表的结构 `ecs_goods`
 --
+-- add nahuanjie
+-- 增加字段is_presell、presell_shipping_time表示是否预售及预售时间
 
 DROP TABLE IF EXISTS `ecs_goods`;
 CREATE TABLE `ecs_goods` (
@@ -536,6 +542,8 @@ CREATE TABLE `ecs_goods` (
   `is_new` tinyint(1) unsigned NOT NULL default '0',
   `is_hot` tinyint(1) unsigned NOT NULL default '0',
   `is_promote` tinyint(1) unsigned NOT NULL default '0',
+  `is_presell` tinyint(1) unsigned NOT NULL default '0',
+  `presell_shipping_time` int(10) unsigned NOT NULL default '0',
   `bonus_type_id` tinyint(3) unsigned NOT NULL default '0',
   `last_update` int(10) unsigned NOT NULL default '0',
   `goods_type` smallint(5) unsigned NOT NULL default '0',
@@ -743,6 +751,8 @@ CREATE TABLE `ecs_order_action` (
 --
 -- 表的结构 `ecs_order_goods`
 --
+-- add nahuanjie
+-- 增加字段is_presell、presell_shipping_time表示是否预售及预售时间
 
 DROP TABLE IF EXISTS `ecs_order_goods`;
 CREATE TABLE `ecs_order_goods` (
@@ -762,6 +772,8 @@ CREATE TABLE `ecs_order_goods` (
   `parent_id` mediumint(8) unsigned NOT NULL default '0',
   `is_gift` smallint unsigned NOT NULL default '0',
   `goods_attr_id` varchar(255) NOT NULL default '',
+  `is_presell` tinyint(1) unsigned NOT NULL default '0',
+  `presell_shipping_time` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`rec_id`),
   KEY `order_id` (`order_id`),
   KEY `goods_id` (`goods_id`)
@@ -772,6 +784,8 @@ CREATE TABLE `ecs_order_goods` (
 --
 -- 表的结构 `ecs_order_info`
 --
+-- add nahuanjie
+-- 增加字段is_presell、presell_shipping_time表示是否预售及预售时间
 
 DROP TABLE IF EXISTS `ecs_order_info`;
 CREATE TABLE `ecs_order_info` (
@@ -839,6 +853,8 @@ CREATE TABLE `ecs_order_info` (
   `discount` decimal(10, 2) NOT NULL,
   `supplier_id` INT( 10 )  NOT NULL  DEFAULT 0,
   `froms` CHAR( 10 ) NOT NULL DEFAULT 'pc' COMMENT 'pc:电脑,mobile:手机,app:应用',
+  `is_presell` tinyint(1) unsigned NOT NULL default '0',
+  `presell_shipping_time` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`order_id`),
   UNIQUE KEY `order_sn` (`order_sn`),
   KEY `user_id` (`user_id`),
@@ -1235,6 +1251,8 @@ CREATE TABLE `ecs_user_rank` (
 
 -- begin zhangmengqi
 -- 增加字段表示该user是否是老师，增加手机号
+-- add nahuanjie 
+-- 增加字段avata，存储用户头像在服务器中的位置
 
 DROP TABLE IF EXISTS `ecs_users`;
 CREATE TABLE `ecs_users` (
@@ -1274,6 +1292,7 @@ CREATE TABLE `ecs_users` (
   `passwd_answer` VARCHAR( 255 ) NULL,
   `is_teacher` tinyint(3) unsigned NOT NULL default '0',
   `teacher_integral` int unsigned NOT NULL default '0',
+  `avatar` varchar(255) NULL,
   PRIMARY KEY  (`user_id`),
   KEY `email` (`email`),
   KEY `parent_id` (`parent_id`),

@@ -3561,6 +3561,7 @@ INSERT INTO `ecs_region` VALUES (1771, 211, '宽城区', 3, 0),
 --
 -- `ecs_shop_config`
 --
+-- add nahuanjie, presell_image file
 
 INSERT INTO `ecs_shop_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES
 (1, 0, 'shop_info', 'group', '', '', '', '1'),
@@ -3737,7 +3738,8 @@ INSERT INTO `ecs_shop_config` (`id`, `parent_id`, `code`, `type`, `store_range`,
 (804, 8, 'sms_order_shipped', 'select', '1,0', '', '0', '1'),
 (901, 9, 'wap_config', 'select', '1,0', '', '0', '1'),
 (902, 9, 'wap_logo', 'file', '', '../images/', '', '1'),
-(903, 2, 'message_check', 'select', '1,0', '', '1', '1');
+(903, 2, 'message_check', 'select', '1,0', '', '1', '1'),
+(1001, 1, 'presell_image', 'file', '', '../images/', 'presell_image.png', '1');
 --
 -- user_rank
 --
