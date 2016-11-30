@@ -8,7 +8,7 @@
 	<script type="text/javascript" src="./themes/ecmoban_kaola2016/js/myfocus-2.0.1.min.js"></script>
 	<script type="text/javascript" src="./themes/ecmoban_kaola2016/js/mF_fancy.js"></script>
 	<link rel="stylesheet" type="text/css" href="./themes/ecmoban_kaola2016/css/mF_fancy.css">
-	<script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="../js/jquery-1.11.3.min.js"></script>
 	<script type="text/javascript">
 		myFocus.set({
 			id:'picBox'
@@ -97,7 +97,7 @@
 				</div>
 				<div class="nav-mid-right">
 					<form action="" method="post">
-					<input type="text" class="search-text" />
+					<input type="text" class="search-text" /><button class="btn-search" type="submit">搜索</button>
 					</form>
 				</div>
 			</div>
@@ -108,7 +108,7 @@
 		<div class="pic">
 			<ul>
 				<!--{foreach from=$flash name=myflash item=flash}-->
-				<li><img src="{$flash.src}" alt="" width="1300" height="310"></li>
+				<li><img src="{$flash.src}" alt="" width="1300" height="350"></li>
 				<!--<li><img src="img/08.jpg" alt="" width="1300" height="310"></li>
 				<li><img src="img/09.jpg" alt="" width="1300" height="310"></li>
 				<li><img src="img/10.jpg" alt="" width="1300" height="310"></li>
@@ -123,14 +123,25 @@
 
 </div>
 
-<div class="mid">
-  
-   <div class="mid-img">
-    <a href=""><img src="images/T.jpg" alt="" ></a>
-   </div>
+
+
+<div class="tuijian">
+    <div class="tuijian-text">
+    <b>教师推荐</b>
+   	<span>RECOMMEND</span>
+   	<img src="images/line1.png" >
+   	</div>
+  <div class="enough">
+	  <ul>
+	  	<li><img src="images/book1.jpg"></li>
+	  	<li><img src="images/book2.jpg"></li>
+	  	<li><img src="images/book3.jpg"></li>
+	  	<li><img src="images/book4.jpg"></li>
+	  </ul>
+  </div>
 </div>
     
-    <div class="goods-show" >
+    <div class="goods-show">
 <!-- TemplateBeginEditable name="首页商品展示区域" -->
 {foreach from=$parents_category item=parents name=key}
 <div class="module">
@@ -139,32 +150,59 @@
 	<h2><span class="icon"></span>{$parents.cat_name}</h2>
 	</div>
 	<div class="more-right">
-	<a href="{$parents.url}" class="duo">更多&gt;&gt;</a>
+		
+		<span><a href="{$parents.url}" class="duo">更多&gt;&gt;</a></span>
+		  <em class="floor-line"></em>
+
+			<span><a href="">二级</a></span>
+			<em class="floor-line"></em>
+
+			<span><a href="">二级</a></span>
+			<em class="floor-line"></em>
+
+			<span><a href="">二级</a></span>
+		     <em class="floor-line"></em>
 	</div>
 </div>	
 	<div class="goods-showing">
-	<img src="images/book.jpg" width="230px" height="330px">
-		{foreach from=$cat_id_goods item=goods}
+
+		{foreach from=$cat_id_goods key=myId item=goodss}
+		{if $myId eq $parents.id}
+		{foreach from=$goodss item=goods}
+
 		<a href="{$goods.url}">
+
 		<div class="one">
-		   <img src="{$goods.thumb}" alt="{$goods.name|escape:html}" width="100%">
-		   <h4>{$goods.short_name}</h4><br/>
+
+		   <img src="{$goods.thumb}" alt="{$goods.name|escape:html}" width="210px" height="210px">
+		  <div class="des">
 		   <strong>
 			  <!-- {if $goods.promote_price neq ""} -->
 			  {$goods.promote_price}
 			  <!-- {else}-->
 			  {$goods.shop_price}
 			  <!--{/if}-->
-			</strong> 
-		   <a href="{$goods.url}"><input id="sec-in" type="text" value="立即购买"/></a>
+			</strong> <br/>
+			 <h4>{$goods.short_name}</h4>
+			 </div>
+		   <!-- <a href="{$goods.url}"><input id="sec-in" type="text" value="立即购买"/></a> -->
 			</div></a>
-			
+		{/foreach}
+		{/if}
 		{/foreach}
 	</div>
 </div>
 {/foreach}
 <!-- TemplateEndEditable --> 
 </div>
+
+<div class="mid">
+  
+   <div class="mid-img">
+    <a href=""><img src="images/T.jpg" alt="" ></a>
+   </div>
+</div>
+
 <div class="footer">
 	<p><a href="">免责条款&nbsp;&nbsp;</a><a href="">隐私保护&nbsp;&nbsp;</a> <a href="">咨询热点&nbsp;&nbsp;</a> <a href=""> 联系我们&nbsp;&nbsp;</a> <a href=""> 公司简介&nbsp;&nbsp;</a> <a href="">批发方案</a> <a href="">  配送方式</a></p>
 	<p>辽ICP备12014775号-2</p>
@@ -173,7 +211,7 @@
 	
 	
 	
-<script>
+<!--<script>
 $(function(){
 	$floornumber=$(".floornumber");
 	$module = $(".module");
@@ -192,6 +230,6 @@ $(function(){
 		i++;
 	});
 })
-</script>
+</script>-->
 
 </body>
