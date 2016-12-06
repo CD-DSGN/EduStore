@@ -125,6 +125,7 @@ if (!$smarty->is_cached('index.dwt', $cache_id))
     $smarty->assign('new_articles',    index_get_new_articles());   // 最新文章
     $smarty->assign('group_buy_goods', index_get_group_buy());      // 团购商品
     $smarty->assign('auction_list',    index_get_auction());        // 拍卖活动
+    $smarty->assign('cat_hot_goods',    cat_hot_goods(4));
     $smarty->assign('cat_id_goods',    cat_id_goods(10));
     $smarty->assign('shop_notice',     $_CFG['shop_notice']);       // 商店公告
     /*jdy add 0816 添加首页幻灯插件*/
@@ -377,7 +378,7 @@ function get_flash_xml()
     }
     return $flashdb;
 }
-// 按照商品一级分类查询 dxh
+// 按照商品一级分类查询 by dxh
 function cat_id_goods($num)
 {
     $arr = get_parents_category();
@@ -414,5 +415,27 @@ function cat_id_goods($num)
     if(isset($goods))
     {
         return $goods;
+    } 
+}
+//首页教师推荐商品获取 by dxh
+function cat_hot_goods($number){
+    $sql = 'Select g.goods_id, g.goods_name, g.goods_name_style, g.market_price, g.shop_price, g.promote_price, ' .
+                        "promote_start_date, promote_end_date, g.goods_brief, g.goods_thumb, goods_img, " .
+                        " g.is_promote " .
+                    'FROM ' . $GLOBALS['ecs']->table('goods') . ' AS g ' .
+                    "where g.is_best=1 ". "LIMIT $number";
+    $res = $GLOBALS['db']->getAll($sql);
+    $good = array();
+    foreach ($res AS $idx => $row)
+        {
+            $good[$idx]['id']           = $row['goods_id'];
+            $good[$idx]['name']         = $row['goods_name'];
+            $good[$idx]['goods_img']    = empty($row['goods_img'])   ? $GLOBALS['_CFG']['no_picture'] : $row['goods_img'];
+            $good[$idx]['url']          = build_uri('goods', array('gid' => $row['goods_id']), $row['goods_name']);
+            $idx++;
+        }
+    if(isset($good))
+    {
+        return $good;
     } 
 }
