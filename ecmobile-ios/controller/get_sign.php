@@ -8,7 +8,7 @@
 
 define('INIT_NO_USERS', true);
 require(EC_PATH . '/includes/init.php');
-require(EC_PATH . '/ecmobile/payment/alipay/sdk/lib/alipay_rsa.function.php');
+require(EC_PATH . '/ecmobile-ios/payment/alipay/sdk/lib/alipay_rsa.function.php');
 
 
 GZ_Api::authSession();
@@ -23,7 +23,7 @@ $user_id = $_SESSION['user_id'];
 $order_info = getOrderInfo($order_id, $user_id);
 
 $out = array(
-    'sign' => rsaSign($order_info, EC_PATH . '/ecmobile/payment/alipay/key/rsa_private_key.pem'),
+    'sign' => rsaSign($order_info, EC_PATH . '/ecmobile-ios/payment/alipay/key/rsa_private_key.pem'),
 );
 
 GZ_Api::outPut($out);
@@ -31,7 +31,7 @@ GZ_Api::outPut($out);
 //获取订单的必要信息
 function getOrderInfo($order_id, $user_id)
 {
-    require_once(EC_PATH . '/ecmobile/payment/alipay/sdk/alipay.config.php');
+    require_once(EC_PATH . '/ecmobile-ios/payment/alipay/sdk/alipay.config.php');
     $sql = "SELECT order_id, order_sn, order_amount
      " .
         " FROM " . $GLOBALS['ecs']->table('order_info') .

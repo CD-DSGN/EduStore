@@ -39,7 +39,6 @@ if ($is_teacher) {
 }
 
 // get teacher's info(username, avatar, and so on)
-// 没有发现数据库的表中有关于头像的信息，头像就先不管了
 foreach ($publish_info as $key => $item) {
 	$out['info'][$key]['publish_info'] = $item;
 	$out['info'][$key]['teacher_info'] = get_teacher_info($item['user_id']);
@@ -126,7 +125,7 @@ function get_publish_info($teachers_user_id, $page)
 		$where = " WHERE `user_id` = '". $teachers_user_id ."' ";
 	}
 
-	$sql = "SELECT news_content,publish_time,user_id " .
+	$sql = "SELECT * " .
 			"FROM ". $GLOBALS['ecs']->table('teacher_publish');
 	$sql .= $where;
 	$sql .= "ORDER BY publish_time DESC ";
@@ -136,12 +135,37 @@ function get_publish_info($teachers_user_id, $page)
 
 	while ($row = $GLOBALS['db']->fetchRow($res))
 	{
+		$photo = get_publish_photo($row['news_id']);
+
 		$publish_info[] = array('news_content'		=> 		$row['news_content'],
 							  'publish_time'		=>		$row['publish_time'],		// 需要格式化时间
-							  'user_id'				=>		$row['user_id']);
+							  'user_id'				=>		$row['user_id'],
+							  'photo_array'			=>		$photo);
 	}
 
 	return $publish_info;
+}
+
+/**
+*	通过 news_id 来查询所上传的图片
+*	@param 		int 		$news_id 				消息id
+*	@return 	arr 		$photo 			 		该消息下对应的图片
+*/
+function get_publish_photo($news_id)
+{
+	$sql = "SELECT * FROM ". $GLOBALS['ecs']->table('teacher_publish_photo') ."WHERE `news_id` = '". $news_id ."'";
+	$photo_info = $GLOBALS['db']->getAll($sql);
+
+	$photo = array();
+
+	foreach ($photo_info as $key => $value) {
+		$photo[] = array('img' 		=>   $value['photo_image'],
+				   	   'thumb'		=>   $value['photo_thumb'],
+				   	   'small'		=>   '',
+				   	   'url'		=> 	 '');
+	}
+
+	return $photo;
 }
 
 

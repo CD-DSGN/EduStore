@@ -46,6 +46,9 @@
 	                    <li><a href="user.php?act=bonus">我的红包</a></li>
 	                    </ul>		
 					</li>
+					<li>
+						
+					</li>
 				</ul>
 		    </div>
 	</div>
@@ -58,46 +61,11 @@
 		<div class="logo">
 			<div class="logo-left">
 				<a href="index.php"><img src="images/logo.png" alt="" width="125" height="80"></a>
+				
 			</div>
-			<div class="logo-right">
-				<a href=""><img  src="images/mobilephone.png" alt="" width="21" height="21">手机汇师
-                    <ul>
-                    	<li><img src="images/2dcode-app3.jpg" alt="" width="100" height="100"></li>
-                    </ul>
-				</a>
-			</div>
-		</div>
-
-		<div class="nav">
-			<div class="nav-left"></div>
-			<div class="nav-mid">
-				<div class="nav-mid-left">
-					<ul>
-						<!--实现商品分类-->
-					    <li><a href="category.php?id=1">商品分类</a>
-							{if $parents_category}
-                             <ul>
-							 	{foreach from=$parents_category item=parents name=key}
-                             	<li><a href="{$parents.url}">{$parents.cat_name}></a></li>
-                             	<!--<li><a href="">二年级 ></a></li>
-                             	<li><a href="">三年级 ></a></li>-->
-								{/foreach}
-                             </ul>
-                             {/if}
-					    </li>
-						<!--商品分类end-->
-						<li><a href="">首页</a></li>
-						{foreach name=nav_middle_list from=$navigator_list.middle item=nav}
-						<li><a href="{$nav.url}" {if $nav.opennew}{/if} {if $script_name eq 'category'}{/if}>{$nav.name}</a></li>
-						{/foreach}
-						<!--<li><a href="">关于汇师</a></li>
-						<li><a href="">老师推荐</a></li>
-						<li><a href="">新品上架</a></li>
-						<li><a href="">留言板</a></li>-->
-					</ul>
-				</div>
-				<div class="nav-mid-right">
-					<form action="search.php" method="get" onSubmit="return checkSearchForm(this)">
+			<div class="logo-mid">
+			  <div class="logo-mid-left">
+				<form action="search.php" method="get" onSubmit="return checkSearchForm(this)">
 					<input type="text" name="keywords" id="keyword" value="四年级语文" class="search-text" onfocus="javascript:if(this.value=='四年级语文'){this.value=''}" onblur="javascript:if(this.value==''){this.value='四年级语文'}"/><button class="btn-search" type="submit">搜索</button>
 					<script type="text/javascript">
                     {literal}
@@ -118,16 +86,58 @@
                     {/literal}
                 </script>
 					</form>
+			  </div>
+			  <div class="logo-mid-right">
+			  	<img src="images/try.jpg">
+			  </div>
+		    </div>
+			<div class="logo-right">
+				<a href=""><img  src="images/手机.png" alt="" width="21" height="21">手机汇师
+			          <ul>
+						<li><img src="images/2dcode-app3.jpg" alt="" width="100" height="100"></li>
+                      </ul>
+				</a>
+			</div>
+		</div>
+</div>
+       <div class="nav-all">
+		<div class="nav">
+			<div class="nav-left"></div>
+			<div class="nav-mid">
+				<div class="nav-mid-left">
+					<ul>
+						<!--实现商品分类-->
+					    <li class="first" style="background: #69c6ce;"><a href="category.php?id=1" style="color:white;">商品分类</a>
+							{if $parents_category}
+                             <ul>
+							 	{foreach from=$parents_category item=parents name=key}
+                             	<li><a href="{$parents.url}">{$parents.cat_name}></a></li>                         	
+								{/foreach}
+                             	
+                             </ul>
+                             {/if}
+					    </li>
+						<!--商品分类end-->
+						<li class="first"><a href="">首页</a></li>
+						{foreach name=nav_middle_list from=$navigator_list.middle item=nav}
+						<li class="first"><a href="{$nav.url}" {if $nav.opennew}{/if} {if $script_name eq 'category'}{/if}>{$nav.name}</a></li>
+						{/foreach}
+						<!--<li><a href="">关于汇师</a></li>
+						<li><a href="">老师推荐</a></li>
+						<li><a href="">新品上架</a></li>
+						<li><a href="">留言板</a></li>-->
+					</ul>
 				</div>
 			</div>
 			<div class="nav-right"></div>
 		</div>
+	</div>
 
 		<div class="ad" id="picBox">
 		<div class="pic">
 			<ul>
 				<!--{foreach from=$flash name=myflash item=flash}-->
-				<li><a href="{$flash.url}" target="_blank"><img src="{$flash.src}" alt="" width="1300" height="350"/></a></li>
+				<li><a href="{$flash.url}" target="_blank"><img src="{$flash.src}" height="440"/></a></li>
 				<!--<li><img src="img/08.jpg" alt="" width="1300" height="310"></li>
 				<li><img src="img/09.jpg" alt="" width="1300" height="310"></li>
 				<li><img src="img/10.jpg" alt="" width="1300" height="310"></li>
@@ -136,35 +146,32 @@
 			</ul>
 			</div>
 		</div>
-	
-	</div>
-
-
 </div>
 
 
 <!-- TemplateBeginEditable name="教师推荐商品展示区域" -->
 <div class="tuijian">
-    <div class="tuijian-text">
-    <b>教师推荐</b>
-   	<span>RECOMMEND</span>
-   	<img src="images/line1.png" >
-   	</div>
+	    <div class="tuijian-text">
+	    <b>教师推荐</b>
+	   	<span>RECOMMEND</span>
+	   	</div>
+	   	<img src="images/line1.png" class="line">
   <div class="enough">
-	  <ul>
-	  	{foreach from=$cat_hot_goods item=good}
-	  	<li><a href="{$good.url}"><img src="{$good.goods_img}"></a></li>
-	  	<!-- <li><img src="images/book2.jpg"></li>
-	  	<li><img src="images/book3.jpg"></li>
-	  	<li><img src="images/book4.jpg"></li> -->
-		{/foreach}
-	  </ul>
+		  <ul>
+		  	<li><a href="http://www.baidu.com"><img src="images/book1.jpg"></a></li>
+		  	<div class="mengban"></div>
+		  	<li><a href=""><img src="images/book2.jpg"></a></li>
+		  	<div class="mengban"></div>
+		  	<li><a href=""><img src="images/book3.jpg"></a></li>
+		  	<div class="mengban"></div>
+		  	<li><a href=""><img src="images/book4.jpg"></a></li>
+		  	<div class="mengban"></div>
+		  </ul>
   </div>
 </div>
 <!-- TemplateEndEditable -->     
-    <div class="goods-show">
+<div class="goods-show">
 <!-- TemplateBeginEditable name="首页商品展示区域" -->
-
 {foreach from=$categories item=cat}
 <div class="module">
 <div class="more">
@@ -174,9 +181,6 @@
 	<div class="more-right">
 
 	<span><a href="{$cat.url}" class="duo">更多&gt;&gt;</a></span>
-
-		
-		
 		  <em class="floor-line"></em>
 		<!--{foreach from=$cat.cat_id item=child}-->
 			<span><a href="{$child.url}">{$child.name|escape:html}</a></span>
@@ -199,11 +203,11 @@
 		   <img src="{$goods.goods_img}" alt="{$goods.name|escape:html}" width="210px" height="210px">
 		  <div class="des">
 		   <strong>
-			  <!-- {if $goods.promote_price neq ""} -->
+			 <!-- {if $goods.promote_price neq ""}-->
 			  {$goods.promote_price}
-			  <!-- {else}-->
+			 <!-- {else}-->
 			  {$goods.shop_price}
-			  <!--{/if}-->
+			 <!-- {/if}-->
 			</strong> <br/>
 			 <h4>{$goods.short_name}</h4>
 			 </div>
@@ -215,7 +219,7 @@
 	</div>
 </div>
 {/foreach}
-<!-- TemplateEndEditable --> 
+<!--TemplateEndEditable -->
 </div>
 
 <div class="mid">
@@ -230,32 +234,14 @@
 	<p>辽ICP备12014775号-2</p>
 	<p>@Copyright 2016 汇师网 All Rights Reserved 成都大术光年信息技术有限公司</p>
 </div>
-	
-	
-	
-<script>
+<script type="text/javascript">
 $(function(){
 	$floornumber=$(".floornumber");
-	var i=1;
- // 	$module = $(".module");
- // 	$module.each(function(){
- // 		$goods_showing=$(this).find(".one");
- // 		$goods_showing.each(function(){
- // 		var num=$goods_showing.index(this);
- // 		if(num%8==1){
- // 			$(this).css({"height":"356px","width":"770px"});
- // 			$(this).find("img").css({"height":"300px","width":"700px"});	
- // 		}else if(num%8==5){
- // 			$(this).css({"height":"356px","width":"510px"});
- // 			$(this).find("img").css({"height":"300px","width":"480px"});	
- // 		}
- // 	});
- // });
+    var i=1;
 	$floornumber.each(function(){
-		$(this).html(i+"F/");
-		i++;
+		$(this).html(i+"F");
+		i++;	
 	});
 })
 </script>
-
 </body>
