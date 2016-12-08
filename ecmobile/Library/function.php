@@ -365,7 +365,9 @@ function API_DATA($type, $readData)
 				"rank_prices" => array(),
 				"pictures" => array(),
 				"properties" => array(),
-				"specification" => array()
+				"specification" => array(),
+				"is_presell"	=> $readData['is_presell'],
+				"presell_shipping_time" 	=> $readData['presell_shipping_time']
 			);
 			foreach ($readData['rank_prices'] as $key => $value) {
 				$outData['rank_prices'][] = array(
