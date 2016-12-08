@@ -29,6 +29,7 @@
 define('INIT_NO_USERS', true);
 require(EC_PATH . '/includes/init.php');
 GZ_Api::authSession();
+$user_id = $_SESSION['user_id'];
 include_once(EC_PATH . '/includes/lib_order.php');
 
 if (empty($tmp[0])) {
@@ -69,7 +70,7 @@ switch ($tmp[0]) {
 		break;
 	case 'list':
 		$GLOBALS['_CFG']['show_goods_in_cart'] = 3;
-		$cart_goods = gz_get_cart_goods();
+		$cart_goods = gz_get_cart_goods($user_id);
 		if (!empty($cart_goods['goods_list'])) {
 			foreach ($cart_goods['goods_list'] as $key => $value) {
 				unset($cart_goods['goods_list'][$key]['user_id']);
@@ -115,13 +116,15 @@ switch ($tmp[0]) {
 //-- PRIVATE FUNCTION
 /*------------------------------------------------------ */
 
+// modify nhj, 原本读取购物车数据使用的是session，但是每次退出登录，session都会改变，所以在读取购物车数据时需要使用user_id
 /**
  * 获得购物车中的商品
  *
  * @access  public
+ * @param   int     $user_id    用户id，读取购物车数据使用
  * @return  array
  */
-function gz_get_cart_goods()
+function gz_get_cart_goods($user_id)
 {
     /* 初始化 */
     $goods_list = array();
@@ -136,7 +139,7 @@ function gz_get_cart_goods()
     /* 循环、统计 */
     $sql = "SELECT *, IF(parent_id, parent_id, goods_id) AS pid " .
             " FROM " . $GLOBALS['ecs']->table('cart') . " " .
-            " WHERE session_id = '" . SESS_ID . "' AND rec_type = '" . CART_GENERAL_GOODS . "'" .
+            " WHERE user_id = '" . $user_id . "' AND rec_type = '" . CART_GENERAL_GOODS . "'" .
             " ORDER BY pid, parent_id";
     $res = $GLOBALS['db']->query($sql);
 
