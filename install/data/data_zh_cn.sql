@@ -3866,5 +3866,11 @@ INSERT INTO `ecs_template` (`filename`, `region`, `library`, `sort_order`, `id`,
 ('index', '全宽行', '/library/recommend_best.lbi', 2, 0, 5, 0, 'ecmoban_kaola2016', ''),
 ('index', '商店公告', '/library/new_articles.lbi', 0, 0, 0, 0, 'ecmoban_kaola2016', '');
 
+INSERT INTO `ecs_payment` (`pay_id`, `pay_code`, `pay_name`, `pay_fee`, `pay_desc`, `pay_order`, `pay_config`, `enabled`, `is_cod`, `is_online`) VALUES
+('4', 'alipay', '<font color=\"#FF0000\">支付宝</font>', '0', '支付宝网站(www.alipay.com) 是国内先进的网上支付平台。<br/>支付宝收款接口：在线即可开通，<font color=\"red\"><b>零预付，免年费</b></font>，单笔阶梯费率，无流量限制。<br/><a href=\"http://cloud.ecshop.com/payment_apply.php?mod=alipay\" target=\"_blank\"><font color=\"red\">立即在线申请</font></a>', '0', 'a:4:{i:0;a:3:{s:4:\"name\";s:14:\"alipay_account\";s:4:\"type\";s:4:\"text\";s:5:\"value\";s:16:\"sylongtu@126.com\";}i:1;a:3:{s:4:\"name\";s:10:\"alipay_key\";s:4:\"type\";s:4:\"text\";s:5:\"value\";s:32:\"nkenn16s23r53e1tvssmeu61xjntys71\";}i:2;a:3:{s:4:\"name\";s:14:\"alipay_partner\";s:4:\"type\";s:4:\"text\";s:5:\"value\";s:16:\"2088911655683743\";}i:3;a:3:{s:4:\"name\";s:17:\"alipay_pay_method\";s:4:\"type\";s:6:\"select\";s:5:\"value\";s:1:\"2\";}}', '1', '0', '1');
+
+INSERT INTO `ecs_payment` (`pay_id`, `pay_code`, `pay_name`, `pay_fee`, `pay_desc`, `pay_order`, `pay_config`, `enabled`, `is_cod`, `is_online`) VALUES
+('6', 'wxpay', '微信支付', '0', '微信支付', '0', 'a:4:{i:0;a:3:{s:4:\"name\";s:8:\"wx_appid\";s:4:\"type\";s:4:\"text\";s:5:\"value\";s:18:\"wx5f56bbcba44d867a\";}i:1;a:3:{s:4:\"name\";s:8:\"wx_mchid\";s:4:\"type\";s:4:\"text\";s:5:\"value\";s:10:\"1382423602\";}i:2;a:3:{s:4:\"name\";s:6:\"wx_key\";s:4:\"type\";s:4:\"text\";s:5:\"value\";s:32:\"gao35162016lichenzhangliu2016ohy\";}i:3;a:3:{s:4:\"name\";s:12:\"wx_appsecret\";s:4:\"type\";s:4:\"text\";s:5:\"value\";s:32:\"b93c612dcbe2129a56575fcabe405ddc\";}}', '1', '0', '1');
+
 --end zhangmengqi
 
