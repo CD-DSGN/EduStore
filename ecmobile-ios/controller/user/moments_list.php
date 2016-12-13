@@ -135,7 +135,7 @@ function get_publish_info($teachers_user_id, $page)
 
 	while ($row = $GLOBALS['db']->fetchRow($res))
 	{
-		$photo = get_publish_photo($row['news_id']);
+		// $photo = get_publish_photo($row['news_id']);
 
 		$publish_info[] = array('news_content'		=> 		$row['news_content'],
 							  'publish_time'		=>		$row['publish_time'],		// 需要格式化时间
