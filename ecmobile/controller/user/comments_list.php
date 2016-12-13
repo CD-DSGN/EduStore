@@ -23,15 +23,20 @@ $is_teacher = judge_user_status($user_id);
 // 如果该用户是教师用户，则展示其发送的历史消息
 if ($is_teacher) {
 	$publish_info = get_publish_info($user_id, $page);
+	if (empty($publish_info)) {
+	    $out['no_follow'] = 0;
+	} else {
+	    $out['no_follow'] = 1;
+	}
 } else {
 	// get followed teacher(teacher's user id) by user id
 	$teachers = get_followed_teacher($user_id);
 
 	// when student's follow none
 	if (empty($teachers)) {
-		$out['no_follow'] = 1;
-	} else {
 		$out['no_follow'] = 0;
+	} else {
+		$out['no_follow'] = 1;
 	}
 
 	// get teacher's publish by time and page
