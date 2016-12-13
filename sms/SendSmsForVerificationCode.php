@@ -29,7 +29,7 @@ class SendSmsForVerificationCode {
     
     //应用Id，在官网应用列表中点击应用，对应应用详情中的APP ID
     //在开发调试的时候，可以使用官网自动为您分配的测试Demo的APP ID
-    private $appId='8a216da855d8c5050155d92895d800cf';
+    private $appId='8aaf070855e333c00155e863037205d5';
     
     //请求地址
     //沙盒环境（用于应用开发调试）：sandboxapp.cloopen.com
@@ -89,7 +89,7 @@ class SendSmsForVerificationCode {
     function sendSmsForVeriCode(){
         $randomIdentifyCode = rand(1000,9999);
         $this->temp_verification_code = $randomIdentifyCode;
-        $tempateID='1';
+        $tempateID='141220';
         $this->sendTemplateSMS($this->phone_number, array($randomIdentifyCode,$this->code_available_time),$tempateID);
     }
     
