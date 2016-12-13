@@ -158,14 +158,14 @@
 	   	<img src="images/line1.png" class="line">
   <div class="enough">
 		  <ul>
-		  	<li><a href="http://www.baidu.com"><img src="images/book1.jpg"></a></li>
-		  	<div class="mengban"></div>
-		  	<li><a href=""><img src="images/book2.jpg"></a></li>
-		  	<div class="mengban"></div>
-		  	<li><a href=""><img src="images/book3.jpg"></a></li>
-		  	<div class="mengban"></div>
-		  	<li><a href=""><img src="images/book4.jpg"></a></li>
-		  	<div class="mengban"></div>
+		  	<li><img src="images/book1.jpg"></li>
+		  	<a href=""><div class="mengban"></div></a>
+		  	<li><img src="images/book2.jpg"></a></li>
+		  	<a href=""><div class="mengban"></div></a>
+		  	<li><img src="images/book3.jpg"></li>
+		  	<a href=""><div class="mengban"></div></a>
+		  	<li><img src="images/book4.jpg"></li>
+		  	<a href=""><div class="mengban"></div></a>
 		  </ul>
   </div>
 </div>

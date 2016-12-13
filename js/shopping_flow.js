@@ -580,12 +580,12 @@ function checkConsignee(frm)
     err = true;
     msg.push(consignee_not_null);
   }
-
-  if ( ! Utils.isEmail(frm.elements['email'].value))
-  {
-    err = true;
-    msg.push(invalid_email);
-  }
+//去除邮件合法性的验证
+  // if ( ! Utils.isEmail(frm.elements['email'].value))
+  // {
+  //   err = false;
+  //   msg.push(invalid_email);
+  // }
 
   if (frm.elements['address'] && Utils.isEmpty(frm.elements['address'].value))
   {

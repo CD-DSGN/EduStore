@@ -9,14 +9,48 @@
 <!-- TemplateEndEditable --><!-- TemplateBeginEditable name="head" --><!-- TemplateEndEditable -->
 <link rel="shortcut icon" href="favicon.ico" />
 <link rel="icon" href="animated_favicon.gif" type="image/gif" />
+<script src="../js/jquery-1.11.3.min.js"></script>
 <link href="{$ecs_css_path}" rel="stylesheet" type="text/css" />
 {* 包含脚本文件 *}
 {insert_scripts files='transport_jquery.js,common.js,user.js'}
 </head>
 <body>
-<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem -->
-
-  <!-- #BeginLibraryItem "/library/ur_here.lbi" --><!-- #EndLibraryItem -->
+<div class="header-nav">
+    <div class="block">
+        <span class="fl gotoindex" style="margin-right:15px;">
+        	汇师网欢迎您！
+        </span>
+        <!-- 登录信息 -->
+        <p class="header-login-info">
+            {* ECSHOP 提醒您：根据用户id来调用member_info.lbi显示不同的界面  *}{insert name='member_info'}
+        </p>
+        <a href="javascript:;" class="fl nav-mobile" style="">
+            <i class="iconfont">&#xe615;</i>手机汇师
+            <span class="nav-mobile-sub"><img src="images/2dcode-app3.jpg" alt=""></span>
+        </a>
+        <!-- 快速导航 -->
+        <ul class="ul-quick-menu">
+            <li class="li-my menu-item">
+                <a href="index.php"  class="menu-hd my_user">汇师首页</a>
+                <!--<div class="menu-bd">
+                    <a href="user.php?act=order_list">我的订单</a>
+                    <a href="user.php?act=account_log">我的余额</a>
+                    <a href="user.php?act=collection_list" >我的收藏</a>
+                    <a href="user.php?act=bonus">我的红包</a>
+                </div>-->
+            </li>
+            <li class="li-sep"></li>
+            <!--{if $navigator_list.top}-->
+            <!-- {foreach name=nav_top_list from=$navigator_list.top item=nav} -->
+            <li class="li-home">
+                <a href="{$nav.url}"<!-- {if $nav.opennew eq 1} --> target="_blank" <!-- {/if} -->>{$nav.name}</a>
+            </li>
+            <!-- {/foreach} -->
+            <!-- {/if} -->
+        </ul>
+    </div>
+</div>
+<div class="blank"></div>
 <div class="block clearfix">
   <!--left start-->
   <div class="AreaL">
@@ -43,7 +77,8 @@
           {$rank_name} {$next_rank_name}<br />
           <div class="blank5"></div>
            <!--{if $info.is_validate eq 0} -->
-          {$lang.not_validated} <a href="javascript:sendHashMail()" style="color:#006bd0;">{$lang.resend_hash_mail}</a><br />
+		   <!--去除邮箱验证-->
+           <!--{$lang.not_validated}<a href="javascript:sendHashMail()" style="color:#006bd0;">{$lang.resend_hash_mail}</a><br />-->
            <!--{/if} -->
            <div style="margin:5px 0; border:1px solid #f7dd98;padding:10px 20px; background-color:#fffad5;">
            <img src="images/note.gif" alt="note" />&nbsp;{$user_notice}
@@ -54,16 +89,18 @@
           <div class="blank"></div>
           <!--begin, added by chenggaoyuan-->
           <!--{if $info.is_teacher eq 1} -->
-          <div style="font-size:15px">
-          {$lang.teacher_integral}:&nbsp;{$info.teacher_integral}<br />
+          <div class="teacher_integral">
+		  <span><img src="images/bg_1.png" alt="bg_1"></span>
+          <em class="count">{$lang.teacher_integral} : {$info.teacher_integral}</em>
           </div>
           <!--{/if} -->
-          {$lang.your_surplus}:<a href="user.php?act=account_log" style="color:#006bd0;">{$info.surplus}</a><br />
+		  <!--去掉红包、余额、积分等无关项-->
+          <!--{$lang.your_surplus}:<a href="user.php?act=account_log" style="color:#006bd0;">{$info.surplus}</a><br />-->
           <!-- {if $info.credit_line gt 0} 如果有信用额度 -->
-          {$lang.credit_line}:{$info.formated_credit_line}<br />
+          <!--{$lang.credit_line}:{$info.formated_credit_line}<br />-->
           <!-- {/if} -->
-          {$lang.your_bonus}:<a href="user.php?act=bonus" style="color:#006bd0;">{$info.bonus}</a><br />
-          {$lang.your_integral}:{$info.integral}<br />
+          <!--{$lang.your_bonus}:<a href="user.php?act=bonus" style="color:#006bd0;">{$info.bonus}</a><br />-->
+          <!--{$lang.your_integral}:{$info.integral}<br />-->
           </div>
           <div class="f_r" style="width:350px;">
           <h5><span>{$lang.your_notice}</span></h5>
@@ -71,13 +108,16 @@
            <!--{foreach from=$prompt item=item}-->
           {$item.text}<br />
           <!--{/foreach}-->
-          {$lang.last_month_order}{$info.order_count}{$lang.order_unit}<br />
+		  <div class="order_count">
+		  <span><img src="images/bg_2.png" alt="bg_1"></span>
+          <em class="count">{$lang.last_month_order}{$info.order_count}{$lang.order_unit}</em>
           <!-- {if $info.shipped_order} -->
           {$lang.please_received}<br />
           <!-- {foreach from=$info.shipped_order item=item}-->
           <a href="user.php?act=order_detail&order_id={$item.order_id}" style="color:#006bd0;">{$item.order_sn}</a>
           <!-- {/foreach} -->
           <!-- {/if}-->
+		  </div>
           </div>
          <!-- {/if} -->
          <!-- #用户中心默认显示页面 end-->
@@ -597,7 +637,6 @@ copyToClipboard = function(txt)
   </div>
   <!--right end-->
 </div>
-<div class="blank"></div>
 <!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
 </body>
 <script type="text/javascript">

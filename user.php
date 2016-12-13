@@ -2573,7 +2573,7 @@ elseif ($action == 'affiliate')
     $smarty->assign('shopname', $_CFG['shop_name']);
     $smarty->assign('userid', $user_id);
     $smarty->assign('shopurl', $ecs->url());
-    $smarty->assign('logosrc', 'themes/' . $_CFG['template'] . '/images/logo.gif');
+    $smarty->assign('logosrc', 'themes/' . $_CFG['template'] . '/images/logo1.gif');
 
     $smarty->display('user_clips.dwt');
 }
