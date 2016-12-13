@@ -209,7 +209,7 @@
 			  {$goods.shop_price}
 			 <!-- {/if}-->
 			</strong> <br/>
-			 <h4>{$goods.short_name}</h4>
+			 <h4>{$goods.name}</h4>
 			 </div>
 		   <!-- <a href="{$goods.url}"><input id="sec-in" type="text" value="立即购买"/></a> -->
 			</div></a>
