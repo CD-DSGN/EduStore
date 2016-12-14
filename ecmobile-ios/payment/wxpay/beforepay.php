@@ -6,8 +6,8 @@
 //---------------------------------------------------------
 define('IN_ECS', true);
 // GZ_Api::authSession();
-require($_SERVER ['DOCUMENT_ROOT'] . '/edustore/includes/init.php');
-require($_SERVER ['DOCUMENT_ROOT'] . '/edustore/includes/lib_order.php');
+require($_SERVER ['DOCUMENT_ROOT'] . '/includes/init.php');
+require($_SERVER ['DOCUMENT_ROOT'] . '/includes/lib_order.php');
 require_once ("classes/RequestHandler.class.php");
 require_once ("./tenpay_config.php");
 require_once ("classes/ResponseHandler.class.php");

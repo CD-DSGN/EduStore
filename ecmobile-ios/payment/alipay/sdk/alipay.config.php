@@ -44,5 +44,5 @@ $alipay_config['cacert']    = getcwd().'\\cacert.pem';
 
 //访问模式,根据自己的服务器是否支持ssl访问，若支持请选择https；若不支持请选择http
 $alipay_config['transport']    = 'http';
-$alipay_config['notify_url']   = "http://nhj.s1.natapp.cc/edustore/ecmobile-ios/payment/alipay/sdk/notify_url.php";
+$alipay_config['notify_url']   = "http://60.205.92.85/ecmobile-ios/payment/alipay/sdk/notify_url.php";
 ?>
