@@ -296,7 +296,7 @@ span{
  	margin-left:350px;
  }
  .enough ul{
- 	width:1290px;
+ 	width:1300px;
  	margin:0 auto;
 
  }
@@ -304,7 +304,7 @@ span{
  .enough ul li{
  	width:300px;
  	height:250px;
-    //margin-left:10px;
+    margin-left:10px;
  	margin:10px;
  	float:left;
  	z-index:1;
@@ -312,7 +312,7 @@ span{
 
  }
  .enough ul li img{
- 	width:250px;
+ 	width:300px;
  	height:250px;
  	//opacity:0.5;
  }
@@ -321,14 +321,14 @@ span{
     position:relative;
  	z-index:2;
  	background:#4D4B4B;
- 	opacity:0;
+ 	opacity:0.5;
  	width:300px;
  	height:250px;
  	float:left;
  	margin:10px;
  	margin-left:-310px; 	
  }
- //.enough .mengban:hover{
+ .enough .mengban:hover{
  		background:white;
  		opacity:0.3;
  }

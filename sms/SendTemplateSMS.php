@@ -23,7 +23,7 @@ $accountToken= 'e9d1f3eb74e647778099b211e4e676b1';
 
 //应用Id，在官网应用列表中点击应用，对应应用详情中的APP ID
 //在开发调试的时候，可以使用官网自动为您分配的测试Demo的APP ID
-$appId='8a216da855d8c5050155d92895d800cf';
+$appId='8aaf070855e333c00155e863037205d5';
 
 //请求地址
 //沙盒环境（用于应用开发调试）：sandboxapp.cloopen.com
@@ -85,7 +85,7 @@ function sendIdentifyCode()
         $randomIdentifyCode = rand(1000,9999);  //生成4位数的随机码
         $phone = $_POST['mobile_phone'];
         setcookie('identifyCode',$randomIdentifyCode,time()+300,'/');   //将随机码保存至cookie中，生命期120s
-        sendTemplateSMS($phone, array($randomIdentifyCode,'5'),"1");
+        sendTemplateSMS($phone, array($randomIdentifyCode,'5'),"141220");
     }
 }
 
