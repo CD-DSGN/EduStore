@@ -99,7 +99,8 @@ function get_teacher_info($teacher_user_id)
 	// 获取用户头像,url中的edustore在服务器中可能需要删除
 	$sql = "SELECT avatar FROM ". $GLOBALS['ecs']->table('users') ."WHERE `user_id` = '". $teacher_user_id ."'";
 	$res = $GLOBALS['db']->getRow($sql);
-	$teacher_info['avatar'] = "http://". $_SERVER['HTTP_HOST'] ."/". "edustore/". $res['avatar'];
+	$teacher_info['avatar'] = dirname($GLOBALS['ecs']->url()) . "/" . $res['avatar'];
+	// $teacher_info['avatar'] = "http://". $_SERVER['HTTP_HOST'] ."/". "edustore/". $res['avatar'];
 
 	return $teacher_info;
 }
