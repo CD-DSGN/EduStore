@@ -120,15 +120,15 @@ span{
     background-color:#ff6825;
     cursor: pointer;
     height:33px;
-    width:50px;
+    width:65px;
     border: none;
-    margin-left:-50px;
+    margin-left:-65px;
 }
 .logo-mid-right{
 	float:left;
 	height:36px;
 	margin-left:40px;
-	margin-top:-3px;
+	margin-top:8px;
 }
 .logo-right{
 	width:10%;
@@ -186,12 +186,13 @@ span{
 .nav .nav-mid .nav-mid-left ul li ul li{
 	float:none;	
 	height:50px;
+    line-height:50px;
+    vertical-align:middle;
 
 
 }
 .nav .nav-mid .nav-mid-left ul li ul li:hover{
 	background:#ff999a;
-	padding-bottom:-2px;
 }
 .nav .nav-mid .nav-mid-left ul li ul{
 	position:relative;
