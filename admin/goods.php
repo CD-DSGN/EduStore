@@ -665,6 +665,7 @@ elseif ($_REQUEST['act'] == 'insert' || $_REQUEST['act'] == 'update')
             $img        = $original_img;   // 相册图片
             $pos        = strpos(basename($img), '.');
             $newname    = dirname($img) . '/' . $image->random_filename() . substr(basename($img), $pos);
+
             if (!copy('../' . $img, '../' . $newname))
             {
                 sys_msg('fail to copy file: ' . realpath('../' . $img), 1, array(), false);
@@ -841,18 +842,17 @@ elseif ($_REQUEST['act'] == 'insert' || $_REQUEST['act'] == 'update')
     $goods_thumb = (empty($goods_thumb) && isset($_POST['auto_thumb']))? $goods_img : $goods_thumb;
 
     // add nhj，如果预售，给商品图片与缩略图加预售水印
-    // 可以封装函数，不过以后再说吧
     if ( $_POST['is_presell'] == 1 )
     {
         $presell_img = '../images/' .$GLOBALS['_CFG']['presell_image'];
         if (!empty($goods_thumb)) {
-            add_presell_watermark('../'. $goods_thumb, $presell_img);
+             add_presell_watermark('../'. $goods_thumb, $presell_img);   
         }
         if (!empty($goods_img)) {
             add_presell_watermark('../'. $goods_img, $presell_img);
         }
         if (!empty($original_img)) {
-            add_presell_watermark('../'. $original_img, $presell_img);
+             add_presell_watermark('../'. $original_img, $presell_img);
         }
         if (!empty($gallery_img)) {
             add_presell_watermark('../'. $gallery_img, $presell_img);
@@ -860,7 +860,7 @@ elseif ($_REQUEST['act'] == 'insert' || $_REQUEST['act'] == 'update')
         if (!empty($gallery_thumb)) {
             add_presell_watermark('../'. $gallery_thumb, $presell_img);
         }
-        if (!empty($img)) {
+        if (!empty($img)) {       
             add_presell_watermark('../'. $img, $presell_img);
         }
     }
@@ -2798,23 +2798,39 @@ function add_presell_watermark($src_img, $presell_img, $width = 0, $height = 0)
         $h = $src_img_info['1'];
     }
     
-    /* 将水印图片缩放至指定大小 */
-    $presell_img_im = imagecreatefrompng($presell_img);              // 水印图片格式png，写定的
-    $presell_zoom_im = imagecreatetruecolor($w, $h);                         
+    /* 将水印图片缩放至指定大小，不用这种方法了 
+    * $presell_img_im = imagecreatefrompng($presell_img);              * 水印图片格式png，写定的
+    * $presell_zoom_im = imagecreatetruecolor($w, $h);                         
+    * $color=imagecolorallocatealpha($presell_zoom_im, 255, 255, 255, 127);          
+    * imagealphablending($presell_zoom_im, false);                             
+    * imagefill($presell_zoom_im, 0, 0, $color);                             
+    * imagecopyresampled($presell_zoom_im, $presell_img_im, 0, 0, 0, 0, $w, $h, $presell_img_info['0'], $presell_img_info['1']);
+    */
+
+    /* 将小的水印图片与目标图片等比缩放的情况，假设完美的水印大小与目标图片的比例：5/18（width or height） */
+    $presell_img_im = imagecreatefrompng($presell_img);
+    $target_width_or_height = min($w,$h);
+    $presell_width_and_height = (5 * $target_width_or_height) / 18;     // 确定水印缩放的大小
+    $presell_zoom_im = imagecreatetruecolor($presell_width_and_height, $presell_width_and_height);
     $color=imagecolorallocatealpha($presell_zoom_im, 255, 255, 255, 127);          
     imagealphablending($presell_zoom_im, false);                             
-    imagefill($presell_zoom_im, 0, 0, $color);                             
-    imagecopyresampled($presell_zoom_im, $presell_img_im, 0, 0, 0, 0, $w, $h, $presell_img_info['0'], $presell_img_info['1']);
+    imagefill($presell_zoom_im, 0, 0, $color);
+    imagecopyresampled($presell_zoom_im, $presell_img_im, 0, 0, 0, 0, $presell_width_and_height, $presell_width_and_height, $presell_img_info['0'], $presell_img_info['1']);
+
+    // 水印图片的position，与右边框有1/18的距离，同高
+    $position_x = $w - ($presell_width_and_height + $target_width_or_height / 18);
+    $position_y = 0;
 
     if ($src_zoom_im)   /* 目标图片被压缩 */
     {
-        imagecopy($src_zoom_im, $presell_zoom_im, 0, 0, 0, 0, $w, $h);              // 上水印                                  
+        magecopy($src_zoom_im, $presell_zoom_im, $position_x, $position_y, 0, 0, $presell_width_and_height, $presell_width_and_height);              // 上水印                                  
         imagejpeg($src_zoom_im, $target);
         imagedestroy($src_zoom_im);
     }
     else                /* 目标图片未被压缩 */
     {
-        imagecopy($src_img_im, $presell_zoom_im, 0, 0, 0, 0, $w, $h);
+        // echo $position_x;
+        imagecopy($src_img_im, $presell_zoom_im, $position_x, $position_y, 0, 0, $presell_width_and_height, $presell_width_and_height);
         imagesavealpha($src_img_im, true);                                          // 设置保存时保留透明通道信息
         imagepng($src_img_im, $target);
     }
@@ -2822,6 +2838,20 @@ function add_presell_watermark($src_img, $presell_img, $width = 0, $height = 0)
     imagedestroy($src_img_im);
     imagedestroy($presell_img_im);
     imagedestroy($presell_zoom_im);
+}
+
+/**
+* add nhj
+* 判断商家所上传的图片是否为网络链接
+*/
+function web_image($image_name)
+{
+    // 就取前4个字符，否则后面字符串可能包含字符串“http”
+    $prefix = substr($image_name, 0, 4);
+    if (strstr($prefix, "http")) {
+        return true;
+    }
+    return false;
 }
 
 ?>

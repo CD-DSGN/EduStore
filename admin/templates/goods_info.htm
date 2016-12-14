@@ -200,7 +200,9 @@
               {else}
                 <img src="images/no.gif" />
               {/if}
-              <br /><input type="text" size="40" value="{$lang.lab_picture_url}" style="color:#aaa;" onfocus="if (this.value == '{$lang.lab_picture_url}'){this.value='http://';this.style.color='#000';}" name="goods_img_url"/>
+              <!-- modify nhj, 去除上传文件的url选项的，但是要增加传递一个hidden的，value为http://的值，否则会被当做有图片处理 -->
+              <!-- <br /><input type="text" size="40" value="{$lang.lab_picture_url}" style="color:#aaa;" onfocus="if (this.value == '{$lang.lab_picture_url}'){this.value='http://';this.style.color='#000';}" name="goods_img_url"/> -->
+              <input type="hidden" size="40" value="http://" name="goods_img_url"/>
             </td>
           </tr>
           <tr id="auto_thumb_1">
@@ -212,7 +214,9 @@
               {else}
                 <img src="images/no.gif" />
               {/if}
-              <br /><input type="text" size="40" value="{$lang.lab_thumb_url}" style="color:#aaa;" onfocus="if (this.value == '{$lang.lab_thumb_url}'){this.value='http://';this.style.color='#000';}" name="goods_thumb_url"/>
+              <!-- modify nhj, 去除上传文件的url选项的，但是要增加传递一个hidden的，value为http://的值，否则会被当做有图片处理 -->
+              <!-- <br /><input type="text" size="40" value="{$lang.lab_thumb_url}" style="color:#aaa;" onfocus="if (this.value == '{$lang.lab_thumb_url}'){this.value='http://';this.style.color='#000';}" name="goods_thumb_url"/> -->
+              <input type="hidden" name="goods_thumb_url" value="http://" />
               {if $gd > 0}
               <br /><label for="auto_thumb"><input type="checkbox" id="auto_thumb" name="auto_thumb" checked="true" value="1" onclick="handleAutoThumb(this.checked)" />{$lang.auto_thumb}</label>{/if}
             </td>
@@ -1162,7 +1166,19 @@
     var index = isPresell.selectedIndex;
     var is_presell = isPresell.options[index].value;
     var shippingTime = document.getElementById('presell_shipping_time').value;
+    // 获取当天日期
+    var date = new Date();
+    var today = date.getFullYear() + "-" + (parseInt(date.getMonth()) + 1) + "-";
+    var day = date.getDate();
+    day = day > 10 ? day : "0" + day;
+    today += day;
+
     isSelectShippingTime = 1;
+    if (is_presell > 0 && today > shippingTime)
+    {
+      isSelectShippingTime = 0;
+      alert('发货时间不能晚于：'+today);
+    }
     if (is_presell > 0 && shippingTime == '请选择发货时间')
     {
       isSelectShippingTime = 0;

@@ -862,7 +862,7 @@ function cart_goods($type = CART_GENERAL_GOODS)
             "market_price, goods_price, goods_attr, is_real, extension_code, parent_id, is_gift, is_shipping, " .
             "goods_price * goods_number AS subtotal " .
             "FROM " . $GLOBALS['ecs']->table('cart') .
-            " WHERE session_id = '" . SESS_ID . "' " .
+            " WHERE user_id = '". $_SESSION['user_id'] . "' " .
             "AND rec_type = '$type'";
 
     $arr = $GLOBALS['db']->getAll($sql);
@@ -910,7 +910,7 @@ function cart_amount($include_gift = true, $type = CART_GENERAL_GOODS)
 {
     $sql = "SELECT SUM(goods_price * goods_number) " .
             " FROM " . $GLOBALS['ecs']->table('cart') .
-            " WHERE session_id = '" . SESS_ID . "' " .
+            " WHERE user_id = '". $_SESSION['user_id'] . "' " .
             "AND rec_type = '$type' ";
 
     if (!$include_gift)
@@ -957,7 +957,7 @@ function cart_weight_price($type = CART_GENERAL_GOODS)
     $packages_row['free_shipping'] = 1;
 
     /* 计算超值礼包内商品的相关配送参数 */
-    $sql = 'SELECT goods_id, goods_number, goods_price FROM ' . $GLOBALS['ecs']->table('cart') . " WHERE extension_code = 'package_buy' AND session_id = '" . SESS_ID . "'";
+    $sql = 'SELECT goods_id, goods_number, goods_price FROM ' . $GLOBALS['ecs']->table('cart') . " WHERE extension_code = 'package_buy' AND user_id = '". $_SESSION['user_id'] . "'";
     $row = $GLOBALS['db']->getAll($sql);
 
     if ($row)
@@ -1003,7 +1003,7 @@ function cart_weight_price($type = CART_GENERAL_GOODS)
                     'SUM(c.goods_number) AS number '.
                 'FROM ' . $GLOBALS['ecs']->table('cart') . ' AS c '.
                 'LEFT JOIN ' . $GLOBALS['ecs']->table('goods') . ' AS g ON g.goods_id = c.goods_id '.
-                "WHERE c.session_id = '" . SESS_ID . "' " .
+                "WHERE c.user_id = '". $_SESSION['user_id'] . "' " .
                 "AND rec_type = '$type' AND g.is_shipping = 0 AND c.extension_code != 'package_buy'";
                 
     $row = $GLOBALS['db']->getRow($sql);
@@ -1175,7 +1175,7 @@ function addto_cart($goods_id, $num = 1, $spec = array(), $parent = 0)
     {
         $sql = "SELECT goods_id, SUM(goods_number) AS count " .
                 "FROM " . $GLOBALS['ecs']->table('cart') .
-                " WHERE session_id = '" . SESS_ID . "'" .
+                " WHERE user_id = '". $_SESSION['user_id'] . "'" .
                 " AND parent_id = 0" .
                 " AND extension_code <> 'package_buy' " .
                 " AND goods_id " . db_create_in(array_keys($basic_list)) .
@@ -1193,7 +1193,7 @@ function addto_cart($goods_id, $num = 1, $spec = array(), $parent = 0)
     {
         $sql = "SELECT parent_id, SUM(goods_number) AS count " .
                 "FROM " . $GLOBALS['ecs']->table('cart') .
-                " WHERE session_id = '" . SESS_ID . "'" .
+                " WHERE user_id = '". $_SESSION['user_id'] . "'" .
                 " AND goods_id = '$goods_id'" .
                 " AND extension_code <> 'package_buy' " .
                 " AND parent_id " . db_create_in(array_keys($basic_count_list)) .
@@ -1290,7 +1290,7 @@ function addto_cart($goods_id, $num = 1, $spec = array(), $parent = 0)
     }
 
     /* 把赠品删除 */
-    $sql = "DELETE FROM " . $GLOBALS['ecs']->table('cart') . " WHERE session_id = '" . SESS_ID . "' AND is_gift <> 0";
+    $sql = "DELETE FROM " . $GLOBALS['ecs']->table('cart') . " WHERE user_id = '". $_SESSION['user_id'] . "' AND is_gift <> 0";
     $GLOBALS['db']->query($sql);
 
     return true;
@@ -1303,7 +1303,7 @@ function addto_cart($goods_id, $num = 1, $spec = array(), $parent = 0)
 function clear_cart($type = CART_GENERAL_GOODS)
 {
     $sql = "DELETE FROM " . $GLOBALS['ecs']->table('cart') .
-            " WHERE session_id = '" . SESS_ID . "' AND rec_type = '$type'";
+            " WHERE user_id = '". $_SESSION['user_id'] . "' AND rec_type = '$type'";
     $GLOBALS['db']->query($sql);
 }
 
@@ -1621,7 +1621,7 @@ function get_cart_goods()
     /* 循环、统计 */
     $sql = "SELECT *, IF(parent_id, parent_id, goods_id) AS pid " .
             " FROM " . $GLOBALS['ecs']->table('cart') . " " .
-            " WHERE session_id = '" . SESS_ID . "' AND rec_type = '" . CART_GENERAL_GOODS . "'" .
+            " WHERE user_id = '". $_SESSION['user_id'] . "' AND rec_type = '" . CART_GENERAL_GOODS . "'" .
             " ORDER BY pid, parent_id";
     $res = $GLOBALS['db']->query($sql);
 
@@ -1730,7 +1730,7 @@ function exist_real_goods($order_id = 0, $flow_type = CART_GENERAL_GOODS)
     if ($order_id <= 0)
     {
         $sql = "SELECT COUNT(*) FROM " . $GLOBALS['ecs']->table('cart') .
-                " WHERE session_id = '" . SESS_ID . "' AND is_real = 1 " .
+                " WHERE user_id = '". $_SESSION['user_id'] . "' AND is_real = 1 " .
                 "AND rec_type = '$flow_type'";
     }
     else
@@ -1748,6 +1748,7 @@ function exist_real_goods($order_id = 0, $flow_type = CART_GENERAL_GOODS)
  * @param   int     $flow_type  购物流程类型
  * @return  bool    true 完整 false 不完整
  */
+// modify nhj,去除对email的检查
 function check_consignee_info($consignee, $flow_type)
 {
     if (exist_real_goods(0, $flow_type))
@@ -1755,7 +1756,7 @@ function check_consignee_info($consignee, $flow_type)
         /* 如果存在实体商品 */
         $res = !empty($consignee['consignee']) &&
             !empty($consignee['country']) &&
-            !empty($consignee['email']) &&
+            // !empty($consignee['email']) &&
             !empty($consignee['tel']);
 
         if ($res)
@@ -1785,7 +1786,7 @@ function check_consignee_info($consignee, $flow_type)
     {
         /* 如果不存在实体商品 */
         return !empty($consignee['consignee']) &&
-            !empty($consignee['email']) &&
+            // !empty($consignee['email']) &&
             !empty($consignee['tel']);
     }
 }
@@ -1826,7 +1827,7 @@ function get_total_bonus()
             "FROM " . $GLOBALS['ecs']->table('cart') . " AS c, "
                     . $GLOBALS['ecs']->table('bonus_type') . " AS t, "
                     . $GLOBALS['ecs']->table('goods') . " AS g " .
-            "WHERE c.session_id = '" . SESS_ID . "' " .
+            "WHERE c.user_id = '". $_SESSION['user_id'] . "' " .
             "AND c.is_gift = 0 " .
             "AND c.goods_id = g.goods_id " .
             "AND g.bonus_type_id = t.type_id " .
@@ -1839,7 +1840,7 @@ function get_total_bonus()
     /* 取得购物车中非赠品总金额 */
     $sql = "SELECT SUM(goods_price * goods_number) " .
             "FROM " . $GLOBALS['ecs']->table('cart') .
-            " WHERE session_id = '" . SESS_ID . "' " .
+            " WHERE user_id = '". $_SESSION['user_id'] . "' " .
             " AND is_gift = 0 " .
             " AND rec_type = '" . CART_GENERAL_GOODS . "'";
     $amount = floatval($GLOBALS['db']->getOne($sql));
@@ -2469,7 +2470,7 @@ function compute_discount()
     $sql = "SELECT c.goods_id, c.goods_price * c.goods_number AS subtotal, g.cat_id, g.brand_id " .
             "FROM " . $GLOBALS['ecs']->table('cart') . " AS c, " . $GLOBALS['ecs']->table('goods') . " AS g " .
             "WHERE c.goods_id = g.goods_id " .
-            "AND c.session_id = '" . SESS_ID . "' " .
+            "AND c.user_id = '". $_SESSION['user_id'] . "' " .
             "AND c.parent_id = 0 " .
             "AND c.is_gift = 0 " .
             "AND rec_type = '" . CART_GENERAL_GOODS . "'";
@@ -2569,7 +2570,7 @@ function get_give_integral()
                 "FROM " . $GLOBALS['ecs']->table('cart') . " AS c, " .
                           $GLOBALS['ecs']->table('goods') . " AS g " .
                 "WHERE c.goods_id = g.goods_id " .
-                "AND c.session_id = '" . SESS_ID . "' " .
+                "AND c.user_id = '". $_SESSION['user_id'] . "' " .
                 "AND c.goods_id > 0 " .
                 "AND c.parent_id = 0 " .
                 "AND c.rec_type = 0 " .
@@ -2824,7 +2825,7 @@ function compute_discount_amount()
     $sql = "SELECT c.goods_id, c.goods_price * c.goods_number AS subtotal, g.cat_id, g.brand_id " .
             "FROM " . $GLOBALS['ecs']->table('cart') . " AS c, " . $GLOBALS['ecs']->table('goods') . " AS g " .
             "WHERE c.goods_id = g.goods_id " .
-            "AND c.session_id = '" . SESS_ID . "' " .
+            "AND c.user_id = '". $_SESSION['user_id'] . "' " .
             "AND c.parent_id = 0 " .
             "AND c.is_gift = 0 " .
             "AND rec_type = '" . CART_GENERAL_GOODS . "'";
@@ -3009,7 +3010,7 @@ function add_package_to_cart($package_id, $num = 1)
     }
 
     /* 把赠品删除 */
-    $sql = "DELETE FROM " . $GLOBALS['ecs']->table('cart') . " WHERE session_id = '" . SESS_ID . "' AND is_gift <> 0";
+    $sql = "DELETE FROM " . $GLOBALS['ecs']->table('cart') . " WHERE user_id = '". $_SESSION['user_id'] . "' AND is_gift <> 0";
     $GLOBALS['db']->query($sql);
 
     return true;

@@ -35,6 +35,7 @@ $username = _POST('name');
 $password = _POST('password');
 $mobilePhone = _POST('mobilePhone');
 $email = '';
+$country = _POST('country');
 $province_name = _POST('provinceName');
 $city_name = _POST('cityName');
 $town_name = _POST('townName');
@@ -75,6 +76,7 @@ if($is_teacher == '1') {
     $values[] = $teacher_info['course_id'];
     $values[] = $teacher_info['real_name'];
     $values[] = $teacher_info['school'];
+    $values[] = $country;
     // $values[] = $teacher_info['province_name'];
     // $values[] = $teacher_info['city_name'];
     // $values[] = $teacher_info['town_name'];
@@ -95,7 +97,7 @@ if($is_teacher == '1') {
     $town = $db->getAll($sql);
     $values[] = $town[0]['region_id'];
 
-    $sql = 'INSERT INTO '. $ecs->table('teachers') . ' (`user_id`, `course_id`, `real_name`, `school`, `province_id`, `city_id`, `town_id`)'. " VALUES ('" . implode("', '", $values) . "')";
+    $sql = 'INSERT INTO '. $ecs->table('teachers') . ' (`user_id`, `course_id`, `real_name`, `school`, `country`, `province`, `city`, `district`)'. " VALUES ('" . implode("', '", $values) . "')";
     $db->query($sql);
     $sql = 'UPDATE ' . $ecs->table('users') . " SET `is_teacher`='$is_teacher' WHERE `user_id`='" . $_SESSION['user_id'] . "'";
     $db->query($sql);

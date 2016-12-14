@@ -23,15 +23,20 @@ $is_teacher = judge_user_status($user_id);
 // 如果该用户是教师用户，则展示其发送的历史消息
 if ($is_teacher) {
 	$publish_info = get_publish_info($user_id, $page);
+	if (empty($publish_info)) {
+	    $out['no_follow'] = 0;
+	} else {
+	    $out['no_follow'] = 1;
+	}
 } else {
 	// get followed teacher(teacher's user id) by user id
 	$teachers = get_followed_teacher($user_id);
 
 	// when student's follow none
 	if (empty($teachers)) {
-		$out['no_follow'] = 1;
-	} else {
 		$out['no_follow'] = 0;
+	} else {
+		$out['no_follow'] = 1;
 	}
 
 	// get teacher's publish by time and page
@@ -96,10 +101,9 @@ function get_teacher_info($teacher_user_id)
 	$res = $GLOBALS['db']->getRow($sql);
 	$teacher_info['real_name'] = $res['real_name'];
 
-	// 获取用户头像,url中的edustore在服务器中可能需要删除
 	$sql = "SELECT avatar FROM ". $GLOBALS['ecs']->table('users') ."WHERE `user_id` = '". $teacher_user_id ."'";
 	$res = $GLOBALS['db']->getRow($sql);
-	$teacher_info['avatar'] = "http://". $_SERVER['HTTP_HOST'] ."/". "edustore/". $res['avatar'];
+	$teacher_info['avatar'] = "http://". $_SERVER['HTTP_HOST'] ."/". $res['avatar'];
 
 	return $teacher_info;
 }
@@ -135,12 +139,12 @@ function get_publish_info($teachers_user_id, $page)
 
 	while ($row = $GLOBALS['db']->fetchRow($res))
 	{
-		// $photo = get_publish_photo($row['news_id']);
+		//$photo = get_publish_photo($row['news_id']);
 
 		$publish_info[] = array('news_content'		=> 		$row['news_content'],
 							  'publish_time'		=>		$row['publish_time'],		// 需要格式化时间
 							  'user_id'				=>		$row['user_id'],
-							  'photo_array'			=>		$photo);
+							  /*'photo_array'			=>		$photo*/);
 	}
 
 	return $publish_info;
@@ -151,7 +155,7 @@ function get_publish_info($teachers_user_id, $page)
 *	@param 		int 		$news_id 				消息id
 *	@return 	arr 		$photo 			 		该消息下对应的图片
 */
-function get_publish_photo($news_id)
+/* function get_publish_photo($news_id)
 {
 	$sql = "SELECT * FROM ". $GLOBALS['ecs']->table('teacher_publish_photo') ."WHERE `news_id` = '". $news_id ."'";
 	$photo_info = $GLOBALS['db']->getAll($sql);
@@ -166,7 +170,7 @@ function get_publish_photo($news_id)
 	}
 
 	return $photo;
-}
+} */
 
 
 

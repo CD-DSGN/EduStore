@@ -187,9 +187,7 @@ span{
 	float:none;	
 	height:50px;
     line-height:50px;
-    vertical-align:middle;
-
-
+	vertical-align:middle;
 }
 .nav .nav-mid .nav-mid-left ul li ul li:hover{
 	background:#ff999a;
@@ -352,7 +350,7 @@ span{
  	//color:#665F5F;
  	font-family:"宋体";
  	width:1300px;
- 	//float:left;
+ 	float:left;
  	height:40px;
  	vertical-align:middle;
  	float: left;
@@ -388,7 +386,6 @@ span{
  	height:40px;
  	line-height:40px;
  	vertical-align:middle;
- 	
  }
  .more-right span{
 	float:right;

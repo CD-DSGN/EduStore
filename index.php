@@ -16,8 +16,6 @@
 define('IN_ECS', true);
 
 require(dirname(__FILE__) . '/includes/init.php');
-$arr=array();
-$arr=get_categories_tree();
 if ((DEBUG_MODE & 2) != 2)
 {
     $smarty->caching = true;
@@ -379,7 +377,7 @@ function get_flash_xml()
     }
     return $flashdb;
 }
-// 按照商品一级分类查询 dxh
+// 按照商品一级分类查询 by dxh
 function cat_id_goods($num)
 {
     $arr = get_parents_category();
@@ -388,13 +386,13 @@ function cat_id_goods($num)
         $cat_id = $v['id'];
         $sql = 'Select g.goods_id, g.goods_name, g.goods_name_style, g.market_price, g.shop_price, g.promote_price, ' .
                         "promote_start_date, promote_end_date, g.goods_brief, g.goods_thumb, goods_img, " .
-                        "g.is_best, g.is_new, g.is_hot, g.is_promote " .
+                        " g.is_promote " .
                     'FROM ' . $GLOBALS['ecs']->table('goods') . ' AS g ' .
-                    "Where (" . $cat_id . " OR " . get_extension_goods($cat_id) .")";
+                    "Where(" . $cat_id . " OR " . get_extension_goods($cat_id) .")";
 
         $cats = get_children($cat_id);
         $where = !empty($cats) ? "AND ($cats OR " . get_extension_goods($cats) . ") " : '';
-        $sql .=$where." LIMIT $num";
+        $sql .=$where."AND g.is_delete=0"." LIMIT $num";
         $res = $GLOBALS['db']->getAll($sql); 
         foreach ($res AS $idx => $row)
         {
@@ -410,10 +408,33 @@ function cat_id_goods($num)
             $goods[$cat_id][$idx]['thumb']        = empty($row['goods_thumb']) ? $GLOBALS['_CFG']['no_picture'] : $row['goods_thumb'];
             $goods[$cat_id][$idx]['goods_img']    = empty($row['goods_img'])   ? $GLOBALS['_CFG']['no_picture'] : $row['goods_img'];
             $goods[$cat_id][$idx]['url']          = build_uri('goods', array('gid' => $row['goods_id']), $row['goods_name']);
+            $idx++;
         }
     }
     if(isset($goods))
     {
         return $goods;
+    } 
+}
+//首页教师推荐商品获取 by dxh
+function cat_hot_goods($number){
+    $sql = 'Select g.goods_id, g.goods_name, g.goods_name_style, g.market_price, g.shop_price, g.promote_price, ' .
+                        "promote_start_date, promote_end_date, g.goods_brief, g.goods_thumb, goods_img, " .
+                        " g.is_promote " .
+                    'FROM ' . $GLOBALS['ecs']->table('goods') . ' AS g ' .
+                    "where g.is_best=1 ". "LIMIT $number";
+    $res = $GLOBALS['db']->getAll($sql);
+    $good = array();
+    foreach ($res AS $idx => $row)
+        {
+            $good[$idx]['id']           = $row['goods_id'];
+            $good[$idx]['name']         = $row['goods_name'];
+            $good[$idx]['goods_img']    = empty($row['goods_img'])   ? $GLOBALS['_CFG']['no_picture'] : $row['goods_img'];
+            $good[$idx]['url']          = build_uri('goods', array('gid' => $row['goods_id']), $row['goods_name']);
+            $idx++;
+        }
+    if(isset($good))
+    {
+        return $good;
     } 
 }

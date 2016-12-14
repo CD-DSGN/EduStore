@@ -8,6 +8,7 @@
 	<script type="text/javascript" src="./themes/ecmoban_kaola2016/js/myfocus-2.0.1.min.js"></script>
 	<script type="text/javascript" src="./themes/ecmoban_kaola2016/js/mF_fancy.js"></script>
 	<link rel="stylesheet" type="text/css" href="./themes/ecmoban_kaola2016/css/mF_fancy.css">
+	<link rel="icon" href="animated_favicon.gif" type="image/gif" />
 	<script src="../js/jquery-1.11.3.min.js"></script>
 	<script type="text/javascript">
 		myFocus.set({
@@ -64,8 +65,26 @@
 			</div>
 			<div class="logo-mid">
 			  <div class="logo-mid-left">
-				<form action="" method="post">
-					<input type="text" class="search-text" /><button class="btn-search" type="submit">搜索</button>
+				<form action="search.php" method="get" onSubmit="return checkSearchForm(this)">
+					<input type="text" name="keywords" id="keyword" value="四年级语文" class="search-text" onfocus="javascript:if(this.value=='四年级语文'){this.value=''}" onblur="javascript:if(this.value==''){this.value='四年级语文'}"/><button class="btn-search" type="submit">搜索</button>
+					<script type="text/javascript">
+                    {literal}
+                    <!--
+                    function checkSearchForm()
+                    {
+                    if(document.getElementById('keyword').value)
+                    {
+                    return true;
+                    }
+                    else
+                    {
+                    alert("{$lang.no_keywords}");
+                    return false;
+                    }
+                    }
+                    -->
+                    {/literal}
+                </script>
 					</form>
 			  </div>
 			  <div class="logo-mid-right">
@@ -118,7 +137,7 @@
 		<div class="pic">
 			<ul>
 				<!--{foreach from=$flash name=myflash item=flash}-->
-				<li><img src="{$flash.src}" alt="" height="440" ></li>
+				<li><a href="{$flash.url}" target="_blank"><img src="{$flash.src}" height="440"/></a></li>
 				<!--<li><img src="img/08.jpg" alt="" width="1300" height="310"></li>
 				<li><img src="img/09.jpg" alt="" width="1300" height="310"></li>
 				<li><img src="img/10.jpg" alt="" width="1300" height="310"></li>
@@ -139,24 +158,20 @@
 	   	<img src="images/line1.png" class="line">
   <div class="enough">
 		  <ul>
-		  
-		  	<li><img src="images/book1.jpg"></li>
-		  	<div class="mengban"></div>
-		  	<li><img src="images/book2.jpg"></li>
-		  	<div class="mengban"></div>
-		  	<li><img src="images/book3.jpg"></li>
-		  	<div class="mengban"></div>
-		  	<li><img src="images/book4.jpg"></li>
-		  	<div class="mengban"></div>
+		  	<li><img src="images/book1.png"></li>
+		  	<a href=""><div class="mengban"></div></a>
+		  	<li><img src="images/book2.png"></a></li>
+		  	<a href=""><div class="mengban"></div></a>
+		  	<li><img src="images/book3.png"></li>
+		  	<a href=""><div class="mengban"></div></a>
+		  	<li><img src="images/book4.png"></li>
+		  	<a href=""><div class="mengban"></div></a>
 		  </ul>
   </div>
-  <img src="images/line1.png" class="line">
 </div>
-    
-    <!-- TemplateEndEditable -->     
-    <div class="goods-show">
+<!-- TemplateEndEditable -->     
+<div class="goods-show">
 <!-- TemplateBeginEditable name="首页商品展示区域" -->
-
 {foreach from=$categories item=cat}
 <div class="module">
 <div class="more">
@@ -164,30 +179,27 @@
 	<h2><span class="floornumber"></span>{$cat.name}</h2>
 	</div>
 	<div class="more-right">
-		
-		<span><a href="{$cat.url}" class="duo">更多&gt;&gt;</a></span>
+
+	<span><a href="{$cat.url}" class="duo">更多&gt;&gt;</a></span>
 		  <em class="floor-line"></em>
-
-			<span><a href="">二级</a></span>
+		<!--{foreach from=$cat.cat_id item=child}-->
+			<span><a href="{$child.url}">{$child.name|escape:html}</a></span>
+			<em class="floor-line"></em>
+		<!--{/foreach}-->
+			<!--<span><a href="">二级</a></span>
 			<em class="floor-line"></em>
 
 			<span><a href="">二级</a></span>
-			<em class="floor-line"></em>
+		     <em class="floor-line"></em>-->
 
-			<span><a href="">二级</a></span>
-		     <em class="floor-line"></em>
 	</div>
 </div>	
 	<div class="goods-showing">
-
 		{foreach from=$cat_id_goods key=myId item=goodss}
 		{if $myId eq $cat.id}
 		{foreach from=$goodss item=goods}
-
 		<a href="{$goods.url}">
-
 		<div class="one">
-
 		   <img src="{$goods.goods_img}" alt="{$goods.name|escape:html}" width="210px" height="210px">
 		  <div class="des">
 		   <strong>
@@ -197,7 +209,7 @@
 			  {$goods.shop_price}
 			 <!-- {/if}-->
 			</strong> <br/>
-			 <h4>{$goods.short_name}</h4>
+			 <h4>{$goods.name}</h4>
 			 </div>
 		   <!-- <a href="{$goods.url}"><input id="sec-in" type="text" value="立即购买"/></a> -->
 			</div></a>
@@ -222,20 +234,14 @@
 	<p>辽ICP备12014775号-2</p>
 	<p>@Copyright 2016 汇师网 All Rights Reserved 成都大术光年信息技术有限公司</p>
 </div>
-
-	
-	
 <script type="text/javascript">
 $(function(){
 	$floornumber=$(".floornumber");
-
     var i=1;
 	$floornumber.each(function(){
 		$(this).html(i+"F");
-		i++;
-		
+		i++;	
 	});
 })
 </script>
-
 </body>
