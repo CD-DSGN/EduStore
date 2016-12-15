@@ -736,13 +736,16 @@
 
         {literal}
         function checkLoginForm(frm) {
+		  var namecheck = document.getElementById("namecheck");
+		  var passwordcheck = document.getElementById("passwordcheck");
           if (Utils.isEmpty(frm.elements['username'].value)) {
-            alert(username_not_null);
+            namecheck.innerHTML="&nbsp;"+username_not_null;
             return false;
           }
 
           if (Utils.isEmpty(frm.elements['password'].value)) {
-            alert(password_not_null);
+		  	namecheck.innerHTML='';
+            passwordcheck.innerHTML="&nbsp;"+password_not_null;
             return false;
           }
 
@@ -791,89 +794,49 @@
         </script>
         <!-- 开始用户登录注册界面 -->
 
-         <div class="flowBox" style="border:none; border-top:1px solid #ddd">
-        <table width="100%" align="center" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd">
+         <div class="flowBox" style="border:none; border-top:1px solid #ddd;">
+         <table width="100%" align="center" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd">
           <tr>
-            <td width="50%" valign="top" bgcolor="#ffffff">
+            <td width="100%" valign="top" bgcolor="#ffffff">
             <h6><span>用户登录：</span></h6>
             <form action="flow.php?step=login" method="post" name="loginForm" id="loginForm" onsubmit="return checkLoginForm(this)">
-                <table width="90%" border="0" cellpadding="8" cellspacing="0" bgcolor="#B0D8FF" class="table">
+                <table width="30%" border="0" cellpadding="8" cellspacing="0" bgcolor="#fff" class="table">
                   <tr>
-                    <td bgcolor="#ffffff"><div align="right"><strong>{$lang.username}</strong></div></td>
-                    <td bgcolor="#ffffff"><input name="username" type="text" class="inputBg" id="username" /></td>
+                    <td bgcolor="#ffffff" align="right" width="15%"><strong>{$lang.username}</strong></td>
+                    <td bgcolor="#ffffff" width="85%"><input name="username" type="text" class="inputBg" id="username" /><span id="namecheck"></span></td>
                   </tr>
                   <tr>
-                    <td bgcolor="#ffffff"><div align="right"><strong>{$lang.password}</strong></div></td>
-                    <td bgcolor="#ffffff"><input name="password" class="inputBg" type="password" /></td>
+                    <td bgcolor="#ffffff" align="right" width="15%"><strong>{$lang.password}</strong></td>
+                    <td bgcolor="#ffffff" width="85%"><input name="password" class="inputBg" type="password" /><span id="passwordcheck"></span></td>
                   </tr>
                  <!-- 判断是否启用验证码{if $enabled_login_captcha} -->
                   <tr>
-                    <td bgcolor="#ffffff"><div align="right"><strong>{$lang.comment_captcha}:</strong></div></td>
+                    <td bgcolor="#ffffff" align="right"><strong>{$lang.comment_captcha}:</strong></td>
                     <td bgcolor="#ffffff"><input type="text" size="8" name="captcha" class="inputBg" />
                     <img src="captcha.php?is_login=1&{$rand}" alt="captcha" style="vertical-align: middle;cursor: pointer;" onClick="this.src='captcha.php?is_login=1&'+Math.random()" /> </td>
                   </tr>
                   <!--{/if}-->
                   <tr>
-            <td colspan="2"  bgcolor="#ffffff"><input type="checkbox" value="1" name="remember" id="remember" style="margin-left: 123px;" /><label for="remember">{$lang.remember}</label></td>
-          </tr>
+				  	<td bgcolor="#ffffff"></td>
+            		<td colspan="2"  bgcolor="#ffffff"><input type="checkbox" value="1" name="remember" id="remember"/><label for="remember">{$lang.remember}</label></td>
+          		  </tr>
                   <tr>
-                    <td bgcolor="#ffffff" colspan="2"><a href="user.php?act=qpassword_name" class="f6" style="margin-left: 123px;">{$lang.get_password_by_question}</a>   <a href="user.php?act=get_password" class="f6">{$lang.get_password_by_mail}</a></td>
-                  </tr>
-
-
-                  <tr>
-                    <td bgcolor="#ffffff" colspan="2"><div style="padding-left: 123px;">
+				  	<td bgcolor="#ffffff"></td>
+                    <td bgcolor="#ffffff" colspan="2">
                         <input type="submit" class="bnt_blue" name="login" value="{$lang.forthwith_login}" />
                         <!-- {if $anonymous_buy eq 1} 是否允许未登录用户购物 -->
-                        <input type="button" class="bnt_blue_2" value="{$lang.direct_shopping}" onclick="location.href='flow.php?step=consignee&amp;direct_shopping=1'" />
+                        <!--<input type="button" class="bnt_blue_2" onclick="location.href='flow.php?step=consignee&amp;direct_shopping=1'" />-->
                         <!-- {/if} -->
                         <input name="act" type="hidden" value="signin" />
-                      </div></td>
+                     </td>
+                  </tr>
+				  <tr>
+				  	<td bgcolor="#ffffff"></td>
+                    <td bgcolor="#ffffff" colspan="2"><a href="user.php?act=phoneAndMessageCode">忘记密码</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="student_register.html">学生注册</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="teacher_register.html">教师注册</a></td>
                   </tr>
                 </table>
               </form>
-
-            </td>
-            <td valign="top" bgcolor="#ffffff">
-            <h6><span>用户注册：</span></h6>
-            <form action="flow.php?step=login" method="post" name="formUser" id="registerForm" onsubmit="return checkSignupForm(this)">
-               <table width="98%" border="0" cellpadding="8" cellspacing="0" bgcolor="#B0D8FF" class="table">
-                  <tr>
-                    <td bgcolor="#ffffff" align="right" width="25%"><strong>{$lang.username}</strong></td>
-                    <td bgcolor="#ffffff"><input name="username" type="text" class="inputBg" id="username" onblur="is_registered(this.value);" /><br />
-		    <span id="username_notice" style="color:#FF0000"></span></td>
-                  </tr>
-                  <tr>
-                    <td bgcolor="#ffffff" align="right"><strong>{$lang.email_address}</strong></td>
-                    <td bgcolor="#ffffff"><input name="email" type="text" class="inputBg" id="email" onblur="checkEmail(this.value);" /><br />
-		    <span id="email_notice" style="color:#FF0000"></span></td>
-                  </tr>
-                  <tr>
-                    <td bgcolor="#ffffff" align="right"><strong>{$lang.password}</strong></td>
-                    <td bgcolor="#ffffff"><input name="password" class="inputBg" type="password" id="password1" onblur="check_password(this.value);" onkeyup="checkIntensity(this.value)" /><br />
-		    <span style="color:#FF0000" id="password_notice"></span></td>
-                  </tr>
-                  <tr>
-                    <td bgcolor="#ffffff" align="right"><strong>{$lang.confirm_password}</strong></td>
-                    <td bgcolor="#ffffff"><input name="confirm_password" class="inputBg" type="password" id="confirm_password" onblur="check_conform_password(this.value);" /><br />
-		    <span style="color:#FF0000" id="conform_password_notice"></span></td>
-                  </tr>
-                  <!-- 判断是否启用验证码{if $enabled_register_captcha} -->
-                  <tr>
-                    <td bgcolor="#ffffff" align="right"><strong>{$lang.comment_captcha}:</strong></td>
-                    <td bgcolor="#ffffff"><input type="text" size="8" name="captcha" class="inputBg" />
-                    <img src="captcha.php?{$rand}" alt="captcha" style="vertical-align: middle;cursor: pointer;" onClick="this.src='captcha.php?'+Math.random()" /> </td>
-                  </tr>
-                  <!--{/if}-->
-                  <tr>
-                    <td colspan="2" bgcolor="#ffffff">
-                        <input type="submit" name="Submit" class="bnt_blue_1" value="{$lang.forthwith_register}" style="margin-left: 181px;" />
-                        <input name="act" type="hidden" value="signup" />
-                    </td>
-                  </tr>
-              </table>
-              </form>
-            </td>
+			</td>
           </tr>
           {if $need_rechoose_gift}
           <tr>
