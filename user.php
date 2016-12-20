@@ -40,7 +40,7 @@ $back_act='';
 $not_login_arr =array('login','act_login','register','act_register','act_edit_password','get_password','send_pwd_email',
 'password', 'signin', 'add_tag', 'collect', 'return_to_cart', 'logout', 'email_list', 'validate_email', 'send_hash_mail', 
 'order_query', 'is_registered', 'check_email','clear_history','qpassword_name', 'get_passwd_question', 'check_answer', 
-'register_teacher', 'phoneAndMessageCode','sendPhoneAndIdentifyCode','get_course','get_province', 'get_city','get_town','check_mobile_phone', 'check_identifyCode');
+'register_teacher', 'phoneAndMessageCode','sendPhoneAndIdentifyCode','get_course','get_province', 'get_city','get_town','check_invite_code','check_mobile_phone', 'check_identifyCode');
 
 /* 显示页面的action列表 */
 //Todo 有可能需要增加，看界面的情况

@@ -91,7 +91,7 @@ function checkUsername() {
    
 }
 function check_invite_code(){
-	var invite_code = $.trim($("invite_code").val());
+	var invite_code = $.trim($("#invite_code").val());
 	if(invite_code.length==0){
 		$("#invite_code_tips").html('');
 		$("#invite_code_correct").css({'display' : 'none'});
@@ -478,7 +478,7 @@ function register() {
 		$("#confirm_password_correct").css({'display' : 'none'});
 		$("#confirm_password_tips").html(error_info + '两次密码不一致');
 		return false;
-	}else if(confirmPassword_status != 1) {
+	}else if(code_status != 1) {
 		$("invite_code").focus().select();
 		$("#invite_code_correct").css({'display' : 'none'});
 		$("#invite_code_tips").html(error_info + '邀请码有误，请重新输入!');
