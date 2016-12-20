@@ -9,6 +9,7 @@ var password_status = 0;				// 0表示为空，1表示正确，2表示两次密�
 var confirmPassword_status = 0;			// 0表示为空，1表示正确，2表示两次密码不一致
 var agreement_status = 1;				// 0表示为空，1表示正确
 var address_status = 0;					// 0表示为空，1表示正确
+var code_status = 1;
 /* 默认为0，表示为空/错误，1：正确 */
 
 /* 定义错误提示的图片语句 */
@@ -51,7 +52,6 @@ function checkMobileNumber() {
 		phone_status = 4;
 	}
 }
-
 function checkUsername() {
 	var username = $.trim($("#username").val());
 	var unlen = username.replace(/[^\x00-\xff]/g, "**").length;
@@ -90,7 +90,31 @@ function checkUsername() {
     }
    
 }
-
+function check_invite_code(){
+	var invite_code = $.trim($("invite_code").val());
+	if(invite_code.length==0){
+		$("#invite_code_tips").html('');
+		$("#invite_code_correct").css({'display' : 'none'});
+		code_status = 1;
+	}
+	else{
+		$.post("./user.php?act=check_invite_code",
+			   {"invite_code":invite_code},
+			   function(data){
+				   if(data ==0){
+						$("#invite_code_tips").html(error_info + '邀请码有误，请重新输入!');
+						$("#invite_code_correct").css({'display' : 'none'});
+						code_status = 0;
+					}
+					else if(data ==1){
+						$("#invite_code_tips").html('');
+						$("#invite_code_correct").css({'display' : 'block'});
+						code_status = 1;
+					}
+				  }
+			   );
+	}
+}
 function chkstr(str)
 {
   	for (var i = 0; i < str.length; i++)
@@ -453,6 +477,11 @@ function register() {
 		$("#password").focus().select();
 		$("#confirm_password_correct").css({'display' : 'none'});
 		$("#confirm_password_tips").html(error_info + '两次密码不一致');
+		return false;
+	}else if(confirmPassword_status != 1) {
+		$("invite_code").focus().select();
+		$("#invite_code_correct").css({'display' : 'none'});
+		$("#invite_code_tips").html(error_info + '邀请码有误，请重新输入!');
 		return false;
 	}else {
 		$("#formTeacher").ajaxSubmit({
