@@ -52,6 +52,15 @@
         </ul>
     </div>
 </div>
+
+<div class="head">
+  <div class="head-text">
+    我的汇师
+    <img src="images/猫爪(1).png" style="margin-bottom: -4px;">
+  </div>
+</div>
+
+
 <div class="blank"></div>
 <div class="block clearfix">
   <!--left start-->
@@ -175,6 +184,8 @@
     </form>
     <!--{/if}-->
     <!--#用户信息界面 end-->
+
+
     <!-- 教师关注界面 start -->
     <!--{if $action eq 'teacher_subscription'}-->
     <h5><span>{$lang.teacher_sub}</span></h5>
@@ -192,6 +203,7 @@
     </table>
     <!--{/if}-->
     <!-- 教师关注界面 end -->
+
     
     <!-- 教师关注操作界面 start -->
     <!--{if $action eq 'teacher_subscription_act'}-->
@@ -338,6 +350,8 @@
         </form>
        <!--{/if}-->
       <!--#订单列表界面 end-->
+
+
        <!--#包裹状态查询界面 start-->
       <!-- {if $action eq 'track_packages'} -->
         <h5><span>{$lang.label_track_packages}</span></h5>
@@ -368,6 +382,8 @@
       <!-- #BeginLibraryItem "/library/pages.lbi" --><!-- #EndLibraryItem -->
       <!--{/if}-->
     <!--#包裹状态查询界面 end-->
+
+
      <!-- ==========订单详情页面,包括：订单状态，商品列表，费用总计，收货人信息，支付方式，其它信息========== -->
       <!--{if $action eq order_detail} -->
         <h5><span>{$lang.order_status}</span></h5>
@@ -710,6 +726,8 @@
         </table>
       <!--{/if} -->
     <!--#订单详情页 end-->
+
+
     <!--#会员余额 start-->
       <!--{if $action eq "account_raply" || $action eq "account_log" || $action eq "account_deposit" || $action eq "account_detail"} -->
         <script type="text/javascript">
@@ -867,6 +885,8 @@
         <!-- #BeginLibraryItem "/library/pages.lbi" --><!-- #EndLibraryItem -->
       <!-- {/if} -->
       <!--#会员余额 end-->
+
+
       <!--#收货地址页面 -->
       <!--{if $action eq 'address_list'} -->
         <h5><span>{$lang.consignee_info}</span></h5>
@@ -952,7 +972,7 @@
                     <input type="submit" name="submit" class="bnt_blue_1" value="{$lang.confirm_edit}" />
                     <input name="button" type="button" class="bnt_blue"  onclick="if (confirm('{$lang.confirm_drop_address}'))location.href='user.php?act=drop_consignee&id={$consignee.address_id}'" value="{$lang.drop}" />
                     <!-- {else} -->
-                    <input type="submit" name="submit" class="bnt_blue_2"  value="{$lang.add_address}"/>
+                    <input type="submit" name="submit" class="bnt_blue_2"  value="{$lang.add_address}" style="margin-left: -100px;" />
                     <!-- {/if} -->
                     <input type="hidden" name="act" value="act_edit_address" />
                     <input name="address_id" type="hidden" value="{$consignee.address_id}" />
@@ -963,6 +983,8 @@
             <!-- {/foreach} -->
       <!--{/if} -->
     <!--#收货地址添加页面 -->
+
+
       <!--* 积分兑换-->
        <!--{if $action eq 'transform_points'} -->
        <h5><span>{$lang.transform_points}</span></h5>

@@ -15,6 +15,7 @@
 {insert_scripts files='transport_jquery.js,common.js,user.js'}
 </head>
 <body>
+
 <div class="header-nav">
     <div class="block">
         <span class="fl gotoindex" style="margin-right:15px;">
@@ -50,9 +51,18 @@
         </ul>
     </div>
 </div>
+
+<div class="head">
+  <div class="head-text">
+    我的汇师
+    <img src="images/猫爪(1).png" style="margin-bottom: -4px;">
+  </div>
+</div>
+
 <div class="blank"></div>
 <div class="block clearfix">
-  <!--left start-->
+
+  <!--left start--><!--左边部分-->
   <div class="AreaL">
     <div class="box">
      <div class="box_1">
@@ -63,14 +73,17 @@
     </div>
   </div>
   <!--left end-->
+
+
   <!--right start-->
   <div class="AreaR">
     <div class="box">
      <div class="box_1">
       <div class="userCenterBox boxCenterList clearfix" style="_height:1%;">
+
          <!-- *用户中心默认显示页面 start-->
          <!-- {if $action eq 'default'} -->
-          <font class="f5"><b class="f4">{$info.username}</b> {$lang.welcome_to} {$info.shop_name}！</font><br />
+         <font class="f5"><b class="f4">{$info.username}</b> {$lang.welcome_to} {$info.shop_name}！</font> <br />
           <div class="blank"></div>
           {$lang.last_time}: {$info.last_time}<br />
           <div class="blank5"></div>
@@ -81,29 +94,34 @@
            <!--{$lang.not_validated}<a href="javascript:sendHashMail()" style="color:#006bd0;">{$lang.resend_hash_mail}</a><br />-->
            <!--{/if} -->
            <div style="margin:5px 0; border:1px solid #f7dd98;padding:10px 20px; background-color:#fffad5;">
-           <img src="images/note.gif" alt="note" />&nbsp;{$user_notice}
+             <div class="img" style="float: left;margin-left: 380px;margin-top: -3px;"><img src="images/mail.png" alt="note" style="width:24px;height: 24px;" /></div>&nbsp;
+             <div class="text" style="float: left;margin-left: 3px;">{$user_notice}</div><!--用户中心公告-->
            </div>
            <br /><br />
-          <div class="f_l" style="width:350px;">
-          <h5><span>{$lang.your_account}</span></h5>
-          <div class="blank"></div>
-          <!--begin, added by chenggaoyuan-->
-          <!--{if $info.is_teacher eq 1} -->
-          <div class="teacher_integral">
-		  <span><img src="images/bg_1.png" alt="bg_1"></span>
-          <em class="count">{$lang.teacher_integral} : {$info.teacher_integral}</em>
-          </div>
-          <!--{/if} -->
-		  <!--去掉红包、余额、积分等无关项-->
-          <!--{$lang.your_surplus}:<a href="user.php?act=account_log" style="color:#006bd0;">{$info.surplus}</a><br />-->
-          <!-- {if $info.credit_line gt 0} 如果有信用额度 -->
-          <!--{$lang.credit_line}:{$info.formated_credit_line}<br />-->
-          <!-- {/if} -->
-          <!--{$lang.your_bonus}:<a href="user.php?act=bonus" style="color:#006bd0;">{$info.bonus}</a><br />-->
-          <!--{$lang.your_integral}:{$info.integral}<br />-->
-          </div>
-          <div class="f_r" style="width:350px;">
-          <h5><span>{$lang.your_notice}</span></h5>
+
+            <div class="f_l" style="width:350px;"><!--左边-->
+            <h5><span>{$lang.your_account}</span></h5><!--您的账户-->
+            <div class="blank"></div>
+             <img src="images/学生.jpg" style="margin-left: 30px;">
+            <!--begin, added by chenggaoyuan-->
+            <!--{if $info.is_teacher eq 1} -->
+            <div class="teacher_integral">
+
+  		       <span><img src="images/bg_1.png" alt="bg_1"></span>
+             <em class="count">{$lang.teacher_integral} : {$info.teacher_integral}</em>
+            </div>
+            <!--{/if} -->
+  		  <!--去掉红包、余额、积分等无关项-->
+            <!--{$lang.your_surplus}:<a href="user.php?act=account_log" style="color:#006bd0;">{$info.surplus}</a><br />-->
+            <!-- {if $info.credit_line gt 0} 如果有信用额度 -->
+            <!--{$lang.credit_line}:{$info.formated_credit_line}<br />-->
+            <!-- {/if} -->
+            <!--{$lang.your_bonus}:<a href="user.php?act=bonus" style="color:#006bd0;">{$info.bonus}</a><br />-->
+            <!--{$lang.your_integral}:{$info.integral}<br />-->
+            </div><!--左边结束-->
+
+          <div class="f_r" style="width:350px;"><!--右边-->
+          <h5><span>{$lang.your_notice}</span></h5><!--用户提醒-->
           <div class="blank"></div>
            <!--{foreach from=$prompt item=item}-->
           {$item.text}<br />
@@ -118,9 +136,12 @@
           <!-- {/foreach} -->
           <!-- {/if}-->
 		  </div>
-          </div>
+          </div><!--右边结束-->
+
          <!-- {/if} -->
          <!-- #用户中心默认显示页面 end-->
+         
+
          <!-- *我的留言 start-->
          <!-- {if $action eq 'message_list'} -->
           <h5><span>{$lang.label_message}</span></h5>
@@ -207,6 +228,9 @@
                 </form>
          <!-- {/if} -->
          <!--#我的留言 end-->
+
+
+
          <!-- *我的评论 start-->
           <!-- {if $action eq 'comment_list'} -->
           <h5><span>{$lang.label_comment}</span></h5>
@@ -233,19 +257,26 @@
           <!-- {/if}-->
           <!--{/if} -->
     <!--#我的评论 end-->
-    <!--#我的标签 start-->
-    <!--{if $action eq 'tag_list'} -->
+
+<!--注释我的标签-->
+
+    <!-- #我的标签 start
+    {if $action eq 'tag_list'}
     <h5><span>{$lang.label_tag}</span></h5>
     <div class="blank"></div>
-     <!-- {if $tags} -->
-    <!-- 标签云开始 {foreach from=$tags item=tag}-->
+     {if $tags}
+    标签云开始 {foreach from=$tags item=tag}
     <a href="search.php?keywords={$tag.tag_words|escape:url}" class="f6">{$tag.tag_words|escape:html}</a> <a href="user.php?act=act_del_tag&amp;tag_words={$tag.tag_words|escape:url}" onclick="if (!confirm('{$lang.confirm_drop_tag}')) return false;" title="{$lang.drop}"><img src="images/drop.gif" alt="{$lang.drop}" /></a>&nbsp;&nbsp;
-    <!-- 标签云结束 {/foreach}-->
-    <!-- {else} -->
+    标签云结束 {/foreach}
+    {else}
     <span style="margin:2px 10px; font-size:14px; line-height:36px;">{$lang.no_tag}</span>
-    <!-- {/if} -->
-    <!--{/if} -->
-    <!--#我的标签 end-->
+    {/if}
+    {/if}
+    #我的标签 end -->
+
+
+
+
     <!--*收藏商品列表页面 start-->
     <!--{if $action eq 'collection_list'} -->
   {insert_scripts files='transport_jquery.js,utils.js'}
@@ -375,6 +406,12 @@
   </script>
   <!--{/if} -->
     <!--#收藏商品列表页面 end-->
+
+
+
+    <!--注释掉的缺货登记页面-->
+
+
     <!--*缺货登记列表页面 start-->
     <!--{if $action eq 'booking_list'} -->
     <h5><span>{$lang.label_booking}</span></h5>
@@ -407,6 +444,9 @@
     var {$key} = "{$item}";
     {/foreach}
     </script>
+
+
+
     <h5><span>{$lang.add}{$lang.label_booking}</span></h5>
     <div class="blank"></div>
      <form action="user.php" method="post" name="formBooking" onsubmit="return addBooking();">
@@ -449,6 +489,9 @@
     </table>
      </form>
     <!-- {/if} -->
+
+
+
     <!-- *我的推荐 -->
     <!-- {if $affiliate.on eq 1} -->
      <!-- {if $action eq 'affiliate'} -->

@@ -65,8 +65,9 @@
 			</div>
 			<div class="logo-mid">
 			  <div class="logo-mid-left">
+			   <div class="shop-left">
 				<form action="search.php" method="get" onSubmit="return checkSearchForm(this)">
-					<input type="text" name="keywords" id="keyword" value="四年级语文" class="search-text" onfocus="javascript:if(this.value=='四年级语文'){this.value=''}" onblur="javascript:if(this.value==''){this.value='四年级语文'}"/><button class="btn-search" type="submit">搜索</button>
+					<input style="color:#7C7C7C;" type="text" name="keywords" id="keyword" value="四年级语文" class="search-text" onfocus="javascript:if(this.value=='四年级语文'){this.value=''}" onblur="javascript:if(this.value==''){this.value='四年级语文'}"/><button class="btn-search" type="submit">搜索</button>
 					<script type="text/javascript">
                     {literal}
                     <!--
@@ -86,6 +87,12 @@
                     {/literal}
                 </script>
 					</form>
+                </div>
+					<div class="shopcar">
+						<img src="images/购物车.png" style="width: 28px;height: 28px; margin-top: 4px; float: left;">
+						<a href="">购物车</a>
+						<span class="num" style="float: left;margin-left: 3px; width: 20px; height:20px;line-height:20px;vertical-align: middle; margin-top:10px;border-radius: 50%; background: white; text-align: center;">0</span>
+					</div>
 			  </div>
 			  <div class="logo-mid-right">
 			  	<img src="images/try.jpg" >
@@ -107,7 +114,7 @@
 				<div class="nav-mid-left">
 					<ul>
 						<!--实现商品分类-->
-					    <li class="first" style="background: #69c6ce;"><a href="category.php?id=1" style="color:white;">商品分类</a>
+					    <li class="first" style="background: #1a435f;"><a href="category.php?id=1" style="color:white;">商品分类</a>
 							{if $parents_category}
                              <ul>
 							 	{foreach from=$parents_category item=parents name=key}

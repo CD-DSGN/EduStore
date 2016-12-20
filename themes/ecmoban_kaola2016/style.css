@@ -103,6 +103,9 @@ h6 span{float:left; padding-left:15px; font-size:14px;}
 .header-nav .nav-mobile .nav-mobile-sub{ position: absolute; top: 25px; display: none; border:1px solid #dedede; background: #fff; z-index: 10px; left: 0; padding: 10px;}
 .header-nav .nav-mobile:hover .nav-mobile-sub{display: block;}
 .header-nav .iconfont{ font-size: 14px; color:#E31436;}
+
+.head{background:url(../ecmoban_kaola2016/images/layout-bg.png);height:460px;width:100%;}
+
 .header-login-info { display: inline-block; *zoom:1; *display: inline;}
 .header-login-info .a-login {padding: 0 10px 0 20px;}
 .header-login-info .a-register {padding: 0 10px;}
@@ -156,6 +159,8 @@ h6 span{float:left; padding-left:15px; font-size:14px;}
 .sitemap-icon-hot {background-position: -37px 0;}
 
 /*header-main*/
+.head{background:#ff6825;width:100%;height:60px;}
+.head-text{width:1200px;margin:0 auto; color:#fff;font-family:"站酷快乐体2016修订版";letter-spacing:6px;padding-left:80px; font-weight:bold; font-size: 34px;height:60px;line-height:60px;vertical-align:middle;}
 .header-main{ clear: both; background: #FFF; position: relative; z-index: 11; height: 100px;}
 /**/
 .header-banner { float: right; margin-top: 25px; height: 36px; width: 70px; line-height: 36px; padding-left: 40px; background-color: #333; color: #fff;}
@@ -582,6 +587,8 @@ font-family: arial,"microsoft yahei"; font-size:18px; text-align:left}
 .login_tab ul li.active a{ color:#fff}
 .login_tab ul li {width: 116px;text-align: center;font-size: 14px;font-weight: bold;height: 25px;line-height: 25px;float: left;background: url(images/login_tab_li.gif) no-repeat 0 0;
 margin-right: 6px;cursor: pointer;}
+
+
 .box_1 .userCenterBox{border:none; background-color:#FFF;}
 .box_1 .userCenterBox .f_l .teacher_integral{font-size:15px;background:#F85152;width:298px;height:100px;}
 .box_1 .userCenterBox .f_l .teacher_integral span{float:left;padding:20px 0 0 24px;}
@@ -605,9 +612,11 @@ margin-right: 6px;cursor: pointer;}
 .usBox_2{background:#fff url(images/usBox_2bg.gif) 550px center no-repeat ; text-align:left; padding:43px 153px 60px 123px;}
 .usBox_2 .regtitle{height:30px; background:url(images/ur_bg.gif) no-repeat 0px -34px;}
 .actionSub a{color:#000; text-decoration:underline;background:url(images/ur_bg.gif) no-repeat 0px -68px; padding-left:14px;}
-.box_1 .userCenterBox .userMenu a{display:block; height:50px; line-height:50px; text-decoration:none; margin:0;padding-left:3px;cursor:pointer;text-align:center;}
-.box_1 .userCenterBox .userMenu a:hover{background:#F2F2F2;opacity:0.8;}
-.box_1 .userCenterBox .userMenu a.curs{font-weight:bold;background:#E5E5E5;}
+
+.box_1 .userCenterBox .userMenu{top:350px;}
+.box_1 .userCenterBox .userMenu a{letter-spacing:3px; font-size:16px;  display:block; height:65px; line-height:65px; text-decoration:none; margin:0;padding-left:3px;cursor:pointer;text-align:center;}
+.box_1 .userCenterBox .userMenu a:hover{background:#F2F2F2;opacity:0.8;font-family:"方正静蕾简体";font-size:20px; color:#256885}
+.box_1 .userCenterBox .userMenu a.curs{font-weight:bold;background:#E5E5E5;font-family:"方正静蕾简体";font-size:20px; color:#256885}
 .box_1 .userCenterBox .userMenu a img{ margin-right:3px;}
 .msgBottomBorder{clear:both; background:url(images/lineBg.gif) repeat-x left bottom; padding-bottom:8px; margin-bottom:8px;}
 

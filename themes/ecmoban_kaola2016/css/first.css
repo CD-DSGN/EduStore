@@ -94,6 +94,7 @@ span{
 	width:10%;
 	float: left;
 	height:80px;
+
 }
 .logo-mid{
     width:80%;
@@ -106,10 +107,10 @@ span{
 	float:left;
 }
 .search-text{                                               
-	width:492px;
+	width:440px;
 	height:33px;
-	margin-top:22px;
-	margin-left:80px;
+	margin-top:20px;
+	margin-left:65px;
    // background:url(../images/search.jpg)no-repeat right center;
     background-color:#fff;
     border: 3px solid #ff6825;
@@ -126,9 +127,38 @@ span{
 }
 .logo-mid-right{
 	float:left;
-	height:36px;
-	margin-left:40px;
-	margin-top:8px;
+	height:39px;
+	margin-left:12px;
+	margin-top:11px;
+	width:380px;
+}
+.shop-left{
+	float:left;
+}
+.shopcar{
+	background:#ff6825;
+	width:100px;
+	height:39px;
+	float:left;
+	margin-top:20px;
+	margin-left:16px;
+
+}
+.shopcar a{
+	float:left;
+	color:white;
+	font-size:14px;
+	//font-weight:bold;
+	height:39px;
+	line-height:39px;
+	vertical-align:middle;
+	margin-left:3px;
+
+}
+.shopcar .num{
+	background:red;
+	height:20px;
+	width:20px;
 }
 .logo-right{
 	width:10%;
@@ -169,7 +199,7 @@ span{
 	width:100%;
 	height:36px;
 	background:white;
-	border-bottom:4px solid #69c6ce;
+	border-bottom:4px solid #1a435f;
 }
 .nav{
 	height:36px;
@@ -236,7 +266,7 @@ span{
 }
 
 .nav-mid-left a:link,.nav-mid-left a:visited{
-	color:#69c6ce;
+	color:#1a435f;
 	font-size:14px;
 	font-family:"微软雅黑";
 	font-weight:bold;
@@ -318,7 +348,7 @@ span{
  
     position:relative;
  	z-index:2;
- 	background:#4D4B4B;
+ 	//background:#4D4B4B;
  	opacity:0.5;
  	width:300px;
  	height:250px;
@@ -329,6 +359,12 @@ span{
  .enough .mengban:hover{
  		background:white;
  		opacity:0.3;
+ 		box-shadow: 15px 15px 15px rgba(0,0,0,0.3);
+	-webkit-box-shadow:15px 15px 15px rgba(0,0,0,0.3);
+    -moz-box-shadow:15px 15px 15px rgba(0,0,0,0.3);
+    -o-box-shadow:15px 15px 15px rgba(0,0,0,0.3);
+	//background:#ff6825;
+
  }
  .goods-show{
 
