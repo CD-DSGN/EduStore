@@ -51,6 +51,13 @@ if (isset($data['teacher_integral']) && isset($data['points_from_subscription'])
     $data['points_from_affiliate'] = $data['teacher_integral'] - $data['points_from_subscription'];
 }
 
+// 查询教师的推荐码
+$sql = "SELECT invite_code FROM ". $ecs->table('teachers') ."WHERE `user_id` = '". $user_id ."'";
+$res = $db->getRow($sql);
+if ($res) {
+	$data['invite_code'] = $res['invite_code'];
+}
+
 GZ_Api::outPut($data);
 
 
