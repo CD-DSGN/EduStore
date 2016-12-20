@@ -5,10 +5,10 @@
 //---------------------------------------------------------
 
 define('IN_ECS', true);
-require($_SERVER ['DOCUMENT_ROOT'] . '/edustore/includes/init.php');
-require($_SERVER ['DOCUMENT_ROOT'] . '/edustore/includes/lib_payment.php');
-require($_SERVER ['DOCUMENT_ROOT'] . '/edustore/includes/lib_order.php');
-require($_SERVER ['DOCUMENT_ROOT'] . '/edustore/includes/lib_clips.php');
+require($_SERVER ['DOCUMENT_ROOT'] . '/includes/init.php');
+require($_SERVER ['DOCUMENT_ROOT'] . '/includes/lib_payment.php');
+require($_SERVER ['DOCUMENT_ROOT'] . '/includes/lib_order.php');
+require($_SERVER ['DOCUMENT_ROOT'] . '/includes/lib_clips.php');
 
 
 require ("classes/ResponseHandler.class.php");

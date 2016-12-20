@@ -40,8 +40,7 @@
     <td bgcolor="#ffffff"><input name="consignee" type="text" class="inputBg" id="consignee_{$sn}" value="{$consignee.consignee|escape}" />
     {$lang.require_field} </td>
     <td bgcolor="#ffffff">{$lang.email_address}:</td>
-    <td bgcolor="#ffffff"><input name="email" type="text" class="inputBg"  id="email_{$sn}" value="{$consignee.email|escape}" />
-    {$lang.require_field}</td>
+    <td bgcolor="#ffffff"><input name="email" type="text" class="inputBg"  id="email_{$sn}" value="{$consignee.email|escape}" /></td>
   </tr>
   <!-- {if $real_goods_count gt 0} -->
   <!-- 购物车中存在实体商品显示详细地址以及邮政编码 -->

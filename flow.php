@@ -354,7 +354,8 @@ elseif ($_REQUEST['step'] == 'consignee')
             if (count($consignee_list) < 5)
             {
                 /* 如果用户收货人信息的总数小于 5 则增加一个新的收货人信息 */
-                $consignee_list[] = array('country' => $_CFG['shop_country'], 'email' => isset($_SESSION['email']) ? $_SESSION['email'] : '');
+                //去掉邮件默认值 dxh
+                $consignee_list[] = array('country' => $_CFG['shop_country'], 'email' => isset($_SESSION['email']) ? '' : '');
             }
         }
         else
@@ -389,7 +390,8 @@ elseif ($_REQUEST['step'] == 'consignee')
         $smarty->assign('district_list', $district_list);
 
         /* 返回收货人页面代码 */
-        $smarty->assign('real_goods_count', exist_real_goods(0, $flow_type) ? 1 : 0);
+        //完善收货地址信息 dxh
+        $smarty->assign('real_goods_count', exist_real_goods(0, $flow_type) ? 0 : 1);
     }
     else
     {

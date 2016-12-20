@@ -408,7 +408,6 @@ function cat_id_goods($num)
             $goods[$cat_id][$idx]['thumb']        = empty($row['goods_thumb']) ? $GLOBALS['_CFG']['no_picture'] : $row['goods_thumb'];
             $goods[$cat_id][$idx]['goods_img']    = empty($row['goods_img'])   ? $GLOBALS['_CFG']['no_picture'] : $row['goods_img'];
             $goods[$cat_id][$idx]['url']          = build_uri('goods', array('gid' => $row['goods_id']), $row['goods_name']);
-            $idx++;
         }
     }
     if(isset($goods))
@@ -431,7 +430,6 @@ function cat_hot_goods($number){
             $good[$idx]['name']         = $row['goods_name'];
             $good[$idx]['goods_img']    = empty($row['goods_img'])   ? $GLOBALS['_CFG']['no_picture'] : $row['goods_img'];
             $good[$idx]['url']          = build_uri('goods', array('gid' => $row['goods_id']), $row['goods_name']);
-            $idx++;
         }
     if(isset($good))
     {
