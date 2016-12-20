@@ -40,7 +40,7 @@ $back_act='';
 $not_login_arr =array('login','act_login','register','act_register','act_edit_password','get_password','send_pwd_email',
 'password', 'signin', 'add_tag', 'collect', 'return_to_cart', 'logout', 'email_list', 'validate_email', 'send_hash_mail', 
 'order_query', 'is_registered', 'check_email','clear_history','qpassword_name', 'get_passwd_question', 'check_answer', 
-'register_teacher', 'phoneAndMessageCode','sendPhoneAndIdentifyCode','get_course','get_province', 'get_city','get_town','check_mobile_phone', 'check_identifyCode');
+'register_teacher', 'phoneAndMessageCode','sendPhoneAndIdentifyCode','get_course','get_province', 'get_city','get_town','check_mobile_phone', 'check_identifyCode', 'check_invite_code');
 
 /* 显示页面的action列表 */
 //Todo 有可能需要增加，看界面的情况
@@ -195,6 +195,23 @@ elseif($action == 'check_identifyCode')
     } 
 }
 //end nahuanjie
+//begin chenggaoyuan
+elseif($action == 'check_invite_code'){
+    if(isset($_POST['invite_code']) && $_POST['invite_code']!=null){
+        $invite_code_ajax = $_POST['invite_code'];
+        $sql = "SELECT recommend_code FROM" . $ecs->table('teachers') . "WHERE recommend_code = '" . $invite_code_ajax . "' ";
+        $res = $db->query($sql);
+        $is_exist = mysql_num_rows($res);
+        if($is_exist == 0){
+            echo "0";
+            exit();
+        }else{
+            echo "1";
+            exit();
+        }
+    }
+}
+//end chenggaoyuan
 //begin zhangmengqi
 elseif($action == 'register_teacher')
 {
@@ -340,6 +357,7 @@ elseif ($action == 'act_register')
         $teacher_info['province'] = isset($_POST['province']) ? trim($_POST['province']):'';
         $teacher_info['city'] = isset($_POST['city']) ? trim($_POST['city']):'';
         $teacher_info['district'] = isset($_POST['district']) ? trim($_POST['district']):'';
+        $teacher_info['invite_code'] = isset($_POST['invite_code']) ? trim($_POST['invite_code']):'';
         //防止sql注入
         $teacher_info['real_name'] = addslashes($teacher_info['real_name']);
         $teacher_info['school'] = addslashes($teacher_info['school']);
@@ -347,8 +365,11 @@ elseif ($action == 'act_register')
         $teacher_info['province'] = addslashes($_POST['province']) ? trim($_POST['province']):'';
         $teacher_info['city'] = addslashes($_POST['city']) ? trim($_POST['city']):'';
         $teacher_info['district'] = addslashes($_POST['district']) ? trim($_POST['district']):'';
+        $teacher_info['invite_code'] = addslashes($_POST['invite_code']) ? trim($_POST['invite_code']):'';
         $other['mobile_phone'] = addslashes($other['mobile_phone']);
         //end zhangmengqi
+        
+        $invite_code = $teacher_info['invite_code'];
 
         $back_act = isset($_POST['back_act']) ? trim($_POST['back_act']) : '';
 
@@ -413,7 +434,7 @@ elseif ($action == 'act_register')
         }
         //end nahuanjie
 
-        if (register($username, $password, $email, $other) !== false)
+        if (register($username, $password, $email, $other, $invite_code) !== false)
         {
 
             //begin zhangmengqi
@@ -431,8 +452,12 @@ elseif ($action == 'act_register')
                 $values[] = $teacher_info['province'];
                 $values[] = $teacher_info['city'];
                 $values[] = $teacher_info['district'];
+                
+                $recommend_code = generate_recommend_code($values[0]);
+                $values[] = $recommend_code;
+                
 
-                $sql = 'INSERT INTO '. $ecs->table('teachers') . ' (`user_id`, `course_id`, `real_name`,  `school`, `province`, `city`, `district`)'. " VALUES ('" . implode("', '", $values) . "')";
+                $sql = 'INSERT INTO '. $ecs->table('teachers') . ' (`user_id`, `course_id`, `real_name`,  `school`, `province`, `city`, `district`, `recommend_code`)'. " VALUES ('" . implode("', '", $values) . "')";
                 $db->query($sql);
                 $sql = 'UPDATE ' . $ecs->table('users') . " SET `is_teacher`='$is_teacher' WHERE `user_id`='" . $_SESSION['user_id'] . "'";
                 $db->query($sql);
@@ -3158,4 +3183,18 @@ function isMobile($mobile) {
     return preg_match('#^13[\d]{9}$|^14[5,7]{1}\d{8}$|^15[^4]{1}\d{8}$|^17[0,6,7,8]{1}\d{8}$|^18[\d]{9}$#', $mobile) ? true : false;
 }
 /*end, add by chenggaoyuan for judging a telephone number*/
+
+function generate_recommend_code($num) {
+    $num = intval($num);
+    if ($num <= 0)
+        return false;
+        $charArr = array("1","2","3","4","5","6","7","8","9",'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
+        $char = '';
+        do {
+            $key = ($num - 1) % 35;
+            $char= $charArr[$key] . $char;
+            $num = floor(($num - $key) / 35);
+        } while ($num > 0);
+        return $char;
+}
 ?>
