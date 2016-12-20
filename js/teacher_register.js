@@ -12,11 +12,11 @@ var address_status = 0;					// 0表示为空，1表示正确
 /* 默认为0，表示为空/错误，1：正确 */
 
 /* 定义错误提示的图片语句 */
-var error_info = '<img height="16px" width="16px" src="./data/images/register/error.png" style="float:left; padding-right: 10px;" /> ';
-var low_strength = '<img height="16px" width="16px" src="./data/images/register/low.png" style="float:left; padding-right: 10px;" /> ';
-var middle_strength = '<img height="16px" width="16px" src="./data/images/register/middle.png" style="float:left; padding-right: 10px;" /> ';
-var high_strength = '<img height="16px" width="16px" src="./data/images/register/high.png" style="float:left; padding-right: 10px;" /> ';
-var notice = '<img height="16px" width="16px" src="./data/images/register/notice.png" style="float:left; padding-right: 10px;" /> ';
+var error_info = '<img height="16px" width="16px" src="./data/images/register/error.png" style="float:left; padding-left: 10px; padding-right: 10px;" /> ';
+var low_strength = '<img height="16px" width="16px" src="./data/images/register/low.png" style="float:left; padding-left: 10px; padding-right: 10px;" /> ';
+var middle_strength = '<img height="16px" width="16px" src="./data/images/register/middle.png" style="float:left; padding-left: 10px; padding-right: 10px;" /> ';
+var high_strength = '<img height="16px" width="16px" src="./data/images/register/high.png" style="float:left; padding-left: 10px; padding-right: 10px;" /> ';
+var notice = '<img height="16px" width="16px" src="./data/images/register/notice.png" style="float:left; padding-left: 10px; padding-right: 10px;" /> ';
 
 
 function checkMobileNumber() {
@@ -289,11 +289,13 @@ function checkAddressName(){
 	var city =document.getElementById("city").value;
 	var town = document.getElementById("town").value;
 	if(province == 0||city == 0||town == 0){
-		//$("#address_notice").html("请选择所在地");
+		$("#address_correct").css({'display':'none'});
+		$("#address_notice").html(error_info + '请选择所在地');
 		address_status = 0;
 	}
 	else if(province != 0&&city != 0&&town != 0){
-		//$("#address_notice").html("");
+		$("#address_correct").css({'display':'block'});
+		$("#address_notice").html("");
 		address_status = 1;
 	}
 }
@@ -425,7 +427,7 @@ function register() {
 		return false;
 	}else if(address_status !=1){
 		$("#province").focus().select();
-		//$("#address_notice").html("请选择所在地");
+		$("#address_notice").html("请选择所在地");
 		return false;
 	}else if( school_status != 1) {
 		$("#school").focus().select();

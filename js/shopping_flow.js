@@ -580,7 +580,7 @@ function checkConsignee(frm)
     err = true;
     msg.push(consignee_not_null);
   }
-//去除邮件合法性的验证
+//去除邮件合法性的验证 dxh
   // if ( ! Utils.isEmail(frm.elements['email'].value))
   // {
   //   err = false;
