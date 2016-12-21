@@ -15,8 +15,8 @@ require_once ROOT_PATH . 'includes/modules/payment/lib/WxPay.Notify.php';
 require_once ROOT_PATH . 'includes/modules/payment/lib/log.php';
 
 //调试用
-$logHandler= new CLogFileHandler(ROOT_PATH . "/logs/".date('Y-m-d').'.log');
-$log = Log::Init($logHandler, 15);
+//$logHandler= new CLogFileHandler(ROOT_PATH . "/logs/".date('Y-m-d').'.log');
+//$log = Log::Init($logHandler, 15);
 
 $payment_lang = ROOT_PATH . 'languages/' .$GLOBALS['_CFG']['lang']. '/payment/wxpay.php';
 

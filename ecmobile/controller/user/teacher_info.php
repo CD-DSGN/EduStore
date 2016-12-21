@@ -51,6 +51,13 @@ if (isset($data['teacher_integral']) && isset($data['points_from_subscription'])
     $data['points_from_affiliate'] = $data['teacher_integral'] - $data['points_from_subscription'];
 }
 
+//读数据库，获得自身邀请码
+$sql = 'select `recommend_code` from ' . $ecs->table('teachers').  " where `user_id` = '$user_id' ";
+$res = $db->getOne($sql);
+if ($res) {
+    $data['invitation_code'] = $res; //邀请码
+}
+
 GZ_Api::outPut($data);
 
 

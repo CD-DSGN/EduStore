@@ -112,10 +112,10 @@ if( isset($_POST['mobile_phone'])) {
 }
 /*邀请码推荐处理*added by chenggaoyuan*/
 $affiliate  = unserialize($GLOBALS['_CFG']['affiliate']);
-if(isset($_POST['invite_code']) && $invite_code !=0){
+if($teacher_info['invite_code'] !=0){
     if (isset($affiliate['on']) && $affiliate['on'] == 1)
     {
-        $up_uid = get_user_id_from_recommend_code($invite_code);
+        $up_uid = get_user_id_from_recommend_code($teacher_info['invite_code']);
 
         empty($affiliate) && $affiliate = array();
         $affiliate['config']['level_register_all'] = intval($affiliate['config']['level_register_all']);
