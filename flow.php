@@ -391,7 +391,7 @@ elseif ($_REQUEST['step'] == 'consignee')
 
         /* 返回收货人页面代码 */
         //完善收货地址信息
-        $smarty->assign('real_goods_count', exist_real_goods(0, $flow_type) ? 1 : 0);
+        //$smarty->assign('real_goods_count', exist_real_goods(0, $flow_type) ? 1 : 0);
         $smarty->assign('real_goods_count', 1);
     }
     else
