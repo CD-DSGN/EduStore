@@ -90,6 +90,20 @@ function available_shipping_list($region_id_list)
 }
 
 /**
+ * 获得全部配送方式列表
+ * @author chenggaoyun
+ */
+function get_all_shipping_list()
+{
+    $sql = 'SELECT s.shipping_id, s.shipping_code, s.shipping_name, ' .
+        's.shipping_desc, s.insure, s.support_cod, a.configure ' .
+        'FROM ' . $GLOBALS['ecs']->table('shipping') . ' AS s, ' .
+        $GLOBALS['ecs']->table('shipping_area') . ' AS a' .
+        ' WHERE a.shipping_id = 99 AND s.shipping_id = 99 AND s.enabled = 1 ORDER BY s.shipping_order';
+
+    return $GLOBALS['db']->getAll($sql);
+}
+/**
  * 取得某配送方式对应于某收货地址的区域信息
  * @param   int     $shipping_id        配送方式id
  * @param   array   $region_id_list     收货人地区id数组

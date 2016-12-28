@@ -3874,3 +3874,10 @@ INSERT INTO `ecs_payment` (`pay_id`, `pay_code`, `pay_name`, `pay_fee`, `pay_des
 
 --end zhangmengqi
 
+--begin by chenggaoyuan
+INSERT INTO `ecs_shipping` (`shipping_id`, `shipping_code`, `shipping_name`, `shipping_desc`, `insure` ,`support_cod`, `enabled`, `print_model`, `shipping_order`) VALUES
+(99, 'ship_for_free',  '免运费', '包邮哦亲，把握机会', '0' , 0 , 1 , 2 , 0 );
+
+INSERT INTO `ecs_shipping_area` (`shipping_area_id` ,  `shipping_area_name`, `shipping_id` ,`configure`) VALUES
+(1, '全国包邮', 99 , 'a:2:{i:0;a:2:{s:4:"name";s:10:"free_money";s:5:"value";s:0:"";}i:1;a:2:{s:4:"name";s:16:"fee_compute_mode";s:5:"value";s:0:"";}}' );
+
