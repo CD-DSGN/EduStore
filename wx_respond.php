@@ -20,8 +20,8 @@ require(ROOT_PATH . 'includes/lib_payment.php');
 require(ROOT_PATH . 'includes/lib_order.php');
 
 require_once (ROOT_PATH . 'includes/modules/payment/lib/log.php');
-$logHandler= new CLogFileHandler(ROOT_PATH."/logs/".date('Y-m-d').'.log');
-$log = Log::Init($logHandler, 15);
+//$logHandler= new CLogFileHandler(ROOT_PATH."/logs/".date('Y-m-d').'.log');
+//$log = Log::Init($logHandler, 15);
 /* 支付方式代码 */
 $pay_code = !empty($_REQUEST['code']) ? trim($_REQUEST['code']) : '';
 

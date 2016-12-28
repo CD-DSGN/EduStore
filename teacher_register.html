@@ -5,6 +5,7 @@
 <script src="./js/jquery-1.11.3.min.js"></script>
 <script src="./js/jquery.form.js"></script>
 <script src="./js/teacher_register.js"></script>
+<link rel="icon" href="animated_favicon.gif" type="image/gif" />
 <link rel="stylesheet" href="./themes/ecmoban_kaola2016/style.css" />
 <title>教师注册</title>
 </head>
@@ -30,7 +31,7 @@
 				</ul>
 			</div>
 			<div id="register_form">
-				<form action="./user.php" method="post" name="formTeacher" id="formTeacher" onsubmit="return register();" >
+				<form action="./user.php" method="post" name="formTeacher" style="white-space:nowrap;" id="formTeacher" onsubmit="return register();" >
 					<!-- 第一步，创建账户 -->
 					<div id="create_account" style="display:">
 						<div>
@@ -72,29 +73,19 @@
 							<span class="correct_input" id="real_name_correct"><img src="./data/images/register/success.png" width="18px" height="18px" alt="correct" /></span>
 							<span class="input_tip" id="real_name_tips"></span>
 						</div>
-						<div style="height:70px">
-							<tr style="margin-bottom:0px">
-								<label class="register_info"style="margin-right:20px;">所在区域</label>
-								<td>
+						<div>
+								<label class="register_info"style="margin-right:22px;">所在区域</label>
 									<select name="province" id="province" class="select_button1" onblur="checkAddressName();" onmouseup="checkAddressName();">
 										<option value="0">请选择省</option>
 									</select>
-								</td>
-								<td>
 									<select name="city" id="city" class="select_button1" onblur="checkAddressName();" onmouseup="checkAddressName();">
 										<option value="0">请选择市</option>
 									</select>
-								</td>
-								<td>
 									<select name="district" id="town" class="select_button1" onblur="checkAddressName();" onmouseup="checkAddressName();">
 										<option value="0">请选择县/区</option>
 									</select>
-								</td>
-							</tr>
-							<tr>
-								<td></td>
-								<td><span id="address_notice"></span></td>
-							</tr>
+								<span class="correct_select" id="address_correct"><img src="./data/images/register/success.png" width="18px" height="18px" alt="correct" /></span>
+								<span class="input_tip" id="address_notice"></span>
 						</div>
 						<div>
 							<label for="school" class="register_info">学校</label>
@@ -104,14 +95,14 @@
 						</div>
 						<div>
 							<label for="course_name" class="register_info">任课课程</label>
-							<div id="select_background" style=" position: absolute; width: 200px; height: 42px; display: inline-block; left: 115px; background: url('./data/images/register/select.png') no-repeat 170px; border: 2px solid #d3d3d3; border-radius: 6px; background-color: #efeeed; ">
-							<div id="select_hide" style=" position: absolute; width: 170px; height: 35px; display: inline-block; top: 2px; overflow: hidden;  ">
+							<div id="select_background" style=" position: absolute; width: 130px; height: 42px; display: inline-block; left: 125px; background: url('./data/images/register/select.png') no-repeat 100px; border: 2px solid #d3d3d3; border-radius: 6px; background-color: #efeeed; ">
+							<div id="select_hide" style=" position: absolute; width: 100px; height: 35px; display: inline-block; top: 2px; overflow: hidden;  ">
 							<select name="course_name" id="course_name" class="select_button" onblur="checkCourseName();" onmouseup="checkCourseName();" >
 								<option value="0">请选择课程</option>
 							</select>
 							</div>
 							</div>
-							<span class="correct_select" id="select_correct"><img src="./data/images/register/success.png" width="18px" height="18px" alt="correct" /></span>
+							<span class="correct_select1" id="select_correct"><img src="./data/images/register/success.png" width="18px" height="18px" alt="correct" /></span>
 							<span class="input_tip" id="course_name_tips"></span>
 						</div>
 						<div>
@@ -126,7 +117,12 @@
 							<span class="correct_input" id="confirm_password_correct"><img src="./data/images/register/success.png" width="18px" height="18px" alt="correct" /></span>
 							<span class="input_tip" id="confirm_password_tips"></span>
 						</div>
-						
+						<div>
+							<label for="invite_code" class="register_info">邀请码<span style="font-size:11px">（选填）</span></label>
+							<input type="text" class="register_input" id="invite_code" name="invite_code" onblur="check_invite_code();" onfocus="focusTips(this.id, '请输入邀请码')"/>
+							<span class="correct_input" id="invite_code_correct"><img src="./data/images/register/success.png" width="18px" height="18px" alt="correct" /></span>
+							<span class="input_tip" id="invite_code_tips"></span>
+						</div>
 						<div>
 							<input type="hidden" name="is_teacher" value="1">
 							<input name="act" type="hidden" value="act_register" >
@@ -153,7 +149,7 @@
 		</div>
 	</div>
 	<!-- 商城底部 -->
-	<div style="width:1920px; height: 100px; background-color: #f9f9f9;"></div>
+	<div style="width:1920px; height: 150px; background-color: #f9f9f9;"></div>
 	<div id="foot">
 		<p>©Copyright 2016 汇师网 All Right Reserved 成都大术光年信息技术有限公司</p>
 	</div>

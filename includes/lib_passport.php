@@ -30,7 +30,7 @@ if (!defined('IN_ECS'))
  * @return  bool         $bool
  * modified by zhangmengqi
  */
-function register($username, $password, $email,$other = array())
+function register($username, $password, $email, $other = array(), $invite_code = null)
 {
     /* 检查注册是否关闭 */
     if (!empty($GLOBALS['_CFG']['shop_reg_closed']))
@@ -123,13 +123,16 @@ function register($username, $password, $email,$other = array())
         {
             log_account_change($_SESSION['user_id'], 0, 0, $GLOBALS['_CFG']['register_points'], $GLOBALS['_CFG']['register_points'], $GLOBALS['_LANG']['register_points']);
         }
-
+        /*邀请码推荐处理*modified by chenggaoyuan/
         /*推荐处理*/
         $affiliate  = unserialize($GLOBALS['_CFG']['affiliate']);
         if (isset($affiliate['on']) && $affiliate['on'] == 1)
         {
             // 推荐开关开启
             $up_uid     = get_affiliate();
+            if($up_uid == 0 && $invite_code != null){
+                $up_uid = get_user_id_from_recommend_code($invite_code);
+            }
             empty($affiliate) && $affiliate = array();
             $affiliate['config']['level_register_all'] = intval($affiliate['config']['level_register_all']);
             $affiliate['config']['level_register_up'] = intval($affiliate['config']['level_register_up']);

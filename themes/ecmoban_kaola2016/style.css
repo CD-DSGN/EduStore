@@ -859,7 +859,7 @@ font-size: 8pt;font-family: sans-serif;}
 .head_logo{ position: relative; float: left; width: 156px; height: 100px; left: 400px;  }
 .head_text{ position: relative; float: right; height: 100px; width: 200px; font-size: 16px; right: 450px; top: 58px;}
 #body_img{ width:1920px; height:698px; background:url(../../data/images/bkg.png) no-repeat; border-top:1px solid #ecebeb; border-bottom:1px solid #ecebeb;}
-#teacher_register{ position: relative; width: 865px; height: 700px; margin: auto; top: 68px; border:2px solid #eee; border-radius: 6px; background-color: #fff; }
+#teacher_register{ position: relative; width: 865px; height: 770px; margin: auto; top: 68px; border:2px solid #eee; border-radius: 6px; background-color: #fff; }
 #register_status{ position: relative; width: 740px; height: 90px; border-bottom: 2px solid #d0d0d0; clear: both;  }
 #register_status p{ width: 100px; height: 40px; float: left; margin-left: 40px; line-height: 40px; margin-top: 50px; font-size: 24px;  }
 #register_status ul{ float: right; clear: both; margin-top: -33px; }
@@ -868,7 +868,7 @@ font-size: 8pt;font-family: sans-serif;}
 #register_form{ width: 865px; height: 610px; }
 #create_account{ position: relative; width: 100%; height: 450px; margin: auto; top: 112px; }
 #create_account div{ width: 450px; height: 80px; position: relative; line-height: 42px; }
-.register_info{ width: 90px; height:80px; text-align: right; font-size: 18px; display: inline-block; line-height: 40px; }
+.register_info{ width: 100px; height:80px; text-align: right; font-size: 18px; display: inline-block; line-height: 40px; }
 .register_input{ width: 300px; height: 42px; border: 2px solid #d3d3d3; border-radius: 6px; margin-left: 22px; font-size: 20px; outline: none; }
 .register_input:focus{ border:2px solid #ffb392; border-radius: 6px; }
 .identifyCode_input{ width: 155px; height: 42px; border: 2px solid #d3d3d3; border-radius: 6px; margin-left: 22px; font-size: 20px; outline: none; }
@@ -876,12 +876,11 @@ font-size: 8pt;font-family: sans-serif;}
 .get_identifyCode{ width: 134px; height: 48px; border: 2px solid #d3d3d3; border-radius: 6px; background-color: #f1f1f1; margin-left: 10px; color: #353032; font-size: 16px; outline: none; padding: 1px; }
 .next_step{ width: 300px; height: 52px; background-color: #ff6825; color: #fdfdfd; border: 2px solid #ff6825; border-radius: 6px; font-size: 30px; margin-left: 112px; text-align: center; line-height: 48px; padding: 0px; outline: none; }
 /*.select_button{ width: 200px; height: 48px; margin-left: 22px; border: 2px solid #d3d3d3; border-radius: 6px; background-color: #efeeed; font-size: 20px; outline: none;}*/
-.select_button{ width: 200px; height: 42px; font-size: 20px; border: none; padding: 1px; outline: none; background-color: #efeeed; }
-.select_button1{height:38px;font-size:14px;width:100px;}
+.select_button{ width: 130px; height: 42px; font-size: 14px; border: none; padding: 1px; outline: none; background-color: #efeeed; }
 .buy_now_button{ width: 178px; height: 54px; background-color: #ff6825; color: #fff; font-size: 30px; border:2px solid #ff6825; border-radius: 6px; outline: none; }
 #improve_info{ position: relative; width: 100%; height: 450px; margin: auto; top: 46px; }
 #improve_info div{ width: 450px; height: 80px; position: relative; }
-.register{ width: 300px; height: 48px; border:2px solid #ff6825; border-radius: 6px; color: #ff6825; background-color: #fff; margin-left: 112px; font-size: 22px; margin-top: 5px; outline: none; }
+.register{ width: 300px; height: 48px; border:2px solid #ff6825; border-radius: 6px; color: #ff6825; background-color: #fff; margin-left: 125px; font-size: 22px; margin-top: 0px; outline: none; }
 #register_success{ position: relative; width: 100%; height: 450px; margin: auto; top: 116px; }
 #register_success div{ width: 450px; height: 60px; margin: auto; text-align: center;}
 /*#foot{ height: 170px; width: 1920px; text-align: center; background-color: #f9f9f9; position: relative; line-height: 170px; }*/
@@ -890,7 +889,22 @@ font-size: 8pt;font-family: sans-serif;}
 .agreement_tip{ position: absolute; top: 42px; left: 2px; font-size: 12px; line-height: 16px; }
 .correct_input{ position: absolute; top:16px; left: 382px; display: none; }
 .correct_input_identifyCode{ position: absolute; top:16px; left: 237px; display: none; }
-.correct_select{ position: absolute; top:16px; left: 337px; display: none; }
+.correct_select{ position: absolute; top:16px; left: 447px; display: none; }
+.correct_select1{ position: absolute; top:16px; left: 270px; display: none; }
+.select_button1 {
+  border: solid 2px #d3d3d3;
+  height:44px;
+  font-size:14px;
+  width:101px;
+  border-radius:6px;
+  appearance:none;
+  -moz-appearance:none;
+  -webkit-appearance:none;
+  background:url("../../data/images/register/select.png") no-repeat scroll right center transparent;
+  background-color:#efeeed;
+  padding-right: 19px;
+}
+.select_button1::-ms-expand { display: none; }
 /*学生注册样式*/
 #head{width:100%;height:100px;background-color:#FFF;position:absolute;}
 #head .headcontent{width:1000px;height:100px;margin:0 auto;}

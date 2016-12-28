@@ -1779,6 +1779,26 @@ function get_affiliate()
 }
 
 /**
+ * 通过邀请码获取推荐uid
+ *
+ * @access  public
+ * @param   void
+ *
+ * @return int
+ * @author xuanyan
+ **/
+function get_user_id_from_recommend_code($recommend_code)
+{
+    $sql= "SELECT user_id FROM ". $GLOBALS['ecs']->table('teachers') ." WHERE recommend_code = '$recommend_code'";
+    $res = $GLOBALS['db']->getOne($sql);
+    if($res!=null){
+        return $res;
+    }else{
+        return 0;
+    }
+}
+
+/**
  * 获得指定分类同级的所有分类以及该分类下的子分类
  *
  * @access  public
