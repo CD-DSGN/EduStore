@@ -102,7 +102,9 @@
             <div class="f_l" style="width:350px;"><!--左边-->
             <h5><span>{$lang.your_account}</span></h5><!--您的账户-->
             <div class="blank"></div>
-             <img src="images/学生.jpg" style="margin-left: 30px;">
+            <!--{if $info.is_teacher neq 1} -->
+            <img src="images/学生.jpg" style="margin-left: 30px;">
+            <!--{/if} -->
             <!--begin, added by chenggaoyuan-->
             <!--{if $info.is_teacher eq 1} -->
             <div class="teacher_integral">

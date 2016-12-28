@@ -35,7 +35,7 @@ a{ text-decoration:none; color:#666}
 /*边框*/
 .B_blue{border:1px solid #e6e6e6;}
 .B_input{border:1px solid #ccc;}
-.inputBg{border:1px solid #b3b3b3; width:190px; height:32px; font-size:16px; border-radius:5px;}
+.inputBg{border:1px solid #b3b3b3;   height:23px; line-height:23px;}
 /*字体颜色ecmoban.com*/
 .f1{color:#dd2727; font-weight:bold}
 .f2{color:#dd2727; font-weight:bold; margin-right:15px;}
@@ -607,13 +607,13 @@ margin-right: 6px;cursor: pointer;}
 .us_Submit_reg{border:none;  width:125px; height:40px; background:url(images/bnt_ur_reg.gif);}
 .usTxt{  float:right;padding: 3px;border: solid 1px #e4e4e4; margin-top:50px;}
 .regtitle{ width:510px; height:35px; background:url(images/user_tit2.gif)}
-.submit , .reset , .bnt_blue_1 , .bnt_bonus  , .bnt_blue_2 , .bnt_blue{ padding:5px 10px;  *padding:5px 1px; border: none; background:#F04a0a; width:200px; border-radius:6px; color:#FFF}
+.submit , .reset , .bnt_blue_1 , .bnt_bonus  , .bnt_blue_2 , .bnt_blue{ padding:5px 10px; cursor:pointer; *padding:5px 1px; border: none; background:#F03410; color:#FFF;border-radius:8%;}
     /*注册*/
 .usBox_2{background:#fff url(images/usBox_2bg.gif) 550px center no-repeat ; text-align:left; padding:43px 153px 60px 123px;}
 .usBox_2 .regtitle{height:30px; background:url(images/ur_bg.gif) no-repeat 0px -34px;}
 .actionSub a{color:#000; text-decoration:underline;background:url(images/ur_bg.gif) no-repeat 0px -68px; padding-left:14px;}
 
-.box_1 .userCenterBox .userMenu{top:350px;}
+
 .box_1 .userCenterBox .userMenu a{letter-spacing:3px; font-size:16px;  display:block; height:65px; line-height:65px; text-decoration:none; margin:0;padding-left:3px;cursor:pointer;text-align:center;}
 .box_1 .userCenterBox .userMenu a:hover{background:#F2F2F2;opacity:0.8;font-family:"方正静蕾简体";font-size:20px; color:#256885}
 .box_1 .userCenterBox .userMenu a.curs{font-weight:bold;background:#E5E5E5;font-family:"方正静蕾简体";font-size:20px; color:#256885}
@@ -800,14 +800,14 @@ font-size: 8pt;font-family: sans-serif;}
 /*QQ END*/
 .course_name{height:25px}
 
-.subscription_span a {float: right; height: 26px; line-height: 26px; padding: 0 10px 0 23px; margin-right: 10px; background: #c43926 url(images/icon_add02.gif) no-repeat 6px center; border-radius: 3px; color: #fff; font-size: 13px; font-weight: normal; text-align: center; cursor:pointer;}
-.subscription_span a:hover { text-decoration:none; background-color:#00C;}
+.subscription_span a {float: right; height: 26px; line-height: 26px; padding: 0 10px 0 23px; margin-right: 10px; background: #f03410 url(images/icon_add02.gif) no-repeat 6px center; border-radius: 3px; color: #fff; font-size: 13px; font-weight: normal; text-align: center; cursor:pointer;}
+.subscription_span a:hover { text-decoration:none; background-color:#256885;}
 
-.subscription_cancel_span a {float: right; height: 26px; line-height: 26px; padding: 0 10px 0 10px; margin-right: 40px; background: #c43926 no-repeat 6px center; border-radius: 3px; color: #fff; font-size: 13px; font-weight: normal; text-align: center; cursor:pointer;}
-.subscription_cancel_span a:hover { text-decoration:none; background-color:#00C;}
+.subscription_cancel_span a {float: right; height: 26px; line-height: 26px; padding: 0 10px 0 10px; margin-right: 40px; background: #f03410 no-repeat 6px center; border-radius: 3px; color: #fff; font-size: 13px; font-weight: normal; text-align: center; cursor:pointer;}
+.subscription_cancel_span a:hover { text-decoration:none; background-color:#256885;}
 
-.subscription_span_act a {float: right; height: 20px; line-height: 20px; padding: 0 10px 0 10px; margin-right: 70px; background: #c43926; border-radius: 3px; color: #fff; font-size: 13px; font-weight: normal; text-align: center; cursor:pointer;}
-.subscription_span_act a:hover { text-decoration:none; background-color:#00C;}
+.subscription_span_act a {float: right; height: 20px; line-height: 20px; padding: 0 10px 0 10px; margin-right: 70px; background: #f03410; border-radius: 3px; color: #fff; font-size: 13px; font-weight: normal; text-align: center; cursor:pointer;}
+.subscription_span_act a:hover { text-decoration:none; background-color:#256885;}
 
 .teacher_name_span {font-weight: bold; height: 26px; line-height: 26px;}
 
@@ -820,10 +820,10 @@ font-size: 8pt;font-family: sans-serif;}
 .teacherSearch-input-wp label{line-height: 30px; height: 30px; position: absolute; left: 8px; top: 0; z-index: 1; font-size: 14px; display: inline; color: #666;}
 .teacherSearch-input-wp.focus label{ color: #ccc;}
 .teacherSearch-input-wp.fill label{ display: none;}
-.teacherSearch-form button{position: absolute; right: 0; top: 0; z-index: 1; width: 50px; border: 0 none; font-size: 16px; letter-spacing: 4px; cursor: pointer; color: #FFF; background-color: #C00; height: 34px; overflow: hidden; font-family: '\5FAE\8F6F\96C5\9ED1',arial,"\5b8b\4f53";}
+.teacherSearch-form button{position: absolute; right: 0; top: 0; z-index: 1; width: 50px; border: 0 none; font-size: 16px; letter-spacing: 4px; cursor: pointer; color: #FFF; background-color: #f03410; height: 34px; overflow: hidden; font-family: '\5FAE\8F6F\96C5\9ED1',arial,"\5b8b\4f53";}
 /*关注教师页面返回按钮的样式*/
-.teacher_return_button{width:60px;height:30px;background-color:#CC0000;border:none;border-radius:12px;font-size:15px;margin-top:20px;color:#FFFFFF;cursor:pointer;}
-:hover.teacher_return_button{background-color:#0033FF;}
+.teacher_return_button{width:60px;height:30px;background-color:#f03410;border:none;border-radius:12px;font-size:15px;margin-top:20px;color:#FFFFFF;cursor:pointer;}
+:hover.teacher_return_button{background-color:#256885;}
 
 /*new 分类栏*/
 .main-nav-list ul li {float:left;}
@@ -857,9 +857,9 @@ font-size: 8pt;font-family: sans-serif;}
 /* 教师注册样式 */
 #register_head{ width: 1920px; height: 100px; background: #fff; margin: auto; position: relative; clear: both; }
 .head_logo{ position: relative; float: left; width: 156px; height: 100px; left: 400px;  }
-.head_text{ position: relative; float: right; height: 100px; width: 200px; font-size: 16px; right: 450px; top: 58px;}
+.head_text{ position: relative; float: right; height: 100px; width: 200px; font-size: 16px; right: 450px; top: 38px;}
 #body_img{ width:1920px; height:698px; background:url(../../data/images/bkg.png) no-repeat; border-top:1px solid #ecebeb; border-bottom:1px solid #ecebeb;}
-#teacher_register{ position: relative; width: 865px; height: 770px; margin: auto; top: 68px; border:2px solid #eee; border-radius: 6px; background-color: #fff; }
+#teacher_register{box-shadow:0 0 1px; position: relative; width: 865px; height: 700px; margin: auto;  border:2px solid #eee; border-radius: 6px; background-color: #fff; }
 #register_status{ position: relative; width: 740px; height: 90px; border-bottom: 2px solid #d0d0d0; clear: both;  }
 #register_status p{ width: 100px; height: 40px; float: left; margin-left: 40px; line-height: 40px; margin-top: 50px; font-size: 24px;  }
 #register_status ul{ float: right; clear: both; margin-top: -33px; }
@@ -868,19 +868,20 @@ font-size: 8pt;font-family: sans-serif;}
 #register_form{ width: 865px; height: 610px; }
 #create_account{ position: relative; width: 100%; height: 450px; margin: auto; top: 112px; }
 #create_account div{ width: 450px; height: 80px; position: relative; line-height: 42px; }
-.register_info{ width: 100px; height:80px; text-align: right; font-size: 18px; display: inline-block; line-height: 40px; }
+.register_info{ width: 90px; height:80px; text-align: right; font-size: 18px; display: inline-block; line-height: 40px; }
 .register_input{ width: 300px; height: 42px; border: 2px solid #d3d3d3; border-radius: 6px; margin-left: 22px; font-size: 20px; outline: none; }
 .register_input:focus{ border:2px solid #ffb392; border-radius: 6px; }
 .identifyCode_input{ width: 155px; height: 42px; border: 2px solid #d3d3d3; border-radius: 6px; margin-left: 22px; font-size: 20px; outline: none; }
 .identifyCode_input:focus{ border:2px solid #ffb392; border-radius: 6px; }
 .get_identifyCode{ width: 134px; height: 48px; border: 2px solid #d3d3d3; border-radius: 6px; background-color: #f1f1f1; margin-left: 10px; color: #353032; font-size: 16px; outline: none; padding: 1px; }
-.next_step{ width: 300px; height: 52px; background-color: #ff6825; color: #fdfdfd; border: 2px solid #ff6825; border-radius: 6px; font-size: 30px; margin-left: 112px; text-align: center; line-height: 48px; padding: 0px; outline: none; }
+.next_step{ width: 150px; height: 52px; background-color: #ff6825; color: #fdfdfd; border: 2px solid #ff6825; border-radius: 6px; font-size: 26px; margin-left: 187px; text-align: center; line-height: 32px;  outline: none; }
 /*.select_button{ width: 200px; height: 48px; margin-left: 22px; border: 2px solid #d3d3d3; border-radius: 6px; background-color: #efeeed; font-size: 20px; outline: none;}*/
-.select_button{ width: 130px; height: 42px; font-size: 14px; border: none; padding: 1px; outline: none; background-color: #efeeed; }
+.select_button{ width: 200px; height: 42px; font-size: 20px; border: none; padding: 1px; outline: none; background-color: #efeeed; }
+.select_button1{height:38px;font-size:14px;width:100px;}
 .buy_now_button{ width: 178px; height: 54px; background-color: #ff6825; color: #fff; font-size: 30px; border:2px solid #ff6825; border-radius: 6px; outline: none; }
 #improve_info{ position: relative; width: 100%; height: 450px; margin: auto; top: 46px; }
 #improve_info div{ width: 450px; height: 80px; position: relative; }
-.register{ width: 300px; height: 48px; border:2px solid #ff6825; border-radius: 6px; color: #ff6825; background-color: #fff; margin-left: 125px; font-size: 22px; margin-top: 0px; outline: none; }
+.register{ width: 150px; height: 48px; border:2px solid #ff6825; border-radius: 6px; color: #ff6825; background-color: #fff; margin-left: 187px; font-size: 22px; margin-top: 5px; outline: none; }
 #register_success{ position: relative; width: 100%; height: 450px; margin: auto; top: 116px; }
 #register_success div{ width: 450px; height: 60px; margin: auto; text-align: center;}
 /*#foot{ height: 170px; width: 1920px; text-align: center; background-color: #f9f9f9; position: relative; line-height: 170px; }*/
@@ -889,7 +890,7 @@ font-size: 8pt;font-family: sans-serif;}
 .agreement_tip{ position: absolute; top: 42px; left: 2px; font-size: 12px; line-height: 16px; }
 .correct_input{ position: absolute; top:16px; left: 382px; display: none; }
 .correct_input_identifyCode{ position: absolute; top:16px; left: 237px; display: none; }
-.correct_select{ position: absolute; top:16px; left: 447px; display: none; }
+.correct_select{ position: absolute; top:16px; left: 337px; display: none; }
 .correct_select1{ position: absolute; top:16px; left: 270px; display: none; }
 .select_button1 {
   border: solid 2px #d3d3d3;
@@ -909,13 +910,13 @@ font-size: 8pt;font-family: sans-serif;}
 #head{width:100%;height:100px;background-color:#FFF;position:absolute;}
 #head .headcontent{width:1000px;height:100px;margin:0 auto;}
 .divleft{float:left;}
-.divright{float:right;margin-top:58px;}
+.divright{float:right;margin-top:38px;}
 .divright span{font-size:16px;}
 .divright span a{color:#7be6b0;text-decoration:none;}
 #content{width:100%;height:697px;position:absolute;top:100px;background:url(../../data/images/studentregister/bg.png);}
 #footer{position:absolute;top:797px;height:160px;background-color:#f9f9f9;width:100%;}
 #footer p{margin-top:110px;}
-#register{position:absolute;top:168px;left:50%;margin-left:-433px;background-color:#FFF;width:866px;height:700px;border-radius:8px;overflow:hidden;box-shadow: 0 0 1px;}
+#register{position:absolute;top:102px;left:50%;margin-left:-433px;background-color:#FFF;width:866px;height:700px;border-radius:8px;overflow:hidden;box-shadow: 0 0 1px;}
 #register .register-top{height:89px;width:780px;margin:0 auto;border-bottom:1px solid #d0d0d0;}
 .register-top .span1{margin-top:55px;float:left;color:#353032;font-size:24px;}
 .register-top .span2{margin-top:70px;float:right;font-size:10px;color:#898989;}
@@ -925,7 +926,7 @@ a{font-size:14px;text-decoration:none;color:#717171;}
 #register-content1 .inputBg{height:40px;width:300px;border:2px solid #d3d3d3;font-size:20px;border-radius:6px;outline:none;}
 #register-content1 .label{padding:0 22px 30px 0;text-align:right;font-size:18px;}
 #checkNumber{width:148px;height:46px;background-color:#f1f1f1;border:2px solid #d3d3d3;border-radius:6px;cursor:pointer;font-size:18px;color:#373230;}
-#us_Submit_reg{width:304px;height:50px;background-color:#ff6825;border:2px solid #ff6825;border-radius:6px;font-size:18px;cursor:pointer;margin-top:10px;color:#FFF;box-shadow: 0 0 1px #ff6825;}
+#us_Submit_reg{width:154px;height:50px;background-color:#ff6825;border:2px solid #ff6825;border-radius:6px;font-size:18px;cursor:pointer;margin-top:10px;margin-left:85px; color:#FFF;box-shadow: 0 0 1px #ff6825;}
 #register-content2{margin-left:auto;margin-right:auto;margin-top:150px;width:180px;display:none;}
 #register-content2 img{margin-left:60px;}
 #register-content2 .Timelast{font-size:14px;margin-left:22px;}
