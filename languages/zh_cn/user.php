@@ -600,7 +600,7 @@ $_LANG['affiliate_stats'][2] = '取消分成';
 $_LANG['affiliate_stats'][3] = '已撤销';
 $_LANG['affiliate_stats'][4] = '等待买家付款';
 
-$_LANG['level_point'] = '积分分成百分比';
+$_LANG['level_point'] = '汇积分百分比';
 $_LANG['level_money'] = '现金分成百分比';
 
 $_LANG['affiliate_status'] = '分成状态';

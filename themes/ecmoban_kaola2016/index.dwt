@@ -67,7 +67,7 @@
 			  <div class="logo-mid-left">
 			   <div class="shop-left">
 				<form action="search.php" method="get" onSubmit="return checkSearchForm(this)">
-					<input style="color:#7C7C7C;" type="text" name="keywords" id="keyword" value="四年级语文" class="search-text" onfocus="javascript:if(this.value=='四年级语文'){this.value=''}" onblur="javascript:if(this.value==''){this.value='四年级语文'}"/><button class="btn-search" type="submit">搜索</button>
+					<input style="color:#7C7C7C;" type="text" name="keywords" id="keyword" value="四年级语文" class="search-text" onfocus="javascript:if(this.value=='四年级语文'){this.value=''}" onblur="javascript:if(this.value==''){this.value='四年级语文'}"/><button class="btn-search" type="submit" style="height:35px;margin-left:-65px;">搜索</button>
 					<script type="text/javascript">
                     {literal}
                     <!--
@@ -95,16 +95,21 @@
 					</div>
 			  </div>
 			  <div class="logo-mid-right">
-			  	<img src="images/try.jpg" >
+			  	<img src="./images/try.jpg" >
 			  </div>
 		    </div>
+
+
 			<div class="logo-right">
-				<a href=""><img  src="images/手机.png" alt="" width="21" height="21">手机汇师
-			          <ul>
-						<li><img src="images/2dcode-app3.jpg" alt="" width="100" height="100"></li>
-                      </ul>
+				<a href="" ><img  src="images/手机.png" alt="" width="21" height="21">手机汇师
+			          <!-- <ul>
+						<li><img src="images/2dcode-app3.jpg" alt="" width="100" height="100" ></li>
+                      </ul> -->
 				</a>
 			</div>
+
+
+			
 		</div>
 </div>
        <div class="nav-all">

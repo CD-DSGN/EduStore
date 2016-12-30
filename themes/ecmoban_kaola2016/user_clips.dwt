@@ -498,27 +498,27 @@
     <!-- {if $affiliate.on eq 1} -->
      <!-- {if $action eq 'affiliate'} -->
       <!-- {if !$goodsid || $goodsid eq 0} -->
-      <h5><span>{$lang.affiliate_detail}</span></h5>
+      <h5><span>{$lang.affiliate_detail}</span></h5><!--分成明细-->
       <div class="blank"></div>
-     {$affiliate_intro}
+    
     <!-- {if $affiliate.config.separate_by eq 0} -->
     <!-- 下线人数、分成 -->
     <div class="blank"></div>
-    <h5><span><a name="myrecommend">{$lang.affiliate_member}</a></span></h5>
+    <h5><span><a name="myrecommend">{$lang.affiliate_member}</a></span></h5><!--我的会员推荐-->
     <div class="blank"></div>
    <table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd">
     <tr align="center">
-      <td bgcolor="#ffffff">{$lang.affiliate_lever}</td>
-      <td bgcolor="#ffffff">{$lang.affiliate_num}</td>
-      <td bgcolor="#ffffff">{$lang.level_point}</td>
-      <td bgcolor="#ffffff">{$lang.level_money}</td>
+      <td bgcolor="#ffffff">{$lang.affiliate_lever}</td><!--等级-->
+      <td bgcolor="#ffffff">{$lang.affiliate_num}</td><!--人数-->
+      <td bgcolor="#ffffff">{$lang.level_point}</td><!--汇积分百分比-->
+      
     </tr>
     <!-- {foreach from=$affdb key=level item=val name=affdb} -->
     <tr align="center">
       <td bgcolor="#ffffff">{$level}</td>
       <td bgcolor="#ffffff">{$val.num}</td>
       <td bgcolor="#ffffff">{$val.point}</td>
-      <td bgcolor="#ffffff">{$val.money}</td>
+      
     </tr>
     <!-- {/foreach} -->
   </table>
@@ -532,26 +532,28 @@
 <h5><span>分成规则</span></h5>
 <div class="blank"></div>
 <table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd">
-    <tr align="center">
-      <td bgcolor="#ffffff">{$lang.order_number}</td>
-      <td bgcolor="#ffffff">{$lang.affiliate_money}</td>
-      <td bgcolor="#ffffff">{$lang.affiliate_point}</td>
-      <td bgcolor="#ffffff">{$lang.affiliate_mode}</td>
-      <td bgcolor="#ffffff">{$lang.affiliate_status}</td>
+    <!-- <tr align="center">
+      <td bgcolor="#ffffff">{$lang.order_number}</td>订单号
+      <td bgcolor="#ffffff">{$lang.affiliate_money}</td>现金分成
+      <td bgcolor="#ffffff">{$lang.affiliate_point}</td>积分分成
+      <td bgcolor="#ffffff">{$lang.affiliate_mode}</td>分成模式
+      <td bgcolor="#ffffff">{$lang.affiliate_status}</td>分成状态
     </tr>
-    <!-- {foreach from=$logdb item=val name=logdb} -->
+    {foreach from=$logdb item=val name=logdb}
     <tr align="center">
       <td bgcolor="#ffffff">{$val.order_sn}</td>
       <td bgcolor="#ffffff">{$val.money}</td>
       <td bgcolor="#ffffff">{$val.teacher_integral}</td>
-      <td bgcolor="#ffffff"><!-- {if $val.separate_type == 1 || $val.separate_type === 0} -->{$lang.affiliate_type.$val.separate_type}<!-- {else} -->{$lang.affiliate_type.$affiliate_type}<!-- {/if} --></td>
+      <td bgcolor="#ffffff">{if $val.separate_type == 1 || $val.separate_type === 0}{$lang.affiliate_type.$val.separate_type}{else}{$lang.affiliate_type.$affiliate_type}{/if}</td>
       <td bgcolor="#ffffff">{$lang.affiliate_stats[$val.is_separate]}</td>
-    </tr>
+    </tr> -->
     {foreachelse}
 <tr><td colspan="5" align="center" bgcolor="#ffffff">{$lang.no_records}</td>
 </tr>
     <!-- {/foreach} -->
     <!-- {if $logdb} -->
+
+
     <tr>
     <td colspan="5" bgcolor="#ffffff">
  <form action="{$smarty.server.PHP_SELF}" method="get">
@@ -576,28 +578,55 @@ function selectPage(sel)
 {/literal}
 //-->
 </script>
+
+
 <!-- /我的推荐清单 -->
 <div class="blank"></div>
-<h5><span>{$lang.affiliate_code}</span></h5>
+<h5><span>{$lang.affiliate_code}</span></h5><!--代码-->
 <div class="blank"></div>
-<table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd">
+<table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#ffffff">
 <tr>
+	<div class="top" style="margin-left: 200px;"><img src="images/链接.jpg" alt="" ></div>
+	<input style="margin-left:350px;margin-top: 10px" type="button" name="" value="点我复制网址" onClick="jsCopy(
+	)" ><br/>
+	<textarea style="margin-left:300px;margin-top: 10px" id="down" cols="24" rows="1">http:www.huishiclub.com/u=2</textarea>
+	<!-- <div  style="margin-left:320px;margin-top: 10px;"><a href=""><h4 id="down">http:www.huishiclub.com/u=2</h4></a></div> -->
+</tr>
+
+
+<!-- <tr>
 <td width="30%" bgcolor="#ffffff"><a href="{$shopurl}?u={$userid}" target="_blank" class="f6">{$shopname}</a></td>
 <td bgcolor="#ffffff"><input size="40" onclick="this.select();" type="text" value="&lt;a href=&quot;{$shopurl}?u={$userid}&quot; target=&quot;_blank&quot;&gt;{$shopname}&lt;/a&gt;" style="border:1px solid #ccc;" /> {$lang.recommend_webcode}</td>
 </tr>
+
 <tr>
 <td bgcolor="#ffffff"><a href="{$shopurl}?u={$userid}" target="_blank" title="{$shopname}"  class="f6"><img src="{$shopurl}{$logosrc}" /></a></td>
 <td bgcolor="#ffffff"><input size="40" onclick="this.select();" type="text" value="&lt;a href=&quot;{$shopurl}?u={$userid}&quot; target=&quot;_blank&quot; title=&quot;{$shopname}&quot;&gt;&lt;img src=&quot;{$shopurl}{$logosrc}&quot; /&gt;&lt;/a&gt;" style="border:1px solid #ccc;" /> {$lang.recommend_webcode}</td>
 </tr>
+
 <tr>
 <td bgcolor="#ffffff"><a href="{$shopurl}?u={$userid}" target="_blank" class="f6">{$shopname}</a></td>
 <td bgcolor="#ffffff"><input size="40" onclick="this.select();" type="text" value="[url={$shopurl}?u={$userid}]{$shopname}[/url]" style="border:1px solid #ccc;" /> {$lang.recommend_bbscode}</td>
 </tr>
+
 <tr>
 <td bgcolor="#ffffff"><a href="{$shopurl}?u={$userid}" target="_blank" title="{$shopname}" class="f6"><img src="{$shopurl}{$logosrc}" /></a></td>
 <td bgcolor="#ffffff"><input size="40" onclick="this.select();" type="text" value="[url={$shopurl}?u={$userid}][img]{$shopurl}{$logosrc}[/img][/url]" style="border:1px solid #ccc;" /> {$lang.recommend_bbscode}</td>
-</tr>
+</tr> -->
+
 </table>
+
+<script type="text/javascript" language="JavaScript">
+	function jsCopy(){
+		var Ur12=document.getElementById("down");
+
+		Ur12.select();
+
+		//document.write(x);
+		document.execCommand("Copy");
+		alert("网址已复制");
+	}
+</script>
 
         <!-- {else} -->
         <!-- 单个商品推荐 -->

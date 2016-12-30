@@ -120,9 +120,10 @@ span{
     color: #FFF;
     background-color:#ff6825;
     cursor: pointer;
-    height:33px;
+    
     width:65px;
     border: none;
+    height:35px;
     margin-left:-65px;
 }
 .logo-mid-right{
