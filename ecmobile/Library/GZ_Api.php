@@ -40,6 +40,7 @@ abstract class GZ_Api
         15  =>  '邀请码无效',
         100 => '您的帐号已过期',
         101 => '协议格式错误',
+        106 =>  '用户信息过期',
         501 => '协议格式错误',
         502 => '协议格式错误',
         503 => '合同期终止',
@@ -86,6 +87,23 @@ abstract class GZ_Api
 		if (empty($_SESSION['user_id'])) {
             self::outPut(100);
 		}
+    }
+
+    public static function simple_authSession()
+    {
+        if (!isset(self::$session['uid']) || !isset(self::$session['sid'])) {
+            self::outPut(106);
+        }
+
+        /* 初始化session */
+        include(EC_PATH . '/includes/cls_session.php');
+        $sess = new GZ_session($GLOBALS['db'], $GLOBALS['ecs']->table('sessions'), $GLOBALS['ecs']->table('sessions_data'), 'ECS_ID', self::$session['sid']);
+
+        define('SESS_ID', $sess->get_session_id());
+
+        if (empty($_SESSION['user_id'])) {
+            self::outPut(106);
+        }
     }
 
     public static function outPut($data, $pager = NULL)
