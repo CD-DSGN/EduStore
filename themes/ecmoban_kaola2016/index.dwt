@@ -207,6 +207,7 @@
 
 	</div>
 </div>	
+
 	<div class="goods-showing">
 		{foreach from=$cat_id_goods key=myId item=goodss}
 		{if $myId eq $cat.id}
@@ -230,6 +231,8 @@
 		{/if}
 		{/foreach}
 	</div>
+
+
 </div>
 {/foreach}
 <!--TemplateEndEditable -->
