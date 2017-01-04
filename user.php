@@ -3185,7 +3185,7 @@ function isMobile($mobile) {
 /*end, add by chenggaoyuan for judging a telephone number*/
 
 function generate_recommend_code($num) {
-    $num = intval($num);
+    $num = intval($num)+1260;
     if ($num <= 0)
         return false;
         $charArr = array("1","2","3","4","5","6","7","8","9",'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');

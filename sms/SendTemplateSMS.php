@@ -85,7 +85,7 @@ function sendIdentifyCode()
         $randomIdentifyCode = rand(1000,9999);  //生成4位数的随机码
         $phone = $_POST['mobile_phone'];
         setcookie('identifyCode',$randomIdentifyCode,time()+300,'/');   //将随机码保存至cookie中，生命期120s
-        sendTemplateSMS($phone, array($randomIdentifyCode,'5'),"141220");
+        sendTemplateSMS($phone, array($randomIdentifyCode,'5'),"142535");
     }
 }
 
