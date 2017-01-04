@@ -109,7 +109,7 @@ if (!$smarty->is_cached('index.dwt', $cache_id))
 
     $smarty->assign('feed_url',        ($_CFG['rewrite'] == 1) ? 'feed.xml' : 'feed.php'); // RSS URL
 
-    $smarty->assign('parents_category',  get_parents_category());    //获取所有分类中parent_id = 0的商品
+    $smarty->assign('parents_category',get_parents_category());    //获取所有分类中parent_id = 0的商品
     $smarty->assign('categories',      get_categories_tree()); // 分类树
     $smarty->assign('helps',           get_shop_help());       // 网店帮助
     $smarty->assign('top_goods',       get_top10());           // 销售排行
@@ -125,7 +125,7 @@ if (!$smarty->is_cached('index.dwt', $cache_id))
     $smarty->assign('new_articles',    index_get_new_articles());   // 最新文章
     $smarty->assign('group_buy_goods', index_get_group_buy());      // 团购商品
     $smarty->assign('auction_list',    index_get_auction());        // 拍卖活动
-    $smarty->assign('cat_id_goods',    cat_id_goods(10));
+    $smarty->assign('cat_id_goods',    cat_id_goods(10));               //商品数量的更改
     $smarty->assign('shop_notice',     $_CFG['shop_notice']);       // 商店公告
     /*jdy add 0816 添加首页幻灯插件*/
     $smarty->assign("flash",get_flash_xml());
