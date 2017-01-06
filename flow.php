@@ -206,120 +206,145 @@ elseif ($_REQUEST['step'] == 'link_buy')
 elseif ($_REQUEST['step'] == 'login')
 {
     include_once('languages/'. $_CFG['lang']. '/user.php');
-
     /*
-     * 用户登录注册
+     * 用户登录
      */
-    if ($_SERVER['REQUEST_METHOD'] == 'GET')
-    {
-        $smarty->assign('anonymous_buy', $_CFG['anonymous_buy']);
+    include_once('includes/lib_passport.php');
+    if (!empty($_POST['act']) && $_POST['act'] == 'signin') {
 
-        /* 检查是否有赠品，如果有提示登录后重新选择赠品 */
-        $sql = "SELECT COUNT(*) FROM " . $ecs->table('cart') .
-                " WHERE session_id = '" . SESS_ID . "' AND is_gift > 0";
-        if ($db->getOne($sql) > 0)
+        $_POST['password']=isset($_POST['password']) ? trim($_POST['password']) : '';
+        if ($user->login($_POST['username'], $_POST['password'],isset($_POST['remember'])))
         {
-            $smarty->assign('need_rechoose_gift', 1);
-        }
-
-        /* 检查是否需要注册码 */
-        $captcha = intval($_CFG['captcha']);
-        if (($captcha & CAPTCHA_LOGIN) && (!($captcha & CAPTCHA_LOGIN_FAIL) || (($captcha & CAPTCHA_LOGIN_FAIL) && $_SESSION['login_fail'] > 2)) && gd_version() > 0)
-        {
-            $smarty->assign('enabled_login_captcha', 1);
-            $smarty->assign('rand', mt_rand());
-        }
-        if ($captcha & CAPTCHA_REGISTER)
-        {
-            $smarty->assign('enabled_register_captcha', 1);
-            $smarty->assign('rand', mt_rand());
-        }
-    }
-    else
-    {
-        include_once('includes/lib_passport.php');
-        if (!empty($_POST['act']) && $_POST['act'] == 'signin')
-        {
-            $captcha = intval($_CFG['captcha']);
-            if (($captcha & CAPTCHA_LOGIN) && (!($captcha & CAPTCHA_LOGIN_FAIL) || (($captcha & CAPTCHA_LOGIN_FAIL) && $_SESSION['login_fail'] > 2)) && gd_version() > 0)
-            {
-                if (empty($_POST['captcha']))
-                {
-                    show_message($_LANG['invalid_captcha']);
-                }
-
-                /* 检查验证码 */
-                include_once('includes/cls_captcha.php');
-
-                $validator = new captcha();
-                $validator->session_word = 'captcha_login';
-                if (!$validator->check_word($_POST['captcha']))
-                {
-                    show_message($_LANG['invalid_captcha']);
-                }
-            }
-
-            $_POST['password']=isset($_POST['password']) ? trim($_POST['password']) : '';
-            if ($user->login($_POST['username'], $_POST['password'],isset($_POST['remember'])))
-            {
-                update_user_info();  //更新用户信息
-                recalculate_price(); // 重新计算购物车中的商品价格
-
-                /* 检查购物车中是否有商品 没有商品则跳转到首页 */
-                $sql = "SELECT COUNT(*) FROM " . $ecs->table('cart') . " WHERE session_id = '" . SESS_ID . "' ";
-                if ($db->getOne($sql) > 0)
-                {
-                    ecs_header("Location: flow.php?step=checkout\n");
-                }
-                else
-                {
-                    ecs_header("Location:index.php\n");
-                }
-
-                exit;
-            }
-            else
-            {
-                $_SESSION['login_fail']++;
-                show_message($_LANG['signin_failed'], '', 'flow.php?step=login');
-            }
-        }
-        elseif (!empty($_POST['act']) && $_POST['act'] == 'signup')
-        {
-            if ((intval($_CFG['captcha']) & CAPTCHA_REGISTER) && gd_version() > 0)
-            {
-                if (empty($_POST['captcha']))
-                {
-                    show_message($_LANG['invalid_captcha']);
-                }
-
-                /* 检查验证码 */
-                include_once('includes/cls_captcha.php');
-
-                $validator = new captcha();
-                if (!$validator->check_word($_POST['captcha']))
-                {
-                    show_message($_LANG['invalid_captcha']);
-                }
-            }
-
-            if (register(trim($_POST['username']), trim($_POST['password']), trim($_POST['email'])))
-            {
-                /* 用户注册成功 */
-                ecs_header("Location: flow.php?step=consignee\n");
-                exit;
-            }
-            else
-            {
-                $err->show();
-            }
+            update_user_info();  //更新用户信息
+            //recalculate_price(); // 重新计算购物车中的商品价格
+            ecs_header("Location:index.php\n");
+            exit;
         }
         else
         {
-            // TODO: 非法访问的处理
+            $_SESSION['login_fail']++;
+            show_message($_LANG['signin_failed'], '', 'flow.php?step=login');
         }
     }
+
 }
+//elseif ($_REQUEST['step'] == 'login')
+//{
+//    include_once('languages/'. $_CFG['lang']. '/user.php');
+//
+//    /*
+//     * 用户登录注册
+//     */
+//    if ($_SERVER['REQUEST_METHOD'] == 'GET')
+//    {
+//        $smarty->assign('anonymous_buy', $_CFG['anonymous_buy']);
+//
+//        /* 检查是否有赠品，如果有提示登录后重新选择赠品 */
+//        $sql = "SELECT COUNT(*) FROM " . $ecs->table('cart') .
+//                " WHERE session_id = '" . SESS_ID . "' AND is_gift > 0";
+//        if ($db->getOne($sql) > 0)
+//        {
+//            $smarty->assign('need_rechoose_gift', 1);
+//        }
+//
+//        /* 检查是否需要注册码 */
+//        $captcha = intval($_CFG['captcha']);
+//        if (($captcha & CAPTCHA_LOGIN) && (!($captcha & CAPTCHA_LOGIN_FAIL) || (($captcha & CAPTCHA_LOGIN_FAIL) && $_SESSION['login_fail'] > 2)) && gd_version() > 0)
+//        {
+//            $smarty->assign('enabled_login_captcha', 1);
+//            $smarty->assign('rand', mt_rand());
+//        }
+//        if ($captcha & CAPTCHA_REGISTER)
+//        {
+//            $smarty->assign('enabled_register_captcha', 1);
+//            $smarty->assign('rand', mt_rand());
+//        }
+//    }
+//    else
+//    {
+//        include_once('includes/lib_passport.php');
+//        if (!empty($_POST['act']) && $_POST['act'] == 'signin')
+//        {
+//            $captcha = intval($_CFG['captcha']);
+//            if (($captcha & CAPTCHA_LOGIN) && (!($captcha & CAPTCHA_LOGIN_FAIL) || (($captcha & CAPTCHA_LOGIN_FAIL) && $_SESSION['login_fail'] > 2)) && gd_version() > 0)
+//            {
+//                if (empty($_POST['captcha']))
+//                {
+//                    show_message($_LANG['invalid_captcha']);
+//                }
+//
+//                /* 检查验证码 */
+//                include_once('includes/cls_captcha.php');
+//
+//                $validator = new captcha();
+//                $validator->session_word = 'captcha_login';
+//                if (!$validator->check_word($_POST['captcha']))
+//                {
+//                    show_message($_LANG['invalid_captcha']);
+//                }
+//            }
+//
+//            $_POST['password']=isset($_POST['password']) ? trim($_POST['password']) : '';
+//            if ($user->login($_POST['username'], $_POST['password'],isset($_POST['remember'])))
+//            {
+//                update_user_info();  //更新用户信息
+//                recalculate_price(); // 重新计算购物车中的商品价格
+//
+//                /* 检查购物车中是否有商品 没有商品则跳转到首页 */
+//                $sql = "SELECT COUNT(*) FROM " . $ecs->table('cart') . " WHERE session_id = '" . SESS_ID . "' ";
+//                if ($db->getOne($sql) > 0)
+//                {
+//                    ecs_header("Location: flow.php?step=checkout\n");
+//                }
+//                else
+//                {
+//                    ecs_header("Location:index.php\n");
+//                }
+//
+//                exit;
+//            }
+//            else
+//            {
+//                $_SESSION['login_fail']++;
+//                show_message($_LANG['signin_failed'], '', 'flow.php?step=login');
+//            }
+//        }
+//        elseif (!empty($_POST['act']) && $_POST['act'] == 'signup')
+//        {
+//            if ((intval($_CFG['captcha']) & CAPTCHA_REGISTER) && gd_version() > 0)
+//            {
+//                if (empty($_POST['captcha']))
+//                {
+//                    show_message($_LANG['invalid_captcha']);
+//                }
+//
+//                /* 检查验证码 */
+//                include_once('includes/cls_captcha.php');
+//
+//                $validator = new captcha();
+//                if (!$validator->check_word($_POST['captcha']))
+//                {
+//                    show_message($_LANG['invalid_captcha']);
+//                }
+//            }
+//
+//            if (register(trim($_POST['username']), trim($_POST['password']), trim($_POST['email'])))
+//            {
+//                /* 用户注册成功 */
+//                ecs_header("Location: flow.php?step=consignee\n");
+//                exit;
+//            }
+//            else
+//            {
+//                $err->show();
+//            }
+//        }
+//        else
+//        {
+//            // TODO: 非法访问的处理
+//        }
+//    }
+//}
 elseif ($_REQUEST['step'] == 'consignee')
 {
     /*------------------------------------------------------ */
@@ -2167,6 +2192,13 @@ else
 {
     /* 标记购物流程为普通商品 */
     $_SESSION['flow_type'] = CART_GENERAL_GOODS;
+
+    if (empty($_SESSION['direct_shopping']) && $_SESSION['user_id'] == 0)
+    {
+        /* 用户没有登录且没有选定匿名购物，转向到登录页面 */
+        ecs_header("Location: flow.php?step=login\n");
+        exit;
+    }
 
     /* 如果是一步购物，跳到结算中心 */
     if ($_CFG['one_step_buy'] == '1')
