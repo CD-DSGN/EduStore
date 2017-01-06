@@ -62,10 +62,13 @@ span{
 	float:none;	
 	margin-top: 2px;
 	background:#fff;
+	z-index:100;
 }
 .rightArea ul li ul{
 	position: absolute;
 	display:none;
+
+    
 }
 .rightArea ul li:hover ul{
 	display:block;
@@ -166,7 +169,6 @@ span{
 	float: right;	
 	height:80px;
     line-height:80px;
-	color: #ff6825;
     //background: red;
 }
 

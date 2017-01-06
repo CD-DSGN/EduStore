@@ -4,10 +4,11 @@
  <head>
 	<title>汇师网</title>
 	<link rel="stylesheet" type="text/css" href="./themes/ecmoban_kaola2016/css/first.css">
+    <script type="text/javascript" src="./themes/ecmoban_kaola2016/js/jquery-1.7.2.min.js"></script>
 	<script type="text/javascript" src="./themes/ecmoban_kaola2016/js/setHomeSetFav.js"></script>
 	<script type="text/javascript" src="./themes/ecmoban_kaola2016/js/myfocus-2.0.1.min.js"></script>
 	<script type="text/javascript" src="./themes/ecmoban_kaola2016/js/mF_fancy.js"></script>
-	<link rel="stylesheet" type="text/css" href="./themes/ecmoban_kaola2016/css/mF_fancy.css">
+		<link rel="stylesheet" type="text/css" href="./themes/ecmoban_kaola2016/css/mF_fancy.css">
 	<link rel="icon" href="animated_favicon.gif" type="image/gif" />
 	<script src="../js/jquery-1.11.3.min.js"></script>
 	<script type="text/javascript">
@@ -15,9 +16,114 @@
 			id:'picBox'
 		});
 	</script>
+	<style type="text/css">
+a,img{border:0;}
+
+/* leftsead */
+#leftsead{width:131px;height:143px;position:fixed;top:258px;right:0px;}
+*html #leftsead{margin-top:258px;position:absolute;top:expression(eval(document.documentElement.scrollTop));}
+#leftsead li{width:131px;height:53px;}
+#leftsead li img{float:right;border-bottom-left-radius:5px;border-top-left-radius:5px;}
+#leftsead li a{height:49px;float:right;display:block;min-width:47px;max-width:131px;}
+#leftsead li a .shows{display:block;}
+#leftsead li a .hides{margin-right:-166px;cursor:pointer;cursor:hand;}
+#leftsead li a.youhui .hides{display:none;position:absolute;right:216px;top:2px;}
+       
+        .white_content { 
+            display: none; 
+            position:fixed; 
+            top: 35%; 
+            left: 38%; 
+            width: 463px; 
+            height: 292px; 
+            margin-top: -147px;
+            margin-left: -232.5px;
+            margin:0;
+            padding: 0;
+            background-color: blue; 
+            z-index:2147483649; 
+            border-radius: 5px;
+            box-shadow: 0 0 15px #d4d4d4;
+           
+        } 
+        .white_content_top{
+        	width: 463px;
+        	height:50px;
+        	background: green;
+        }
+        .white_content_left{
+        
+        	margin-left: 80px;
+        	width: 150px;
+        	height: 180px;
+        	background: red;
+        	float: left;
+        }
+        .white_content_right{
+        
+        	margin-left: 20px;
+        	width: 150px;
+        	height: 180px;
+        	background: yellow;
+        	float: left;
+        }
+</style>
+
+
  </head>
 
 <body>
+
+<div id="leftsead">
+	<ul>
+	     <li>
+			<a id="top_btn">
+				<img src="images/ll06.png" width="47" height="49" class="hides"/>
+				<img src="images/l06.png" width="47" height="49" class="shows" />
+			</a>
+		</li>
+
+		<li>
+			<a href="javascript:void(0)" onclick="document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'">
+		
+				<img src="images/ll03.png"  width="47" height="49" class="hides"/>
+				<img src="images/l03.png" width="47" height="49" class="shows" />
+				
+			</a>
+
+			<div id="light" class="white_content">
+			  <div class="white_content_top"><a href = "javascript:void(0)" onclick = "document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">点这里关闭本窗口</a>
+			  </div>
+				  <div class="white_content_left">
+				  	<img src="images/QQ.jpg" style="margin-top: 30px;margin-right: 35px;">
+				  </div>
+				  <div class="white_content_right">
+				  	<img src="images/QQ.jpg" style="margin-top: 30px;margin-right: 35px;">
+				  </div> 
+			   <div class="white_content_bottom" style="margin-top:210px;margin-right: 20px;"><a href="http://im.qq.com/">安装QQ</a></div>
+			</div>
+		</li>
+
+		<li>
+			<a href="">
+					<img src="images/ll02.png" width="166" height="49" class="hides"/>
+				<img src="images/l04.png" width="47" height="49" class="shows" />
+			</a>
+		</li>
+
+		<li>
+			<a class="youhui">
+				<img src="images/l02.png" width="47" height="49" class="shows" />
+				<img src="images/2dcode-app3.jpg" width="196" height="205" class="hides" usemap="#taklhtml"/>
+			</a>
+		</li>
+	
+	
+	
+	</ul>
+</div>
+
+
 
 	<div class="top">
 
@@ -91,8 +197,8 @@
                 </div>
 					<div class="shopcar">
 						<img src="images/购物车.png" style="width: 28px;height: 28px; margin-top: 4px; float: left;">
-						<a href="">购物车</a>
-						<span class="num" style="float: left;margin-left: 3px; width: 20px; height:20px;line-height:20px;vertical-align: middle; margin-top:10px;border-radius: 50%; background: white; text-align: center;">0</span>
+						<a href="flow.php">购物车</a>
+						<span class="num" style="float: left;margin-left: 3px; width: 20px; height:20px;line-height:20px;vertical-align: middle; margin-top:10px;border-radius: 50%; background: white; text-align: center;"><a href="flow.php" style="color:red;margin-left: 6px;margin-top: -9px;">0</a></span>
 					</div>
 			  </div>
 			  <div class="logo-mid-right">
@@ -259,5 +365,31 @@ $(function(){
 		i++;	
 	});
 })
+</script>
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+	$("#leftsead a").hover(function(){
+		if($(this).prop("className")=="youhui"){
+			$(this).children("img.hides").show();
+		}else{
+			$(this).children("img.hides").show();
+			$(this).children("img.shows").hide();
+			$(this).children("img.hides").animate({marginRight:'0px'},'slow'); 
+		}
+	},function(){ 
+		if($(this).prop("className")=="youhui"){
+			$(this).children("img.hides").hide('slow');
+		}else{
+			$(this).children("img.hides").animate({marginRight:'-143px'},'slow',function(){$(this).hide();
+				$(this).next("img.shows").show();});
+		}
+	});
+
+	$("#top_btn").click(function(){if(scroll=="off") return;$("html,body").animate({scrollTop: 0}, 600);});
+
+});
 </script>
 </body>

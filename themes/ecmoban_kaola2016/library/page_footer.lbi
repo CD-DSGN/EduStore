@@ -1,7 +1,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <div class="blank"></div>
-<div class="footer">
-<img src="../images/T.jpg"/>	
+<div class="footer"  style="margin-top:350px;">
+<img src="../images/T.jpg"/ >	
     <!--<div class="footer-ensure">
         <a href=""></a>
         <a href=""></a>
@@ -37,11 +37,11 @@
         </dl>-->
 	
 		
-    </div>
+   
 	
 	
 	
-    <div class="footer-copyright">
+    <div class="footer-copyright" >
         <div class="container" style="padding-top:18px; padding-bottom:15px;">
             <!-- {if $navigator_list.bottom} --> 
             <p class="footer-nav">
@@ -80,6 +80,7 @@
         </div>
     </div>
 </div>
+ </div>
 <script type="text/javascript">
     $(function(){
         $(".qr-code dt span").hover(function(){
