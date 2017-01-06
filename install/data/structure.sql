@@ -1862,7 +1862,7 @@ CREATE TABLE `ecs_subscription` (
 
 --增加教师to学生微博功能表 begin by chenggaoyuan
 DROP TABLE IF EXISTS `ecs_teacher_publish`;
-CREATE TABLE `estr_teacher_publish`(
+CREATE TABLE `ecs_teacher_publish`(
   `news_id` int(10) unsigned NOT NULL auto_increment,
   `news_content` text NOT NULL,
   `publish_time` int(10) unsigned NOT NULL default '0',

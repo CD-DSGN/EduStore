@@ -96,8 +96,12 @@ if($is_teacher == '1') {
     $sql = 'SELECT region_id FROM'. $ecs->table('region') ."WHERE `region_name` = '" . $town_name ."' AND `region_type`  = '3'";
     $town = $db->getAll($sql);
     $values[] = $town[0]['region_id'];
+    
+    //根据user_id生成教师推荐码
+    $recommend_code = generate_recommend_code($values[0]);
+    $values[] = $recommend_code;
 
-    $sql = 'INSERT INTO '. $ecs->table('teachers') . ' (`user_id`, `course_id`, `real_name`, `school`, `country`, `province`, `city`, `district`)'. " VALUES ('" . implode("', '", $values) . "')";
+    $sql = 'INSERT INTO '. $ecs->table('teachers') . ' (`user_id`, `course_id`, `real_name`, `school`, `country`, `province`, `city`, `district`, `recommend_code`)'. " VALUES ('" . implode("', '", $values) . "')";
     $db->query($sql);
     $sql = 'UPDATE ' . $ecs->table('users') . " SET `is_teacher`='$is_teacher' WHERE `user_id`='" . $_SESSION['user_id'] . "'";
     $db->query($sql);
@@ -137,4 +141,19 @@ $out = array(
 );
 
 GZ_Api::outPut($out);
+
+function generate_recommend_code($num) {
+    $num = intval($num)+1260;
+    if ($num <= 0)
+        return false;
+        $charArr = array("1","2","3","4","5","6","7","8","9",'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
+        $char = '';
+        do {
+            $key = ($num - 1) % 35;
+            $char= $charArr[$key] . $char;
+            $num = floor(($num - $key) / 35);
+        } while ($num > 0);
+        return $char;
+}
+
 

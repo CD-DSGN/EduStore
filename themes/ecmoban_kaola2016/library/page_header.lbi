@@ -96,7 +96,7 @@ catch (e) {
         <div class="mall-search">
             <form method="get" action="search.php" onSubmit="return checkSearchForm(this)" class="mallSearch-form">
                 <div class="mallSearch-input-wp">
-                    <input type="text" name="keywords" id="mq" class="mallSearch-input" value="四年级语文" onfocus="javascript:if(this.value=='四年级语文'){this.value=''}" onblur="javascript:if(this.value==''){this.value='四年级语文'}" >
+                    <input type="text" name="keywords" id="mq" class="mallSearch-input" value="中考锦囊" onfocus="javascript:if(this.value=='中考锦囊'){this.value=''}" onblur="javascript:if(this.value==''){this.value='中考锦囊'}" >
                     <label for="mq"></label>
                 </div>
                 <button type="submit" class="w-icon w-icon-27"></button>
