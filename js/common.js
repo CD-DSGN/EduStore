@@ -106,7 +106,9 @@ function addToCartResponse(result)
           if (!confirm(result.message)) location.href = cart_url;
           break;
         case '3' :
-          location.href = cart_url;
+            alert('加入购物车成功');
+            window.history.go();
+          // location.href = cart_url;
           break;
         default :
           break;
@@ -1065,4 +1067,8 @@ function cancel_div()
     sel_obj[i].style.visibility = "";
     i++;
   }
+}
+
+function getMes(){
+  alert(555);
 }
