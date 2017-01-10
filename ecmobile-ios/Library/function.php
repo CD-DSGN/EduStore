@@ -125,9 +125,10 @@ function GZ_order_query_sql($type = 'finished', $alias = '')
     elseif ($type == 'await_pay')
     {
     	// modify nhj,根据收银台的修改，待支付订单不判断物流或支付状态
+    	// 购物车中的支付流程不变，待支付中的支付流程走收银台
         return " AND   {$alias}order_status " . db_create_in(array(OS_CONFIRMED, OS_SPLITED, OS_UNCONFIRMED)) .
-               " AND   {$alias}pay_status = '" . PS_UNPAYED . "'";
-                // ." AND ( {$alias}shipping_status " . db_create_in(array(SS_SHIPPED, SS_RECEIVED)) . " OR {$alias}pay_id " . db_create_in(payment_id_list(false)) . ") ";
+               " AND   {$alias}pay_status = '" . PS_UNPAYED . "'"
+                ." AND ( {$alias}shipping_status " . db_create_in(array(SS_SHIPPED, SS_RECEIVED)) . " OR {$alias}pay_id " . db_create_in(payment_id_list(false)) . ") ";
     }
     /* 未确认订单 */
     elseif ($type == 'unconfirmed')

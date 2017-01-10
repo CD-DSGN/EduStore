@@ -595,8 +595,7 @@ switch ($tmp[0]) {
 	        'shipping_id'     => intval($_POST['shipping_id']),
 	        //'shipping_id'     => 5,
 	        // modify nhj
-	        'pay_id'          => 999,
-	        //'pay_id'          => 4,
+	        'pay_id'          => intval($_POST['pay_id']),
 	        'pack_id'         => isset($_POST['pack']) ? intval($_POST['pack']) : 0,
 	        'card_id'         => isset($_POST['card']) ? intval($_POST['card']) : 0,
 	        'card_message'    => trim($_POST['card_message']),
@@ -752,13 +751,13 @@ switch ($tmp[0]) {
 	    $order['insure_fee']   = $total['shipping_insure'];
 
 	    /* 支付方式 */
-	    // modify nhj,支付方式在支付成功的时候再填
-	    $order['pay_name'] = 'null';
-	    // if ($order['pay_id'] > 0)
-	    // {
-	    //     $payment = payment_info($order['pay_id']);
-	    //     $order['pay_name'] = addslashes($payment['pay_name']);
-	    // }
+	    // modify nhj,支付方式在支付成功的时候再填,购物车支付保持原来流程，待支付中支付用收银台
+	    // $order['pay_name'] = 'null';
+	    if ($order['pay_id'] > 0)
+	    {
+	        $payment = payment_info($order['pay_id']);
+	        $order['pay_name'] = addslashes($payment['pay_name']);
+	    }
 
 	    $order['pay_fee'] = $total['pay_fee'];
 	    $order['cod_fee'] = $total['cod_fee'];
@@ -1013,24 +1012,22 @@ switch ($tmp[0]) {
 	    /* 插入支付日志 */
 	    $order['log_id'] = insert_pay_log($new_order_id, $order['order_amount'], PAY_ORDER);
 
-	    // modify nhj,注释了这一段内容，因为并不知道pay_code是拿来干嘛的
 	    /* 取得支付信息，生成支付代码 */
-	    // if ($order['order_amount'] > 0)
-	    // {
-	    //     $payment = payment_info($order['pay_id']);
+	    if ($order['order_amount'] > 0)
+	    {
+	        $payment = payment_info($order['pay_id']);
 
-
-	    //     include_once('includes/modules/payment/' . $payment['pay_code'] . '.php');
+	        include_once('includes/modules/payment/' . $payment['pay_code'] . '.php');
 	        
-	    //     $pay_obj    = new $payment['pay_code'];
+	        $pay_obj    = new $payment['pay_code'];
 
-	    //     $pay_online = $pay_obj->get_code($order, unserialize_config($payment['pay_config']));
+	        $pay_online = $pay_obj->get_code($order, unserialize_config($payment['pay_config']));
 
-	    //     $order['pay_desc'] = $payment['pay_desc'];
+	        $order['pay_desc'] = $payment['pay_desc'];
 
-	    //     $smarty->assign('pay_online', $pay_online);
+	        $smarty->assign('pay_online', $pay_online);
 
-	    // }
+	    }
 
 	    if(!empty($order['shipping_name']))
 	    {
@@ -1076,6 +1073,20 @@ switch ($tmp[0]) {
 		$sql = "UPDATE ". $GLOBALS['ecs']->table('order_info') ."SET `pay_id` = '". $pay_id ."', `pay_name` = '". $pay_name ."' WHERE `order_sn` = '". $order_sn ."'";
 		$GLOBALS['db']->query($sql);
 		GZ_Api::outPut(array('success' => 1));
+		break;
+	// add nhj,获取支付方式
+	case 'searchPayment':
+		$sql = "SELECT pay_id, pay_name, pay_code FROM ". $GLOBALS['ecs']->table('payment') ."WHERE `is_online` = 1 and `enabled` = 1";
+		$res = $GLOBALS['db']->getAll($sql);
+		$out = array();
+		if ($res) {
+			foreach ($res as $key => $value) {
+				$out[$key]['pay_id'] = $value['pay_id'];
+				$out[$key]['pay_name'] = $value['pay_name'];
+				$out[$key]['pay_code'] = $value['pay_code'];
+			}
+		}
+		GZ_API::outPut($out);
 		break;
 	default:
 		# code...

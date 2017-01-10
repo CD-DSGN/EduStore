@@ -47,6 +47,7 @@ $teacher_info['real_name'] = _POST('realname');
 $teacher_info['school'] = _POST('school');
 $teacher_info['course_id'] = _POST('course');
 $is_teacher = _POST('isTeacher');
+$invite_user_id = _POST('invite_user_id');      // 邀请者的user_id，不存在为0
 
 if ($_CFG['shop_reg_closed']) {
 	GZ_Api::outPut(11);
@@ -77,6 +78,7 @@ if($is_teacher == '1') {
     $values[] = $teacher_info['real_name'];
     $values[] = $teacher_info['school'];
     $values[] = $country;
+
     // $values[] = $teacher_info['province_name'];
     // $values[] = $teacher_info['city_name'];
     // $values[] = $teacher_info['town_name'];
@@ -96,15 +98,53 @@ if($is_teacher == '1') {
     $sql = 'SELECT region_id FROM'. $ecs->table('region') ."WHERE `region_name` = '" . $town_name ."' AND `region_type`  = '3'";
     $town = $db->getAll($sql);
     $values[] = $town[0]['region_id'];
-    
-    //根据user_id生成教师推荐码
+
     $recommend_code = generate_recommend_code($values[0]);
     $values[] = $recommend_code;
 
     $sql = 'INSERT INTO '. $ecs->table('teachers') . ' (`user_id`, `course_id`, `real_name`, `school`, `country`, `province`, `city`, `district`, `recommend_code`)'. " VALUES ('" . implode("', '", $values) . "')";
     $db->query($sql);
+    
+    // 更新users表：is_teacher字段和parent_id字段
     $sql = 'UPDATE ' . $ecs->table('users') . " SET `is_teacher`='$is_teacher' WHERE `user_id`='" . $_SESSION['user_id'] . "'";
     $db->query($sql);
+}
+
+/*邀请码推荐处理*added by chenggaoyuan*/
+$affiliate  = unserialize($GLOBALS['_CFG']['affiliate']);
+if($invite_user_id !=0){
+    if (isset($affiliate['on']) && $affiliate['on'] == 1)
+    {
+        // $up_uid = get_user_id_from_recommend_code($invite_code);
+
+        empty($affiliate) && $affiliate = array();
+        $affiliate['config']['level_register_all'] = intval($affiliate['config']['level_register_all']);
+        $affiliate['config']['level_register_up'] = intval($affiliate['config']['level_register_up']);
+        // if ($up_uid)
+        // {
+        if (!empty($affiliate['config']['level_register_all']))
+        {
+            if (!empty($affiliate['config']['level_register_up']))
+            {
+                $rank_points = $GLOBALS['db']->getOne("SELECT rank_points FROM " . $GLOBALS['ecs']->table('users') . " WHERE user_id = '$invite_user_id'");
+                if ($rank_points + $affiliate['config']['level_register_all'] <= $affiliate['config']['level_register_up'])
+                {
+                    log_account_change($invite_user_id, 0, 0, $affiliate['config']['level_register_all'], 0, sprintf($GLOBALS['_LANG']['register_affiliate'], $_SESSION['user_id'], $username));
+                }
+            }
+            else
+            {
+                log_account_change($invite_user_id, 0, 0, $affiliate['config']['level_register_all'], 0, $GLOBALS['_LANG']['register_affiliate']);
+            }
+            // }
+
+            //设置推荐人
+            $sql = 'UPDATE '. $GLOBALS['ecs']->table('users') . ' SET parent_id = ' . $invite_user_id . ' WHERE user_id = ' . $_SESSION['user_id'];
+
+            $GLOBALS['db']->query($sql);
+        }
+    }
+
 }
 
 /*把新注册用户的扩展信息插入数据库*/
@@ -143,7 +183,7 @@ $out = array(
 GZ_Api::outPut($out);
 
 function generate_recommend_code($num) {
-    $num = intval($num)+1260;
+    $num = intval($num) + 1260;
     if ($num <= 0)
         return false;
         $charArr = array("1","2","3","4","5","6","7","8","9",'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
@@ -155,5 +195,4 @@ function generate_recommend_code($num) {
         } while ($num > 0);
         return $char;
 }
-
 
