@@ -243,19 +243,13 @@ span{
 	height:36px;
 
 }
-.nav-right{
-	width:10px;
-	//background:url(../images/nav_right.jpg)no-repeat;
-	float: left;
-	height:36px;
-	
-}
 
 .nav-mid-right,.nav-mid-left{
 	float: left;
 }
 .nav-mid-left{
 	width:1280px;
+
 }
 
 .nav-mid-left li{
@@ -264,6 +258,7 @@ span{
 	line-height:36px;
 	height:36px;
 	text-align:center;
+
 
 }
 
