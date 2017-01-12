@@ -29,19 +29,24 @@ a,img{border:0;}
 #leftsead li a .hides{margin-right:-166px;cursor:pointer;cursor:hand;}
 #leftsead li a.youhui .hides{display:none;position:absolute;right:216px;top:2px;}
        
+       #light{
+       	 position:fixed; 
+            z-index:999; 
+       }
         .white_content { 
             display: none; 
             position:fixed; 
+            z-index:99999; 
             top: 35%; 
             left: 38%; 
             width: 463px; 
             height: 292px; 
             margin-top: -147px;
-            margin-left: -232.5px;
+           /* margin-left: -232.5px;*/
             margin:0;
             padding: 0;
-            background-color: blue; 
-            z-index:2147483649; 
+            background: white;
+       
             border-radius: 5px;
             box-shadow: 0 0 15px #d4d4d4;
            
@@ -49,24 +54,42 @@ a,img{border:0;}
         .white_content_top{
         	width: 463px;
         	height:50px;
-        	background: green;
+        	
+        }
+        .white_content_top a{
+            margin-left: 345px;
+        
         }
         .white_content_left{
-        
+            
         	margin-left: 80px;
         	width: 150px;
         	height: 180px;
-        	background: red;
+        	
         	float: left;
         }
+        .white_content_left a .logon:hover{
+        	box-shadow: 10px 10px 10px #92cffc ;
+        	-webkit-box-shadow:10px 10px 10px #92cffc;
+            -moz-box-shadow:10px 10px 10px #92cffc;
+        	-o-box-shadow:10px 10px 10px #92cffc;
+        }
         .white_content_right{
-        
+            
         	margin-left: 20px;
         	width: 150px;
         	height: 180px;
-        	background: yellow;
+        	
         	float: left;
         }
+        .white_content_right a .logup:hover{
+        	box-shadow: 10px 10px 10px #92cffc ;
+        	-webkit-box-shadow:10px 10px 10px #92cffc;
+            -moz-box-shadow:10px 10px 10px #92cffc;
+        	-o-box-shadow:10px 10px 10px #92cffc;
+        }
+
+       
 </style>
 
 
@@ -91,17 +114,7 @@ a,img{border:0;}
 				
 			</a>
 
-			<div id="light" class="white_content">
-			  <div class="white_content_top"><a href = "javascript:void(0)" onclick = "document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">点这里关闭本窗口</a>
-			  </div>
-				  <div class="white_content_left">
-				  	<img src="images/QQ.jpg" style="margin-top: 30px;margin-right: 35px;">
-				  </div>
-				  <div class="white_content_right">
-				  	<img src="images/QQ.jpg" style="margin-top: 30px;margin-right: 35px;">
-				  </div> 
-			   <div class="white_content_bottom" style="margin-top:210px;margin-right: 20px;"><a href="http://im.qq.com/">安装QQ</a></div>
-			</div>
+		
 		</li>
 
 		<li>
@@ -207,13 +220,13 @@ a,img{border:0;}
 		    </div>
 
 
-			<div class="logo-right">
+			<!-- <div class="logo-right">
 				<a href="" ><img  src="images/手机.png" alt="" width="21" height="21">手机汇师
-			          <!-- <ul>
+			          <ul>
 						<li><img src="images/2dcode-app3.jpg" alt="" width="100" height="100" ></li>
-                      </ul> -->
+                      </ul>
 				</a>
-			</div>
+			</div> -->
 
 
 			
@@ -252,10 +265,10 @@ a,img{border:0;}
 		</div>
 	</div>
 
-		<div class="ad" id="picBox">
+		<div class="ad" id="picBox" >
 		<div class="pic">
 			<ul>
-				<!--{foreach from=$flash name=myflash item=flash}-->
+				{foreach from=$flash name=myflash item=flash}
 				<li><a href="{$flash.url}" target="_blank"><img src="{$flash.src}" height="440"/></a></li>
 				<!--<li><img src="img/08.jpg" alt="" width="1300" height="310"></li>
 				<li><img src="img/09.jpg" alt="" width="1300" height="310"></li>
@@ -271,20 +284,20 @@ a,img{border:0;}
 <!-- TemplateBeginEditable name="教师推荐商品展示区域" -->
 <div class="tuijian">
 	    <div class="tuijian-text">
-	    <b>教师推荐</b>
-	   	<span>RECOMMEND</span>
+	        <b>教师推荐</b>
+	     	<span>RECOMMEND</span>
 	   	</div>
 	   	<img src="images/line1.png" class="line">
   <div class="enough">
 		  <ul>
 		  	<li><img src="images/book1.png"></li>
-		  	<a href=""><div class="mengban"></div></a>
-		  	<li><img src="images/book2.png"></a></li>
-		  	<a href=""><div class="mengban"></div></a>
+		  	<a href=""><div class="mengban"></div> </a>
+		  	<li><img src="images/book2.png"></li>
+		  	<a href=""><div class="mengban"></div> </a>
 		  	<li><img src="images/book3.png"></li>
-		  	<a href=""><div class="mengban"></div></a>
+		  	<a href=""><div class="mengban"></div> </a>
 		  	<li><img src="images/book4.png"></li>
-		  	<a href=""><div class="mengban"></div></a>
+		  	<a href=""><div class="mengban"></div> </a>
 		  </ul>
   </div>
 </div>
@@ -350,6 +363,26 @@ a,img{border:0;}
     <a href=""><img src="images/T.jpg" alt="" ></a>
    </div>
 </div>
+
+
+	<div id="light" class="white_content">
+			  <div class="white_content_top"><a href = "javascript:void(0)" onclick = "document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">点这里关闭本窗口</a>
+			  </div>
+				  <div class="white_content_left">
+				  	<a target="_self" href="http://wpa.qq.com/msgrd?v=1&uin=2426787502&site=qq&menu=yes"><img class="logon" src="images/QQ1.jpg" style="margin-top: 30px;margin-left: 35px;border: 2px solid #D8D6D6;border-radius: 5px;"></a>
+				  	<P style="margin-top:20px;margin-left: 45px;color: #92cffc">账号登录</P>
+				  </div>
+				  <div class="white_content_right">
+				  	<a target="_self" href="http://wpa.qq.com/msgrd?v=1&uin=2426787502&site=qq&menu=yes"><img  class="logup" src="images/QQ.jpg" style="CURSOR: pointer;margin-top: 30px;margin-left: 35px;border: 2px solid #D8D6D6;border-radius: 5px;"></a>
+				  	<P style="margin-top:20px ;margin-left: 45px; color:#92cffc;">匿名聊天</P>
+				  </div> 
+			   <div class="white_content_bottom" style="margin-top:210px;margin-left: 390px;"><a target="_blank" href="http://im.qq.com/">安装QQ</a></div>
+	</div>
+
+
+
+
+
 
 <div class="footer">
 	<p><a href="">免责条款&nbsp;&nbsp;</a><a href="">隐私保护&nbsp;&nbsp;</a> <a href="">咨询热点&nbsp;&nbsp;</a> <a href=""> 联系我们&nbsp;&nbsp;</a> <a href=""> 公司简介&nbsp;&nbsp;</a> <a href="">批发方案</a> <a href="">  配送方式</a></p>

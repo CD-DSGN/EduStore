@@ -1,4 +1,4 @@
-﻿/*
+/*
 Template Name: EC模板堂正版授权模板
 Template URI: http://www.ecmoban.com/
 Description: 买模板请认准模板堂(ecmoban.com) <br/> 挑选优质商业模板：http://www.ecmoban.com/
@@ -665,7 +665,7 @@ margin-right: 6px;cursor: pointer;}
 ==================== */
 .flowBox{ padding-bottom:5px;}
 .flowBox h6{ background:#ececec; color:#666666; font-weight:bold}
-.flowBox table{ margin:5px auto;}
+.flowBox table{ margin:5px auto; height:450px;}
 		/*2.62在购物车里面显示相关配件*/
 .flowGoodsFittings{padding:10px;}
 .flowGoodsFittings ul{height:1%; margin:5px 8px; width:222px; float:left;}
