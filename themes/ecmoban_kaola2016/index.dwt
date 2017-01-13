@@ -368,11 +368,11 @@ a,img{border:0;}
 			  <div class="white_content_top"><a href = "javascript:void(0)" onclick = "document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">点这里关闭本窗口</a>
 			  </div>
 				  <div class="white_content_left">
-				  	<a target="_self" href="http://wpa.qq.com/msgrd?v=1&uin=614057747&site=qq&menu=yes"><img class="logon" src="images/QQ1.jpg" style="margin-top: 30px;margin-left: 35px;border: 2px solid #D8D6D6;border-radius: 5px;"></a>
+				  	<a target="_self" href="http://wpa.qq.com/msgrd?v=1&uin=2426787502&site=qq&menu=yes"><img class="logon" src="images/QQ1.jpg" style="margin-top: 30px;margin-left: 35px;border: 2px solid #D8D6D6;border-radius: 5px;"></a>
 				  	<P style="margin-top:20px;margin-left: 45px;color: #92cffc">账号登录</P>
 				  </div>
 				  <div class="white_content_right">
-				  	<a target="_self" href="http://wpa.qq.com/msgrd?v=1&uin=614057747&site=qq&menu=yes"><img  class="logup" src="images/QQ.jpg" style="CURSOR: pointer;margin-top: 30px;margin-left: 35px;border: 2px solid #D8D6D6;border-radius: 5px;"></a>
+				  	<a target="_self" href="http://wpa.qq.com/msgrd?v=1&uin=2426787502&site=qq&menu=yes"><img  class="logup" src="images/QQ.jpg" style="CURSOR: pointer;margin-top: 30px;margin-left: 35px;border: 2px solid #D8D6D6;border-radius: 5px;"></a>
 				  	<P style="margin-top:20px ;margin-left: 45px; color:#92cffc;">匿名聊天</P>
 				  </div> 
 			   <div class="white_content_bottom" style="margin-top:210px;margin-left: 390px;"><a target="_blank" href="http://im.qq.com/">安装QQ</a></div>
