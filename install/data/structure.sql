@@ -1869,6 +1869,13 @@ CREATE TABLE `ecs_teacher_publish`(
   `user_id` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`news_id`)
 ) ENGINE=MyISAM;
+
+DROP TABLE IF EXISTS `ecs_teacher_publish_images`;
+CREATE TABLE `ecs_teacher_publish_images`(
+  `news_id` int(10) unsigned NOT NULL,
+  `image` varchar(255) NULL,
+  `image_thumb` varchar(255) NULL
+) ENGINE=MyISAM;
 --end chenggaoyuan
 
 

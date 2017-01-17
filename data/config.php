@@ -3,7 +3,7 @@
 $db_host   = "localhost:3306";
 
 // database name
-$db_name   = "test";
+$db_name   = "edustore";
 
 // database username
 $db_user   = "root";
@@ -29,4 +29,7 @@ define('ADMIN_PATH','admin');
 define('AUTH_KEY', 'this is a key');
 
 define('OLD_AUTH_KEY', '');
+
+define('API_TIME', '2017-01-09 13:31:16');
+
 ?>
