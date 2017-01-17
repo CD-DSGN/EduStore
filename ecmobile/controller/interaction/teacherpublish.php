@@ -85,6 +85,8 @@ if(count($images_array) == 0 || $images_array == null){
 
     if($res1 == true){
         GZ_Api::outPut(array());
+    }else{
+        GZ_Api::outPut(600);
     }
 }
 
