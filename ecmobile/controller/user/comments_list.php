@@ -163,8 +163,8 @@ function get_publish_image($news_id)
     $photo = array();
 
     foreach ($photo_info as $key => $value) {
-        $photo[] = array('img' 		=>   $value['image'],
-            'img_thumb'		=>   $value['image_thumb']);
+        $photo[] = array('img' 		=>    "http://". $_SERVER['HTTP_HOST'] ."/".$value['image'],
+            'img_thumb'		=>    "http://". $_SERVER['HTTP_HOST'] ."/".$value['image_thumb']);
 	}
 
     return $photo;
