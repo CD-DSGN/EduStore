@@ -23,6 +23,11 @@ $is_teacher = judge_user_status($user_id);
 // 如果该用户是教师用户，则展示其发送的历史消息
 if ($is_teacher) {
 	$publish_info = get_publish_info($user_id, $page);
+	if (empty($publish_info)) {
+	    $out['no_follow'] = 1;
+	} else {
+	    $out['no_follow'] = 0;
+	}
 } else {
 	// get followed teacher(teacher's user id) by user id
 	$teachers = get_followed_teacher($user_id);
@@ -136,7 +141,7 @@ function get_publish_info($teachers_user_id, $page)
 
 	while ($row = $GLOBALS['db']->fetchRow($res))
 	{
-		// $photo = get_publish_photo($row['news_id']);
+		$photo = get_publish_image($row['news_id']);
 
 		$publish_info[] = array('news_content'		=> 		$row['news_content'],
 							  'publish_time'		=>		$row['publish_time'],		// 需要格式化时间
@@ -152,21 +157,19 @@ function get_publish_info($teachers_user_id, $page)
 *	@param 		int 		$news_id 				消息id
 *	@return 	arr 		$photo 			 		该消息下对应的图片
 */
-function get_publish_photo($news_id)
+function get_publish_image($news_id)
 {
-	$sql = "SELECT * FROM ". $GLOBALS['ecs']->table('teacher_publish_photo') ."WHERE `news_id` = '". $news_id ."'";
-	$photo_info = $GLOBALS['db']->getAll($sql);
+    $sql = "SELECT * FROM ". $GLOBALS['ecs']->table('teacher_publish_images') ." WHERE `news_id` = '". $news_id ."'";
+    $photo_info = $GLOBALS['db']->getAll($sql);
 
-	$photo = array();
+    $photo = array();
 
-	foreach ($photo_info as $key => $value) {
-		$photo[] = array('img' 		=>   $value['photo_image'],
-				   	   'thumb'		=>   $value['photo_thumb'],
-				   	   'small'		=>   '',
-				   	   'url'		=> 	 '');
+    foreach ($photo_info as $key => $value) {
+        $photo[] = array('img' 		=>    "http://". $_SERVER['HTTP_HOST'] ."/".$value['image'],
+            'img_thumb'		=>    "http://". $_SERVER['HTTP_HOST'] ."/".$value['image_thumb']);
 	}
 
-	return $photo;
+    return $photo;
 }
 
 

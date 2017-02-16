@@ -1055,6 +1055,22 @@ switch ($tmp[0]) {
          ));
 		GZ_Api::outPut($out);
 		break;
+    //更新订单的支付方式
+    case 'update_payment_of_order':
+        $pay_code = _POST('pay_code');
+        $order_sn = _POST('order_sn');
+        $sql = "SELECT pay_id, pay_name FROM ". $GLOBALS['ecs']->table('payment') ."WHERE `pay_code` = '". $pay_code ."'";
+        $res = $GLOBALS['db']->getRow($sql);
+        if ($res) {
+            $pay_id = $res['pay_id'];
+            $pay_name = $res['pay_name'];
+            $sql = "UPDATE ". $GLOBALS['ecs']->table('order_info') ."SET `pay_id` = '". $pay_id ."', `pay_name` = '". $pay_name ."' WHERE `order_sn` = '". $order_sn ."'";
+            $GLOBALS['db']->query($sql);
+            GZ_Api::outPut(array('update_success' => 1));
+        }else{
+            GZ_Api::outPut(array('update_success' => 0));
+        }
+        break;
 	default:
 		# code...
 		break;

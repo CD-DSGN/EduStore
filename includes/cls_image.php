@@ -300,6 +300,175 @@ class cls_image
     }
 
     /**
+     * 创建汇师圈图片的缩略图
+     *
+     * @access  public
+     * @param   string      $img    原始图片的路径
+     * @param   int         $thumb_width  缩略图宽度
+     * @param   int         $thumb_height 缩略图高度
+     * @param   strint      $path         指定生成图片的目录名
+     * @return  mix         如果成功返回缩略图的路径，失败则返回false
+     */
+    function make_huishi_circle_thumb($key, $time, $img, $thumb_width = 0, $thumb_height = 0, $path = '', $bgcolor='')
+    {
+        $gd = $this->gd_version(); //获取 GD 版本。0 表示没有 GD 库，1 表示 GD 1.x，2 表示 GD 2.x
+        if ($gd == 0)
+        {
+            $this->error_msg = $GLOBALS['_LANG']['missing_gd'];
+            return false;
+        }
+
+        /* 检查缩略图宽度和高度是否合法 */
+        if ($thumb_width == 0 && $thumb_height == 0)
+        {
+            return str_replace(ROOT_PATH, '', str_replace('\\', '/', realpath($img)));
+        }
+
+        /* 检查原始文件是否存在及获得原始文件的信息 */
+        $org_info = @getimagesize($img);
+        if (!$org_info)
+        {
+            $this->error_msg = sprintf($GLOBALS['_LANG']['missing_orgin_image'], $img);
+            $this->error_no  = ERR_IMAGE_NOT_EXISTS;
+
+            return false;
+        }
+
+        if (!$this->check_img_function($org_info[2]))
+        {
+            $this->error_msg = sprintf($GLOBALS['_LANG']['nonsupport_type'], $this->type_maping[$org_info[2]]);
+            $this->error_no  =  ERR_NO_GD;
+
+            return false;
+        }
+
+        $img_org = $this->img_resource($img, $org_info[2]);
+
+        /* 原始图片以及缩略图的尺寸比例 */
+        $scale_org      = $org_info[0] / $org_info[1];
+        /* 处理只有缩略图宽和高有一个为0的情况，这时背景和缩略图一样大 */
+        if ($thumb_width == 0)
+        {
+            $thumb_width = $thumb_height * $scale_org;
+        }
+        if ($thumb_height == 0)
+        {
+            $thumb_height = $thumb_width / $scale_org;
+        }
+
+        /* 创建缩略图的标志符 */
+        if ($gd == 2)
+        {
+            $img_thumb  = imagecreatetruecolor($thumb_width, $thumb_height);
+        }
+        else
+        {
+            $img_thumb  = imagecreate($thumb_width, $thumb_height);
+        }
+
+        /* 背景颜色 */
+        if (empty($bgcolor))
+        {
+            $bgcolor = $this->bgcolor;
+        }
+        $bgcolor = trim($bgcolor,"#");
+        sscanf($bgcolor, "%2x%2x%2x", $red, $green, $blue);
+        $clr = imagecolorallocate($img_thumb, $red, $green, $blue);
+        imagefilledrectangle($img_thumb, 0, 0, $thumb_width, $thumb_height, $clr);
+
+        if ($org_info[0] / $thumb_width > $org_info[1] / $thumb_height)
+        {
+            $lessen_width  = $thumb_width;
+            $lessen_height  = $thumb_width / $scale_org;
+        }
+        else
+        {
+            /* 原始图片比较高，则以高度为准 */
+            $lessen_width  = $thumb_height * $scale_org;
+            $lessen_height = $thumb_height;
+        }
+
+        $dst_x = ($thumb_width  - $lessen_width)  / 2;
+        $dst_y = ($thumb_height - $lessen_height) / 2;
+
+        /* 将原始图片进行缩放处理 */
+        if ($gd == 2)
+        {
+            imagecopyresampled($img_thumb, $img_org, $dst_x, $dst_y, 0, 0, $lessen_width, $lessen_height, $org_info[0], $org_info[1]);
+        }
+        else
+        {
+            imagecopyresized($img_thumb, $img_org, $dst_x, $dst_y, 0, 0, $lessen_width, $lessen_height, $org_info[0], $org_info[1]);
+        }
+
+        /* 创建当月目录 */
+        if (empty($path))
+        {
+            $dir = ROOT_PATH . $this->images_dir . '/' . date('Ym').'/';
+        }
+        else
+        {
+            $dir = $path;
+        }
+
+
+        /* 如果目标目录不存在，则创建它 */
+        if (!file_exists($dir))
+        {
+            if (!make_dir($dir))
+            {
+                /* 创建目录失败 */
+                $this->error_msg  = sprintf($GLOBALS['_LANG']['directory_readonly'], $dir);
+                $this->error_no   = ERR_DIRECTORY_READONLY;
+                return false;
+            }
+        }
+
+        /* 如果文件名为空，生成不重名随机文件名 */
+        //$filename = $this->unique_name($dir);
+        $filename = 'thumb_'.$key.'_'.$time;
+
+        /* 生成文件 */
+        if (function_exists('imagejpeg'))
+        {
+            $filename .= '.jpg';
+            imagejpeg($img_thumb, $dir . $filename);
+        }
+        elseif (function_exists('imagegif'))
+        {
+            $filename .= '.gif';
+            imagegif($img_thumb, $dir . $filename);
+        }
+        elseif (function_exists('imagepng'))
+        {
+            $filename .= '.png';
+            imagepng($img_thumb, $dir . $filename);
+        }
+        else
+        {
+            $this->error_msg = $GLOBALS['_LANG']['creating_failure'];
+            $this->error_no  =  ERR_NO_GD;
+
+            return false;
+        }
+
+        imagedestroy($img_thumb);
+        imagedestroy($img_org);
+
+        //确认文件是否生成
+        if (file_exists($dir . $filename))
+        {
+            return str_replace(ROOT_PATH, '', $dir) . $filename;
+        }
+        else
+        {
+            $this->error_msg = $GLOBALS['_LANG']['writting_failure'];
+            $this->error_no   = ERR_DIRECTORY_READONLY;
+
+            return false;
+        }
+    }
+    /**
      * 为图片增加水印
      *
      * @access      public

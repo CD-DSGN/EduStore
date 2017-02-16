@@ -23,8 +23,8 @@ class cls_session
     var $db             = NULL;
     var $session_table  = '';
 
-    var $max_life_time  = 2592000; // SESSION 过期时间
-
+    //var $max_life_time  = 2592000; // SESSION 过期时间
+    var $max_life_time  =   500000; // SESSION 过期时间
     var $session_name   = '';
     var $session_id     = '';
 
@@ -34,6 +34,7 @@ class cls_session
     var $session_cookie_path   = '/';
     var $session_cookie_domain = '';
     var $session_cookie_secure = false;
+
 
     var $_ip   = '';
     var $_time = 0;
