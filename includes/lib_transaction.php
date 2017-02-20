@@ -50,6 +50,9 @@ function edit_profile($profile)
             return false;
         }
         $cfg['email'] = $profile['email'];
+    } else {    // email为空时，将数据库email置空
+        $sql = "UPDATE ".$GLOBALS['ecs']->table('users'). "SET `email`='' WHERE user_name= '".$cfg['username']."'";
+        $GLOBALS['db']->query($sql);
     }
     if (!empty($profile['birthday']))
     {

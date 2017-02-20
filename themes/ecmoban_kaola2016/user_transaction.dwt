@@ -41,6 +41,7 @@
                     <a href="user.php?act=bonus">我的红包</a>
                 </div>-->
             </li>
+
             <li class="li-sep"></li>
             <!--{if $navigator_list.top}-->
             <!-- {foreach name=nav_top_list from=$navigator_list.top item=nav} -->
@@ -128,7 +129,7 @@
                 <!-- {/if} -->                                               
                 <tr>
                   <td width="28%" align="right" bgcolor="#FFFFFF">{$lang.email}： </td>
-                  <td width="72%" align="left" bgcolor="#FFFFFF"><input name="email" type="text" value="{$profile.email}" size="25" class="inputBg" /><span style="color:#FF0000"> *</span></td>
+                  <td width="72%" align="left" bgcolor="#FFFFFF"><input name="email" type="text" value="{$profile.email}" size="25" class="inputBg" /><!-- <span style="color:#FF0000"> *</span> --></td>
                 </tr>
         {foreach from=$extend_info_list item=field}
         <!-- {if $field.id eq 6} -->
@@ -563,7 +564,7 @@
                 <td width="35%" align="left" bgcolor="#ffffff"><input name="consignee" type="text"  class="inputBg" value="{$order.consignee|escape}" size="25">
                 </td>
                 <td width="15%" align="right" bgcolor="#ffffff">{$lang.email_address}： </td>
-                <td width="35%" align="left" bgcolor="#ffffff"><input name="email" type="text"  class="inputBg" value="{$order.email|escape}" size="25" />
+                <td width="35%" align="left" bgcolor="#ffffff"><input name="" type="text"  class="inputBg" value="{$order.email|escape}" size="25" />
                 </td>
               </tr>
               <!-- {if $order.exist_real_goods} -->

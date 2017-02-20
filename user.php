@@ -826,10 +826,11 @@ elseif ($action == 'act_edit_profile')
     {
          show_message($_LANG['passport_js']['home_phone_invalid']);
     }
-    if (!is_email($email))
-    {
-        show_message($_LANG['msg_email_format']);
-    }
+    // 取消email判断
+    // if (!is_email($email))
+    // {
+    //     show_message($_LANG['msg_email_format']);
+    // }
     if (!empty($msn) && !is_email($msn))
     {
          show_message($_LANG['passport_js']['msn_invalid']);

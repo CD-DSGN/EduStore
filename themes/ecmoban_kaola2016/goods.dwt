@@ -375,9 +375,43 @@ function tab(id)
            <li class="clearfix">
        <dd>
        <strong>{$lang.number}：</strong>
-        <input name="number" type="text" id="number" value="1" size="4" onblur="changePrice()" style="border:1px solid #ccc; "/> <strong>{$lang.amount}：</strong><font id="ECS_GOODS_AMOUNT" class="f1"></font>
+       <input class="goods_cut" onclick="goods_cut();changePrice();" style="cursor:pointer;border: 1px solid #D6D3D3; background: #F6E4D0;width: 12px;" value="-" />
+       <input name="number" type="text" id="number" value="1" size="4" onblur="changePrice()" style="border:1px solid #ccc; "/>
+       <input class="goods_add" onclick="goods_add();changePrice();" style="cursor:pointer;border: 1px solid #D6D3D3; background: #F6E4D0;width: 12px;" value="+" />
+        <strong>{$lang.amount}：</strong><font id="ECS_GOODS_AMOUNT" class="f1"></font>
        </dd>
        </li>
+
+       <script language="javascript" type="text/javascript">
+
+       function goods_cut(){
+
+       var num_val=document.getElementById('number');
+
+       var new_num=num_val.value;
+
+       var Num = parseInt(new_num);
+
+       if(Num>1)Num=Num-1;
+
+       num_val.value=Num;
+
+       }
+
+       function goods_add(){
+
+       var num_val=document.getElementById('number');
+
+       var new_num=num_val.value;
+
+       var Num = parseInt(new_num);
+
+       Num=Num+1;
+
+       num_val.value=Num;
+
+       }
+       </script>
       
       <li class="padd">
 	  <a  class="btn_pink_138x32" href="javascript:addToCart2({$goods.goods_id})" style="color:#FFF;text-decoration:none;background:#FF6825;">立即购买</a>
@@ -693,7 +727,19 @@ function changePrice()
 
   Ajax.call('goods.php', 'act=price&id=' + goodsId + '&attr=' + attr + '&number=' + qty, changePriceResponse, 'GET', 'JSON');
 }
-
+/*点击加减时改变number数量*/
+function addNumber(){   
+    document.getElementById('add').click(function(){       
+        t.val(parseInt(t.val())+1)  
+        setTotal();  
+    })
+    }
+function minNumber(){  
+    document.getElementById('min').click(function(){  
+        t.val(parseInt(t.val())-1)  
+        setTotal();  
+    })  
+} 
 /**
  * 接收返回的信息
  */

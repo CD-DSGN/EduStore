@@ -86,8 +86,10 @@
               <td align="center" bgcolor="#ffffff">{$goods.goods_price}</td>
               <td align="center" bgcolor="#ffffff">
                 <!-- {if $goods.goods_id gt 0 && $goods.is_gift eq 0 && $goods.parent_id eq 0} 普通商品可修改数量 -->
-                <input type="text" name="goods_number[{$goods.rec_id}]" id="goods_number_{$goods.rec_id}" value="{$goods.goods_number}" size="4" class="inputBg" style="text-align:center " onkeydown="showdiv(this)"/>
-                <!-- {else} -->
+              <span onclick="changeNum(this,-1),showdiv(this)" style="cursor:pointer;border: 1px solid #D6D3D3; background: #F6E4D0;padding: 6px 6px 3px 6px;">-</span>
+              <input type="text" name="goods_number[{$goods.rec_id}]" id="goods_number_{$goods.rec_id}" value="{$goods.goods_number}" size="4" class="formBorder"  onkeydown="showdiv(this)"/>
+              <span onclick="changeNum(this,1),showdiv(this)" style="cursor:pointer;border: 1px solid #D6D3D3; background: #F6E4D0;padding: 6px 6px 3px 6px;">+</span>
+                                        <!-- {else} -->
                 {$goods.goods_number}
                 <!-- {/if} -->
               </td>
@@ -417,12 +419,13 @@
               <td bgcolor="#ffffff">{$consignee.mobile|escape}</td>
             </tr>
              <!-- {if $total.real_goods_count gt 0} -->
-            <tr>
+             <!--注释掉最佳收货时间和标志性建筑-->
+          <!--   <tr>
               <td bgcolor="#ffffff">{$lang.sign_building}:</td>
               <td bgcolor="#ffffff">{$consignee.sign_building|escape} </td>
               <td bgcolor="#ffffff">{$lang.deliver_goods_time}:</td>
               <td bgcolor="#ffffff">{$consignee.best_time|escape}</td>
-            </tr>
+            </tr> -->
             <!-- {/if} -->
         </table>
       </div>

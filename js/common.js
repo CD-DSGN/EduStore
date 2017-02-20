@@ -1072,3 +1072,26 @@ function cancel_div()
 function getMes(){
   alert(555);
 }
+
+
+function changeNum(obj,num)
+{
+    var input = getParent(obj).getElementsByTagName("input");
+    for(var i=0;i<input.length;i++)
+    {
+        if(input[i].type=="text")
+        {
+            if(input[i].value == "")
+                input[i].value = num;
+            else
+                input[i].value = input[i].value - 0 + num;
+        }
+    }
+}
+//获取父级对像
+function getParent(obj)
+{
+    if(typeof(obj) != "object"){obj = document.getElementById(obj);}
+    if(obj)
+        return obj.parentElement || obj.parentNode;
+}

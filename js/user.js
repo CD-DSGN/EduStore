@@ -12,24 +12,24 @@ function userEdit()
   var passwd_answer = frm.elements['passwd_answer'] ? Utils.trim(frm.elements['passwd_answer'].value) : '';
   var sel_question =  frm.elements['sel_question'] ? Utils.trim(frm.elements['sel_question'].value) : '';
 
-  if (email.length == 0)
-  {
-    msg += email_empty + '\n';
-  }
-  else
-  {
-    if ( ! (Utils.isEmail(email)))
-    {
-      msg += email_error + '\n';
-    }
-  }
+  // if (email.length == 0)
+  // {
+  //   msg += email_empty + '\n';
+  // }
+  // else
+  // {
+  //   if ( ! (Utils.isEmail(email)))
+  //   {
+  //     msg += email_error + '\n';
+  //   }
+  // }
 
   if (passwd_answer.length > 0 && sel_question == 0 || document.getElementById('passwd_quesetion') && passwd_answer.length == 0)
   {
     msg += no_select_question + '\n';
   }
 
-  for (i = 7; i < frm.elements.length - 2; i++)	// 从第七项开始循环检查是否为必填项
+  for (i = 7; i < frm.elements.length; i++)	// 从第七项开始循环检查是否为必填项
   {
 	needinput = document.getElementById(frm.elements[i].name + 'i') ? document.getElementById(frm.elements[i].name + 'i') : '';
 

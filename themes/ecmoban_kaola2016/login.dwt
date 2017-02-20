@@ -17,7 +17,7 @@
 {insert_scripts files='common.js,user.js,transport_jquery.js'}
 </head>
     <body>
-
+        <a href="index.php" style="float: left;margin-top: -100px;color: #fff;letter-spacing: 2px;"><返回首页</a>
         <div class="page-container">
             <h1>汇师网账号登录</h1>
             <form action="user.php" method="post" onsubmit="return userLogin()">

@@ -61,12 +61,7 @@
   </tr>
   <!-- {if $real_goods_count gt 0} -->
   <!-- 购物车中存在实体商品显示最佳送货时间及标志行建筑 -->
-  <tr>
-    <td bgcolor="#ffffff">{$lang.sign_building}:</td>
-    <td bgcolor="#ffffff"><input name="sign_building" type="text" class="inputBg"  id="sign_building_{$sn}" value="{$consignee.sign_building|escape}" /></td>
-    <td bgcolor="#ffffff">{$lang.deliver_goods_time}:</td>
-    <td bgcolor="#ffffff"><input name="best_time" type="text"  class="inputBg" id="best_time_{$sn}" value="{$consignee.best_time|escape}" /></td>
-  </tr>
+
   <!-- {/if} -->
   <tr>
     <td colspan="4" align="center" bgcolor="#ffffff">

@@ -11,9 +11,9 @@
     <li class="view-model"> <a href="javascript:;" onClick="javascript:display_mode('grid')">
     <img style="top:5px;" src="images/display_mode_grid<!-- {if $pager.display == 'grid'} -->_act<!-- {/if} -->.gif" alt="{$lang.display.grid}"></a>
     </li>
-    <li class="view-model" style="margin-right: 10px;">  <a href="javascript:;" onClick="javascript:display_mode('text')">
+     <!--<li class="view-model" style="margin-right: 10px;">  <a href="javascript:;" onClick="javascript:display_mode('text')">
     <img style="top:5px;" src="images/display_mode_text<!-- {if $pager.display == 'text'} -->_act<!-- {/if} -->.gif" alt="{$lang.display.text}"></a>
-    </li>
+    </li>-->
   
     <li>  <a href="{$script_name}.php?category={$category}&display={$pager.display}&brand={$brand_id}&price_min={$price_min}&price_max={$price_max}&filter_attr={$filter_attr}&page={$pager.page}&sort=goods_id&order=<!-- {if $pager.sort == 'goods_id' && $pager.order == 'DESC'} -->ASC<!-- {else} -->DESC<!-- {/if} -->#goods_list">
     <img src="images/goods_id_<!-- {if $pager.sort == 'goods_id'} -->{$pager.order}<!-- {else} -->default<!-- {/if} -->.gif" alt="{$lang.sort.goods_id}"></a>
