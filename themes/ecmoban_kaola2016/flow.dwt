@@ -397,8 +397,9 @@
       <div class="blank"></div>
       <div class="flowBox">
       <h6><span>{$lang.consignee_info}</span><a href="flow.php?step=consignee" class="f6">{$lang.modify}</a></h6>
-      <table width="99%" align="center" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd">
-            <tr>
+      <table width="99%" align="center" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd"><!--收货人信息-->
+      <tbody>
+       <tr>
               <td bgcolor="#ffffff">{$lang.consignee_name}:</td>
               <td bgcolor="#ffffff">{$consignee.consignee|escape}</td>
               <td bgcolor="#ffffff">{$lang.email_address}:</td>
@@ -427,6 +428,8 @@
               <td bgcolor="#ffffff">{$consignee.best_time|escape}</td>
             </tr> -->
             <!-- {/if} -->
+      </tbody>
+            
         </table>
       </div>
      <div class="blank"></div>
@@ -663,11 +666,11 @@
         <!-- 订单提交成功 -->
 
         <div class="flowBox" style="margin:0 auto 70px auto;">
-         <h6 style="text-align:center; height:30px; line-height:30px;">{$lang.remember_order_number}: <font style="color:red">{$order.order_sn}</font></h6>
-          <table width="99%" align="center" border="0" cellpadding="15" cellspacing="0" bgcolor="#fff" style="border:1px solid #ddd; margin:20px auto;" >
+         <h6 style="text-align:center; height:30px; line-height:30px;font-size: 14px;border: 3px solid #85a1d4;border-radius: 10px;">{$lang.remember_order_number}: <font style="color:red">{$order.order_sn}</font></h6><!--请记住您的单号-->
+          <table width="99%" height="350px" align="center" border="0" cellpadding="15" cellspacing="0" bgcolor="#fff" style="border:1px solid #ddd; margin:20px auto;" >
             <tr>
               <td align="center" bgcolor="#FFFFFF">
-              <!--{if $order.shipping_name}-->{$lang.select_shipping}: <strong>{$order.shipping_name}</strong>，<!--{/if}-->{$lang.select_payment}: <strong>{$order.pay_name}</strong>。{$lang.order_amount}: <strong>{$total.amount_formated}</strong>
+              <!--{if $order.shipping_name}-->{$lang.select_shipping}: <strong>{$order.shipping_name}</strong>&nbsp;&nbsp;&nbsp;<!--{/if}-->{$lang.select_payment}: <strong>{$order.pay_name}</strong>&nbsp;&nbsp;&nbsp;{$lang.order_amount}: <strong>{$total.amount_formated}</strong>
               </td>
             </tr>
             <tr>
@@ -703,7 +706,7 @@
           <!--{/foreach}-->
           </div>
           <!--{/if}-->
-          <p style="text-align:center; margin-bottom:20px;">{$order_submit_back}</p>
+          <p style="text-align:center; margin-bottom:20px;color:#E08724;">{$order_submit_back}</p><!--返回首页或去用户中心-->
         </div>
         <!-- {/if} -->
         
@@ -714,7 +717,7 @@
           	<table width="99%" align="center" border="0" cellpadding="15" cellspacing="0" bgcolor="#fff" style="border:1px solid #ddd; margin:20px auto;" >
            	 <tr>
               <td align="center" bgcolor="#FFFFFF">
-              {$lang.select_shipping}: <strong>{$order.shipping_name}</strong>，{$lang.select_payment}: <strong>{$order.pay_name}</strong>。{$lang.order_amount}:<strong>{$total.amount_formated}</strong></td>
+              {$lang.select_shipping}: <strong>{$order.shipping_name}</strong>&nbsp;&nbsp;&nbsp;{$lang.select_payment}: <strong>{$order.pay_name}</strong>&nbsp;&nbsp;&nbsp;{$lang.order_amount}:<strong>{$total.amount_formated}</strong></td>
             </tr>
             <tr>
               <td align="center" bgcolor="#FFFFFF">{$order.pay_desc}</td>

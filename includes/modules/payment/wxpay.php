@@ -127,7 +127,7 @@ class wxpay extends  WxPayNotify
         $param = substr($param, 0, -1);
 		
 //        $button = '<div style="text-align:center"><input type="button" class="pay_a" onclick="window.open(\'flow.php?step=wxpay&'.$param.'\')" value="' .$GLOBALS['_LANG']['pay_button']. '" /></div>';
-        $button = '<div style="text-align:center"><input type="button" class="pay_a" onclick="location.href=\'flow.php?step=wxpay&'.$param.'\'" value="' .$GLOBALS['_LANG']['pay_button']. '" /></div>';
+        $button = '<div style="text-align:center;"><input style="color:#ff6825;font-weight: bold;" type="button" class="pay_a" onclick="location.href=\'flow.php?step=wxpay&'.$param.'\'" value="' .$GLOBALS['_LANG']['pay_button']. '"/></div>';
 
         return $button;
     }

@@ -1,9 +1,9 @@
 <?php
 $data = array (
-  'shop_name' => 'ECSHOP',
-  'shop_title' => 'ECSHOP演示站',
-  'shop_desc' => 'ECSHOP演示站',
-  'shop_keywords' => 'ECSHOP演示站',
+  'shop_name' => '汇师网',
+  'shop_title' => '汇师网',
+  'shop_desc' => '汇师网',
+  'shop_keywords' => '汇师网',
   'shop_country' => '1',
   'shop_province' => '2',
   'shop_city' => '52',
@@ -20,10 +20,7 @@ $data = array (
   'shop_logo' => '',
   'licensed' => '1',
   'user_notice' => '用户中心公告！',
-  'shop_notice' => '欢迎光临手机网,我们的宗旨：诚信经营、服务客户！
-<MARQUEE onmouseover=this.stop() onmouseout=this.start() 
-scrollAmount=3><U><FONT color=red>
-<P>咨询电话010-10124444  010-21252454 8465544</P></FONT></U></MARQUEE>',
+  'shop_notice' => '',
   'shop_reg_closed' => '0',
   'lang' => 'zh_cn',
   'icp_number' => '辽ICP备12014775号-2',
@@ -149,9 +146,9 @@ scrollAmount=3><U><FONT color=red>
   'smtp_ssl' => '0',
   'integrate_code' => 'ecshop',
   'integrate_config' => '',
-  'hash_code' => 'd54d21fd88a6e26f87a185e7208afcbd',
+  'hash_code' => '608308b0167891000c50006a534e3892',
   'template' => 'ecmoban_kaola2016',
-  'install_date' => '1478848041',
+  'install_date' => '1487560150',
   'ecs_version' => 'v2.7.3',
   'sms_user_name' => '',
   'sms_password' => '',
@@ -183,6 +180,7 @@ scrollAmount=3><U><FONT color=red>
   'wap_config' => '0',
   'wap_logo' => '',
   'message_check' => '1',
+  'presell_image' => 'presell_image.png',
   'best_number' => 3,
   'new_number' => 3,
   'hot_number' => 3,
