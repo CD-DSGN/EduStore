@@ -84,7 +84,8 @@
 									<select name="district" id="town" class="select_button1" onblur="checkAddressName();" onmouseup="checkAddressName();">
 										<option value="0">请选择县/区</option>
 									</select>
-								<span class="correct_select" id="address_correct"><img src="./data/images/register/success.png" width="18px" height="18px" alt="correct" /></span>
+									<!-- modify nhj, 选择地区成功不显示 -->
+<!-- 								<span class="correct_select" id="address_correct"><img src="./data/images/register/success.png" width="18px" height="18px" alt="correct" /></span> -->
 								<span class="input_tip" id="address_notice"></span>
 						</div>
 						<div>
@@ -95,8 +96,8 @@
 						</div>
 						<div>
 							<label for="course_name" class="register_info">任课课程</label>
-							<div id="select_background" style=" position: absolute; width: 130px; height: 42px; display: inline-block; left: 125px; background: url('./data/images/register/select.png') no-repeat 100px; border: 2px solid #d3d3d3; border-radius: 6px; background-color: #efeeed; ">
-							<div id="select_hide" style=" position: absolute; width: 100px; height: 35px; display: inline-block; top: 2px; overflow: hidden;  ">
+							<div id="select_background" style=" position: absolute; width: 140px; height: 42px; display: inline-block; left: 125px; background: url('./data/images/register/select.png') no-repeat 110px; border: 2px solid #d3d3d3; border-radius: 6px; background-color: #efeeed; ">
+							<div id="select_hide" style=" position: absolute; width: 110px; height: 35px; display: inline-block; top: 2px; overflow: hidden;  ">
 							<select name="course_name" id="course_name" class="select_button" onblur="checkCourseName();" onmouseup="checkCourseName();" >
 								<option value="0">请选择课程</option>
 							</select>
@@ -252,6 +253,76 @@
         		}
         );
 	});
+</script>
+<script type="text/javascript">
+	function register() {
+	if( realName_status != 1) {
+		$("#real_name").focus().select();
+		$("#real_name_correct").css({'display':'none'});
+		$("#real_name_tips").html(error_info + '教师姓名不能为空');
+		return false;
+	}else if(address_status !=1){
+		$("#province").focus().select();
+		$("#address_notice").html("请选择所在地");
+		return false;
+	}else if( school_status != 1) {
+		$("#school").focus().select();
+		$("#school_correct").css({'display':'none'});
+		$("#school_tips").html(error_info + '学校不能为空');
+		return false;
+	}else if(course_status != 1) {
+		$("#course_name").focus().select();
+		$("#select_correct").css({'display':'none'});
+		$("#course_name_tips").html(error_info + '请选择课程');
+		return false;
+	}else if(password_status != 1) {
+		$("#password").focus().select();
+		if(password_status == 0 || password_status == 3) {
+			$("#password_correct").css({'display' : 'none'});
+			$("#password_tips").html(error_info + '密码长度过短');
+		} else if(password_status == 2) {
+			$("#confirm_password_correct").css({'display' : 'none'});
+			$("#confirm_password_tips").html(error_info + '两次密码不一致');
+		}
+		return false;
+	}else if(confirmPassword_status != 1) {
+		$("#password").focus().select();
+		$("#confirm_password_correct").css({'display' : 'none'});
+		$("#confirm_password_tips").html(error_info + '两次密码不一致');
+		return false;
+	}else if(code_status != 1) {
+		$("invite_code").focus().select();
+		$("#invite_code_correct").css({'display' : 'none'});
+		$("#invite_code_tips").html(error_info + '邀请码有误，请重新输入!');
+		return false;
+	}else {
+		$("#formTeacher").ajaxSubmit({
+    		success : function() {
+    			$(".step_two").css({'color' : '#666'});
+				$("#img_step_two").attr({'src' : './data/images/register/icon_gray2.png'});
+				$(".step_three").css({'color' : '#65bf92'});
+				$("#img_step_three").attr({'src' : './data/images/register/icon3.png'});
+				$("#register_success").css({'display' : ''});
+				$("#improve_info").css({'display' : 'none'});
+				var count = 2;
+				var countDownIndex = setInterval(function() {
+					$("#goIndex").html(count);
+					count--;
+					if(count == -1) {
+						clearInterval(countDownIndex);
+						//最后修改为网站首页域名
+						window.location.href = './';
+					}
+				}, 1000) 
+    		},
+    		error : function() {
+    			alert("网络连接失败，请检查网络。");
+    		},
+    		timeout : 5000
+    	});
+	}
+	return false;
+}
 </script>
 </html>
 
