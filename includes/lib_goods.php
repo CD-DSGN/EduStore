@@ -1529,4 +1529,53 @@ function get_parents_category()
     }
     
 }
+
+// add nhj，二级分类
+/* 获取分类树下的所有东西，包括一级分类、二级分类、二级分类下的商品 */
+function get_all_category()
+{
+    $categoryArr = array();
+
+    $sql = 'SELECT * FROM ' . $GLOBALS['ecs']->table('category') . " WHERE parent_id = 0 AND is_show = 1 ";
+    $res = $GLOBALS['db']->getAll($sql);
+    $index = 0;
+
+    foreach ($res as $parent_category) {
+        // 父级分类信息
+        $categoryArr[$index]['parent']['id'] = $parent_category['cat_id'];
+        $categoryArr[$index]['parent']['cat_name'] = $parent_category['cat_name'];
+        $categoryArr[$index]['parent']['parent_id'] = $parent_category['parent_id'];
+        $categoryArr[$index]['parent']['url'] = build_uri('category', array('cid' => $parent_category['cat_id']), $parent_category['cat_name']);
+        // 二级分类信息
+        $sql = "SELECT * FROM " . $GLOBALS['ecs']->table('category') ." WHERE `parent_id` = " . $parent_category['cat_id'] . " AND is_show = 1";
+        $result = $GLOBALS['db']->getAll($sql);
+        $second_index = 0;
+
+        foreach ($result as $second_category) {
+            $categoryArr[$index]['second'][$second_index]['id'] = $second_category['cat_id'];
+            $categoryArr[$index]['second'][$second_index]['cat_name'] = $second_category['cat_name'];
+            $categoryArr[$index]['second'][$second_index]['parent_id'] = $second_category['parent_id'];
+            $categoryArr[$index]['second'][$second_index]['url'] = build_uri('category', array('cid' => $second_category['cat_id']), $second_category['cat_name']);
+            $second_index++;
+
+            // 二级分类下的商品
+            $sql = "SELECT goods_id, goods_name FROM ". $GLOBALS['ecs']->table('goods') ." WHERE `cat_id` = " . $second_category['cat_id'] . " AND is_on_sale = 1 AND is_delete = 0 LIMIT 0,5";
+            $goods = $GLOBALS['db']->getAll($sql);
+            $second_goods_index = 0;
+
+            foreach ($goods as $key => $value) {
+                $categoryArr[$index]['second_goods'][$second_goods_index]['id'] = $value['goods_id'];
+                $categoryArr[$index]['second_goods'][$second_goods_index]['name'] = $value['goods_name'];
+                $categoryArr[$index]['second_goods'][$second_goods_index]['url'] = build_uri('goods', array('gid' => $value['goods_id']));
+                $second_goods_index++;
+            }
+        }
+
+        $index++;
+    }
+    if (isset($categoryArr))
+    {
+        return $categoryArr;
+    }
+}
 ?>

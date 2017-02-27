@@ -240,12 +240,28 @@ a,img{border:0;}
 					<ul>
 						<!--实现商品分类-->
 					    <li class="first" style="background: #1a435f;"><a href="category.php?id=1" style="color:white;">商品分类</a>
-							{if $parents_category}
+							{if $categoryArr}
                              <ul>
-							 	{foreach from=$parents_category item=parents name=key}
-                             	<li><a href="{$parents.url}">{$parents.cat_name}></a></li>                         	
-								{/foreach}
-                             	
+                             {foreach from=$categoryArr item=category_arr}
+                             	{foreach from=$category_arr item=category key=category_index}
+                             		<!-- 一级分类 -->
+                             		{if $category_index eq 'parent'}
+                             			<li><a href="{$category.url}">{$category.cat_name}></a></li>
+                             		{/if}
+                             		<!-- 二级分类 -->
+                             		{if $category_index eq 'second'}
+                             			{foreach from=$category item=second_title}  <!-- 二级分类标题 -->
+                             				<li><a href="{$second_title.url}">{$second_title.cat_name}></a></li>
+                             			{/foreach}
+                             		{/if}
+                             		<!-- 二级分类下的商品 -->
+                             		{if $category_index eq 'second_goods'}
+                             			{foreach from=$category item=second_goods}  <!-- 二级分类下商品 -->
+                             				<li><a href="{$second_goods.url}">{$second_goods.name}></a></li>
+                             			{/foreach}
+                             		{/if}
+                             	{/foreach}
+                             {/foreach}
                              </ul>
                              {/if}
 					    </li>
