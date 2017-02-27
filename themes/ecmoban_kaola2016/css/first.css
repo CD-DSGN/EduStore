@@ -433,10 +433,11 @@ span{
 .more-right a:hover{
 	color:#ff6825;
 }
-.more-right span .duo{
+.more-right .duo{
 	color:#c6856d;
+	float:right;
 }
-.more-right span .duo:hover{
+.more-right .duo:hover{
  	text-decoration:underline;
  	color:#ff6825;
  }

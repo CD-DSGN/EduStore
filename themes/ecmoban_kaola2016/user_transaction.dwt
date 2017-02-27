@@ -90,7 +90,7 @@
             var {$key} = "{$item}";
           {/foreach}
         </script>
-      <h5><span>{$lang.profile}</span></h5>
+      <h5><span>{$lang.profile}</span></h5><!--用户信息-->
       <div class="blank"></div>
      <form name="formEdit" action="user.php" method="post" onSubmit="return userEdit()">
       <table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd">
@@ -294,13 +294,15 @@
       </form>
     <!-- {/if} -->
    <!--用户红包结束-->
+
+
       <!--#订单列表界面 start-->
        <!-- {if $action eq 'order_list'} -->
        <h5><span>{$lang.label_order}</span></h5>
        <div class="blank"></div>
        <table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd">
           <tr align="center">
-            <td bgcolor="#ffffff">{$lang.order_number}</td>
+            <td bgcolor="#ffffff">{$lang.order_number}</td><!--订单号-->
             <td bgcolor="#ffffff">{$lang.order_addtime}</td>
             <td bgcolor="#ffffff">{$lang.order_money}</td>
             <td bgcolor="#ffffff">{$lang.order_status}</td>
@@ -308,18 +310,21 @@
           </tr>
           <!--{foreach from=$orders item=item}-->
           <tr>
-            <td align="center" bgcolor="#ffffff"><a href="user.php?act=order_detail&order_id={$item.order_id}" class="f6">{$item.order_sn}</a></td>
+            <td align="center" bgcolor="#ffffff">{$item.order_sn}</td>
             <td align="center" bgcolor="#ffffff">{$item.order_time}</td>
             <td align="right" bgcolor="#ffffff">{$item.total_fee}</td>
             <td align="center" bgcolor="#ffffff">{$item.order_status}</td>
-            <td align="center" bgcolor="#ffffff"><font class="f6">{$item.handler}</font></td>
+            <td align="center" bgcolor="#ffffff"><font class="f6">{$item.handler}<a href="user.php?act=order_detail&order_id={$item.order_id}" class="f6" style="margin-left: 6px;">查看详情</a></font></td>
           </tr>
           <!--{/foreach}-->
           </table>
         <div class="blank5"></div>
+
+
+
        <!-- #BeginLibraryItem "/library/pages.lbi" --><!-- #EndLibraryItem -->
        <div class="blank5"></div>
-       <h5><span>{$lang.merge_order}</span></h5>
+       <h5><span>{$lang.merge_order}</span></h5><!--合并订单-->
        <div class="blank"></div>
         <script type="text/javascript">
         {foreach from=$lang.merge_order_js item=item key=key}
@@ -390,7 +395,7 @@
 
      <!-- ==========订单详情页面,包括：订单状态，商品列表，费用总计，收货人信息，支付方式，其它信息========== -->
       <!--{if $action eq order_detail} -->
-        <h5><span>{$lang.order_status}</span></h5>
+        <h5><span>{$lang.order_status}</span></h5><!--订单状态-->
         <div class="blank"></div>
          <table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd">
         <tr>
@@ -405,12 +410,12 @@
 					</td>
         </tr>
         <tr>
-          <td align="right" bgcolor="#ffffff">{$lang.detail_order_status}：</td>
+          <td align="right" bgcolor="#ffffff">{$lang.detail_order_status}：</td><!--订单状态-->
           <td align="left" bgcolor="#ffffff">{$order.order_status}&nbsp;&nbsp;&nbsp;&nbsp;{$order.confirm_time}</td>
         </tr>
         <tr>
-          <td align="right" bgcolor="#ffffff">{$lang.detail_pay_status}：</td>
-          <td align="left" bgcolor="#ffffff">{$order.pay_status}&nbsp;&nbsp;&nbsp;&nbsp;{if $order.order_amount gt 0}{$order.pay_online}{/if}{$order.pay_time}</td>
+          <td align="right" bgcolor="#ffffff">{$lang.detail_pay_status}：</td><!--付款状态-->
+          <td align="left" bgcolor="#ffffff" ><div style="float: left;">{$order.pay_status}</div>&nbsp;&nbsp;&nbsp;&nbsp;<div style="float: left;margin-left: 50px;">{if $order.order_amount gt 0}{$order.pay_online}{/if}{$order.pay_time}</div></td>
         </tr>
         <tr>
           <td align="right" bgcolor="#ffffff">{$lang.detail_shipping_status}：</td>
@@ -493,7 +498,7 @@
           </tr>
         </table>
          <div class="blank"></div>
-        <h5><span>{$lang.fee_total}</span></h5>
+        <h5><span>{$lang.fee_total}</span></h5><!--费用总计-->
         <div class="blank"></div>
          <table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd">
           <tr>
@@ -583,15 +588,15 @@
                 <td align="left" bgcolor="#ffffff"><input name="mobile" type="text"  class="inputBg" value="{$order.mobile|escape}" size="25" /></td>
               </tr>
               <!-- {if $order.exist_real_goods} -->
-              <!-- 只有虚拟商品处理-->
-              <tr>
+              <!-- 只有虚拟商品处理--><!--注释掉的标志性建筑-->
+              <!-- <tr>
                 <td align="right" bgcolor="#ffffff">{$lang.sign_building}：</td>
                 <td align="left" bgcolor="#ffffff"><input name="sign_building" class="inputBg" type="text" value="{$order.sign_building|escape}" size="25" />
                 </td>
                 <td align="right" bgcolor="#ffffff">{$lang.deliver_goods_time}：</td>
                 <td align="left" bgcolor="#ffffff"><input name="best_time" type="text" class="inputBg" value="{$order.best_time|escape}" size="25" />
                 </td>
-              </tr>
+              </tr> -->
               <!-- {/if}-->
               <tr>
                 <td colspan="4" align="center" bgcolor="#ffffff"><input type="hidden" name="act" value="save_order_address" />
@@ -640,7 +645,7 @@
         <table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd">
                 <tr>
                   <td bgcolor="#ffffff">
-                  {$lang.select_payment}: {$order.pay_name}。{$lang.order_amount}: <strong>{$order.formated_order_amount}</strong><br />
+                  {$lang.select_payment}: {$order.pay_name}&nbsp;&nbsp;&nbsp;&nbsp;{$lang.order_amount}: <strong>{$order.formated_order_amount}</strong><br />
                   {$order.pay_desc}
                   </td>
                 </tr>

@@ -1,6 +1,6 @@
 /*=========mF_fancy ========*/
 // .mF_fancy .pic{position:absolute;z-index:1;}
-.mF_fancy .pic ul{ position:absolute; top:0;left:0;width:x;height:100%; overflow:hidden;}
+.mF_fancy .pic ul{ position:absolute; top:0;left:0;height:100%; overflow:hidden; }
 .mF_fancy .pic ul li{ position:absolute;top:0;left:0; display:none; overflow:hidden;}
 .mF_fancy .txt{position:absolute;z-index:2; top:12px;left:12px; width:80%; color:#fff;}
 .mF_fancy .txt li{position:absolute;top:0;width:100%; padding:12px; visibility:hidden; opacity:0;-webkit-transition:all .4s;-moz-transition:all .4s;-o-transition:all .4s;}

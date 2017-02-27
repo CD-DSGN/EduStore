@@ -16,7 +16,7 @@ myFocus.pattern.extend({
 		//CSS
 		var w=Math.round(settings.width/n);
 		$picUls.each(function(i){
-			$(this).css({width:w*(i+1),zIndex:n-i});
+			$(this).css({width:document.body.clientWidth,zIndex:n-i});
 			$picListArr.push($(this).find('li'));
 		});
 		var numW=Math.round((settings.width-n+1)/n);

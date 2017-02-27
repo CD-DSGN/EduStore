@@ -82,6 +82,7 @@ class cls_session
         $this->db  = $db;
         $this->_ip = real_ip();
 
+        //$session_id为32位 写入cookie为40位
         if ($session_id == '' && !empty($_COOKIE[$this->session_name]))
         {
             $this->session_id = $_COOKIE[$this->session_name];

@@ -61,7 +61,7 @@
   </tr>
   <!-- {if $real_goods_count gt 0} -->
   <!-- 购物车中存在实体商品显示最佳送货时间及标志行建筑 -->
-
+  
   <!-- {/if} -->
   <tr>
     <td colspan="4" align="center" bgcolor="#ffffff">
