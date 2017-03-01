@@ -379,7 +379,23 @@ function cat_list($cat_id = 0, $selected = 0, $re_type = true, $level = 0, $is_s
         return $options;
     }
 }
+function get_course_option(){
+    $data = read_static_cache('course_option');
+    if($data == NULL){
+        $sql = 'SELECT * FROM '.$GLOBALS['ecs']->table('courses').' ORDER BY course_id ASC';
+        $res = $GLOBALS['db']->getAll($sql);
+        write_static_cache('course_option', $res);
+    }else{
+        $res = $data;
+    }
 
+    $select = '';
+    foreach ($res AS $var){
+        $select .= '<option value="' . $var['course_id'] . '">';
+        $select .= htmlspecialchars(addslashes($var['course_name']), ENT_QUOTES) . '</option>';
+    }
+    return $select;
+}
 /**
  * 过滤和排序所有分类，返回一个带有缩进级别的数组
  *
