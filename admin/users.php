@@ -699,6 +699,10 @@ function user_list()
         $filter['district'] = empty($_REQUEST['town_id'])  ? 0 : trim($_REQUEST['town_id']);
         /*end*/
 
+        /*增加电话号码查询用户*/
+        $filter['mobilePhone'] = empty($_REQUEST['mobilePhone'])  ? 0 : $_REQUEST['mobilePhone'];
+        /*end*/
+
         $ex_where = ' WHERE 1 ';
         if ($filter['keywords'])
         {
@@ -761,6 +765,11 @@ function user_list()
             $ex_where .= " AND `user_id` in (SELECT user_id FROM ". $GLOBALS['ecs']->table('teachers') . $region_where .")";
         }
         /*end*/
+        /*增加电话号码查询用户*/
+        if ($filter['mobilePhone']) {
+            $ex_where .= " AND `mobile_phone` = ". $filter['mobilePhone'];
+        }
+        /*end*/
         $filter['record_count'] = $GLOBALS['db']->getOne("SELECT COUNT(*) FROM " . $GLOBALS['ecs']->table('users') . $ex_where);
 
         /* 分页大小 */
@@ -769,6 +778,7 @@ function user_list()
                 " FROM " . $GLOBALS['ecs']->table('users') . $ex_where .
                 " ORDER by " . $filter['sort_by'] . ' ' . $filter['sort_order'] .
                 " LIMIT " . $filter['start'] . ',' . $filter['page_size'];
+        // echo $sql;
         $filter['keywords'] = stripslashes($filter['keywords']);
         set_filter($filter, $sql);
     }

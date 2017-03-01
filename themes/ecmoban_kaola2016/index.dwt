@@ -241,7 +241,7 @@ a,img{border:0;}
 						<!--实现商品分类-->
 					    <li class="first" style="background: #1a435f;"><a href="category.php?id=1" style="color:white;">商品分类</a>
 							{if $categoryArr}
-                             <ul>
+                             <ul style="position: relative;z-index: 1111;">
                              {foreach from=$categoryArr item=category_arr}
                              	{foreach from=$category_arr item=category key=category_index}
                              		<!-- 一级分类 -->
@@ -255,9 +255,9 @@ a,img{border:0;}
                              			{/foreach}
                              		{/if}
                              		<!-- 二级分类下的商品 -->
-                             		{if $category_index eq 'second_goods'}
-                             			{foreach from=$category item=second_goods}  <!-- 二级分类下商品 -->
-                             				<li><a href="{$second_goods.url}">{$second_goods.name}></a></li>
+                             		{if $category_index eq 'third'}
+                             			{foreach from=$category item=third}  <!-- 二级分类下商品 -->
+                             				<li><a href="{$third.url}">{$third.name}></a></li>
                              			{/foreach}
                              		{/if}
                              	{/foreach}
