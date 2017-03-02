@@ -2162,7 +2162,6 @@ function uc_call($func, $params=null)
     }
 
     $res = call_user_func_array($func, $params);
-
     set_error_handler('exception_handler');
 
     return $res;
