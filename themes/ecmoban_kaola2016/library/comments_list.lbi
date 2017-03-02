@@ -80,12 +80,6 @@
           <td width="631"{if !$enabled_captcha}{/if}><!--{if $smarty.session.user_name}-->{$smarty.session.user_name}<!--{else}-->{$lang.anonymous}<!--{/if}--></td>
         </tr>
         <tr>
-          <td align="right">E-mail：</td>
-          <td>
-          <input type="text" name="email" id="email"  maxlength="100" value="{$smarty.session.email|escape}" class="inputBorder"/>
-          </td>
-        </tr>
-        <tr>
           <td align="right">{$lang.comment_rank}：</td>
           <td>
           <input name="comment_rank" type="radio" value="1" id="comment_rank1" /> <img src="../images/stars1.gif" />
@@ -137,7 +131,7 @@ function submitComment(frm)
   var cmt = new Object;
 
   //cmt.username        = frm.elements['username'].value;
-  cmt.email           = frm.elements['email'].value;
+  //cmt.email           = frm.elements['email'].value;
   cmt.content         = frm.elements['content'].value;
   cmt.type            = frm.elements['cmt_type'].value;
   cmt.id              = frm.elements['id'].value;
@@ -159,19 +153,19 @@ function submitComment(frm)
 //     return false;
 //  }
 
-  if (cmt.email.length > 0)
-  {
-     if (!(Utils.isEmail(cmt.email)))
-     {
-        alert(cmt_error_email);
-        return false;
-      }
-   }
-   else
-   {
-        alert(cmt_empty_email);
-        return false;
-   }
+//  if (cmt.email.length > 0)
+//  {
+//     if (!(Utils.isEmail(cmt.email)))
+//     {
+//        alert(cmt_error_email);
+//        return false;
+//      }
+//   }
+//   else
+//   {
+//        alert(cmt_empty_email);
+//        return false;
+//   }
 
    if (cmt.content.length == 0)
    {

@@ -693,6 +693,16 @@ function user_list()
         $filter['sort_by']    = empty($_REQUEST['sort_by'])    ? 'teacher_integral' : trim($_REQUEST['sort_by']);
         $filter['sort_order'] = empty($_REQUEST['sort_order']) ? 'DESC'     : trim($_REQUEST['sort_order']);
 
+        /*增加省市地区查询*/
+        $filter['province'] = empty($_REQUEST['province_id'])  ?  0 : trim($_REQUEST['province_id']);
+        $filter['city'] = empty($_REQUEST['city_id'])  ? 0 : trim($_REQUEST['city_id']);
+        $filter['district'] = empty($_REQUEST['town_id'])  ? 0 : trim($_REQUEST['town_id']);
+        /*end*/
+
+        /*增加电话号码查询用户*/
+        $filter['mobilePhone'] = empty($_REQUEST['mobilePhone'])  ? 0 : $_REQUEST['mobilePhone'];
+        /*end*/
+
         $ex_where = ' WHERE 1 ';
         if ($filter['keywords'])
         {
@@ -741,6 +751,25 @@ function user_list()
             }
         }
         /*end*/
+        /*增加省市地区的判断*/
+        if ($filter['users'] == 1) {        // 教师才有地区信息
+            if ($filter['province']) {
+                $region_where = "WHERE `province` = " .$filter['province'];
+            }
+            if ($filter['city']) {
+                $region_where .= " AND `city` = " .$filter['city'];
+            }
+            if ($filter['town']) {
+                $region_where .= " AND 'district' = " .$filter['town'];
+            }
+            $ex_where .= " AND `user_id` in (SELECT user_id FROM ". $GLOBALS['ecs']->table('teachers') . $region_where .")";
+        }
+        /*end*/
+        /*增加电话号码查询用户*/
+        if ($filter['mobilePhone']) {
+            $ex_where .= " AND `mobile_phone` = ". $filter['mobilePhone'];
+        }
+        /*end*/
         $filter['record_count'] = $GLOBALS['db']->getOne("SELECT COUNT(*) FROM " . $GLOBALS['ecs']->table('users') . $ex_where);
 
         /* 分页大小 */
@@ -749,7 +778,7 @@ function user_list()
                 " FROM " . $GLOBALS['ecs']->table('users') . $ex_where .
                 " ORDER by " . $filter['sort_by'] . ' ' . $filter['sort_order'] .
                 " LIMIT " . $filter['start'] . ',' . $filter['page_size'];
-
+        // echo $sql;
         $filter['keywords'] = stripslashes($filter['keywords']);
         set_filter($filter, $sql);
     }

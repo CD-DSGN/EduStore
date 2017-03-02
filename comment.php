@@ -44,11 +44,11 @@ if (empty($_REQUEST['act']))
         $result['error']   = 1;
         $result['message'] = $_LANG['invalid_comments'];
     }
-    elseif (!is_email($cmt->email))
-    {
-        $result['error']   = 1;
-        $result['message'] = $_LANG['error_email'];
-    }
+//    elseif (!is_email($cmt->email))
+//    {
+//        $result['error']   = 1;
+//        $result['message'] = $_LANG['error_email'];
+//    }
     else
     {
         if ((intval($_CFG['captcha']) & CAPTCHA_COMMENT) && gd_version() > 0)
@@ -249,7 +249,7 @@ if ($result['error'] == 0)
     $smarty->assign('comment_type', $cmt->type);
     $smarty->assign('id',           $cmt->id);
     $smarty->assign('username',     $_SESSION['user_name']);
-    $smarty->assign('email',        $_SESSION['email']);
+    //$smarty->assign('email',        $_SESSION['email']);
     $smarty->assign('comments',     $comments['comments']);
     $smarty->assign('pager',        $comments['pager']);
 
@@ -283,15 +283,15 @@ function add_comment($cmt)
     $status = 1 - $GLOBALS['_CFG']['comment_check'];
 
     $user_id = empty($_SESSION['user_id']) ? 0 : $_SESSION['user_id'];
-    $email = empty($cmt->email) ? $_SESSION['email'] : trim($cmt->email);
+    //$email = empty($cmt->email) ? $_SESSION['email'] : trim($cmt->email);
     $user_name = empty($cmt->username) ? $_SESSION['user_name'] : '';
-    $email = htmlspecialchars($email);
+    //$email = htmlspecialchars($email);
     $user_name = htmlspecialchars($user_name);
 
     /* 保存评论内容 */
     $sql = "INSERT INTO " .$GLOBALS['ecs']->table('comment') .
-           "(comment_type, id_value, email, user_name, content, comment_rank, add_time, ip_address, status, parent_id, user_id) VALUES " .
-           "('" .$cmt->type. "', '" .$cmt->id. "', '$email', '$user_name', '" .$cmt->content."', '".$cmt->rank."', ".gmtime().", '".real_ip()."', '$status', '0', '$user_id')";
+           "(comment_type, id_value,  user_name, content, comment_rank, add_time, ip_address, status, parent_id, user_id) VALUES " .
+           "('" .$cmt->type. "', '" .$cmt->id. "',  '$user_name', '" .$cmt->content."', '".$cmt->rank."', ".gmtime().", '".real_ip()."', '$status', '0', '$user_id')";
 
     $result = $GLOBALS['db']->query($sql);
     clear_cache_files('comments_list.lbi');
