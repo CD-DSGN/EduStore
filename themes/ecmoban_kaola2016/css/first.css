@@ -320,7 +320,7 @@ span{
 }
 .leftdiv dl dd{
 	display:block;
-	//overflow:hidden;
+	overflow:hidden;
 
 }
 .leftdiv dl dd a{

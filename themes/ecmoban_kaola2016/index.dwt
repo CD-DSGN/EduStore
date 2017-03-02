@@ -235,14 +235,7 @@ a,img{border:0;}
 					<ul>
 						<!--实现商品分类-->
 					    <li class="first" style="background: #1a435f;"><a href="category.php?id=1" style="color:white;">商品分类</a>
-							 <!-- {if $parents_category}
-                             <ul>
-							 	{foreach from=$parents_category item=parents name=key}
-                             	<li><a href="{$parents.url}">{$parents.cat_name}></a></li>                         	
-								{/foreach}
-                             	
-                             </ul>
-                             {/if}  -->
+
                              <ul class="topmenu">
 	                             <li><a href="#" >新航线</a><span class="subspan"></span>       
 	                             	<!-- <div style="width: 210px; height: 210px; left: 0; right: 0px; background: red;"></div>   -->                  
