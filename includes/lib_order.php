@@ -111,14 +111,12 @@ function get_all_shipping_list()
  */
 function shipping_area_info($shipping_id, $region_id_list)
 {
+
     $sql = 'SELECT s.shipping_code, s.shipping_name, ' .
                 's.shipping_desc, s.insure, s.support_cod, a.configure ' .
             'FROM ' . $GLOBALS['ecs']->table('shipping') . ' AS s, ' .
-                $GLOBALS['ecs']->table('shipping_area') . ' AS a, ' .
-                $GLOBALS['ecs']->table('area_region') . ' AS r ' .
-            "WHERE s.shipping_id = '$shipping_id' " .
-            'AND r.region_id ' . db_create_in($region_id_list) .
-            ' AND r.shipping_area_id = a.shipping_area_id AND a.shipping_id = s.shipping_id AND s.enabled = 1';
+                $GLOBALS['ecs']->table('shipping_area') . ' AS a ' .
+            " WHERE s.shipping_id = $shipping_id AND a.shipping_id = $shipping_id AND s.enabled = 1";
     $row = $GLOBALS['db']->getRow($sql);
 
     if (!empty($row))

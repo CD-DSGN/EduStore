@@ -1113,11 +1113,13 @@ elseif ($action == 'act_edit_password_already_login')
     $code         = isset($_POST['code']) ? trim($_POST['code'])  : '';
 
     if (strlen($new_password) < 6)
+
     {
         show_message($_LANG['passport_js']['password_shorter']);
     }
 
     $user_info = $user->get_profile_by_id($user_id); //论坛记录
+
 
     if (($user_info && (!empty($code) && md5($user_info['user_id'] . $_CFG['hash_code'] . $user_info['reg_time']) == $code)) || ($user_id>0 && $_SESSION['user_id'] == $user_id && $user->check_user($_SESSION['user_name'], $old_password)))
     {
