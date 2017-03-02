@@ -20,7 +20,7 @@
   <!-- #BeginLibraryItem "/library/ur_here.lbi" --><!-- #EndLibraryItem -->
 
  
-<div class="block table">
+<div class="block table" style="min-height: 450px;">
   <!-- {if $step eq "cart"} -->
 
   <!-- 购物车内容 -->
@@ -86,9 +86,9 @@
               <td align="center" bgcolor="#ffffff">{$goods.goods_price}</td>
               <td align="center" bgcolor="#ffffff">
                 <!-- {if $goods.goods_id gt 0 && $goods.is_gift eq 0 && $goods.parent_id eq 0} 普通商品可修改数量 -->
-              <span onclick="changeNum(this,-1),showdiv(this)" style="cursor:pointer;border: 1px solid #D6D3D3; background: #F6E4D0;padding: 6px 6px 3px 6px;">-</span>
-              <input type="text" name="goods_number[{$goods.rec_id}]" id="goods_number_{$goods.rec_id}" value="{$goods.goods_number}" size="4" class="formBorder"  onkeydown="showdiv(this)"/>
-              <span onclick="changeNum(this,1),showdiv(this)" style="cursor:pointer;border: 1px solid #D6D3D3; background: #F6E4D0;padding: 6px 6px 3px 6px;">+</span>
+              <a href="javascript:cart_number('goods_number_{$goods.rec_id}', '-');" style="cursor:pointer;border: 1px solid #D6D3D3; background: #F6E4D0;padding: 6px 6px 3px 6px;">-</a>
+              <input type="text" name="goods_number[{$goods.rec_id}]" id="goods_number_{$goods.rec_id}" value="{$goods.goods_number}" size="4" class="formBorder"  onkeydown="showdiv(this)" />
+              <a href="javascript:cart_number('goods_number_{$goods.rec_id}', '+');" style="cursor:pointer;border: 1px solid #D6D3D3; background: #F6E4D0;padding: 6px 6px 3px 6px;">+</a>
                                         <!-- {else} -->
                 {$goods.goods_number}
                 <!-- {/if} -->

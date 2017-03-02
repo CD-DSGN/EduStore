@@ -4,18 +4,12 @@
  <head>
 	<title>汇师网</title>
 	<link rel="stylesheet" type="text/css" href="./themes/ecmoban_kaola2016/css/first.css">
-    <script type="text/javascript" src="./themes/ecmoban_kaola2016/js/jquery-1.7.2.min.js"></script>
-	<script type="text/javascript" src="./themes/ecmoban_kaola2016/js/setHomeSetFav.js"></script>
-	<script type="text/javascript" src="./themes/ecmoban_kaola2016/js/myfocus-2.0.1.min.js"></script>
-	<script type="text/javascript" src="./themes/ecmoban_kaola2016/js/mF_fancy.js"></script>
-		<link rel="stylesheet" type="text/css" href="./themes/ecmoban_kaola2016/css/mF_fancy.css">
+	<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="js/slider.js"></script>
+	<link rel="stylesheet" type="text/css" href="./themes/ecmoban_kaola2016/css/mF_fancy.css">
 	<link rel="icon" href="animated_favicon.gif" type="image/gif" />
 	<script src="../js/jquery-1.11.3.min.js"></script>
-	<script type="text/javascript">
-		myFocus.set({
-			id:'picBox'
-		});
-	</script>
+	
 	<style type="text/css">
 a,img{border:0;}
 
@@ -96,6 +90,7 @@ a,img{border:0;}
  </head>
 
 <body>
+<!-- 商品分类下的二级菜单 -->
 
 <div id="leftsead">
 	<ul>
@@ -240,14 +235,221 @@ a,img{border:0;}
 					<ul>
 						<!--实现商品分类-->
 					    <li class="first" style="background: #1a435f;"><a href="category.php?id=1" style="color:white;">商品分类</a>
-							{if $parents_category}
+							 <!-- {if $parents_category}
                              <ul>
 							 	{foreach from=$parents_category item=parents name=key}
                              	<li><a href="{$parents.url}">{$parents.cat_name}></a></li>                         	
 								{/foreach}
                              	
                              </ul>
-                             {/if}
+                             {/if}  -->
+                             <ul class="topmenu">
+	                             <li><a href="#" >新航线</a><span class="subspan"></span>       
+	                             	<!-- <div style="width: 210px; height: 210px; left: 0; right: 0px; background: red;"></div>   -->                  
+                                     <div class="submenu" id="submenu"> 
+                                         <div class="leftdiv">
+                                             <dl>
+                                             	<dt><a href="#" style="color:#f36164;font-size:10pt;">语文</a>
+                                             	</dt>
+                                             	<dd>
+                                             		<a href="#" style="color:#737373;font-size:9pt;">七年级</a>
+                                             		<a href="#" style="color:#737373;font-size:9pt;">八年级</a>
+                                             		<a href="#" style="color:#737373;font-size:9pt;">九年级</a>                                  		
+                                             	</dd>
+                                             </dl>
+                                             <dl>
+                                             	<dt><a href="#" style="color:#f36164;font-size:10pt;">数学</a></dt>
+                                             	<dd>
+                                             		<a href="#">七年级</a>
+                                             		<a href="#">八年级</a>
+                                             		<a href="#">九年级</a>
+                                             	</dd>
+                                             </dl>
+                                             <dl>
+                                             	<dt><a href="#" style="color:#f36164;font-size:10pt;">英语</a></dt>
+                                             	<dd>
+                                             		<a href="#">七年级</a>
+                                             		<a href="#">八年级</a>
+                                             		<a href="#">九年级</a>
+                                             	</dd>
+                                             </dl>
+                                             <dl>
+                                             	<dt><a href="#" style="color:#f36164;font-size:10pt;">物理</a></dt>
+                                             	<dd>
+                                             		<a href="#">七年级</a>
+                                             		<a href="#">八年级</a>
+                                             		<a href="#">九年级</a>
+                                             	</dd>
+                                             </dl>
+                                             <dl>
+                                             	<dt><a href="#" style="color:#f36164;font-size:10pt;">化学</a></dt>
+                                             	<dd>
+                                             		<a href="#">七年级</a>
+                                             		<a href="#">八年级</a>
+                                             		<a href="#">九年级</a>
+                                             	</dd>
+                                             </dl>
+                                             <dl>
+                                             	<dt><a href="#" style="color:#f36164;font-size:10pt;">思想品德</a></dt>
+                                             	<dd>
+                                             		<a href="#">七年级</a>
+                                             		<a href="#">八年级</a>
+                                             		<a href="#">九年级</a>
+                                             	</dd>
+                                             </dl>
+                                            </div>
+                                         <div class="rightdiv">
+                                             <dl>
+                                             	<dd><a href="#"><img width="270px" height="400px" src="images/gg.jpg"></a></dd>
+                                             </dl>
+                                         </div>
+                                     </div>
+	                             </li>
+	                             <li><a href="#">口算作业本</a><span class="subspan"></span> 
+                                     <div class="submenu" id="submenu">
+                                         <div class="leftdiv">
+                                             <dl>
+                                             	<dt><a href="#" style="color:#f36164;font-size:10pt;">hhhh</a></dt>
+                                             	<dd>
+                                             		<a href="#" style="color:#737373;font-size:9pt;">七年级</a>
+                                             		<a href="#" style="color:#737373;font-size:9pt;">八年级</a>
+                                             		<a href="#" style="color:#737373;font-size:9pt;">九年级</a>
+                                             		<a href="#" style="color:#737373;font-size:9pt;">七年级</a>
+                                             		<a href="#" style="color:#737373;font-size:9pt;">八年级</a>
+                                             		<a href="#" style="color:#737373;font-size:9pt;">九年级</a>
+                                             		<a href="#" style="color:#737373;font-size:9pt;">七年级</a>
+                                             		<a href="#" style="color:#737373;font-size:9pt;">八年级</a>
+                                             		<a href="#" style="color:#737373;font-size:9pt;">九年级</a>
+                                             		<a href="#" style="color:#737373;font-size:9pt;">七年级</a>
+                                             		<a href="#" style="color:#737373;font-size:9pt;">八年级</a>
+                                             		<a href="#" style="color:#737373;font-size:9pt;">九年级</a>
+                                             	</dd>
+                                             </dl>
+                                             <dl>
+                                             	<dt><a href="#" style="color:#f36164;font-size:10pt;">数学</a></dt>
+                                             	<dd>
+                                             		<a href="#">七年级</a>
+                                             		<a href="#">八年级</a>
+                                             		<a href="#">九年级</a>
+                                             	</dd>
+                                             </dl>
+                                             <dl>
+                                             	<dt><a href="#" style="color:#f36164;font-size:10pt;">英语</a></dt>
+                                             	<dd>
+                                             		<a href="#">七年级</a>
+                                             		<a href="#">八年级</a>
+                                             		<a href="#">九年级</a>
+                                             	</dd>
+                                             </dl>
+                                             <dl>
+                                             	<dt><a href="#" style="color:#f36164;font-size:10pt;">物理</a></dt>
+                                             	<dd>
+                                             		<a href="#">七年级</a>
+                                             		<a href="#">八年级</a>
+                                             		<a href="#">九年级</a>
+                                             	</dd>
+                                             </dl>
+                                             <dl>
+                                             	<dt><a href="#" style="color:#f36164;font-size:10pt;">化学</a></dt>
+                                             	<dd>
+                                             		<a href="#">七年级</a>
+                                             		<a href="#">八年级</a>
+                                             		<a href="#">九年级</a>
+                                             	</dd>
+                                             </dl>
+                                             <dl>
+                                             	<dt><a href="#" style="color:#f36164;font-size:10pt;">思想品德</a></dt>
+                                             	<dd>
+                                             		<a href="#">七年级</a>
+                                             		<a href="#">八年级</a>
+                                             		<a href="#">九年级</a>
+                                             	</dd>
+                                             </dl>
+                                             </div>
+                                         <div class="rightdiv">
+                                             <dl>
+                                             	<dd><a href="#"><img width="149px" height="70px" src="images/book1.png"></a></dd>
+                                             	
+                                             </dl>                                             
+                                         </div>
+                                     </div>
+	                             </li>
+	                             <li><a href="#">中考锦囊</a></li>
+	                             <li><a href="#">五年高考三年模拟</a></li>
+	                             <li><a href="#">新航线</a></li>
+	                             <li><a href="#">中考锦囊</a></li>
+	                             <li><a href="#">五年高考三年模拟</a><span class="subspan"></span>
+	                             <div class="submenu" id="submenu"> 
+                                         <div class="leftdiv">
+                                             <dl>
+                                             	<dt><a href="#" style="color:#f36164;font-size:10pt;">语文</a></dt>
+                                             	<dd>
+                                             		<a href="#" style="color:#737373;font-size:9pt;">七年级</a>
+                                             		<a href="#" style="color:#737373;font-size:9pt;">八年级</a>
+                                             		<a href="#" style="color:#737373;font-size:9pt;">九年级</a>
+                                             		<a href="#" style="color:#737373;font-size:9pt;">七年级</a>
+                                             		<a href="#" style="color:#737373;font-size:9pt;">八年级</a>
+                                             		<a href="#" style="color:#737373;font-size:9pt;">九年级</a>
+                                             		<a href="#" style="color:#737373;font-size:9pt;">七年级</a>
+                                             		<a href="#" style="color:#737373;font-size:9pt;">八年级</a>
+                                             		<a href="#" style="color:#737373;font-size:9pt;">九年级</a>
+                                             		<a href="#" style="color:#737373;font-size:9pt;">七年级</a>
+                                             		<a href="#" style="color:#737373;font-size:9pt;">八年级</a>
+                                             		<a href="#" style="color:#737373;font-size:9pt;">九年级</a>
+                                             	</dd>
+                                             </dl>
+                                             <dl>
+                                             	<dt><a href="#" style="color:#f36164;font-size:10pt;">数学</a></dt>
+                                             	<dd>
+                                             		<a href="#">七年级</a>
+                                             		<a href="#">八年级</a>
+                                             		<a href="#">九年级</a>
+                                             	</dd>
+                                             </dl>
+                                             <dl>
+                                             	<dt><a href="#" style="color:#f36164;font-size:10pt;">英语</a></dt>
+                                             	<dd>
+                                             		<a href="#">七年级</a>
+                                             		<a href="#">八年级</a>
+                                             		<a href="#">九年级</a>
+                                             	</dd>
+                                             </dl>
+                                             <dl>
+                                             	<dt><a href="#" style="color:#f36164;font-size:10pt;">物理</a></dt>
+                                             	<dd>
+                                             		<a href="#">七年级</a>
+                                             		<a href="#">八年级</a>
+                                             		<a href="#">九年级</a>
+                                             	</dd>
+                                             </dl>
+                                             <dl>
+                                             	<dt><a href="#" style="color:#f36164;font-size:10pt;">化学</a></dt>
+                                             	<dd>
+                                             		<a href="#">七年级</a>
+                                             		<a href="#">八年级</a>
+                                             		<a href="#">九年级</a>
+                                             	</dd>
+                                             </dl>
+                                             <dl>
+                                             	<dt><a href="#" style="color:#f36164;font-size:10pt;">思想品德</a></dt>
+                                             	<dd>
+                                             		<a href="#">七年级</a>
+                                             		<a href="#">八年级</a>
+                                             		<a href="#">九年级</a>
+                                             	</dd>
+                                             </dl>
+                                             
+                                         </div>
+                                         <div class="rightdiv">
+                                             <dl>
+                                             	<dd><a href="#"><img width="149px" height="70px" src="images/book1.png"></a></dd>
+                                             
+                                             </dl>                                          
+                                         </div>
+                                     </div></li>
+	                             <li><a href="#">新航线</a></li>
+	                             <li><a href="#">中考锦囊</a></li>
+                           </ul>
 					    </li>
 						<!--商品分类end-->
 						<li class="first"><a href="">首页</a></li>
@@ -263,18 +465,66 @@ a,img{border:0;}
 			</div>
 		</div>
 	</div>
+	
 
-		<div class="ad" id="picBox" >
-		<div class="pic" id="pic">
-			<ul>
-				{foreach from=$flash name=myflash item=flash key=key}
-					<li><a href="{$flash.url}" target="_blank"><img class="picLi" src="{$flash.src}"  height="440px" width="" style="margin: 0 auto;" /></a></li>
-				{/foreach}
 
-			</ul>
-			</div>
-		</div>
+         <div id="banner_tabs" class="ad">
+         			<ul class="slides">
+         			{foreach from=$flash name=myflash item=flash key=key}
+         				<li>
+         					<a title="" target="_blank" href="{$flash.url}">
+         						<img class="picLi" width="1920px" height="440px" alt="" style="background: url({$flash.src}) no-repeat
+         						center ;background-size: cover;" src="images/alpha.png">
+         					</a>
+         				</li>
+         			{/foreach}
+         				<!-- <li>
+         					<a title="" href="#">
+         						<img width="1920" height="482" alt="" style="background: url(images/banner2.jpg) no-repeat center;" src="images/alpha.png">
+         					</a>
+         				</li>
+         				<li>
+         					<a title="" href="#">
+         						<img width="1920" height="482" alt="" style="background: url(images/banner3.jpg) no-repeat center;" src="images/alpha.png">
+         					</a>
+         				</li> -->
+         			</ul>
+         	<ul class="flex-direction-nav">
+         		<li><a class="flex-prev" href="javascript:;">Previous</a></li>
+         		<li><a class="flex-next" href="javascript:;">Next</a></li>
+         	</ul>
+         	<ol id="bannerCtrl" class="flex-control-nav flex-control-paging">
+         		{foreach from=$flash name=myflash item=flash key=key}
+         			<li><a>1</a></li>
+         		{/foreach}
+         	</ol>
+         </div>
+<script type="text/javascript">
+$(function() {
+	var bannerSlider = new Slider($('#banner_tabs'), {
+		time: 5000,
+		delay: 400,
+		event: 'hover',
+		auto: true,
+		mode: 'fade',
+		controller: $('#bannerCtrl'),
+		activeControllerCls: 'active'
+	});
+	$('#banner_tabs .flex-prev').click(function() {
+		bannerSlider.prev()
+	});
+	$('#banner_tabs .flex-next').click(function() {
+		bannerSlider.next()
+	});
+})
+</script>
+   
+
+
+
 </div>
+<!-- 中间部分结束 -->
+
 <script>
 		var ll = document.getElementsByClassName('picLi');
 		for(i=0;i<ll.length;i++){
@@ -283,6 +533,25 @@ a,img{border:0;}
 </script>
 
 <!-- TemplateBeginEditable name="教师推荐商品展示区域" -->
+<div class="tuijian" style="margin-top: 450px;">
+	    <div class="tuijian-text">
+	        <b>教师推荐</b>
+	     	<span>RECOMMEND</span>
+	   	</div>
+	   	<img src="images/line1.png" class="line">
+  <div class="enough">
+		  <ul>
+		  	<li><img src="images/book1.png"></li>
+		  	<a href=""><div class="mengban"></div> </a>
+		  	<li><img src="images/book2.png"></li>
+		  	<a href=""><div class="mengban"></div> </a>
+		  	<li><img src="images/book3.png"></li>
+		  	<a href=""><div class="mengban"></div> </a>
+		  	<li><img src="images/book4.png"></li>
+		  	<a href=""><div class="mengban"></div> </a>
+		  </ul>
+  </div>
+</div>
 <!-- TemplateEndEditable -->     
 <div class="goods-show">
 <!-- TemplateBeginEditable name="首页商品展示区域" -->

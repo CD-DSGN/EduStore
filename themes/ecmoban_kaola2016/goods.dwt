@@ -727,19 +727,6 @@ function changePrice()
 
   Ajax.call('goods.php', 'act=price&id=' + goodsId + '&attr=' + attr + '&number=' + qty, changePriceResponse, 'GET', 'JSON');
 }
-/*点击加减时改变number数量*/
-function addNumber(){   
-    document.getElementById('add').click(function(){       
-        t.val(parseInt(t.val())+1)  
-        setTotal();  
-    })
-    }
-function minNumber(){  
-    document.getElementById('min').click(function(){  
-        t.val(parseInt(t.val())-1)  
-        setTotal();  
-    })  
-} 
 /**
  * 接收返回的信息
  */

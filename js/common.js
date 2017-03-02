@@ -1074,24 +1074,50 @@ function getMes(){
 }
 
 
-function changeNum(obj,num)
+//关于购物车中商品列表中商品数量的加减号
+ function cart_number(txt_id, type, num)
 {
-    var input = getParent(obj).getElementsByTagName("input");
-    for(var i=0;i<input.length;i++)
-    {
-        if(input[i].type=="text")
-        {
-            if(input[i].value == "")
-                input[i].value = num;
-            else
-                input[i].value = input[i].value - 0 + num;
-        }
-    }
-}
-//获取父级对像
-function getParent(obj)
+num = num || 1;
+var txt = document.getElementById(txt_id);
+var source_num = parseInt(txt.value);
+if (source_num == 1 && type == '-')
 {
-    if(typeof(obj) != "object"){obj = document.getElementById(obj);}
-    if(obj)
-        return obj.parentElement || obj.parentNode;
+alert('请最少购买一个商品');
+return;
 }
+var to_num = source_num;
+if (type == '+')
+{
+to_num += num;
+}
+else if (type == '-')
+{
+to_num -= num;
+}
+
+txt.value = to_num;
+showdiv(txt);
+} 
+
+
+// function changeNum(obj,num)
+// {
+//     var input = getParent(obj).getElementsByTagName("input");
+//     for(var i=0;i<input.length;i++)
+//     {
+//         if(input[i].type=="text")
+//         {
+//             if(input[i].value == "")
+//                 input[i].value = num;
+//             else
+//                 input[i].value = input[i].value - 0 + num;
+//         }
+//     }
+// }
+// //获取父级对像
+// function getParent(obj)
+// {
+//     if(typeof(obj) != "object"){obj = document.getElementById(obj);}
+//     if(obj)
+//         return obj.parentElement || obj.parentNode;
+// }
