@@ -165,7 +165,8 @@ switch ($tmp[0]) {
 
 		    /* 取得配送列表 */
 		    $region            = array($consignee['country'], $consignee['province'], $consignee['city'], $consignee['district']);
-		    $shipping_list     = available_shipping_list($region);
+		    //$shipping_list     = available_shipping_list($region);
+        	$shipping_list     = get_all_shipping_list();
 		    $cart_weight_price = cart_weight_price($flow_type);
 		    $insure_disabled   = true;
 		    $cod_disabled      = true;
@@ -867,6 +868,9 @@ switch ($tmp[0]) {
 
 	    $new_order_id = $db->insert_id();
 	    $order['order_id'] = $new_order_id;
+
+        $sql = 'UPDATE'. $ecs->table('order_info')." SET web_or_app = 2 "." WHERE order_id = $new_order_id";
+        $db->query($sql);
 
 	    /* 插入订单商品 */
 	    // modify nhj, 往order_goods表中插入is_presell、presell_shipping_time

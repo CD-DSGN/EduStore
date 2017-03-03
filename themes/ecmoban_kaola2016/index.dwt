@@ -670,68 +670,56 @@ $(function() {
 <!-- TemplateEndEditable -->     
 <div class="goods-show">
 <!-- TemplateBeginEditable name="首页商品展示区域" -->
-<!-- #BeginLibraryItem "/library/cat_goods.lbi" -->
+{foreach from=$categories item=cat}
 <div class="module">
 <div class="more">
 <div class="more-left">
-	<h2><span class="icon"></span>{$goods_cat.name|escape:html}</h2>
+	<h2><span class="floornumber"></span>{$cat.name}</h2>
 	</div>
 	<div class="more-right">
-	<a href="{$goods_cat.url}" class="duo">更多&gt;&gt;</a>
+
+	<span><a href="{$cat.url}" class="duo">更多&gt;&gt;</a></span>
+		  <em class="floor-line"></em>
+		<!--{foreach from=$cat.cat_id item=child}-->
+			<span><a href="{$child.url}">{$child.name|escape:html}</a></span>
+			<em class="floor-line"></em>
+		<!--{/foreach}-->
+			<!--<span><a href="">二级</a></span>
+			<em class="floor-line"></em>
+
+			<span><a href="">二级</a></span>
+		     <em class="floor-line"></em>-->
+
 	</div>
 </div>	
+
 	<div class="goods-showing">
-		{foreach from=$cat_goods item=goods}
+		{foreach from=$cat_id_goods key=myId item=goodss}
+		{if $myId eq $cat.id}
+		{foreach from=$goodss item=goods}
 		<a href="{$goods.url}">
 		<div class="one">
-		   <img src="{$goods.thumb}" alt="{$goods.name|escape:html}" width="210px" height="210px">
+		   <img src="{$goods.goods_img}" alt="{$goods.name|escape:html}" width="210px" height="210px">
 		  <div class="des">
 		   <strong>
-			  <!-- {if $goods.promote_price neq ""} -->
+			 <!-- {if $goods.promote_price neq ""}-->
 			  {$goods.promote_price}
-			  <!-- {else}-->
+			 <!-- {else}-->
 			  {$goods.shop_price}
-			  <!--{/if}-->
+			 <!-- {/if}-->
 			</strong> <br/>
-			 <h4>{$goods.short_name}</h4>
+			 <h4>{$goods.name}</h4>
 			 </div>
 		   <!-- <a href="{$goods.url}"><input id="sec-in" type="text" value="立即购买"/></a> -->
 			</div></a>
 		{/foreach}
-	</div>
-</div>
- <!-- #EndLibraryItem -->
-<!-- #BeginLibraryItem "/library/cat_goods.lbi" -->
-<div class="module">
-<div class="more">
-<div class="more-left">
-	<h2><span class="icon"></span>{$goods_cat.name|escape:html}</h2>
-	</div>
-	<div class="more-right">
-	<a href="{$goods_cat.url}" class="duo">更多&gt;&gt;</a>
-	</div>
-</div>	
-	<div class="goods-showing">
-		{foreach from=$cat_goods item=goods}
-		<a href="{$goods.url}">
-		<div class="one">
-		   <img src="{$goods.thumb}" alt="{$goods.name|escape:html}" width="210px" height="210px">
-		  <div class="des">
-		   <strong>
-			  <!-- {if $goods.promote_price neq ""} -->
-			  {$goods.promote_price}
-			  <!-- {else}-->
-			  {$goods.shop_price}
-			  <!--{/if}-->
-			</strong> <br/>
-			 <h4>{$goods.short_name}</h4>
-			 </div>
-		   <!-- <a href="{$goods.url}"><input id="sec-in" type="text" value="立即购买"/></a> -->
-			</div></a>
+		{/if}
 		{/foreach}
 	</div>
+
+
 </div>
- <!-- #EndLibraryItem -->
+{/foreach}
 <!--TemplateEndEditable -->
 </div>
 

@@ -866,6 +866,8 @@ switch ($tmp[0]) {
 	    $new_order_id = $db->insert_id();
 	    $order['order_id'] = $new_order_id;
 
+        $sql = 'UPDATE'. $ecs->table('order_info')." SET web_or_app = 1 "." WHERE order_id = $new_order_id";
+        $db->query($sql);
 	    /* 插入订单商品 */
 	    // modify nhj, 往order_goods表中插入is_presell、presell_shipping_time
 	     // modify nhj, 将查询条件由session id改为user id
@@ -978,6 +980,7 @@ switch ($tmp[0]) {
 	            }
 	        }
 	    }
+
 
 	    /* add nhj, 修改order_info表is_presell字段的状态：0：没有预售商品，1：部分预售商品，2：全部预售商品 */
 	    $sql = "SELECT is_presell FROM " . $ecs->table('order_goods') . "WHERE `order_id` = '" .$order['order_id']. "'";

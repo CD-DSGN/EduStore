@@ -72,7 +72,8 @@ $smarty->assign('country_list',       get_regions());
 
 /* 取得配送列表 */
 $region            = array($choose['country'], $choose['province'], $choose['city'], $choose['district']);
-$shipping_list     = available_shipping_list($region);
+//$shipping_list     = available_shipping_list($region);
+$shipping_list     = get_all_shipping_list();
 $cart_weight_price = 0;
 $insure_disabled   = true;
 $cod_disabled      = true;

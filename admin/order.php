@@ -1560,8 +1560,8 @@ elseif ($_REQUEST['act'] == 'step_post')
                 $region_id_list = array(
                     $order['country'], $order['province'], $order['city'], $order['district']
                 );
-                $shipping_list = available_shipping_list($region_id_list);
-
+                //$shipping_list = available_shipping_list($region_id_list);
+                $shipping_list = get_all_shipping_list();
                 /* 判断订单的配送是否在可用配送之内 */
                 $exist = false;
                 foreach ($shipping_list AS $shipping)
@@ -2215,7 +2215,8 @@ elseif ($_REQUEST['act'] == 'add' || $_REQUEST['act'] == 'edit')
         $region_id_list = array(
             $order['country'], $order['province'], $order['city'], $order['district']
         );
-        $shipping_list = available_shipping_list($region_id_list);
+        //$shipping_list = available_shipping_list($region_id_list);
+        $shipping_list = get_all_shipping_list();
 
         /* 取得配送费用 */
         $total = order_weight_price($order_id);
@@ -2328,8 +2329,8 @@ elseif ($_REQUEST['act'] == 'add' || $_REQUEST['act'] == 'edit')
         $region_id_list = array(
             $order['country'], $order['province'], $order['city'], $order['district']
         );
-        $shipping_list = available_shipping_list($region_id_list);
-
+        //$shipping_list = available_shipping_list($region_id_list);
+        $shipping_list = get_all_shipping_list();
 //        /* 取得配送费用 */
 //        $total = order_weight_price($order_id);
 //        foreach ($shipping_list AS $key => $shipping)
@@ -5185,7 +5186,10 @@ function order_list()
                 $row[$key]['is_presell'] = 0;               // 没有预售书
             }
         }
+        $sql = "SELECT web_or_app FROM " . $GLOBALS['ecs']->table('order_info') . "WHERE `order_id` = '" . $row[$key]['order_id'] . "'";
+        $res = $GLOBALS['db']->getAll($sql);
 
+        $row[$key]['web_or_app'] = $res[0]['web_or_app'];
     }
 
     $arr = array('orders' => $row, 'filter' => $filter, 'page_count' => $filter['page_count'], 'record_count' => $filter['record_count']);

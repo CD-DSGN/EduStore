@@ -106,7 +106,7 @@ function addToCartResponse(result)
           if (!confirm(result.message)) location.href = cart_url;
           break;
         case '3' :
-            alert('加入购物车成功');
+            //alert('加入购物车成功');
             window.history.go();
           // location.href = cart_url;
           break;
