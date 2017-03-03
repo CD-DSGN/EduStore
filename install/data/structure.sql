@@ -855,7 +855,7 @@ CREATE TABLE `ecs_order_info` (
   `froms` CHAR( 10 ) NOT NULL DEFAULT 'pc' COMMENT 'pc:电脑,mobile:手机,app:应用',
   `is_presell` tinyint(1) unsigned NOT NULL default '0',
   `presell_shipping_time` int(10) unsigned NOT NULL default '0',
-  `web_or_app` tinyint(1)) unsigned NOT NULL default '0',
+  `web_or_app` tinyint(1) unsigned NOT NULL default '0',
   PRIMARY KEY  (`order_id`),
   UNIQUE KEY `order_sn` (`order_sn`),
   KEY `user_id` (`user_id`),

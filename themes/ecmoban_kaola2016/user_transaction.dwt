@@ -451,9 +451,6 @@
       </table>
         <div class="blank"></div>
         <h5><span>{$lang.goods_list}</span>
-        <!-- {if $allow_to_cart} -->
-        <a href="javascript:;" onclick="returnToCart({$order.order_id})" class="f6">{$lang.return_to_cart}</a>
-        <!-- {/if} -->
         </h5>
         <div class="blank"></div>
          <table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd">
@@ -901,7 +898,7 @@
         <h5><span>{$lang.consignee_info}</span></h5>
         <div class="blank"></div>
          {* 包含脚本文件 *}
-            {insert_scripts files='utils.js,transport_jquery.js,region.js,shopping_flow.js'}
+            {insert_scripts files='utils.js,transport.js,region.js,shopping_flow.js'}
             <script type="text/javascript">
               region.isAdmin = false;
               {foreach from=$lang.flow_js item=item key=key}
