@@ -667,14 +667,21 @@
 
         <div class="flowBox" style="margin:0 auto 70px auto;">
          <h6 style="text-align:center; height:30px; line-height:30px;font-size: 14px;border: 3px solid #85a1d4;border-radius: 10px;">{$lang.remember_order_number}: <font style="color:red">{$order.order_sn}</font></h6><!--请记住您的单号-->
-          <table width="99%" height="350px" align="center" border="0" cellpadding="15" cellspacing="0" bgcolor="#fff" style="border:1px solid #ddd; margin:20px auto;" >
+          <table width="99%" height="300px" align="center" border="0" cellpadding="15" cellspacing="0" bgcolor="#fff" style="border:1px solid #ddd; margin:20px auto;" >
             <tr>
               <td align="center" bgcolor="#FFFFFF">
               <!--{if $order.shipping_name}-->{$lang.select_shipping}: <strong>{$order.shipping_name}</strong>&nbsp;&nbsp;&nbsp;<!--{/if}-->{$lang.select_payment}: <strong>{$order.pay_name}</strong>&nbsp;&nbsp;&nbsp;{$lang.order_amount}: <strong>{$total.amount_formated}</strong>
               </td>
             </tr>
             <tr>
-              <td align="center" bgcolor="#FFFFFF">{$order.pay_desc}</td>
+              <td align="center" bgcolor="#FFFFFF">
+                {if $order.pay_desc eq '微信支付'}
+                  <img src="images/wei.png">
+                {/if}
+                {if $order.pay_desc eq '支付宝支付'}
+                  <img src="images/zhi.png">
+                {/if}
+              </td>
             </tr>
             <!-- {if $pay_online} -->
             <!-- 如果是线上支付则显示支付按钮 -->

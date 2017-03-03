@@ -132,8 +132,8 @@ span{
 .logo-mid-right{
 	float:left;
 	height:39px;
-	margin-left:70px;
-	margin-top:11px;
+	margin-left:50px;
+	margin-top:2px;
 	width:430px;
 }
 .shop-left{
@@ -164,40 +164,6 @@ span{
 	height:20px;
 	width:20px;
 }
-/* .logo-right{
-	width:10%;
-	float: right;	
-	height:80px;
-    line-height:80px;
-    //background: red;
-}
-
-.logo-right a{
-	color: #ff6825;
-	position:relative;
-    
-}
-.logo-right img {
-    
-	vertical-align: middle;
-	margin-right:10px;
-}
-.logo-right a ul {
-	
-	display:none;
-}
-.logo-right a:hover ul{
-    display:block;
-    
-	
-}
-
-.logo-right a ul li img{
-	margin-top:20px;
-	position:absolute;
-	background:#fff;
-	z-index:6;
-} */
 .nav-all{
 	width:100%;
 	height:36px;
@@ -217,12 +183,13 @@ span{
 
 .nav .nav-mid .nav-mid-left ul li ul li{
 	float:none;	
-	height:50px;
-    line-height:50px;
+	height:55px;
+    line-height:55px;
 	vertical-align:middle;
-	background:url(../images/goods.jpg);
+	//background:url(../images/goods.jpg);
 	background-repeat: no-repeat;
 	background-position: right;
+	border-bottom:1px solid #ddd;
 }
 .nav .nav-mid .nav-mid-left ul li ul a:hover{
 	color:#ff999a;
@@ -240,15 +207,16 @@ span{
 .nav .nav-mid .nav-mid-left ul li ul:hover{
 	width:1300px;
 	background:white;
+	opacity:0.95;
 }
 .nav .nav-mid .nav-mid-left ul li ul{
 	position:relative;
 	width:156px;
-
+    opacity:0.8;
 	z-index: 1111;
 	background:white;
-	margin-top:2px;
-	height:438px;
+	//margin-top:2px;
+	height:440px;
 	overflow:hidden;
 	border:2px solid #ADADAD;
 	
@@ -275,16 +243,16 @@ span{
 	box-shadow:0 0 8px #ddd;
     -moz-box-shadow:0 0 8px #ddd;
     -webkit-box-shadow:0 0 8px #ddd;
-    //height:440px;
+    height:440px;
 }
  .subspan{
 	background:white;
 	display:inline-block;
 	z-index:11111111;
-	width:60px;
-	height:50px;
+	width:20px;
+	height:55px;
 	float:right;
-	margin-right:-25px;
+	margin-right:-5px;
 	//margin-top: 50px;
 	position:relative;
 	display:none;
@@ -299,24 +267,33 @@ span{
 	display:block;
 	border-bottom:1px solid #eee;
 	padding-bottom: 6px;
-	overflow:hidden;
+	height:79px;
+	//overflow:hidden;
 }
-.leftdiv dl dt{
+.leftdiv dl .qq{
 	display:block;
 	float:left;
 	width:120px;
-	text-align:right;
-	height:80px;
-	line-height:80px;
+	height:79px;
+
+	line-height:79px;
 	padding-right: 6px;
-	margin-top:-13px;
+	//margin-top:-13px;
 	//background:red;
 }
-.leftdiv dl dt a{
-	
+.leftdiv dl .qq a{
+	overflow:hidden;
 	font-weight:bold;
     letter-spacing: 2px;
+    margin-right: 6px;
+    padding-left:20px;
 	//font-size:10pt;
+}
+.leftdiv .ww{
+	width: 550px;
+	float: left;
+	height:79px;
+	overflow: hidden;
 }
 .leftdiv dl dd{
 	display:block;
@@ -334,10 +311,16 @@ span{
 	line-height:20px;
     margin:4px 0;
 }
+.leftdiv .ee{
+	width: 50px;
+	float: left;
+	height:79px;
+}
 .rightdiv{
 	width:270px;
 	float:left;
 	margin: 5px;
+	margin-left:35px;
 }
 .rightdiv dl dd{
 	margin:3px 0;
@@ -422,6 +405,9 @@ span{
     width:1300px;
     margin:0 auto;
     margin-top:20px;
+
+    height:40px;
+    //background:red;
 
  }
  .tuijian-text b{
