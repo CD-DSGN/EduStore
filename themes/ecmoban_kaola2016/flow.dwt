@@ -713,7 +713,7 @@
           <!--{/foreach}-->
           </div>
           <!--{/if}-->
-          <p style="text-align:center; margin-bottom:20px;color:#E08724;">{$order_submit_back}</p><!--返回首页或去用户中心-->
+          <p style="text-align:center; margin-bottom:20px;">您可以<a href="index.php" style="color: #ff6825">返回首页</a>或去<a href="user.php" style="color: #ff6825;">用户中心</a></p><!--返回首页或去用户中心-->
         </div>
         <!-- {/if} -->
         
