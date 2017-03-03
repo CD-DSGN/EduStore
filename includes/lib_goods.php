@@ -1536,7 +1536,7 @@ function get_all_category()
 {
     $categoryArr = array();
 
-    $sql = 'SELECT * FROM ' . $GLOBALS['ecs']->table('category') . " WHERE parent_id = 0 AND is_show = 1 ";
+    $sql = 'SELECT * FROM ' . $GLOBALS['ecs']->table('category') . " WHERE parent_id = 0 AND is_show = 1 ORDER BY `sort_order` DESC";
     $res = $GLOBALS['db']->getAll($sql);
     $index = 0;
 
@@ -1547,7 +1547,7 @@ function get_all_category()
         $categoryArr[$index]['parent']['parent_id'] = $parent_category['parent_id'];
         $categoryArr[$index]['parent']['url'] = build_uri('category', array('cid' => $parent_category['cat_id']), $parent_category['cat_name']);
         // 二级分类信息
-        $sql = "SELECT * FROM " . $GLOBALS['ecs']->table('category') ." WHERE `parent_id` = " . $parent_category['cat_id'] . " AND is_show = 1";
+        $sql = "SELECT * FROM " . $GLOBALS['ecs']->table('category') ." WHERE `parent_id` = " . $parent_category['cat_id'] . " AND is_show = 1 ORDER BY `sort_order` DESC";
         $result = $GLOBALS['db']->getAll($sql);
         $second_index = 0;
 
@@ -1556,7 +1556,6 @@ function get_all_category()
             $categoryArr[$index]['second'][$second_index]['cat_name'] = $second_category['cat_name'];
             $categoryArr[$index]['second'][$second_index]['parent_id'] = $second_category['parent_id'];
             $categoryArr[$index]['second'][$second_index]['url'] = build_uri('category', array('cid' => $second_category['cat_id']), $second_category['cat_name']);
-            $second_index++;
 
             // 二级分类下的商品
             // $sql = "SELECT goods_id, goods_name FROM ". $GLOBALS['ecs']->table('goods') ." WHERE `cat_id` = " . $second_category['cat_id'] . " AND is_on_sale = 1 AND is_delete = 0 LIMIT 0,5";
@@ -1571,17 +1570,18 @@ function get_all_category()
             // }
 
             // 三级分类信息
-            $sql = "SELECT * FROM ". $GLOBALS['ecs']->table('category') ." WHERE `parent_id` = " . $second_category['cat_id'] . " AND is_show = 1";
+            $sql = "SELECT * FROM ". $GLOBALS['ecs']->table('category') ." WHERE `parent_id` = " . $second_category['cat_id'] . " AND is_show = 1 ORDER BY `sort_order` DESC";
             $third = $GLOBALS['db']->getAll($sql);
             $third_index = 0;
 
             foreach ($third as $key => $value) {
-                $categoryArr[$index]['third'][$third_index]['id'] = $value['cat_id'];
-                $categoryArr[$index]['third'][$third_index]['name'] = $value['cat_name'];
-                $categoryArr[$index]['third'][$third_index]['parent_id'] = $value['parent_id'];
-                $categoryArr[$index]['third'][$third_index]['url'] = build_uri('category', array('cid' => $value['cat_id']), $value['cat_name']);
+                $categoryArr[$index]['second'][$second_index]['third'][$third_index]['id'] = $value['cat_id'];
+                $categoryArr[$index]['second'][$second_index]['third'][$third_index]['name'] = $value['cat_name'];
+                $categoryArr[$index]['second'][$second_index]['third'][$third_index]['parent_id'] = $value['parent_id'];
+                $categoryArr[$index]['second'][$second_index]['third'][$third_index]['url'] = build_uri('category', array('cid' => $value['cat_id']), $value['cat_name']);
                 $third_index++;
             }
+            $second_index++;
         }
 
         $index++;
