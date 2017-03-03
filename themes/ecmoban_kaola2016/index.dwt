@@ -233,338 +233,60 @@ a,img{border:0;}
 			<div class="nav-mid">
 				<div class="nav-mid-left">
 					<ul>
+
 						<!--实现商品分类-->
 					    <li class="first" style="background: #1a435f;"><a href="category.php?id=1" style="color:white;">商品分类</a>
-
                              <ul class="topmenu">
-	                             <li><a href="#" >新航线</a><span class="subspan"></span>       
-	                             	<!-- <div style="width: 210px; height: 210px; left: 0; right: 0px; background: red;"></div>   -->                  
-                                     <div class="submenu" id="submenu"> 
-                                         <div class="leftdiv">
-                                             <dl>
-                                             <div class="qq">
-                                             	<a href="#" style="color:#f36164;font-size:10pt;">语文数学</a>
-                                             	 
-                                             </div> 
-                                             <div class="ww">                                             
-                                             	<dd>
-                                             		<a href="#" style="color:#737373;font-size:9pt;">七年级</a>
-                                             		<a href="#" style="color:#737373;font-size:9pt;">八年级</a>
-                                             		<a href="#" style="color:#737373;font-size:9pt;">九年级</a> 
-                                                    <a href="#" style="color:#737373;font-size:9pt;">七年级</a>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">八年级</a>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">九年级</a> 
-                                                    <a href="#" style="color:#737373;font-size:9pt;">七年级</a>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">八年级</a>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">九年级</a> 
-                                                    <a href="#" style="color:#737373;font-size:9pt;">七年级</a>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">八年级</a>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">九年级</a> 
-                                                    <a href="#" style="color:#737373;font-size:9pt;">七年级</a>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">八年级</a>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">九年级</a> 
-                                                    <a href="#" style="color:#737373;font-size:9pt;">七年级</a>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">八年级</a>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">九年级</a> 
-                                                    <a href="#" style="color:#737373;font-size:9pt;">七年级</a>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">八年级</a>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">九年级</a>                                                                             		
-                                             	</dd>
-                                            </div>
-                                            <div class="ee">
-                                               <a href="#" style="float: right;margin-top: 48px;font-size: 9pt;color: #ff6825">更多</a>                                                 
-                                             </div>
-                                             </dl>
+                             	<!-- nhj分类整体 -->
+                             	{if $categoryArr}
+                             		{foreach from=$categoryArr item=category_arr}
+                             			{foreach from=$category_arr item=category key=category_index}
+                             				<!-- 一级分类 -->
+		                             		{if $category_index eq 'parent'}
+		                             			<li><a href="{$category.url}">{$category.cat_name}</a><span class="subspan"></span>
+		                             				<div class="submenu" id="submenu"> 
+                                         				<div class="leftdiv">
+                                         					
+		                             		{/if}
+		                             		<!-- 二级分类、三级分类 -->
+		                             		{if $category_index eq 'second'}
+		                             			{foreach from=$category item=second_title} 
+		                             						<dl>
+		                             							<div class="qq">
+		                             								<a href="{$second_title.url}" style="color:#f36164;font-size:10pt;">{$second_title.cat_name}</a>
+		                             							</div>
+		                             							<div class="ww">
+		                             								<dd>
+		                             				{foreach from=$second_title.third item=third}
+		                             									<a href="{$third.url}" style="color:#737373;font-size:9pt;">{$third.name}</a>
+		                             				{/foreach}
+		                             								</dd>
+		                             							</div>
+		                             							<div class="ee">
+		                             								<a href="{$second_title.url}" style="float: right;margin-top: 48px;font-size: 9pt;color: #ff6825">更多</a>
+		                             							</div>
+		                             						</dl>
+		                             			{/foreach}
+		                             		{/if}
+                             			{/foreach}
 
-                                             <dl>
-                                             <div class="qq">
-                                                <a href="#" style="color:#f36164;font-size:10pt;margin-right: 6px;">数学</a>
-                                                 
-                                             </div> 
-                                             <div class="ww">                                             
-                                                <dd>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">七年级</a>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">八年级</a>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">九年级</a>                                                                                    
-                                                </dd>
-                                            </div>
-                                            <div class="ee">
-                                               <a href="#" style="float: right;margin-top: 48px;font-size: 9pt;color: #ff6825">更多</a>                                                 
-                                             </div>
-                                             </dl>
-
-                                             <dl>
-                                             <div class="qq">
-                                                <a href="#" style="color:#f36164;font-size:10pt;margin-right: 6px;">英语</a>
-                                                 
-                                             </div> 
-                                             <div class="ww">                                             
-                                                <dd>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">七年级</a>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">八年级</a>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">九年级</a>                                                                                    
-                                                </dd>
-                                            </div>
-                                            <div class="ee">
-                                               <a href="#" style="float: right;margin-top: 48px;font-size: 9pt;color: #ff6825">更多</a>                                                 
-                                             </div>
-                                             </dl>
-
-                                             <dl>
-                                             <div class="qq">
-                                                <a href="#" style="color:#f36164;font-size:10pt;margin-right: 6px;">物理</a>
-                                                 
-                                             </div> 
-                                             <div class="ww">                                             
-                                                <dd>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">七年级</a>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">八年级</a>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">九年级</a>                                                                                    
-                                                </dd>
-                                            </div>
-                                            <div class="ee">
-                                               <a href="#" style="float: right;margin-top: 48px;font-size: 9pt;color: #ff6825">更多</a>                                                 
-                                             </div>
-                                             </dl>
-
-                                             <dl>
-                                             <div class="qq">
-                                                <a href="#" style="color:#f36164;font-size:10pt;margin-right: 6px;">化学</a>
-                                                 
-                                             </div> 
-                                             <div class="ww">                                             
-                                                <dd>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">七年级</a>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">八年级</a>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">九年级</a>                                                                                    
-                                                </dd>
-                                            </div>
-                                            <div class="ee">
-                                               <a href="#" style="float: right;margin-top: 48px;font-size: 9pt;color: #ff6825">更多</a>                                                 
-                                             </div>
-                                             </dl>
-                                            </div>
-                                         <div class="rightdiv">
-                                             <dl>
-                                             	<dd><a href="#"><img width="270px" height="400px" src="images/gg.jpg"></a></dd>
-                                             </dl>
-                                         </div>
-                                     </div>
-	                             </li>
-	                             <li><a href="#">口算作业本</a><span class="subspan"></span> 
-                                     <div class="submenu" id="submenu"> 
-                                         <div class="leftdiv">
-                                             <dl>
-                                             <div class="qq">
-                                                <a href="#" style="color:#f36164;font-size:10pt;margin-right: 6px;">哈哈</a>
-                                                 
-                                             </div> 
-                                             <div class="ww">                                             
-                                                <dd>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">七年级</a>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">八年级</a>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">九年级</a>                                                                                    
-                                                </dd>
-                                            </div>
-                                            <div class="ee">
-                                               <a href="#" style="float: right;margin-top: 48px;font-size: 9pt;color: #ff6825">更多</a>                                                 
-                                             </div>
-                                             </dl>
-
-                                             <dl>
-                                             <div class="qq">
-                                                <a href="#" style="color:#f36164;font-size:10pt;margin-right: 6px;">数学</a>
-                                                 
-                                             </div> 
-                                             <div class="ww">                                             
-                                                <dd>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">七年级</a>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">八年级</a>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">九年级</a>                                                                                    
-                                                </dd>
-                                            </div>
-                                            <div class="ee">
-                                               <a href="#" style="float: right;margin-top: 48px;font-size: 9pt;color: #ff6825">更多</a>                                                 
-                                             </div>
-                                             </dl>
-
-                                             <dl>
-                                             <div class="qq">
-                                                <a href="#" style="color:#f36164;font-size:10pt;margin-right: 6px;">英语</a>
-                                                 
-                                             </div> 
-                                             <div class="ww">                                             
-                                                <dd>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">七年级</a>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">八年级</a>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">九年级</a>                                                                                    
-                                                </dd>
-                                            </div>
-                                            <div class="ee">
-                                               <a href="#" style="float: right;margin-top: 48px;font-size: 9pt;color: #ff6825">更多</a>                                                 
-                                             </div>
-                                             </dl>
-
-                                             <dl>
-                                             <div class="qq">
-                                                <a href="#" style="color:#f36164;font-size:10pt;margin-right: 6px;">物理</a>
-                                                 
-                                             </div> 
-                                             <div class="ww">                                             
-                                                <dd>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">七年级</a>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">八年级</a>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">九年级</a>                                                                                    
-                                                </dd>
-                                            </div>
-                                            <div class="ee">
-                                               <a href="#" style="float: right;margin-top: 48px;font-size: 9pt;color: #ff6825">更多</a>                                                 
-                                             </div>
-                                             </dl>
-
-                                             <dl>
-                                             <div class="qq">
-                                                <a href="#" style="color:#f36164;font-size:10pt;margin-right: 6px;">化学</a>
-                                                 
-                                             </div> 
-                                             <div class="ww">                                             
-                                                <dd>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">七年级</a>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">八年级</a>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">九年级</a>                                                                                    
-                                                </dd>
-                                            </div>
-                                            <div class="ee">
-                                               <a href="#" style="float: right;margin-top: 48px;font-size: 9pt;color: #ff6825">更多</a>                                                 
-                                             </div>
-                                             </dl>
-
-                                             <dl>
-                                             <div class="qq">
-                                                <a href="#" style="color:#f36164;font-size:10pt;margin-right: 6px;">思想品德</a>
-                                                 
-                                             </div> 
-                                             <div class="ww">                                             
-                                                <dd>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">七年级</a>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">八年级</a>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">九年级</a>                                                                                    
-                                                </dd>
-                                            </div>
-                                            <div class="ee">
-                                               <a href="#" style="float: right;margin-top: 48px;font-size: 9pt;color: #ff6825">更多</a>                                                 
-                                             </div>
-                                             </dl>
-                                            </div>
-                                         <div class="rightdiv">
-                                             <dl>
-                                                <dd><a href="#"><img width="270px" height="400px" src="images/gg.jpg"></a></dd>
-                                             </dl>
-                                         </div>
-                                     </div>
-	                             </li>
-	                             <li><a href="#">中考锦囊</a></li>
-	                             <li><a href="#">五年高考三年模拟</a></li>
-	                             <li><a href="#">新航线</a></li>
-	                             <li><a href="#">中考锦囊</a></li>
-	                             <li><a href="#">五年高考三年模拟</a><span class="subspan"></span>
-	                             <div class="submenu" id="submenu"> 
-                                         <div class="leftdiv">
-                                             <dl>
-                                             <div class="qq">
-                                                <a href="#" style="color:#f36164;font-size:10pt;margin-right: 6px;">思想品德</a>
-                                                 
-                                             </div> 
-                                             <div class="ww">                                             
-                                                <dd>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">七年级</a>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">八年级</a>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">九年级</a>                                                                                    
-                                                </dd>
-                                            </div>
-                                            <div class="ee">
-                                               <a href="#" style="float: right;margin-top: 48px;font-size: 9pt;color: #ff6825">更多</a>                                                 
-                                             </div>
-                                             </dl>
-
-                                             <dl>
-                                             <div class="qq">
-                                                <a href="#" style="color:#f36164;font-size:10pt;margin-right: 6px;">数学</a>
-                                                 
-                                             </div> 
-                                             <div class="ww">                                             
-                                                <dd>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">七年级</a>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">八年级</a>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">九年级</a>                                                                                    
-                                                </dd>
-                                            </div>
-                                            <div class="ee">
-                                               <a href="#" style="float: right;margin-top: 48px;font-size: 9pt;color: #ff6825">更多</a>                                                 
-                                             </div>
-                                             </dl>
-
-                                             <dl>
-                                             <div class="qq">
-                                                <a href="#" style="color:#f36164;font-size:10pt;margin-right: 6px;">英语</a>
-                                                 
-                                             </div> 
-                                             <div class="ww">                                             
-                                                <dd>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">七年级</a>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">八年级</a>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">九年级</a>                                                                                    
-                                                </dd>
-                                            </div>
-                                            <div class="ee">
-                                               <a href="#" style="float: right;margin-top: 48px;font-size: 9pt;color: #ff6825">更多</a>                                                 
-                                             </div>
-                                             </dl>
-
-                                             <dl>
-                                             <div class="qq">
-                                                <a href="#" style="color:#f36164;font-size:10pt;margin-right: 6px;">物理</a>
-                                                 
-                                             </div> 
-                                             <div class="ww">                                             
-                                                <dd>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">七年级</a>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">八年级</a>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">九年级</a>                                                                                    
-                                                </dd>
-                                            </div>
-                                            <div class="ee">
-                                               <a href="#" style="float: right;margin-top: 48px;font-size: 9pt;color: #ff6825">更多</a>                                                 
-                                             </div>
-                                             </dl>
-
-                                             <dl>
-                                             <div class="qq">
-                                                <a href="#" style="color:#f36164;font-size:10pt;margin-right: 6px;">化学</a>
-                                                 
-                                             </div> 
-                                             <div class="ww">                                             
-                                                <dd>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">七年级</a>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">八年级</a>
-                                                    <a href="#" style="color:#737373;font-size:9pt;">九年级</a>                                                                                    
-                                                </dd>
-                                            </div>
-                                            <div class="ee">
-                                               <a href="#" style="float: right;margin-top: 48px;font-size: 9pt;color: #ff6825">更多</a>                                                 
-                                             </div>
-                                             </dl>                                             
-                                            </div>
-                                         <div class="rightdiv">
-                                             <dl>
-                                                <dd><a href="#"><img width="270px" height="400px" src="images/gg.jpg"></a></dd>
-                                             </dl>
-                                         </div>
-                                     </div>
-
-                                     </li>
-                                     <li><a href="#">新航线</a></li>
-                                     </ul>
+                             			{foreach from=$category_arr item=category key=category_index}
+                             				<!-- 一级分类 -->
+		                             		{if $category_index eq 'parent'}
+		                             				</div>
+		                             				<div class="rightdiv">
+		                                            	<dl>
+		                                             		<dd><a href="#"><img width="270px" height="400px" src="images/gg.jpg"></a></dd>
+		                                            	</dl>
+		                                         	</div>
+		                             			</div>
+		                             		</li>
+		                             		{/if}
+                             			{/foreach}
+                             		{/foreach}
+                             	{/if}
+                             	<!-- 分类整体end -->
+                            </ul>
 					    </li>
 						<!--商品分类end-->
 						<li class="first"><a href="">首页</a></li>
