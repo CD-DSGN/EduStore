@@ -48,7 +48,8 @@ $ui_arr = array('register', 'login', 'profile', 'order_list', 'order_detail', 'a
 'message_list', 'tag_list', 'get_password', 'reset_password', 'booking_list', 'add_booking', 'account_raply',
 'account_deposit', 'account_log', 'account_detail', 'act_account', 'pay', 'default', 'bonus', 'group_buy', 'group_buy_detail', 
 'affiliate', 'comment_list','validate_email','track_packages', 'transform_points','qpassword_name', 'get_passwd_question', 
-'check_answer','register_teacher', 'teacher_subscription','teacher_subscription_act','phoneAndMessageCode','sendPhoneAndIdentifyCode');
+'check_answer','register_teacher', 'teacher_subscription','teacher_subscription_act','phoneAndMessageCode','sendPhoneAndIdentifyCode',
+    'refund', 'act_refund');
 //end zhangmengqi
 
 /* 未登录处理 */
@@ -125,6 +126,54 @@ if ($action == 'default')
     $smarty->display('user_clips.dwt');
 }
 
+
+//mod by coolvee.com 酷唯软件出品
+if($action == 'refund')
+{
+    $rec_id = $_REQUEST['rec_id'];
+    $goods = get_order_goods_info($rec_id);
+    if($goods['refund_status']>0)
+    {
+        die("invalid");
+    }
+    if(!can_refund($goods['order_id']) )
+    {
+        die("invalid");
+    }
+
+    $refund_reason_arr = array("无理由退货", "质量问题", "与描述不符");
+    $options = array();
+    foreach($refund_reason_arr as $k=>$v)
+    {
+        $options[$v] = $v;
+    }
+    $smarty->assign('refund_reason_options', $options );
+    $smarty->assign('refund_goods', $goods);
+    $smarty->display("user_transaction.dwt");
+}
+
+//mod by coolvee.com 酷唯软件出品
+if('act_refund' == $action)
+{
+    $rec_id = $_POST['rec_id'];
+    $refund = $_POST;
+    unset($refund['rec_id']);
+    $refund['refund_pic1'] = (isset($_FILES['refund_pic1']['error']) && $_FILES['refund_pic1']['error'] == 0) || (!isset($_FILES['refund_pic1']['error']) && isset($_FILES['refund_pic1']['tmp_name']) && $_FILES['refund_pic1']['tmp_name'] != 'none')
+        ? $_FILES['refund_pic1'] : array();
+    $refund['refund_pic2'] = (isset($_FILES['refund_pic2']['error']) && $_FILES['refund_pic2']['error'] == 0) || (!isset($_FILES['refund_pic2']['error']) && isset($_FILES['refund_pic2']['tmp_name']) && $_FILES['refund_pic2']['tmp_name'] != 'none')
+        ? $_FILES['refund_pic2'] : array();
+    $refund['refund_pic3'] = (isset($_FILES['refund_pic3']['error']) && $_FILES['refund_pic3']['error'] == 0) || (!isset($_FILES['refund_pic3']['error']) && isset($_FILES['refund_pic3']['tmp_name']) && $_FILES['refund_pic3']['tmp_name'] != 'none')
+        ? $_FILES['refund_pic3'] : array();
+    if(refund_apply_order_goods($refund, $rec_id) )
+    {
+        show_message("成功申请退款", "订单列表", "user.php?act=order_list");
+    }
+    else
+    {
+        $GLOBALS['err']->show("订单列表", 'user.php?act=order_list');
+    }
+
+}
 
 /* 显示会员注册界面 */
 if ($action == 'register')
@@ -1169,7 +1218,7 @@ elseif ($action == 'order_list')
 
     $pager  = get_pager('user.php', array('act' => $action), $record_count, $page);
 
-    $orders = get_user_orders($user_id, $pager['size'], $pager['start']);
+    $orders = get_user_orders_ex($user_id, $pager['size'], $pager['start']);
     $merge  = get_user_merge($user_id);
 
     $smarty->assign('merge',  $merge);

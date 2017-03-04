@@ -121,12 +121,19 @@
                     <div class="img"><img src="images/iconfont-yifahuo.png" width="30" height="30" /></div>
                 	<div class="text"><h2>{$lang.shipped_part}</h2><p><a href="order.php?act=list&composite_status={$status.shipped_part}">{$order.shipped_part}</a></p></div>
                 </div>
+            <!--</li><li class="item07">-->
+            	<!--<div class="con_box clearfix">-->
+                    <!--<div class="img"><img src="images/iconfont-iconfeature.png" width="30" height="30" /></div>-->
+                	<!--<div class="text"><h2>{$lang.new_reimburse}</h2><p><a href="user_account.php?act=list&process_type=1&is_paid=0">{$new_repay}</a></p></div>-->
+                <!--</div>-->
+            <!--</li>-->
+
             </li><li class="item07">
-            	<div class="con_box clearfix">
-                    <div class="img"><img src="images/iconfont-iconfeature.png" width="30" height="30" /></div>
-                	<div class="text"><h2>{$lang.new_reimburse}</h2><p><a href="user_account.php?act=list&process_type=1&is_paid=0">{$new_repay}</a></p></div>
-                </div>
-            </li>
+            <div class="con_box clearfix">
+                <div class="img"><img src="images/iconfont-iconfeature.png" width="30" height="30" /></div>
+                <div class="text"><h2>退货申请</h2><p><a href="order.php?act=refund_list_unhandled">{$refund_goods}</a></p></div>
+            </div>
+        </li>
         </ul>
     </div>
 </div>
