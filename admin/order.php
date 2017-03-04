@@ -4795,10 +4795,10 @@ function operable_list($order)
                         $list['receive'] = true; // 收货确认
                     }
                     $list['unship'] = true; // 设为未发货
-                    if ($priv_list['os'])
-                    {
-                        $list['return'] = true; // 退货
-                    }
+//                    if ($priv_list['os'])
+//                    {
+//                        $list['return'] = true; // 退货
+//                    }
                 }
             }
         }
@@ -4853,10 +4853,10 @@ function operable_list($order)
                 {
                     $list['unpay']  = true; // 设为未付款
                 }
-                if ($priv_list['os'] && $priv_list['ss'] && $priv_list['ps'])
-                {
-                    $list['return'] = true; // 退货（包括退款）
-                }
+//                if ($priv_list['os'] && $priv_list['ss'] && $priv_list['ps'])
+//                {
+//                    $list['return'] = true; // 退货（包括退款）
+//                }
             }
         }
     }
