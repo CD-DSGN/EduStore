@@ -5218,6 +5218,7 @@ function order_list($only_show_refund = 0)
                 unset($row[$key]);
                 continue;
             }
+            $row[$key]['return_goods_info'] = 1;
         }
         elseif ($only_show_refund == 2) {
             //只保留退货信息且尚未处理的订单
@@ -5225,10 +5226,15 @@ function order_list($only_show_refund = 0)
                 unset($row[$key]);
                 continue;
             }
+            $row[$key]['return_goods_info'] = 1;
         }
-
-        $row[$key]['return_goods_info'] = 1;
-
+        else{
+            if (refund_goods_exists($row[$key]['order_id'])) {
+                $row[$key]['return_goods_info'] = 1;
+            }else{
+                $row[$key]['return_goods_info'] = 0;
+            }
+        }
 
         //end
 
