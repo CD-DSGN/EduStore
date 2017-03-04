@@ -1,0 +1,61 @@
+   
+      {* 包含腳本檔 *}
+      {insert_scripts files='utils.js,transport.js,region.js,shopping_flow.js'}
+      <SCRIPT type="text/javascript">
+          {literal}
+          onload = function() {
+            if (!document.all)
+            {
+              document.forms['theForm'].reset();
+            }
+          }
+          {/literal}
+        </SCRIPT>
+	 <DIV class="globalTitle">申请退款的商品</DIV>
+	 <DIV class="content-div">
+            <TABLE width="98%" border="1" style="border:1px solid #DADADA;border-collapse:collapse;">
+              <TR align="center">
+                <TD><STRONG>商品名称</STRONG></TD>
+                <TD><STRONG>单价</STRONG></TD>
+                <TD><STRONG>数量</STRONG></TD>
+                <TD><STRONG>小计</STRONG></TD>
+              </TR>
+	       <TR align="center">
+                <TD><A href="{$refund_goods.url}"><IMG src="{$refund_goods.goods_thumb}" width="40" height="40" />{$refund_goods.goods_name}</A></TD>
+                <TD><STRONG>{$refund_goods.goods_price}</STRONG></TD>
+                <TD><STRONG>{$refund_goods.goods_number}</STRONG></TD>
+                <TD><STRONG>{$refund_goods.subtotal}</STRONG></TD>
+              </TR>
+	      </TABLE>
+	   </DIV>
+ <DIV class="globalTitle">*退款金额消费不会计算在满额包邮中</DIV>
+      <FORM action="user.php" method="post" enctype="multipart/form-data" name="theForm" onsubmit="return check_refund_frm(this)">
+          <TABLE align="center" width="100%">
+	    <TR>
+              <TD>退款原因:</TD>
+              <TD><SELECT name="refund_reason"><OPTION value="">请选择退款原因</OPTION>
+	      {html_options options=$refund_reason_options}
+	      </SELECT></TD></TR>
+
+	       <TR>
+              <TD>需要退款的金额:</TD>
+              <TD>{$refund_goods.subtotal}</TD></TR>
+
+	       <TR>
+              <TD>退款说明:</TD>
+              <TD><TEXTAREA name="refund_desc" cols="80" rows="5"></TEXTAREA></TD></TR>
+
+	      <TR>
+              <TD>上传档案:</TD>
+              <TD>
+	      1.<INPUT type="file" name="refund_pic1" class="inputNowidth" size="45" /><BR />
+	      2.<INPUT type="file" name="refund_pic2" class="inputNowidth" size="45" /><BR />
+	      3.<INPUT type="file" name="refund_pic3" class="inputNowidth" size="45" /></TD></TR>
+<TR>
+    <TD colspan="2" align="center"><INPUT type="image" name="Submit"  src="images/btn_refund.gif" />
+    <INPUT type="hidden" name="rec_id" value="{$refund_goods.rec_id}" />
+    <INPUT type="hidden" name="act" value="act_refund" />
+    </TD>
+    </TR>
+	  </TABLE>
+	  </FORM>

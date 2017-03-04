@@ -519,6 +519,12 @@ elseif ($_REQUEST['act'] == 'main')
 
     /* 退款申请 */
     $smarty->assign('new_repay', $db->getOne('SELECT COUNT(*) FROM ' . $ecs->table('user_account') . ' WHERE process_type = ' . SURPLUS_RETURN . ' AND is_paid = 0 '));
+
+    //退款商品信息,add by zmq
+    //只显示还未处理的退货订单
+    $smarty->assign('refund_goods', $GLOBALS['db']->getOne("select count(DISTINCT `order_id`) from ".$GLOBALS['ecs']->table("order_goods")." where `refund_status` = 1") );
+
+
 	    /* 每月数据统计 ecmoban start zhou*/
     $froms_tooltip = array(
                         'trigger'=>'item',

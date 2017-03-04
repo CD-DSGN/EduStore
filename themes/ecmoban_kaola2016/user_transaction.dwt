@@ -295,6 +295,10 @@
     <!-- {/if} -->
    <!--用户红包结束-->
 
+     {if $action eq 'refund'}
+      <!-- #BeginLibraryItem "/library/user_transaction_refund.lbi" -->
+      <!-- #EndLibraryItem -->
+      {/if}
 
       <!--#订单列表界面 start-->
        <!-- {if $action eq 'order_list'} -->
@@ -302,21 +306,37 @@
        <div class="blank"></div>
        <table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd">
           <tr align="center">
-            <td bgcolor="#ffffff">{$lang.order_number}</td><!--订单号-->
-            <td bgcolor="#ffffff">{$lang.order_addtime}</td>
-            <td bgcolor="#ffffff">{$lang.order_money}</td>
-            <td bgcolor="#ffffff">{$lang.order_status}</td>
-            <td bgcolor="#ffffff">{$lang.handle}</td>
+                <td><strong>商品</strong></td>
+                <td><strong>单价</strong></td>
+                <td><strong>数量</strong></td>
+                <td><strong>售后</strong></td>
+                <td><strong>实付款</strong></td>
+                <td><strong>状态</strong></td>
+                <td><strong>{$lang.handle}</strong></td>
           </tr>
-          <!--{foreach from=$orders item=item}-->
-          <tr>
-            <td align="center" bgcolor="#ffffff">{$item.order_sn}</td>
-            <td align="center" bgcolor="#ffffff">{$item.order_time}</td>
-            <td align="right" bgcolor="#ffffff">{$item.total_fee}</td>
-            <td align="center" bgcolor="#ffffff">{$item.order_status}</td>
-            <td align="center" bgcolor="#ffffff"><font class="f6">{$item.handler}<a href="user.php?act=order_detail&order_id={$item.order_id}" class="f6" style="margin-left: 6px;">查看详情</a></font></td>
-          </tr>
-          <!--{/foreach}-->
+              <!--{foreach from=$orders item=item}-->
+	      <tr style="background:#eeeeee"><td colspan="7" style="padding-left:20px">订单编号:<a href="user.php?act=order_detail&order_id={$item.order_id}">{$item.order_sn}</a>&nbsp;&nbsp;成交时间:{$item.order_time}&nbsp;&nbsp;总金额:{$item.total_fee}</td></tr>
+	    {foreach from=$item.goods_list name="foreach_goods_list" item=goods}
+              <tr>
+                <td align="left"><a href="{$goods.url}" target="_blank"><img src="{$goods.goods_thumb}" width="80" height="80" />{$goods.goods_name}</a></td>
+                <td align="center">{$goods.shop_price_fmt}</td>
+                <td align="center">{$goods.goods_number}</td>
+                <td align="center">
+		{if $item.can_refund}
+		{if $goods.refund_status eq 0}<a href="user.php?act=refund&rec_id={$goods.rec_id}">申请退款</a>{/if}
+		{if $goods.refund_status eq 1}<span style="color:red">退款处理中</span>{/if}
+		{if $goods.refund_status eq 2}<span style="color:red">退款成功</span>{/if}
+		{if $goods.refund_status eq 3}<span style="color:red">退款失败</span>{/if}
+		{/if}
+		</td>
+		<td align="center">{$goods.goods_price_fmt}</td>
+		{if $smarty.foreach.foreach_goods_list.first}
+		<td align="center" rowspan="{$item.goods_num}">{$item.order_status}</td>
+                <td align="center" rowspan="{$item.goods_num}"><a href="user.php?act=order_detail&order_id={$item.order_id}">查看详情</a>&nbsp;{$item.handler}</td>
+		{/if}
+              </tr>
+	      {/foreach}
+              <!--{/foreach}-->
           </table>
         <div class="blank5"></div>
 
