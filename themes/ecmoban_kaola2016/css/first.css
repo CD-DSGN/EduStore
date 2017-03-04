@@ -322,17 +322,7 @@ span{
 	margin: 5px;
 	margin-left:35px;
 }
-.rightdiv dl dd{
-	margin:3px 0;
-}
-.rightdiv dl dt{
-	color:#e4393c;
-	font-weight:bold;
-	font-size:10pt;
-}
 .rightdiv dl dd a{
-	font-size:9pt;
-	color:#737373;
 	line-height:18px;
     margin-left:40px;
 }
