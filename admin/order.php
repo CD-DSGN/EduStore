@@ -5226,14 +5226,8 @@ function order_list($only_show_refund = 0)
                 continue;
             }
         }
-        else{
-            if (refund_goods_exists($row[$key]['order_id'])) {
-                $row[$key]['return_goods_info'] = 1;
-            }else{
-                $row[$key]['return_goods_info'] = 0;
-            }
-        }
 
+        $row[$key]['return_goods_info'] = 1;
 
 
         //end
