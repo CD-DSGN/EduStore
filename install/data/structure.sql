@@ -753,6 +753,7 @@ CREATE TABLE `ecs_order_action` (
 --
 -- add nahuanjie
 -- 增加字段is_presell、presell_shipping_time表示是否预售及预售时间
+-- 增加退货相关字段
 
 DROP TABLE IF EXISTS `ecs_order_goods`;
 CREATE TABLE `ecs_order_goods` (
@@ -774,6 +775,15 @@ CREATE TABLE `ecs_order_goods` (
   `goods_attr_id` varchar(255) NOT NULL default '',
   `is_presell` tinyint(1) unsigned NOT NULL default '0',
   `presell_shipping_time` int(10) unsigned NOT NULL default '0',
+  `refund_reason`	varchar(255)	not null default '',
+  `refund_desc`	text	not null default '',
+  `refund_pic1`	varchar(255)	not null default '',
+  `refund_pic2`	varchar(255)	not null default '',
+  `refund_pic3`	varchar(255)	not null default '',
+  `refund_add_time`	int(10) unsigned	not null default '0',
+  `refund_confirm_time`	int(10) unsigned	not null default '0',
+  `refund_confirm_desc`	text	not null default '',
+  `refund_status`	tinyint(1) unsigned not null default '0',
   PRIMARY KEY  (`rec_id`),
   KEY `order_id` (`order_id`),
   KEY `goods_id` (`goods_id`)

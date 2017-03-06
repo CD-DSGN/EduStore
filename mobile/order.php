@@ -557,7 +557,7 @@ elseif($_REQUEST['act'] = 'done')
     $smarty->assign('order',      $order);
     $smarty->assign('total',      $total);
     $smarty->assign('goods_list', $cart_goods);
-    $smarty->assign('order_submit_back', sprintf('您可以 %s 或去 %s', '<a href="index.php">返回首页</a>', '<a href="user.php">用户中心</a>')); // 返回提示
+    $smarty->assign('order_submit_back', sprintf('您可以 %s 或去 %s', '<a href="index.php" style="color:#E08724;">返回首页</a>', '<a href="user.php">用户中心</a>')); // 返回提示
 
     unset($_SESSION['flow_consignee']); // 清除session中保存的收货人信息
     unset($_SESSION['flow_order']);

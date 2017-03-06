@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="js/common.js"></script>
+</head>
+<body>
+<div style="width: 100%;height:25px;background:#eaf8ff;">
+    <a href="order.php?act=list" style="color: #767272;text-decoration: none;font-size: 10pt;font-weight: bold;"><返回上一页</a>
+
+</div>
+<tr>
+    <td colspan="7">
+        <table cellpadding="3" cellspacing="1" border="1" width="100%" >
+            <tr style="margin-top: 5px;color: #717171;font-size: 12pt;">
+                <td align="left" width="35%">商品名称
+                </td>
+                <td align="left" width="5%">
+                    处理状态
+                </td>
+                <td align="left" width="5%">
+                    申请时间
+                </td>
+                <td align="left" width="5%">
+                    处理时间
+                </td>
+                <td align="left" width="35%">
+                    退款原因
+                </td>
+                <td align="left" width="10%">
+                    退款金额
+                </td>
+                <td align="left" width="5%">
+                    退款处理
+                </td>
+            </tr>
+            {foreach from=$refund_goods_list item=goods}
+
+            <tr style="font-size: 10pt;">
+                <td align="left" width="35%">
+                <a href="../{$goods.url}" target="_blank"  style="text-decoration:none;color: #544747;"">
+                <div style="float: left;margin-left:20px">
+                    <img src="../{$goods.goods_thumb}" width="65" height="65" />
+                </div>
+                 <div style="float: left;margin-left: 8px;margin-top: 20px;">
+                     {$goods.goods_name}
+                     </a>
+                     ({$goods.goods_number}件)
+                 </div>
+                   
+                </td>
+                <td align="left" width="5">	{if $goods.refund_status eq 1}<span style="color:red">退款处理中</span>{/if}
+                    {if $goods.refund_status eq 2}<span style="color:red">退款成功</span>{/if}
+                    {if $goods.refund_status eq 3}<span style="color:red">退款失败</span>{/if}</td>
+                <td align="left" width="5">{$goods.refund_add_time_fmt}</td>
+                <td align="left" width="5">{$goods.refund_confirm_time_fmt}</td>
+                <td align="left" width="35">{$goods.refund_reason}<br />
+                    {$goods.refund_desc}<br />
+                    {if $goods.refund_pic1}<a href="{$goods.refund_pic1}" target="_blank">图片1</a>&nbsp;{/if}
+                    {if $goods.refund_pic2}<a href="{$goods.refund_pic2}" target="_blank">图片2</a>&nbsp;{/if}
+                    {if $goods.refund_pic3}<a href="{$goods.refund_pic3}" target="_blank">图片3</a>{/if}
+                </td>
+                <td align="left" width="10">{$goods.refund_money}</td>
+                <td align="left" width="5">{if $goods.refund_status eq 1}<a href="javascript:confirm_redirect('同意该申请后,请将款项返回用户支付宝或微信账户', 'order.php?act=confirm_refund&rec_id={$goods.rec_id}&agree=1');">同意</a>&nbsp;
+                    <a href="javascript:confirm_redirect('确认要拒绝该申请么', 'order.php?act=confirm_refund&rec_id={$goods.rec_id}&agree=0');">拒绝</a>{/if}</td>
+            </tr>
+            {/foreach}
+        </table>
+    </td>
+</tr>
+
+</body>
+</html>

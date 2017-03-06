@@ -18,6 +18,8 @@ if (!defined('IN_ECS'))
     die('Hacking attempt');
 }
 
+
+include_once(ROOT_PATH."includes/lib_return.php");
 /**
  * 创建像这样的查询: "IN('a','b')";
  *

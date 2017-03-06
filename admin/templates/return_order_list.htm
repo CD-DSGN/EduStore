@@ -13,9 +13,9 @@
       {html_options options=$status_list}
     </select>
     <input type="submit" value="{$lang.button_search}" class="button" />
-    <a href="order.php?act=list&composite_status={$os_unconfirmed}">{$lang.cs.$os_unconfirmed}</a>
-    <a href="order.php?act=list&composite_status={$cs_await_pay}">{$lang.cs.$cs_await_pay}</a>
-    <a href="order.php?act=list&composite_status={$cs_await_ship}">{$lang.cs.$cs_await_ship}</a>
+    <a href="order.php?act=refund_list&composite_status={$os_unconfirmed}">{$lang.cs.$os_unconfirmed}</a>
+    <a href="order.php?act=refund_list&composite_status={$cs_await_pay}">{$lang.cs.$cs_await_pay}</a>
+    <a href="order.php?act=refund_list&composite_status={$cs_await_ship}">{$lang.cs.$cs_await_ship}</a>
   </form>
 </div>
 
@@ -100,6 +100,7 @@ listTable.filter.{$key} = '{$item}';
     onload = function()
     {
         // 开始检查订单
+        listTable.query = "query_return";
         startCheckOrder();
     }
 
@@ -112,6 +113,7 @@ listTable.filter.{$key} = '{$item}';
         listTable.filter['consignee'] = Utils.trim(document.forms['searchForm'].elements['consignee'].value);
         listTable.filter['composite_status'] = document.forms['searchForm'].elements['status'].value;
         listTable.filter['page'] = 1;
+        listTable.query = "query_return";
         listTable.loadList();
     }
 
