@@ -304,7 +304,7 @@
        <!-- {if $action eq 'order_list'} -->
        <h5><span>{$lang.label_order}</span></h5>
        <div class="blank"></div>
-       <table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd">
+       <table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#ffffff">
           <tr align="center">
                 <td><strong>商品</strong></td>
                 <td><strong>单价</strong></td>
@@ -315,10 +315,21 @@
                 <td><strong>{$lang.handle}</strong></td>
           </tr>
               <!--{foreach from=$orders item=item}-->
-	      <tr style="background:#eeeeee"><td colspan="7" style="padding-left:20px">订单编号:<a href="user.php?act=order_detail&order_id={$item.order_id}">{$item.order_sn}</a>&nbsp;&nbsp;成交时间:{$item.order_time}&nbsp;&nbsp;总金额:{$item.total_fee}</td></tr>
+	      <tr style="background:#eaf8ff">
+        <td colspan="7" style="padding-left:20px">订单编号:<a href="user.php?act=order_detail&order_id={$item.order_id}">{$item.order_sn}</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;成交时间:{$item.order_time}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总金额:{$item.total_fee}</td>
+        </tr>
 	    {foreach from=$item.goods_list name="foreach_goods_list" item=goods}
               <tr>
-                <td align="left"><a href="{$goods.url}" target="_blank"><img src="{$goods.goods_thumb}" width="80" height="80" />{$goods.goods_name}</a></td>
+                <td align="left">
+                   <a href="{$goods.url}" target="_blank">
+                   <div style="float: left;margin-left: 20px;">
+                     <img src="{$goods.goods_thumb}" width="90" height="90" />
+                   </div>
+                   <div style="float: left;margin-left: 8px;margin-top:20px;">
+                     {$goods.goods_name}
+                   </div>
+                   </a>
+                 </td>
                 <td align="center">{$goods.shop_price_fmt}</td>
                 <td align="center">{$goods.goods_number}</td>
                 <td align="center">

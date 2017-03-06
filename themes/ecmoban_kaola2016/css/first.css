@@ -273,7 +273,7 @@ span{
 .leftdiv dl .qq{
 	display:block;
 	float:left;
-	width:120px;
+	width:170px;
 	height:79px;
 
 	line-height:79px;
@@ -290,7 +290,7 @@ span{
 	//font-size:10pt;
 }
 .leftdiv .ww{
-	width: 550px;
+	width: 500px;
 	float: left;
 	height:79px;
 	overflow: hidden;
