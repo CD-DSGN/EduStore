@@ -87,7 +87,7 @@ function sendIdentifyCode()
         $is_exist = mysql_num_rows($res);
         if($is_exist == 0){     //未被注册,发送验证码
             $randomIdentifyCode = rand(1000,9999);
-            sendTemplateSMS($phone, array($randomIdentifyCode,'5'),"142535",$randomIdentifyCode);
+            sendTemplateSMS($phone, array($randomIdentifyCode,'5'),"152988",$randomIdentifyCode);
         }else{                  //已被注册
           GZ_Api::outPut(1);
         }
