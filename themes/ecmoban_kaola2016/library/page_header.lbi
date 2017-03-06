@@ -138,18 +138,18 @@ catch (e) {
                	<!-- 实现商品分类 -->
                 <li id="category">
                 	<a href="category.php?id=1" class="cur not-now-head-nav" style="width:140px;">商品分类</a>
-                    <div class="show-category">
+                    <!--<div class="show-category">-->
                         {if $parents_category}
-                        <ul>
+                       <!-- <ul>-->
                             {foreach from=$parents_category item=parents name=key}
-                            <li class="category-name"><a href="{$parents.url}" class="not-now-head-nav" target="_blank" style="width:140px;margin:auto;height:50px;">
+                            <!--<li class="category-name"><a href="{$parents.url}" class="not-now-head-nav" target="_blank" style="width:140px;margin:auto;height:50px;">
                             <span class="category_url_text">{$parents.cat_name}></span> 
-                            </a></li>
+                            </a></li>-->
                             <!--<hr align="center" style="width:100px; height:1px; border:none;border-top:1px solid #fff;" />-->
                             {/foreach}
-                        </ul>
+                      <!--  </ul>-->
                         {/if}
-                    </div>
+                  <!--  </div>-->
                 </li>
                 <!-- 实现商品分类end --> 
                 <!-- {foreach name=nav_middle_list from=$navigator_list.middle item=nav} -->

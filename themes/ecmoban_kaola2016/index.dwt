@@ -362,12 +362,12 @@ $(function() {
 </div>
 <!-- 中间部分结束 -->
 
-<script>
+<!-- <script>
 		var ll = document.getElementsByClassName('picLi');
 		for(i=0;i<ll.length;i++){
 			ll[i].style.width=document.body.clientWidth+'px';
 		}
-</script>
+</script> -->
 
 <!-- TemplateBeginEditable name="教师推荐商品展示区域" -->
 <div class="tuijian" style="margin-top: 460px;">
@@ -375,8 +375,13 @@ $(function() {
 	        <!-- <b>教师推荐</b>
 	     	<span>RECOMMEND</span> -->
 	   	</div>
-	   	<img src="images/line1.png" class="line">
-  <div class="enough">
+	   	<div style="width: 100%;">
+	   	<div style="width: 1300px;margin:0 auto;">
+	   		<img src="images/line1.png" class="line" style="margin-left: 35px;">
+	   	</div>	
+  
+	   	</div>
+	   	<div class="enough" >
 		  <ul>
 		  	<li><img src="images/book1.png"></li>
 		  	<a href=""><div class="mengban"></div> </a>
