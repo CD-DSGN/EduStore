@@ -21,7 +21,7 @@ a,img{border:0;}
 #leftsead li a{height:49px;float:right;display:block;min-width:47px;max-width:131px;}
 #leftsead li a .shows{display:block;}
 #leftsead li a .hides{margin-right:-166px;cursor:pointer;cursor:hand;}
-#leftsead li a.youhui .hides{display:none;position:absolute;right:216px;top:2px;}
+#leftsead li a.youhui .hides{display:none;position:absolute;right:216px;top:55px;}
        
        #light{
        	 position:fixed; 
@@ -122,7 +122,7 @@ a,img{border:0;}
 		<li>
 			<a class="youhui">
 				<img src="images/l02.png" width="47" height="49" class="shows" />
-				<img src="images/2dcode-app3.jpg" width="196" height="205" class="hides" usemap="#taklhtml"/>
+				<img src="images/2dcode-app3.jpg" width="150" height="155" class="hides" usemap="#taklhtml"/>
 			</a>
 		</li>
 	
