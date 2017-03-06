@@ -407,10 +407,6 @@ $(function() {
 
 	<span><a href="{$cat.url}" class="duo">更多&gt;&gt;</a></span>
 		  <em class="floor-line"></em>
-		<!--{foreach from=$cat.cat_id item=child}-->
-			<span><a href="{$child.url}">{$child.name|escape:html}</a></span>
-			<em class="floor-line"></em>
-		<!--{/foreach}-->
 			<!--<span><a href="">二级</a></span>
 			<em class="floor-line"></em>
 

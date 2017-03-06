@@ -206,7 +206,7 @@ document.getElementById('history_list').innerHTML = '{$lang.no_history}';
     <!--{foreach from=$goods_list item=goods}-->
     <!-- {if $goods.goods_id} -->
      <div class="goodsItem">
-           <a href="{$goods.url}"><img src="{$goods.goods_thumb}" alt="{$goods.goods_name}" class="goodsimg" /></a><br />
+           <a href="{$goods.url}"><img src="{$goods.goods_img}" alt="{$goods.goods_name}" class="goodsimg" /></a><br />
            <p><a href="{$goods.url}" title="{$goods.name|escape:html}">{$goods.goods_name}</a></p>
            <!-- {if $show_marketprice} -->
             <font class="market_s">{$goods.market_price}</font><br />

@@ -80,7 +80,7 @@ foreach ($orders as $key => $value) {
 			'url' => API_DATA('PHOTO', $v['original_img'])
 			),
            "rec_id" =>  $v['rec_id'],
-           "refund_status" => $v['refund_status'],
+           "refund_status" => $v['refund_status']
 		);
 	}
 

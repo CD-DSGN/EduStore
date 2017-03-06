@@ -89,7 +89,7 @@ class SendSmsForVerificationCode {
     function sendSmsForVeriCode(){
         $randomIdentifyCode = rand(1000,9999);
         $this->temp_verification_code = $randomIdentifyCode;
-        $tempateID='142535';
+        $tempateID='152988';
         $this->sendTemplateSMS($this->phone_number, array($randomIdentifyCode,$this->code_available_time),$tempateID);
     }
     
