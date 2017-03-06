@@ -114,7 +114,7 @@ elseif ($_REQUEST['act'] == 'refund_list' || $_REQUEST['act'] == 'refund_list_un
     admin_priv('order_view');
 
     /* 模板赋值 */
-    $smarty->assign('ur_here', $_LANG['02_order_list']);
+
     $smarty->assign('action_link', array('href' => 'order.php?act=order_query', 'text' => $_LANG['03_order_query']));
 
     $smarty->assign('status_list', $_LANG['cs']);   // 订单状态
@@ -127,9 +127,13 @@ elseif ($_REQUEST['act'] == 'refund_list' || $_REQUEST['act'] == 'refund_list_un
 
     if ($_REQUEST['act'] == 'refund_list') {
         $show_only_refund = 1;  //显示所有有退货信息的订单
+        $smarty->assign('ur_here', '退货订单');
+        $smarty->assign('short_act',  'act=refund_list');
     }
     else{
         $show_only_refund = 2;  //只显示尚未处理的退货单
+        $smarty->assign('ur_here', '退货申请');
+        $smarty->assign('short_act',  'act=refund_list_unhandled');
     }
     $order_list = order_list($show_only_refund);
 
@@ -142,8 +146,11 @@ elseif ($_REQUEST['act'] == 'refund_list' || $_REQUEST['act'] == 'refund_list_un
 
     /* 显示模板 */
     assign_query_info();
-    $smarty->display('order_list.htm');
-
+    if ($_REQUEST['act'] == 'refund_list') {
+        $smarty->display('return_order_list.htm');
+    }else{
+        $smarty->display('return_order_unhandle.htm');
+    }
 }
 
 /*------------------------------------------------------ */
@@ -163,6 +170,28 @@ elseif ($_REQUEST['act'] == 'query')
     $sort_flag  = sort_flag($order_list['filter']);
     $smarty->assign($sort_flag['tag'], $sort_flag['img']);
     make_json_result($smarty->fetch('order_list.htm'), '', array('filter' => $order_list['filter'], 'page_count' => $order_list['page_count']));
+}
+
+elseif ($_REQUEST['act'] == 'query_return' || $_REQUEST['act'] == 'query_return_unhandle' ) {
+    admin_priv('order_view');
+
+    if ($_REQUEST['act'] == 'query_return') {
+        $show_only_refund = 1;
+    }else{
+        $show_only_refund = 2;
+    }
+    $order_list = order_list($show_only_refund);
+    $smarty->assign('order_list',   $order_list['orders']);
+    $smarty->assign('filter',       $order_list['filter']);
+    $smarty->assign('record_count', $order_list['record_count']);
+    $smarty->assign('page_count',   $order_list['page_count']);
+    $sort_flag  = sort_flag($order_list['filter']);
+    $smarty->assign($sort_flag['tag'], $sort_flag['img']);
+    if ($_REQUEST['act'] == 'query_return') {
+        make_json_result($smarty->fetch('return_order_list.htm'), '', array('filter' => $order_list['filter'], 'page_count' => $order_list['page_count']));
+    }else{
+        make_json_result($smarty->fetch('return_order_unhandle.htm'), '', array('filter' => $order_list['filter'], 'page_count' => $order_list['page_count']));
+    }
 }
 
 /*------------------------------------------------------ */
@@ -5153,6 +5182,17 @@ function order_list($only_show_refund = 0)
             $where .= " AND o.agency_id = '$agency_id' ";
         }
 
+        //保留有收货信息的订单
+        if ($only_show_refund == 1) {
+            $sql = "SELECT DISTINCT `order_id` from " . $GLOBALS['ecs']->table('order_goods') . " where `refund_status` > 0";
+            $where .= get_where_statement($sql);
+        } elseif ($only_show_refund == 2) {
+            $sql = "SELECT DISTINCT `order_id` from " . $GLOBALS['ecs']->table('order_goods') . " where `refund_status` = 1";
+            $where .= get_where_statement($sql);
+        }else{
+            //暂时不用
+        }
+
         /* 分页大小 */
         $filter['page'] = empty($_REQUEST['page']) || (intval($_REQUEST['page']) <= 0) ? 1 : intval($_REQUEST['page']);
 
@@ -5209,33 +5249,14 @@ function order_list($only_show_refund = 0)
     foreach ($row AS $key => $value)
     {
 
-
         //判断订单是否有退货信息,没有写无
         //zhangmengqi
-
-        if ($only_show_refund == 1) {    //过滤不包含退货信息的订单
+        $row[$key]['return_goods_info'] = 1;
+        if ($only_show_refund == 0) {    //过滤不包含退货信息的订单
             if (!refund_goods_exists($row[$key]['order_id'])) {
-                unset($row[$key]);
-                continue;
-            }
-            $row[$key]['return_goods_info'] = 1;
-        }
-        elseif ($only_show_refund == 2) {
-            //只保留退货信息且尚未处理的订单
-            if (!refund_goods_unhandled($row[$key]['order_id'])) {
-                unset($row[$key]);
-                continue;
-            }
-            $row[$key]['return_goods_info'] = 1;
-        }
-        else{
-            if (refund_goods_exists($row[$key]['order_id'])) {
-                $row[$key]['return_goods_info'] = 1;
-            }else{
                 $row[$key]['return_goods_info'] = 0;
             }
         }
-
         //end
 
         $row[$key]['formated_order_amount'] = price_format($value['order_amount']);
@@ -5289,6 +5310,20 @@ function order_list($only_show_refund = 0)
     // var_dump($arr);
     return $arr;
 }
+
+function get_where_statement($sql)
+{
+    $res = $GLOBALS['db']->getALL($sql);
+    $order_id_list  = array();
+    foreach ($res as $k => $v) {
+        $order_id_list[] = $v['order_id'];
+    }
+
+    $where_str = " AND o.order_id " . db_create_in($order_id_list);
+    return $where_str;
+}
+
+
 
 function refund_goods_unhandled($order_id)
 {
