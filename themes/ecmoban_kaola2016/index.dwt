@@ -8,7 +8,6 @@
 	<script type="text/javascript" src="js/slider.js"></script>
 	<link rel="stylesheet" type="text/css" href="./themes/ecmoban_kaola2016/css/mF_fancy.css">
 	<link rel="icon" href="animated_favicon.gif" type="image/gif" />
-	<script src="../js/jquery-1.11.3.min.js"></script>
 	
 	<style type="text/css">
 a,img{border:0;}
@@ -305,7 +304,7 @@ a,img{border:0;}
 	
 
 
-         <div id="banner_tabs" class="ad">
+         <div id="banner_tabs" class="flexslider" style="position:relative;">
          			<ul class="slides">
          			{foreach from=$flash name=myflash item=flash key=key}
          				<li>
@@ -330,7 +329,7 @@ a,img{border:0;}
          		<li><a class="flex-prev" href="javascript:;">Previous</a></li>
          		<li><a class="flex-next" href="javascript:;">Next</a></li>
          	</ul>
-         	<ol id="bannerCtrl" class="flex-control-nav flex-control-paging">
+         	<ol id="bannerCtrl" class="flex-control-nav flex-control-paging" style="top: 420px;position: absolute;">
          		{foreach from=$flash name=myflash item=flash key=key}
          			<li><a>1</a></li>
          		{/foreach}
@@ -367,8 +366,8 @@ $(function() {
 		for(i=0;i<ll.length;i++){
 			ll[i].style.width=document.body.clientWidth+'px';
 		}
-</script> -->
-
+</script>
+ -->
 <!-- TemplateBeginEditable name="教师推荐商品展示区域" -->
 <div class="tuijian" style="margin-top: 460px;">
 	    <div class="tuijian-text">
