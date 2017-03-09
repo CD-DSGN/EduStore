@@ -813,14 +813,14 @@
             <td width="100%" valign="top" bgcolor="#ffffff">
             <h6><span>用户登录：</span></h6>
             <form action="flow.php?step=login" method="post" name="loginForm" id="loginForm" onsubmit="return checkLoginForm(this)">
-                <table width="30%" border="0" cellpadding="8" cellspacing="0" bgcolor="#fff" class="table">
+                <table width="50%" border="0" cellpadding="8" cellspacing="0" bgcolor="#fff" class="table">
                   <tr>
-                    <td bgcolor="#ffffff" align="right" width="15%"><strong>{$lang.username}</strong></td>
-                    <td bgcolor="#ffffff" width="85%"><input name="username" type="text" class="inputBg" id="username" /><span id="namecheck"></span></td>
+                    <td bgcolor="#ffffff" align="right" width="35%"><strong>{$lang.label_username_or_telephone}</strong></td>
+                    <td bgcolor="#ffffff" width="65%"><input name="username" type="text" class="inputBg" id="username" /><span id="namecheck"></span></td>
                   </tr>
                   <tr>
-                    <td bgcolor="#ffffff" align="right" width="15%"><strong>{$lang.password}</strong></td>
-                    <td bgcolor="#ffffff" width="85%"><input name="password" class="inputBg" type="password" /><span id="passwordcheck"></span></td>
+                    <td bgcolor="#ffffff" align="right" width="35%"><strong>{$lang.password}</strong></td>
+                    <td bgcolor="#ffffff" width="65%"><input name="password" class="inputBg" type="password" /><span id="passwordcheck"></span></td>
                   </tr>
                  <!-- 判断是否启用验证码{if $enabled_login_captcha} -->
                   <tr>

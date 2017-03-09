@@ -213,7 +213,29 @@ elseif ($_REQUEST['step'] == 'login')
     if (!empty($_POST['act']) && $_POST['act'] == 'signin') {
 
         $_POST['password']=isset($_POST['password']) ? trim($_POST['password']) : '';
-        if ($user->login($_POST['username'], $_POST['password'],isset($_POST['remember'])))
+        $username = $_POST['username'];
+        $username_temp = null;
+        $res1 = false;
+        $res2 = false;
+        /*begin, add by chenggaoyuan for login with telephone*/
+        if(isMobile($username))
+        {
+            $sql ="select user_name from ".$ecs->table('users')." where mobile_phone='".
+
+                $username."'";
+            $username_temp = $db->getOne($sql);
+        }
+        /*end, add by chenggaoyuan for login with telephone*/
+        if($username_temp != null){
+            $res1 = $user->login($username_temp, $password,isset($_POST['remember']));
+            //防止一个用户的用户名和手机都为手机号码格式的情况
+            if($res1 == false){
+                $res1 = $user->login($username, $password,isset($_POST['remember']));
+            }
+        }else{
+            $res2 = $user->login($username, $password,isset($_POST['remember']));
+        }
+        if ($res1 || $res2)
         {
             update_user_info();  //更新用户信息
             //recalculate_price(); // 重新计算购物车中的商品价格
@@ -2924,4 +2946,10 @@ function generate_wx_qrcode($order)
     return $url;
 }
 //end zhangmengqi
+function isMobile($mobile) {
+    if (!is_numeric($mobile)) {
+        return false;
+    }
+    return preg_match('#^13[\d]{9}$|^14[5,7]{1}\d{8}$|^15[^4]{1}\d{8}$|^17[0,6,7,8]{1}\d{8}$|^18[\d]{9}$#', $mobile) ? true : false;
+}
 ?>
