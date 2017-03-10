@@ -140,11 +140,14 @@ function get_publish_info($teachers_user_id, $page)
 	while ($row = $GLOBALS['db']->fetchRow($res))
 	{
 		$photo = get_publish_image($row['news_id']);
-
-		$publish_info[] = array('news_content'		=> 		$row['news_content'],
-							  'publish_time'		=>		$row['publish_time'],		// 需要格式化时间
-							  'user_id'				=>		$row['user_id'],
-							  'photo_array'			=>		$photo);
+        $comment = get_teacher_publish_comments($row['news_id']);
+		$publish_info[] = array(
+		                        'news_id'           => 		$row['news_id'],
+                                'news_content'		=> 		$row['news_content'],
+							    'publish_time'		=>		$row['publish_time'],		// 需要格式化时间
+							    'user_id'		    =>		$row['user_id'],
+							    'photo_array'		=>		$photo,
+                                'comment_array'		=>		$comment);
 	}
 
 	return $publish_info;
@@ -170,7 +173,52 @@ function get_publish_image($news_id)
     return $photo;
 }
 
+function get_teacher_publish_comments($news_id){
+    $sql = "SELECT * FROM ". $GLOBALS['ecs']->table('huishi_circle_comment') ." WHERE `news_id` = $news_id ORDER BY publish_time ASC";
+    $comment_info = $GLOBALS['db']->getAll($sql);
+    $comments = array();
+    foreach ($comment_info as $key =>$value){
+        $target_username = get_username_by_user_id(get_user_id_by_comment_id($value['target_comment_id']));
+        if($target_username == null){
+            $target_username = '';
+        }
+        $comments[] = array(
+            'comment_id' => $value['comment_id'],
+            'username' => get_username_by_user_id($value['user_id']),
+            'target_username' => $target_username,
+            'comment_content' => $value['comment_content'] );
+    }
+    return $comments;
+}
 
-
+function get_teacher_publish_comments_of_student_sight($news_id, $uid){
+    $sql = "SELECT * FROM ". $GLOBALS['ecs']->table('huishi_circle_comment')
+        ." WHERE `news_id` = $news_id AND (`user_id` = $uid OR `target_user_id` = $uid) ORDER BY publish_time ASC";
+    $comment_info = $GLOBALS['db']->getAll($sql);
+    $comments = array();
+    foreach ($comment_info as $key =>$value){
+        $comments[] = array('username' => get_username_by_user_id($value['user_id']),
+            'target_username' => get_username_by_user_id($value['target_user_id']),
+            'comment_content' => $value['comment_content'] );
+    }
+    return $comments;
+}
+function get_username_by_user_id($uid){
+    $sql = "SELECT user_name FROM ". $GLOBALS['ecs']->table('users') ."WHERE `user_id` = '". $uid ."'";
+    $res = $GLOBALS['db']->getRow($sql);
+    $user_name = $res['user_name'];
+    return $user_name;
+}
+function get_user_id_by_comment_id($comment_id){
+    $sql = "SELECT user_id FROM ". $GLOBALS['ecs']->table('huishi_circle_comment') ."WHERE `comment_id` = '". $comment_id ."'";
+    $res = $GLOBALS['db']->getOne($sql);
+    return $res;
+}
+function get_teacher_name_by_user_id($uid){
+    $sql = "SELECT real_name FROM ". $GLOBALS['ecs']->table('teachers') ."WHERE `user_id` = '". $uid ."'";
+    $res = $GLOBALS['db']->getRow($sql);
+    $teacher_name = $res['real_name'];
+    return $teacher_name;
+}
 
 

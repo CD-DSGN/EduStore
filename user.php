@@ -647,7 +647,9 @@ elseif ($action == 'act_login')
     $username = isset($_POST['username']) ? trim($_POST['username']) : '';
     $password = isset($_POST['password']) ? trim($_POST['password']) : '';
     $back_act = isset($_POST['back_act']) ? trim($_POST['back_act']) : '';
-
+    $username_temp = null;
+    $res1 = false;
+    $res2 = false;
 
     $captcha = intval($_CFG['captcha']);
     if (($captcha & CAPTCHA_LOGIN) && (!($captcha & CAPTCHA_LOGIN_FAIL) || (($captcha & CAPTCHA_LOGIN_FAIL) && $_SESSION['login_fail'] > 2)) && gd_version() > 0)
@@ -673,11 +675,19 @@ elseif ($action == 'act_login')
         $sql ="select user_name from ".$ecs->table('users')." where mobile_phone='".
     
             $username."'";
-            $username_e = $db->getOne($sql);
-            if($username_e) $username=$username_e;
+            $username_temp = $db->getOne($sql);
     }
     /*end, add by chenggaoyuan for login with telephone*/
-    if ($user->login($username, $password,isset($_POST['remember'])))
+    if($username_temp != null){
+        $res1 = $user->login($username_temp, $password,isset($_POST['remember']));
+        //防止一个用户的用户名和手机都为手机号码格式的情况
+        if($res1 == false){
+            $res1 = $user->login($username, $password,isset($_POST['remember']));
+        }
+    }else{
+        $res2 = $user->login($username, $password,isset($_POST['remember']));
+    }
+    if ($res1 || $res2)
     {
         update_user_info();
         recalculate_price();

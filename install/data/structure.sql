@@ -1885,7 +1885,20 @@ DROP TABLE IF EXISTS `ecs_teacher_publish_images`;
 CREATE TABLE `ecs_teacher_publish_images`(
   `news_id` int(10) unsigned NOT NULL,
   `image` varchar(255) NULL,
-  `image_thumb` varchar(255) NULL
+  `image_thumb` varchar(255) NULL,
+  PRIMARY KEY  (`news_id`)
+) ENGINE=MyISAM;
+
+DROP TABLE IF EXISTS `ecs_huishi_circle_comment`;
+CREATE TABLE `ecs_huishi_circle_comment`(
+  `comment_id` int(10) unsigned NOT NULL auto_increment,
+  `target_comment_id` int(10) unsigned,
+  `news_id` int(10) unsigned NOT NULL,
+  `user_id` int(10) unsigned NOT NULL default '0',
+  --`target_user_id` int(10) unsigned,
+  `comment_content` text NOT NULL,
+  `publish_time` int(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`comment_id`)
 ) ENGINE=MyISAM;
 --end chenggaoyuan
 

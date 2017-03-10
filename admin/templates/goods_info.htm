@@ -503,6 +503,13 @@
       var goods_sn  = document.forms['theForm'].elements['goods_sn'].value;
 
       validator.required('goods_name', goods_name_not_null);
+
+      var obj = document.forms['theForm'].elements['course_select'].value;
+      if(obj == '0'){
+          validator.addErrorMsg('商品对应科目不能为空');
+      }
+
+
       if (document.forms['theForm'].elements['cat_id'].value == 0)
       {
           validator.addErrorMsg(goods_cat_not_null);

@@ -36,8 +36,11 @@
       <a href="javascript:listTable.sort('user_id'); ">{$lang.record_id}</a>{$sort_user_id}
     </th>
     <th><a href="javascript:listTable.sort('user_name'); ">{$lang.username}</a>{$sort_user_name}</th>
-    <th><a href="javascript:listTable.sort('email'); ">{$lang.email}</a>{$sort_email}</th>
-    <th><a href="javascript:listTable.sort('is_validated'); ">{$lang.is_validated}</a>{$sort_is_validate}</th>
+    <!-- modify nhj, 注释是否已验证，并在邮件地址前面增加电话号码 -->
+    <th style="width: 120px;">电话号码</th>
+    <th style="width: 140px;"><a href="javascript:listTable.sort('email'); ">{$lang.email}</a>{$sort_email}</th>
+    <!-- <th><a href="javascript:listTable.sort('is_validated'); ">{$lang.is_validated}</a>{$sort_is_validate}</th> -->
+    <!-- modify end -->
     <th>{$lang.user_money}</th>
     <th>{$lang.frozen_money}</th>
   <!--增加汇师积分-->
@@ -51,8 +54,10 @@
   <tr>
     <td><input type="checkbox" name="checkboxes[]" value="{$user.user_id}" notice="{if $user.user_money ne 0}1{else}0{/if}"/>{$user.user_id}</td>
     <td class="first-cell">{$user.user_name|escape}</td>
-    <td><span onclick="listTable.edit(this, 'edit_email', {$user.user_id})">{$user.email}</span></td>
-    <td align="center">{if $user.is_validated} <img src="images/yes.gif"> {else} <img src="images/no.gif"> {/if}</td>
+    <!-- nhj 增加电话号码数据列 -->
+    <td align="center">{$user.mobile_phone|escape}</td>
+    <td align="center"><span onclick="listTable.edit(this, 'edit_email', {$user.user_id})">{$user.email}</span></td>
+    <!-- <td align="center">{if $user.is_validated} <img src="images/yes.gif"> {else} <img src="images/no.gif"> {/if}</td> -->
     <td>{$user.user_money}</td>
   <!--增加汇师积分数据列-->
     <td>{$user.frozen_money}</td>
