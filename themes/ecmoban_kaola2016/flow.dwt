@@ -86,14 +86,83 @@
               <td align="center" bgcolor="#ffffff">{$goods.goods_price}</td>
               <td align="center" bgcolor="#ffffff">
                 <!-- {if $goods.goods_id gt 0 && $goods.is_gift eq 0 && $goods.parent_id eq 0} 普通商品可修改数量 -->
-              <a href="javascript:cart_number('goods_number_{$goods.rec_id}', '-');" style="cursor:pointer;border: 1px solid #D6D3D3; background: #F6E4D0;padding: 6px 6px 3px 6px;">-</a>
-              <input type="text" name="goods_number[{$goods.rec_id}]" id="goods_number_{$goods.rec_id}" value="{$goods.goods_number}" size="4" class="formBorder"  onkeydown="showdiv(this)" />
-              <a href="javascript:cart_number('goods_number_{$goods.rec_id}', '+');" style="cursor:pointer;border: 1px solid #D6D3D3; background: #F6E4D0;padding: 6px 6px 3px 6px;">+</a>
+              <a href="javascript:;" onclick="red_num({$goods.rec_id},{$goods.goods_id});" style="cursor:pointer;border: 1px solid #D6D3D3; background: #F6E4D0;padding: 4px 4px 4px 4px;margin-right: 3px;"> - </a>
+              <input type="text" name="goods_number[{$goods.rec_id}]" id="goods_number_{$goods.rec_id}" value="{$goods.goods_number}" size="4" class="inputBg" style="text-align:center " onblur="change_price({$goods.rec_id},{$goods.goods_id})"/>
+              <a href="javascript:;" onclick='add_num({$goods.rec_id},{$goods.goods_id})' style="cursor:pointer;border: 1px solid #D6D3D3; background: #F6E4D0;padding: 4px 4px 4px 4px;">+</a>
                                         <!-- {else} -->
                 {$goods.goods_number}
                 <!-- {/if} -->
               </td>
-              <td align="center" bgcolor="#ffffff">{$goods.subtotal}</td>
+              <td align="right" bgcolor="#ffffff" id="subtotal_{$goods.rec_id}">{$goods.subtotal}</td><!--小计-->
+              <script type="text/javascript" charset="utf-8">               
+              function add_num(rec_id,goods_id)               
+              {              
+              document.getElementById("goods_number_"+rec_id+"").value++;
+              var number = document.getElementById("goods_number_"+rec_id+"").value;               
+              Ajax.call('flow.php', 'step=update_group_cart&rec_id=' + rec_id +'&number=' + number+'&goods_id=' + goods_id, changePriceResponse, 'GET', 'JSON');          
+             }          
+
+              function red_num(rec_id,goods_id)
+               
+              {
+               
+              if (document.getElementById("goods_number_"+rec_id+"").value>1)
+               
+              {
+               
+              document.getElementById("goods_number_"+rec_id+"").value--;
+               
+              }
+               
+              var number = document.getElementById("goods_number_"+rec_id+"").value;
+               
+              Ajax.call('flow.php', 'step=update_group_cart&rec_id=' + rec_id +'&number=' + number+'&goods_id=' + goods_id, changePriceResponse, 'GET', 'JSON');           
+
+               
+              }             
+
+               
+              function change_price(rec_id,goods_id){
+               
+              var number = document.getElementById("goods_number_"+rec_id+"").value;
+               
+              //alert(number);
+               
+              Ajax.call('flow.php','step=update_group_cart&rec_id=' + rec_id +'&number=' + number+'&goods_id=' + goods_id, changePriceResponse, 'GET', 'JSON');
+               
+              }             
+
+               
+              function changePriceResponse(result)
+               
+              {
+               
+              if(result.error == 1)
+               
+              {             
+
+               
+              alert(result.content);
+               
+              document.getElementById("goods_number_"+result.rec_id+"").value =result.number;
+               
+              }
+               
+              else               
+              {             
+
+               
+              document.getElementById('subtotal_'+result.rec_id).innerHTML = result.subtotal;//商品总价
+               
+              document.getElementById('cart_amount_desc').innerHTML = result.cart_amount_desc;//购物车商品总价说明
+               
+              document.getElementById('market_amount_desc').innerHTML = result.market_amount_desc;//购物车商品总市价说明           
+
+              }             
+   
+              }
+               
+              </script>
               <td align="center" bgcolor="#ffffff">
                 <a href="javascript:if (confirm('{$lang.drop_goods_confirm}')) location.href='flow.php?step=drop_goods&amp;id={$goods.rec_id}'; " class="f6">{$lang.drop}</a>
                 <!-- {if $smarty.session.user_id gt 0 && $goods.extension_code neq 'package_buy'} 如果登录了，可以加入收藏 -->
@@ -106,11 +175,11 @@
             <tr>
               <td bgcolor="#ffffff">
               <!-- {if $discount gt 0} -->{$your_discount}<br /><!-- {/if} -->
-              {$shopping_money}<!-- {if $show_marketprice} -->，{$market_price_desc}<!-- {/if} -->
+              <span id="cart_amount_desc">{$shopping_money}</span><!-- {if $show_marketprice} -->，<span id="market_amount_desc">{$market_price_desc}</span><!-- {/if} -->
               </td>
               <td align="right" bgcolor="#ffffff">
                 <input type="button" value="{$lang.clear_cart}" class="bnt_blue_1" onclick="location.href='flow.php?step=clear'" />
-                <input name="submit" type="submit" class="bnt_blue_1" value="{$lang.update_cart}" />
+                <input name="submit" type="submit" class="bnt_blue_1" value="{$lang.update_cart}" /><!--更新购物车-->
               </td>
             </tr>
           </table>

@@ -345,6 +345,84 @@ elseif ($_REQUEST['step'] == 'login')
 //        }
 //    }
 //}
+
+
+
+elseif($_REQUEST['step']=='update_group_cart')
+ 
+{
+ 
+include_once('includes/cls_json.php');
+ 
+$result = array('error' => 0, 'message' => '', 'content' => '', 'goods_id' => '');
+ 
+$json = new JSON;
+ 
+$rec_id = $_GET['rec_id'];
+ 
+$number = $_GET['number'];
+ 
+$goods_id = $_GET['goods_id'];
+ 
+$result['rec_id'] = $rec_id;
+ 
+
+ 
+
+ 
+
+ 
+if ($GLOBALS['_CFG']['use_storage'] == 1)
+ 
+{
+ 
+$goods_number = $GLOBALS['db']->getOne("select goods_number from ".$GLOBALS['ecs']->table('goods')." where goods_id='$goods_id'");
+ 
+if($number>$goods_number)
+ 
+{
+ 
+$result['error'] = '1';
+ 
+$result['content'] ='对不起,您选择的数量超出库存您最多可购买'.$goods_number."件";
+ 
+$result['number']=$goods_number;
+ 
+die($json->encode($result));
+ 
+}
+ 
+
+ 
+}
+ 
+$sql = "UPDATE " . $GLOBALS['ecs']->table('cart') . " SET goods_number = '$number' WHERE rec_id = $rec_id";
+ 
+$GLOBALS['db']->query($sql);
+ 
+
+ 
+/* 取得商品列表，计算合计 */
+ 
+$cart_goods = get_cart_goods();
+ 
+
+ 
+$subtotal = $GLOBALS['db']->getONE("select goods_price * goods_number AS subtotal from ".$GLOBALS['ecs']->table('cart')." where rec_id = $rec_id");
+ 
+$result['subtotal'] = price_format($subtotal, false);
+ 
+$result['cart_amount_desc'] = sprintf($_LANG['shopping_money'], $cart_goods['total']['goods_price']);
+ 
+$result['market_amount_desc'] = sprintf($_LANG['than_market_price'], $cart_goods['total']['market_price'], $cart_goods['total']['saving'], $cart_goods['total']['save_rate']
+ 
+);
+ 
+
+ 
+die($json->encode($result));
+ 
+}
 elseif ($_REQUEST['step'] == 'consignee')
 {
     /*------------------------------------------------------ */

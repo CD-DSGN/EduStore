@@ -1,4 +1,79 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+a,img{border:0;}
+
+/* leftsead */
+#leftsead{width:131px;height:143px;position:fixed;top:258px;right:0px;}
+*html #leftsead{margin-top:258px;position:absolute;top:expression(eval(document.documentElement.scrollTop));}
+#leftsead li{width:131px;height:53px;}
+#leftsead li img{float:right;border-bottom-left-radius:5px;border-top-left-radius:5px;}
+#leftsead li a{height:49px;float:right;display:block;min-width:47px;max-width:131px;}
+#leftsead li a .shows{display:block;}
+#leftsead li a .hides{margin-right:-166px;cursor:pointer;cursor:hand;}
+#leftsead li a.youhui .hides{display:none;position:absolute;right:216px;top:55px;}
+       
+       #light{
+       	 position:fixed; 
+            z-index:999; 
+       }
+        .white_content { 
+            display: none; 
+            position:fixed; 
+            z-index:99999; 
+            top: 35%; 
+            left: 38%; 
+            width: 463px; 
+            height: 292px; 
+            margin-top: -147px;
+           /* margin-left: -232.5px;*/
+            margin:0;
+            padding: 0;
+            background: white;
+       
+            border-radius: 5px;
+            box-shadow: 0 0 15px #d4d4d4;
+           
+        } 
+        .white_content_top{
+        	width: 463px;
+        	height:50px;
+        	
+        }
+        .white_content_top a{
+            margin-left: 345px;
+        
+        }
+        .white_content_left{
+            
+        	margin-left: 80px;
+        	width: 150px;
+        	height: 180px;
+        	
+        	float: left;
+        }
+        .white_content_left a .logon:hover{
+        	box-shadow: 10px 10px 10px #92cffc ;
+        	-webkit-box-shadow:10px 10px 10px #92cffc;
+            -moz-box-shadow:10px 10px 10px #92cffc;
+        	-o-box-shadow:10px 10px 10px #92cffc;
+        }
+        .white_content_right{
+            
+        	margin-left: 20px;
+        	width: 150px;
+        	height: 180px;
+        	
+        	float: left;
+        }
+        .white_content_right a .logup:hover{
+        	box-shadow: 10px 10px 10px #92cffc ;
+        	-webkit-box-shadow:10px 10px 10px #92cffc;
+            -moz-box-shadow:10px 10px 10px #92cffc;
+        	-o-box-shadow:10px 10px 10px #92cffc;
+        }
+
+       
+</style>
 <div class="blank"></div>
 <div class="footer">
 <img src="../images/T.jpg"/ >	
@@ -94,51 +169,128 @@
 
 
 <!-- 悬浮客服开始 -->
+<div id="leftsead">
+	<ul>
+	     <li>
+			<a id="top_btn">
+				<img src="images/ll06.png" width="47" height="49" class="hides"/>
+				<img src="images/l06.png" width="47" height="49" class="shows" />
+			</a>
+		</li>
 
-<div class="QQbox" id="divQQbox" style="width: 170px; ">
+		<li>
+			<a href="javascript:void(0)" onclick="document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'">
+		
+				<img src="images/ll03.png"  width="47" height="49" class="hides"/>
+				<img src="images/l03.png" width="47" height="49" class="shows" />
+				
+			</a>
+
+		
+		</li>
+
+		<li>
+			<a href="">
+					<img src="images/ll02.png" width="166" height="49" class="hides"/>
+				<img src="images/l04.png" width="47" height="49" class="shows" />
+			</a>
+		</li>
+
+		<li>
+			<a class="youhui">
+				<img src="images/l02.png" width="47" height="49" class="shows" />
+				<img src="images/2dcode-app3.jpg" width="150" height="155" class="hides" usemap="#taklhtml"/>
+			</a>
+		</li>
+	
+	
+	
+	</ul>
+</div>
+
+
+<div id="light" class="white_content">
+			  <div class="white_content_top"><a href = "javascript:void(0)" onclick = "document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">点这里关闭本窗口</a>
+			  </div>
+				  <div class="white_content_left">
+				  	<a target="_self" href="http://wpa.qq.com/msgrd?v=1&uin=2426787502&site=qq&menu=yes"><img class="logon" src="images/QQ1.jpg" style="margin-top: 30px;margin-left: 35px;border: 2px solid #D8D6D6;border-radius: 5px;"></a>
+				  	<P style="margin-top:20px;margin-left: 45px;color: #92cffc">账号登录</P>
+				  </div>
+				  <div class="white_content_right">
+				  	<a target="_self" href="http://wpa.qq.com/msgrd?v=1&uin=2426787502&site=qq&menu=yes"><img  class="logup" src="images/QQ.jpg" style="CURSOR: pointer;margin-top: 30px;margin-left: 35px;border: 2px solid #D8D6D6;border-radius: 5px;"></a>
+				  	<P style="margin-top:20px ;margin-left: 45px; color:#92cffc;">匿名聊天</P>
+				  </div> 
+			   <div class="white_content_bottom" style="margin-top:210px;margin-left: 390px;"><a target="_blank" href="http://im.qq.com/">安装QQ</a></div>
+	</div>
+
+<!--<div class="QQbox" id="divQQbox" style="width: 170px; ">
   <div class="Qlist" id="divOnline" onmouseout="hideMsgBox(event);" style="display: none; " onmouseover="OnlineOver();">
     <div class="t"></div>
     <div class="infobox">我们营业的时间<br>
       9:00-18:00</div>
     <div class="con">
-      <ul>
+      <ul>-->
         
         <!-- QQ 号码 {foreach from=$qq item=im} --> 
         <!-- {if $im} -->
-        <li><a href="http://wpa.qq.com/msgrd?V=1&amp;Uin={$im}&amp;Site={$shop_name}&amp;Menu=yes" target="_blank"><img src="http://wpa.qq.com/pa?p=1:{$im}:4" height="16" border="0" alt="QQ" /> {$im}</a> </li>
+        <!--<li><a href="http://wpa.qq.com/msgrd?V=1&amp;Uin={$im}&amp;Site={$shop_name}&amp;Menu=yes" target="_blank"><img src="http://wpa.qq.com/pa?p=1:{$im}:4" height="16" border="0" alt="QQ" /> {$im}</a> </li>-->
         <!-- {/if} --> 
         <!-- {/foreach} 结束QQ号码 --> 
         <!-- 淘宝旺旺 {foreach from=$ww item=im} --> 
         <!-- {if $im} -->
-        <li><a href="http://amos1.taobao.com/msg.ww?v=2&uid={$im|escape:u8_url}&s=2" target="_blank"><img src="http://amos1.taobao.com/online.ww?v=2&uid={$im|escape:u8_url}&s=2" width="16" height="16" border="0" alt="淘宝旺旺" />{$im}</a></li>
+       <!-- <li><a href="http://amos1.taobao.com/msg.ww?v=2&uid={$im|escape:u8_url}&s=2" target="_blank"><img src="http://amos1.taobao.com/online.ww?v=2&uid={$im|escape:u8_url}&s=2" width="16" height="16" border="0" alt="淘宝旺旺" />{$im}</a></li>-->
         <!-- {/if} --> 
         <!--{/foreach} 结束淘宝旺旺 --> 
         <!-- Yahoo Messenger {foreach from=$ym item=im} --> 
         <!-- {if $im} -->
-        <li><a href="http://edit.yahoo.com/config/send_webmesg?.target={$im}n&.src=pg" target="_blank"><img src="../images/yahoo.gif" width="18" height="17" border="0" alt="Yahoo Messenger" /> {$im}</a></li>
+       <!-- <li><a href="http://edit.yahoo.com/config/send_webmesg?.target={$im}n&.src=pg" target="_blank"><img src="../images/yahoo.gif" width="18" height="17" border="0" alt="Yahoo Messenger" /> {$im}</a></li>-->
         <!-- {/if} --> 
         <!-- {/foreach} 结束Yahoo Messenger --> 
         <!-- MSN Messenger {foreach from=$msn item=im} --> 
         <!-- {if $im} -->
-        <li><img src="../images/msn.gif" width="18" height="17" border="0" alt="MSN" /> <a href="msnim:chat?contact={$im}">{$im}</a></li>
+       <!-- <li><img src="../images/msn.gif" width="18" height="17" border="0" alt="MSN" /> <a href="msnim:chat?contact={$im}">{$im}</a></li>-->
         <!-- {/if} --> 
         <!-- {/foreach} 结束MSN Messenger --> 
         <!-- Skype {foreach from=$skype item=im} --> 
         <!-- {if $im} -->
-        <li><img src="http://mystatus.skype.com/smallclassic/{$im|escape:url}" alt="Skype" /><a href="skype:{$im|escape:url}?call">{$im}</a></li>
+       <!-- <li><img src="http://mystatus.skype.com/smallclassic/{$im|escape:url}" alt="Skype" /><a href="skype:{$im|escape:url}?call">{$im}</a></li>-->
         <!-- {/if} --> 
         <!-- {/foreach} --> 
         
         <!-- 客服电话{if $service_phone} -->
-        <li> 服务热线: {$service_phone}</li>
+       <!-- <li> 服务热线: {$service_phone}</li>-->
         <!-- 结束客服电话{/if} -->
-      </ul>
+     <!-- </ul>
     </div>
     <div class="b"></div>
   </div>
   <div id="divMenu" onmouseover="OnlineOver();" style="display: block; "><img src="../images/qq_1.gif" class="press" alt="在线咨询"></div>
-</div>
+</div>-->
 <script type="text/javascript">
+
+$(document).ready(function(){
+	$("#leftsead a").hover(function(){
+		if($(this).prop("className")=="youhui"){
+			$(this).children("img.hides").show();
+		}else{
+			$(this).children("img.hides").show();
+			$(this).children("img.shows").hide();
+			$(this).children("img.hides").animate({marginRight:'0px'},'slow'); 
+		}
+	},function(){ 
+		if($(this).prop("className")=="youhui"){
+			$(this).children("img.hides").hide('slow');
+		}else{
+			$(this).children("img.hides").animate({marginRight:'-143px'},'slow',function(){$(this).hide();
+				$(this).next("img.shows").show();});
+		}
+	});
+
+	$("#top_btn").click(function(){if(scroll=="off") return;$("html,body").animate({scrollTop: 0}, 600);});
+
+});
+</script>
+<!--<script type="text/javascript">
 //<![CDATA[
 var tips; var theTop = 120/*这是默认高度,越大越往下*/; var old = theTop;
 function initFloatTips() {
@@ -208,3 +360,4 @@ document.getElementById("divMenu").style.display = "block";
 document.getElementById("divOnline").style.display = "none";
 }
 </script> 
+-->
