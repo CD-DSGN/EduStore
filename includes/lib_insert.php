@@ -162,6 +162,8 @@ function insert_cart_count()
  */
 function insert_ads($arr)
 {
+    $arr['num'] = intval($arr['num']);
+    $arr['id'] = intval($arr['id']);
     static $static_res = NULL;
 
     $time = gmtime();
@@ -292,6 +294,8 @@ function insert_comments($arr)
     $need_cache = $GLOBALS['smarty']->caching;
     $need_compile = $GLOBALS['smarty']->force_compile;
 
+    $arr['id'] = intval($arr['id']);
+    $arr['type'] = addslashes($arr['type']);
     $GLOBALS['smarty']->caching = false;
     $GLOBALS['smarty']->force_compile = true;
 
@@ -327,6 +331,7 @@ function insert_comments($arr)
  */
 function insert_bought_notes($arr)
 {
+    $arr['id'] = intval($arr['id']);
     $need_cache = $GLOBALS['smarty']->caching;
     $need_compile = $GLOBALS['smarty']->force_compile;
 
