@@ -127,6 +127,31 @@ function insert_cart_info()
     return '<a href="flow.php" title="' . $GLOBALS['_LANG']['view_cart'] . '">' . $str . '</a>';
 }
 
+function insert_cart_count()
+{
+    $sql = 'SELECT SUM(goods_number) AS number, SUM(goods_price * goods_number) AS amount' .
+           ' FROM ' . $GLOBALS['ecs']->table('cart') .
+           " WHERE session_id = '" . SESS_ID . "' AND rec_type = '" . CART_GENERAL_GOODS . "'";
+    $row = $GLOBALS['db']->GetRow($sql);
+
+    if ($row)
+    {
+        $number = intval($row['number']);
+        $amount = floatval($row['amount']);
+    }
+    else
+    {
+        $number = 0;
+        $amount = 0;
+    }
+
+    //modified by chenggaoyuan
+    //$str = sprintf($GLOBALS['_LANG']['cart_info'], $number, price_format($amount, false));
+    $str = sprintf($GLOBALS['_LANG']['cart_info'], $number);
+
+    return $str;
+}
+
 /**
  * 调用指定的广告位的广告
  *

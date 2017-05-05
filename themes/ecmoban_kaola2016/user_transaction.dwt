@@ -355,7 +355,8 @@
 
        <!-- #BeginLibraryItem "/library/pages.lbi" --><!-- #EndLibraryItem -->
        <div class="blank5"></div>
-       <h5><span>{$lang.merge_order}</span></h5><!--合并订单-->
+       <!-- 注释掉的合并订单 -->
+       <!-- <h5><span>{$lang.merge_order}</span></h5>合并订单
        <div class="blank"></div>
         <script type="text/javascript">
         {foreach from=$lang.merge_order_js item=item key=key}
@@ -368,16 +369,16 @@
               <td width="22%" align="right" bgcolor="#ffffff">{$lang.first_order}:</td>
               <td width="12%" align="left" bgcolor="#ffffff"><select name="to_order">
               <option value="0">{$lang.select}</option>
-
+       
                   {html_options options=$merge}
-
+       
                 </select></td>
               <td width="19%" align="right" bgcolor="#ffffff">{$lang.second_order}:</td>
               <td width="11%" align="left" bgcolor="#ffffff"><select name="from_order">
               <option value="0">{$lang.select}</option>
-
+       
                   {html_options options=$merge}
-
+       
                 </select></td>
               <td width="36%" bgcolor="#ffffff">&nbsp;<input name="act" value="merge_order" type="hidden" />
               <input type="submit" name="Submit"  class="bnt_blue_1" style="border:none;"  value="{$lang.merge_order}" /></td>
@@ -387,7 +388,7 @@
               <td colspan="4" align="left" bgcolor="#ffffff">{$lang.merge_order_notice}</td>
             </tr>
           </table>
-        </form>
+        </form> -->
        <!--{/if}-->
       <!--#订单列表界面 end-->
 
