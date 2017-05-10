@@ -10,7 +10,7 @@ require(EC_PATH . '/includes/init.php');
 include_once(EC_PATH . '/includes/lib_order.php');
 include_once(EC_PATH . '/includes/lib_passport.php');
 
-$username = _POST('name');
+$username = _POST('mobile_phone');
 $password = _POST('password');
 $email = _POST('email');
 // $fileld = _POST('fileld', array());

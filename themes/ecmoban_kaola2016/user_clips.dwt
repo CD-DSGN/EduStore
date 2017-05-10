@@ -285,7 +285,7 @@
 
 
 
-    <!--*收藏商品列表页面 start-->
+    <!--*我的收藏 start-->
     <!--{if $action eq 'collection_list'} -->
   {insert_scripts files='transport_jquery.js,utils.js'}
     <h5><span>{$lang.label_collection}</span></h5>
@@ -310,7 +310,8 @@
           <!-- {else} -->
           <a href="javascript:if (confirm('{$lang.add_to_attention}')) location.href='user.php?act=add_to_attention&rec_id={$goods.rec_id}'" class="f6">{$lang.attention}</a>
           <!-- {/if} -->
-           <a href="javascript:addToCart({$goods.goods_id})" class="f6">{$lang.add_to_cart}</a> <a href="javascript:if (confirm('{$lang.remove_collection_confirm}')) location.href='user.php?act=delete_collection&collection_id={$goods.rec_id}'" class="f6">{$lang.drop}</a>
+          <!-- 注释掉的加入购物车 -->
+          <!--  <a href="javascript:addToCart({$goods.goods_id})" class="f6">{$lang.add_to_cart}</a> --> <a href="javascript:if (confirm('{$lang.remove_collection_confirm}')) location.href='user.php?act=delete_collection&collection_id={$goods.rec_id}'" class="f6">{$lang.drop}</a>
         </td>
       </tr>
       <!--{/foreach} -->

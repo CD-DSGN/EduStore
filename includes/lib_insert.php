@@ -127,6 +127,31 @@ function insert_cart_info()
     return '<a href="flow.php" title="' . $GLOBALS['_LANG']['view_cart'] . '">' . $str . '</a>';
 }
 
+function insert_cart_count()
+{
+    $sql = 'SELECT SUM(goods_number) AS number, SUM(goods_price * goods_number) AS amount' .
+           ' FROM ' . $GLOBALS['ecs']->table('cart') .
+           " WHERE session_id = '" . SESS_ID . "' AND rec_type = '" . CART_GENERAL_GOODS . "'";
+    $row = $GLOBALS['db']->GetRow($sql);
+
+    if ($row)
+    {
+        $number = intval($row['number']);
+        $amount = floatval($row['amount']);
+    }
+    else
+    {
+        $number = 0;
+        $amount = 0;
+    }
+
+    //modified by chenggaoyuan
+    //$str = sprintf($GLOBALS['_LANG']['cart_info'], $number, price_format($amount, false));
+    $str = sprintf($GLOBALS['_LANG']['cart_info'], $number);
+
+    return $str;
+}
+
 /**
  * 调用指定的广告位的广告
  *
@@ -137,6 +162,8 @@ function insert_cart_info()
  */
 function insert_ads($arr)
 {
+    $arr['num'] = intval($arr['num']);
+    $arr['id'] = intval($arr['id']);
     static $static_res = NULL;
 
     $time = gmtime();
@@ -267,6 +294,8 @@ function insert_comments($arr)
     $need_cache = $GLOBALS['smarty']->caching;
     $need_compile = $GLOBALS['smarty']->force_compile;
 
+    $arr['id'] = intval($arr['id']);
+    $arr['type'] = addslashes($arr['type']);
     $GLOBALS['smarty']->caching = false;
     $GLOBALS['smarty']->force_compile = true;
 
@@ -302,6 +331,7 @@ function insert_comments($arr)
  */
 function insert_bought_notes($arr)
 {
+    $arr['id'] = intval($arr['id']);
     $need_cache = $GLOBALS['smarty']->caching;
     $need_compile = $GLOBALS['smarty']->force_compile;
 

@@ -35,12 +35,6 @@
 					<!-- 第一步，创建账户 -->
 					<div id="create_account" style="display:">
 						<div>
-							<label for="username" class="register_info">用户名</label>
-							<input name="username" type="text" id="username" class="register_input" onblur="checkUsername();" onfocus="focusTips(this.id , '支持中文、英文、数字，3-20个字符');" />
-							<span class="correct_input" id="username_correct"><img src="./data/images/register/success.png" width="18px" height="18px" alt="correct" /></span>
-							<span class="input_tip" id="username_tips"></span>
-						</div>
-						<div>
 							<label for="mobileNumber" class="register_info">手机号码</label>
 							<input name="mobile_phone_register" type="text" id="mobileNumber" class="register_input" oninput="checkMobileNumber();" onfocus="focusTips(this.id, '请输入手机号码');" onblur="checkMobileNumber();" />
 							<span class="correct_input" id="mobileNumber_correct"><img src="./data/images/register/success.png" width="18px" height="18px" alt="correct" /></span>

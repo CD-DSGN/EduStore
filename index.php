@@ -396,7 +396,8 @@ function cat_id_goods($num)
 
         $cats = get_children($cat_id);
         $where = !empty($cats) ? "AND ($cats OR " . get_extension_goods($cats) . ") " : '';
-        $sql .=$where."AND g.is_delete=0"." LIMIT $num";
+        $sql .=$where."AND g.is_delete=0 ";
+        $sql .= "order by `sort_order` desc "." LIMIT $num";
         $res = $GLOBALS['db']->getAll($sql); 
         foreach ($res AS $idx => $row)
         {

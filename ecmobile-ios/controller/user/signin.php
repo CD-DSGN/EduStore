@@ -31,6 +31,34 @@ include_once(EC_PATH . '/includes/lib_order.php');
 
 $name = _POST('name');
 $password = _POST('password');
+$username_temp = null;
+$res1 = false;
+$res2 = false;
+
+function isMobile($mobile) {
+    if (!is_numeric($mobile)) {
+        return false;
+    }
+    return preg_match('#^13[\d]{9}$|^14[5,7]{1}\d{8}$|^15[^4]{1}\d{8}$|^17[0,6,7,8]{1}\d{8}$|^18[\d]{9}$#', $mobile) ? true : false;
+}
+
+if(isMobile($name))
+{
+    $sql ="select user_name from ".$ecs->table('users')." where mobile_phone='".
+        $username."'";
+
+    $username_temp = $db->getOne($sql);
+}
+
+if($username_temp != null){
+    $res1 = $user->login($username_temp, $password);
+    //防止一个用户的用户名和手机都为手机号码格式的情况
+    if($res1 == false){
+        $res1 = $user->login($name, $password);
+    }
+}else{
+    $res2 = $user->login($name, $password);
+}
 
 /*begin, add by chenggaoyuan for login with telephone*/
 function isMobile($mobile) {
@@ -64,7 +92,7 @@ logResult('************login begin*****************');
 logResult(var_export($_COOKIE, true));
 logResult(var_export($_POST, true));
  
-if (!$user->login($name, $password)) {
+if (!($res1 || $res2)) {
 	GZ_Api::outPut(6);
 }
 

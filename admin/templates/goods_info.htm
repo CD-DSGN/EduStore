@@ -73,7 +73,8 @@
           <tr>
           	<td class="label">商品所属科目：</td>
             <td><select name="course_select">
-            <option value="0">请选择图书对应科目（必选）</option>{$course_list}</select></td>
+            <option value="0">请选择图书对应科目（必选）</option>
+            {html_options options=$course_list selected=$goods.course_id}</select></td>
           </tr>
           
           <!--是否预售-->
@@ -503,6 +504,13 @@
       var goods_sn  = document.forms['theForm'].elements['goods_sn'].value;
 
       validator.required('goods_name', goods_name_not_null);
+
+      var obj = document.forms['theForm'].elements['course_select'].value;
+      if(obj == '0'){
+          validator.addErrorMsg('商品对应科目不能为空');
+      }
+
+
       if (document.forms['theForm'].elements['cat_id'].value == 0)
       {
           validator.addErrorMsg(goods_cat_not_null);

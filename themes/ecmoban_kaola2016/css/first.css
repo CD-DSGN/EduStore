@@ -160,7 +160,6 @@ span{
 
 }
 .shopcar .num{
-	background:red;
 	height:20px;
 	width:20px;
 }
@@ -267,16 +266,16 @@ span{
 	display:block;
 	border-bottom:1px solid #eee;
 	padding-bottom: 6px;
-	height:79px;
+	height:60px;
 	//overflow:hidden;
 }
 .leftdiv dl .qq{
 	display:block;
 	float:left;
 	width:170px;
-	height:79px;
+	height:60px;
 
-	line-height:79px;
+	line-height:60px;
 	padding-right: 6px;
 	//margin-top:-13px;
 	//background:red;
@@ -292,7 +291,7 @@ span{
 .leftdiv .ww{
 	width: 500px;
 	float: left;
-	height:79px;
+	height:60px;
 	overflow: hidden;
 }
 .leftdiv dl dd{
@@ -314,7 +313,7 @@ span{
 .leftdiv .ee{
 	width: 50px;
 	float: left;
-	height:79px;
+	height:60px;
 }
 .rightdiv{
 	width:270px;

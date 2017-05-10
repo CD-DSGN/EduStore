@@ -160,6 +160,7 @@ elseif ($_REQUEST['act'] == 'add' || $_REQUEST['act'] == 'edit' || $_REQUEST['ac
             'goods_desc'    => '',
             'cat_id'        => $last_choose[0],
             'brand_id'      => $last_choose[1],
+            'course_id'  => 0,
             'is_on_sale'    => '1',
             'is_alone_sale' => '1',
             'is_shipping' => '0',
@@ -230,6 +231,7 @@ elseif ($_REQUEST['act'] == 'add' || $_REQUEST['act'] == 'edit' || $_REQUEST['ac
                 'goods_id'      => 0,
                 'goods_desc'    => '',
                 'cat_id'        => 0,
+                'course_id'  => 0,
                 'is_on_sale'    => '1',
                 'is_alone_sale' => '1',
                 'is_shipping' => '0',
@@ -429,7 +431,9 @@ elseif ($_REQUEST['act'] == 'add' || $_REQUEST['act'] == 'edit' || $_REQUEST['ac
     $smarty->assign('goods_name_color', $goods_name_style[0]);
     $smarty->assign('goods_name_style', $goods_name_style[1]);
     $smarty->assign('cat_list', cat_list(0, $goods['cat_id']));
-    $smarty->assign('course_list', get_course_option());
+    $smarty->assign('course_list', get_course_data());
+//    $smarty->assign('course_id', 0);
+
     $smarty->assign('brand_list', get_brand_list());
     $smarty->assign('unit_list', get_unit_list());
     $smarty->assign('user_rank_list', get_user_rank_list());
@@ -825,6 +829,7 @@ elseif ($_REQUEST['act'] == 'insert' || $_REQUEST['act'] == 'update')
 
     //add by chenggaoyuan
     $course_id = isset($_POST['course_select']) ? $_POST['course_select'] : '0';
+
     // add nhj
     $is_presell = isset($_POST['is_presell']) ? $_POST['is_presell'] : '0';
     if ($is_presell && isset($_POST['presell_shipping_time']))
