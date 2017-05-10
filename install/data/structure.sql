@@ -1920,7 +1920,7 @@ CREATE TABLE `ecs_teacher_class_info`(
   `school_id` int(10) unsigned NOT NULL,
   `grade` int(5) unsigned NOT NULL,
   `class` int(5) unsigned NOT NULL,
-  `course` int(5) unsiged NOT NULL,
+  `course` int(5) unsigned NOT NULL,
   PRIMARY KEY  (`info_id`)
 ) ENGINE=MyISAM;
 
