@@ -1304,6 +1304,7 @@ CREATE TABLE `ecs_users` (
   `is_teacher` tinyint(3) unsigned NOT NULL default '0',
   `teacher_integral` int unsigned NOT NULL default '0',
   `avatar` varchar(255) NULL,
+  `nickname` varchar(40) DEFAULT NULL,
   PRIMARY KEY  (`user_id`),
   KEY `email` (`email`),
   KEY `parent_id` (`parent_id`),

@@ -173,6 +173,7 @@ function getIdentifyCode() {
 }
 
 function checkIdentifyCode() {
+
 	var identifyCode = $("#identifyCode").val();
 	if(identifyCode.length == 4) {
 	    $.post("./user.php?act=check_identifyCode",
@@ -213,26 +214,7 @@ function checkAgreement() {
 }
 
 function nextStep() {
-	if( username_status != 1) {
-		$("#username").focus().select();
-		switch(username_status) {
-		case 0:case 4:
-			$("#username_tips").html(error_info + '请输入3-20字符的用户名');
-       		$("#username_correct").css({'display' : 'none'});
-       		break;
-       	case 2:
-       		$("#username_tips").html(error_info + '用户名已被注册');
-       		$("#username_correct").css({'display' : 'none'});
-       		break;
-       	case 3:
-       		$("#username_tips").html(error_info + '用户名中含有非法字符');
-       		$("#username_correct").css({'display' : 'none'});
-       		break;
-       	default:
-       		break;
-		}
-		return 0;
-	}else if( phone_status != 1) {
+ if( phone_status != 1) {
 		$("#mobileNumber").focus().select();
 		switch(phone_status) {
 		case 0:case 4:

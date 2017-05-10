@@ -385,7 +385,8 @@ elseif ($action == 'act_register')
     {
         include_once(ROOT_PATH . 'includes/lib_passport.php');
 
-        $username = isset($_POST['username']) ? trim($_POST['username']) : '';
+        //无论教师还是学生，都以手机号作为用户名
+        $username = isset($_POST['mobile_phone_register']) ? trim($_POST['mobile_phone_register']) : '';
         $password = isset($_POST['password']) ? trim($_POST['password']) : '';
         $email    = isset($_POST['email']) ? trim($_POST['email']) : '';
         $other['msn'] = isset($_POST['extend_field1']) ? $_POST['extend_field1'] : '';
@@ -394,6 +395,10 @@ elseif ($action == 'act_register')
         $other['home_phone'] = isset($_POST['extend_field4']) ? $_POST['extend_field4'] : '';
         //$other['mobile_phone'] = isset($_POST['extend_field5']) ? $_POST['extend_field5'] : '';
         $other['mobile_phone'] = isset($_POST['mobile_phone_register']) ? $_POST['mobile_phone_register'] : '';
+
+        //增加昵称
+        $other['nickname']    = isset($_POST['nickname']) ? trim($_POST['nickname']) : '';
+
         $sel_question = empty($_POST['sel_question']) ? '' : compile_str($_POST['sel_question']);
         $passwd_answer = isset($_POST['passwd_answer']) ? compile_str(trim($_POST['passwd_answer'])) : '';
 
@@ -452,6 +457,7 @@ elseif ($action == 'act_register')
         }
 
         /* 验证码检查 */
+        
         if ((intval($_CFG['captcha']) & CAPTCHA_REGISTER) && gd_version() > 0)
         {
             if (empty($_POST['captcha']))
@@ -492,6 +498,7 @@ elseif ($action == 'act_register')
             show_message("手机验证码不能为空。");
         }
         //end nahuanjie
+      
 
         if (register($username, $password, $email, $other, $invite_code) !== false)
         {
