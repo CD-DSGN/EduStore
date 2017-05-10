@@ -1864,9 +1864,11 @@ CREATE TABLE `ecs_teachers` (
 --增加教师、课程和学生联系表，即某学生在某个科目，订阅了某个老师
 DROP TABLE IF EXISTS `ecs_subscription`;
 CREATE TABLE `ecs_subscription` (
+  `sub_id` int(10) unsigned NOT NULL auto_increment,
   `teacher_user_id` int(8) unsigned NOT NULL,
   `students_user_id` mediumint(8) unsigned NOT NULL,
-  `course_id` tinyint(8) unsigned NOT NULL
+  `course_id` tinyint(8) unsigned NOT NULL,
+  PRIMARY KEY  (`sub_id`)
 ) ENGINE=MyISAM;
 
 --end zhangmengqi
@@ -1902,10 +1904,40 @@ CREATE TABLE `ecs_huishi_circle_comment`(
 ) ENGINE=MyISAM;
 --end chenggaoyuan
 
+DROP TABLE IF EXISTS `ecs_schools`;
+CREATE TABLE `ecs_schools`(
+  `school_id` int(10) unsigned NOT NULL auto_increment,
+  `school_regin` int(10) unsigned NOT NULL,
+  `school_name` varchar(255) default NULL,
+  PRIMARY KEY  (`school_id`)
+) ENGINE=MyISAM;
 
+DROP TABLE IF EXISTS `ecs_teacher_class_info`;
+CREATE TABLE `ecs_teacher_class_info`(
+  `info_id` int(10) unsigned NOT NULL auto_increment,
+  `user_id` int(10) unsigned NOT NULL,
+  `school_id` int(10) unsigned NOT NULL,
+  `grade` int(5) unsigned NOT NULL,
+  `class` int(5) unsigned NOT NULL,
+  `course` int(5) unsiged NOT NULL,
+  PRIMARY KEY  (`info_id`)
+) ENGINE=MyISAM;
 
+DROP TABLE IF EXISTS `ecs_student_class_info`;
+CREATE TABLE `ecs_student_class_info`(
+  `user_id` int(10) unsigned NOT NULL,
+  `school_id` int(10) unsigned NOT NULL,
+  `grade` int(5) unsigned NOT NULL,
+  `class` int(5) unsigned NOT NULL,
+  PRIMARY KEY  (`user_id`)
+) ENGINE=MyISAM;
 
-
+DROP TABLE IF EXISTS `ecs_school_grade`;
+CREATE TABLE `ecs_school_grade`(
+  `grade_id` int(10) unsigned NOT NULL auto_increment,
+  `grade` varchar(30) default NULL,
+  PRIMARY KEY  (`grade_id`)
+) ENGINE=MyISAM;
 
 
 
