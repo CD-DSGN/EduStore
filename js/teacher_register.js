@@ -9,7 +9,11 @@ var password_status = 0;				// 0表示为空，1表示正确，2表示两次密�
 var confirmPassword_status = 0;			// 0表示为空，1表示正确，2表示两次密码不一致
 var agreement_status = 1;				// 0表示为空，1表示正确
 var address_status = 0;					// 0表示为空，1表示正确
+var grade_class_status = 0;
 var code_status = 1;
+// 年级、班级的全局变量，传参时用
+var gradeArray = Array();
+var classArray = Array();
 /* 默认为0，表示为空/错误，1：正确 */
 
 /* 定义错误提示的图片语句 */
@@ -252,7 +256,53 @@ function nextStep() {
 			break;
 		}
 		return 0;
-	}else if( agreement_status != 1) {
+	} else if (password_status != 1) {
+
+		$("#password").focus().select();
+		$("#confirm_password").val('');
+		switch (password_status) {
+			case 0:
+				$("#password_correct").css({'display' : 'none'});
+				$("#confirm_password_correct").css({'display' : 'none'});
+				$("#password_tips").html(error_info + '密码不能为空');
+				break;
+			case 2:
+				$("#password_correct").css({'display' : 'none'});
+				$("#confirm_password_correct").css({'display' : 'none'});
+				$("#password_tips").html(error_info + '两次密码不一致');
+				break;
+			case 3:
+				$("#password_correct").css({'display' : 'none'});
+				$("#confirm_password_correct").css({'display' : 'none'});
+				$("#password_tips").html(error_info + '密码长度过短');
+				break;
+			default:
+				break;
+		}
+		return 0;
+	} else if (confirmPassword_status != 1) {
+
+		$("#confirm_password").focus().select();
+		switch (confirmPassword_status) {
+			case 0:
+				$("#confirm_password_correct").css({'display' : 'none'});
+				$("#confirm_password_tips").html(error_info + '密码不能为空');
+				break;
+			case 2:
+				$("#confirm_password_correct").css({'display' : 'none'});
+				$("#confirm_password_tips").html(error_info + '两次密码不一致');
+				break;
+			default:
+				break;
+		}
+		return 0;
+	} else if (code_status != 1) {
+
+		$("#invite_code").focus().select();
+		$("#invite_code_correct").css({'display' : 'none'});
+		$("#invite_code_tips").html(error_info + '邀请码有误，请重新输入!');
+		return 0;
+	} else if( agreement_status != 1) {
 		$("#agreement_tips").html(error_info + '同意用户协议才可以进行注册');
 		return 0;
 	}else {
@@ -279,12 +329,22 @@ function checkRealName() {
 }
 
 function checkSchool() {
-	var school = $.trim($("#school").val());
-	if(school == '') {
+	// var school = $.trim($("#school").val());
+	// if(school == '') {
+	// 	$("#school_correct").css({'display':'none'});
+	// 	$("#school_tips").html(error_info + '学校不能为空');
+	// 	school_status = 0;
+	// }else {
+	// 	$("#school_correct").css({'display':'block'});
+	// 	$("#school_tips").html("");
+	// 	school_status = 1;
+	// }
+	var school = $("#school").val();
+	if (school == 0) {
 		$("#school_correct").css({'display':'none'});
 		$("#school_tips").html(error_info + '学校不能为空');
 		school_status = 0;
-	}else {
+	} else {
 		$("#school_correct").css({'display':'block'});
 		$("#school_tips").html("");
 		school_status = 1;
@@ -422,6 +482,49 @@ function checkConfirmPassword() {
 		$("#confirm_password_correct").css({'display' : 'none'});
 		$("#confirm_password_tips").html(error_info + '两次密码不一致');
 		confirmPassword_status = 2;
+	}
+}
+
+function checkGradeClass() {
+
+	var grade = $(".grade");
+	var school_class = $(".school_class");
+	var isComplete = 1;
+	var classIsNum = 1;
+	for (var i = 0; i < grade.length; i++) {
+		if ($(grade[i]).val() != 0 &&  $(school_class[i]).val() != 0) {
+			if (isNaN($(school_class[i]).val())) {
+				// 不是数字
+				classIsNum = 0;
+			} else {
+				// 是数字
+				gradeArray[i] = $(grade[i]).val();
+				classArray[i] = $(school_class[i]).val();
+			}
+		} else if ($(grade[i]).val() == 0 &&  $(school_class[i]).val() == 0) {
+			gradeArray[i] = 0;
+			classArray[i] = 0;
+		} else {
+			isComplete = 0;
+		}
+	}
+	// 错误消息的提示与去除
+	var gradeClassTips = $(".grade_class_tips");
+	for (var i = 0; i < gradeClassTips.length; i++) {
+		$(gradeClassTips[i]).html('');
+	}
+	if (isComplete) {
+		grade_class_status = 1;
+	} else {
+		$(gradeClassTips[gradeClassTips.length - 1]).html(error_info + '年级与班级不能同时为空');
+		grade_class_status = 0;
+	}
+
+	if (classIsNum) {
+		grade_class_status = 1;
+	} else {
+		$(gradeClassTips[gradeClassTips.length - 1]).html(error_info + '班级只能填写数字');
+		grade_class_status = 0;
 	}
 }
 
