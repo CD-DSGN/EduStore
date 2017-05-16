@@ -369,6 +369,7 @@ elseif($action == 'get_course')
     }
     // $course = implode('@', $course_id);
     echo json_encode($course);
+    exit();
 }
 elseif($action == 'get_grade') 
 {
@@ -454,8 +455,8 @@ elseif ($action == 'act_register')
         $teacher_grade = isset($_POST['teacher_grade'])? trim($_POST['teacher_grade']) : '';
         $teacher_class = isset($_POST['teacher_class'])? trim($_POST['teacher_class']) : '';
 
-        // var_dump($_POST['teacher_grade']);
-        // var_dump($_POST['teacher_class']);
+        // var_dump(json_decode($_POST['teacher_grade']));
+        // var_dump(json_decode($_POST['teacher_class']));
         //防止sql注入
         $teacher_info['real_name'] = addslashes($teacher_info['real_name']);
         $teacher_info['school'] = addslashes($teacher_info['school']);

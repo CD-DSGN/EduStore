@@ -339,10 +339,10 @@
 			$(gradeClassTips[gradeClassTips.length - 1]).html(error_info + '年级与班级不能同时为空');
 			return false;
 		}else {
-			// var teacher_grade = gradeArray.join('@');
-			// var teacher_class = classArray.join('@');
-			var teacher_grade = JSON.stringify(gradeArray);
-			var teacher_class = JSON.stringify(classArray);
+			var teacher_grade = gradeArray.join('@');
+			var teacher_class = classArray.join('@');
+			// var teacher_grade = JSON.stringify(gradeArray);
+			// var teacher_class = JSON.stringify(classArray);
 			$("#formTeacher").ajaxSubmit({
 				type : 'post',
 				url : 'user.php?act=act_register',

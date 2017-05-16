@@ -79,25 +79,25 @@ if($is_teacher == '1') {
     $values[] = $teacher_info['school'];
     $values[] = $country;
 
-    // $values[] = $teacher_info['province_name'];
-    // $values[] = $teacher_info['city_name'];
-    // $values[] = $teacher_info['town_name'];
+    $values[] = $province_name;
+    $values[] = $city_name;
+    $values[] = $town_name;
 
-    // 查询省的region_id，非空判断、错误判断就先不加了
-    $sql = 'SELECT region_id FROM'. $ecs->table('region') ."WHERE `region_name` = '" . $province_name ."' AND `region_type`  = '1'";
-    $province = $db->getAll($sql);
-    // $province_id = $province['region_id'];
-    $values[] = $province[0]['region_id'];
+    // // 查询省的region_id，非空判断、错误判断就先不加了
+    // $sql = 'SELECT region_id FROM'. $ecs->table('region') ."WHERE `region_name` = '" . $province_name ."' AND `region_type`  = '1'";
+    // $province = $db->getAll($sql);
+    // // $province_id = $province['region_id'];
+    // $values[] = $province[0]['region_id'];
 
-    // 查询市的region_id
-    $sql = 'SELECT region_id FROM'. $ecs->table('region') ."WHERE `region_name` = '" . $city_name ."' AND `region_type`  = '2'";
-    $city = $db->getAll($sql);
-    $values[] = $city[0]['region_id'];
+    // // 查询市的region_id
+    // $sql = 'SELECT region_id FROM'. $ecs->table('region') ."WHERE `region_name` = '" . $city_name ."' AND `region_type`  = '2'";
+    // $city = $db->getAll($sql);
+    // $values[] = $city[0]['region_id'];
 
-    // 查询县的region_id 
-    $sql = 'SELECT region_id FROM'. $ecs->table('region') ."WHERE `region_name` = '" . $town_name ."' AND `region_type`  = '3'";
-    $town = $db->getAll($sql);
-    $values[] = $town[0]['region_id'];
+    // // 查询县的region_id 
+    // $sql = 'SELECT region_id FROM'. $ecs->table('region') ."WHERE `region_name` = '" . $town_name ."' AND `region_type`  = '3'";
+    // $town = $db->getAll($sql);
+    // $values[] = $town[0]['region_id'];
 
     $recommend_code = generate_recommend_code($values[0]);
     $values[] = $recommend_code;
