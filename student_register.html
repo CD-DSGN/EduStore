@@ -28,23 +28,12 @@
 	<form action="user.php" method="post" name="formUser" id="formUser" onsubmit="return register();">
 		<div id="register-content1" style="display: block;">
 			<table>
-				<!-- <tr>
+				<tr>
 					<td class="label">昵称</td>
-					<td><input name="nickname" type="text" id="nickname" onfocus="focues();" class="inputBg"></input>
+					<td><input name="nickname" type="text" id="nickname" onfocus=";" onblur="check_nickname(this.value)" oninput="check_nickname(this.value)" class="inputBg"></input>
             			<p id="nickname_notice"></p>
 					</td>
-				</tr> -->
-				<tr>
-					<td class="label">手机号码</td>
-					<td><input type="text" id="mobileNumber" name="mobile_phone_register" class="inputBg"/><p id="Numbererror_notice"></p></td>
 				</tr>
-				<tr>
-          			<td class="label">验证码</td>
-          			<td><input style="width:150px" type="text" class="inputBg" id="numberchecked" name="identifyCode" oninput="checkIdentify(this.value)"/>
-              			<input type="button" id="checkNumber" value="点击获取" onclick="showTime()"/>
-		          		<p id="identifyCode_notice"></p>  
-          			</td>
-        		</tr>
 				<tr>
 					<td class="label">密码</td>
 					<td><input name="password" type="password" id="password1" onblur="check_password(this.value);" onkeyup="checkIntensity(this.value)" class="inputBg"/>
@@ -57,6 +46,17 @@
             			<p id="conform_password_notice"></p>
 					</td>
 				</tr>
+				<tr>
+					<td class="label">手机号码</td>
+					<td><input type="text" id="mobileNumber" name="mobile_phone_register" class="inputBg"/><p id="Numbererror_notice"></p></td>
+				</tr>
+				<tr>
+          			<td class="label">验证码</td>
+          			<td><input style="width:150px" type="text" class="inputBg" id="numberchecked" name="identifyCode" oninput="checkIdentify(this.value)"/>
+              			<input type="button" id="checkNumber" value="点击获取" onclick="showTime()"/>
+		          		<p id="identifyCode_notice"></p>  
+          			</td>
+        		</tr>
 				<tr>
           			<td></td>
           			<td><input type="checkbox" name="agreement" id="agreement" checked="checked" value="1" onblur="agreementchecked();">我已看过并接受<a href="#">《用户协议》</a>
@@ -139,6 +139,7 @@
 </body>
 <script type="text/javascript">
 	var username_checked=0;
+	var nickname_checked = 0;
 	var password_checked=0;
 	var conform_password_checked=0;
 	var phone_number=0;
@@ -231,6 +232,22 @@
 		else{
 			password1.style.background="url(data/images/studentregister/icon1.png) center left+265px no-repeat";
 			password_checked=1;
+		}
+	}
+	function check_nickname(nickname) {
+
+		var p = document.getElementById("nickname_notice");
+		var nickname_correct = document.getElementById("nickname");
+		if (nickname.length==0) {
+			p.innerHTML = "请输入昵称！";
+			p.style.background="url(data/images/studentregister/icon3.png) center left no-repeat";
+			nickname_correct.style.background = "";
+			nickname_checked=0;
+		} else {
+			p.innerHTML = "";
+			p.style.background = "";
+			nickname_correct.style.background = "url(data/images/studentregister/icon1.png) center left+265px no-repeat";
+			nickname_checked = 1;
 		}
 	}
 	function checkIntensity(pwd)
@@ -702,6 +719,12 @@
 				}
 				return 0;
 			}
+			else if (nickname_checked!=1) {
+				var nickname_notice = document.getElementById("nickname_notice");
+				nickname_notice.innerHTML = "请输入昵称！";
+				nickname_notice.style.background="url(data/images/studentregister/icon3.png) center left no-repeat";
+				return 0;
+			} 
 			else if(password_checked!=1){
 				var p=document.getElementById("password_notice");
 				password1.style.border="2px solid #FFB392";
@@ -741,7 +764,7 @@
 						break;
 				}	
 				return 0;
-			}else if(checked==0){
+			} else if(checked==0){
 				var agreement_notice=document.getElementById("agreement_notice");
 				agreement_notice.innerHTML="请同意用户协议后再进行注册";
 				agreement_notice.style.background="url(data/images/studentregister/icon3.png) center left no-repeat";
