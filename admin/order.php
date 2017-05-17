@@ -967,8 +967,10 @@ elseif ($_REQUEST['act'] == 'delivery_ship')
             if($integral_arr){
                 foreach ($integral_arr as $user_id => $teacher_integral) {
                     log_account_change($user_id, 0, 0, 0, 0, sprintf($_LANG['order_gift_teacher_integral'], $order['order_sn']),ACT_SUBSCRIPTION_TEACHER_INTEGRAL,$teacher_integral);
+                    $sql = "select user_name from " . $GLOBALS['ecs']->table('users') . "where user_id = '$user_id'";
+                    $res =  $GLOBALS['db']->getOne($sql);
+                    write_separate_log($order_id, $user_id, $res, 0, 0, 0, $teacher_integral, $teacher_integral, 0);
                 }
-
             }
 
             give_integral_to_affiliate_teacher($integral_arr,$order,1); //1表示给积分，-1表示回退积分
@@ -1137,11 +1139,11 @@ elseif ($_REQUEST['act'] == 'delivery_cancel_ship')
 
             //begin zhangmengqi, 退回赠送给教师的教师积分
             $integral_arr = teacher_integral_to_give($order);
-            if($integral_arr){
-                foreach ($integral_arr as $user_id => $teacher_integral) {
-                    log_account_change($user_id, 0, 0, 0, 0, sprintf($_LANG['return_order_gift_teacher_integral'], $order['order_sn']), ACT_SUBSCRIPTION_TEACHER_INTEGRAL, -$teacher_integral);
-                }
-            }
+//            if($integral_arr){
+//                foreach ($integral_arr as $user_id => $teacher_integral) {
+//                    log_account_change($user_id, 0, 0, 0, 0, sprintf($_LANG['return_order_gift_teacher_integral'], $order['order_sn']), ACT_SUBSCRIPTION_TEACHER_INTEGRAL, -$teacher_integral);
+//                }
+//            }
 
             give_integral_to_affiliate_teacher($integral_arr,$order,-1);  //退回因为推荐获得的分成
             //end zhangmengqi
@@ -4007,11 +4009,11 @@ elseif ($_REQUEST['act'] == 'operate_post')
 
             //begin zhangmengqi
             $integral_arr = teacher_integral_to_give($order);
-            if($integral_arr){
-                foreach ($integral_arr as $user_id => $teacher_integral) {
-                    log_account_change($user_id, 0, 0, 0, 0, sprintf($_LANG['return_order_gift_teacher_integral'], $order['order_sn']), ACT_SUBSCRIPTION_TEACHER_INTEGRAL, -$teacher_integral);
-                }
-            }
+//            if($integral_arr){
+//                foreach ($integral_arr as $user_id => $teacher_integral) {
+//                    log_account_change($user_id, 0, 0, 0, 0, sprintf($_LANG['return_order_gift_teacher_integral'], $order['order_sn']), ACT_SUBSCRIPTION_TEACHER_INTEGRAL, -$teacher_integral);
+//                }
+//            }
 
             give_integral_to_affiliate_teacher($integral_arr,$order,-1);  //退回因为推荐获得的分成
             //end zhangmengqi
@@ -4189,11 +4191,11 @@ elseif ($_REQUEST['act'] == 'operate_post')
 
                 //begin zhangmengqi,退货时，回退赠送给教师的积分
                 $integral_arr = teacher_integral_to_give($order);
-                if($integral_arr){
-                    foreach ($integral_arr as $user_id => $teacher_integral) {
-                        log_account_change($user_id, 0, 0, 0, 0, sprintf($_LANG['return_order_gift_teacher_integral'], $order['order_sn']), ACT_SUBSCRIPTION_TEACHER_INTEGRAL, -$teacher_integral);
-                    }
-                }
+//                if($integral_arr){
+//                    foreach ($integral_arr as $user_id => $teacher_integral) {
+//                        log_account_change($user_id, 0, 0, 0, 0, sprintf($_LANG['return_order_gift_teacher_integral'], $order['order_sn']), ACT_SUBSCRIPTION_TEACHER_INTEGRAL, -$teacher_integral);
+//                    }
+//                }
                 give_integral_to_affiliate_teacher($integral_arr,$order,-1);  //退回因为推荐获得的分成
                 //end zhangmengqi
             }
@@ -6651,7 +6653,7 @@ function give_integral_to_affiliate_teacher($integral_arr, $order, $give){
             } else {
                 $info = sprintf($_LANG['separate_info_teacher'], $pre_user_id, $order_sn, 0, 0, $set_teacher_point);
                 log_account_change($up_uid, 0, 0, 0, 0, $info, ACT_AFFILIATE_TEACHER_INTEGRAL, $set_teacher_point);
-                write_separate_log($oid, $up_uid, $row['user_name'], 0, 0, 0, $set_teacher_point); //只有按注册分配
+                write_separate_log($oid, $up_uid, $row['user_name'], 0, 0, 0, $set_teacher_point, 0, $set_teacher_point); //只有按注册分配
             }
         }
     }
@@ -6675,7 +6677,20 @@ function roll_back_affiliate($oid, $_LANG, $order_sn)
     return;
 }
 
-function write_separate_log($oid, $uid, $username, $money, $point, $separate_by, $teacher_integral = 0)
+
+/***
+ * @param $oid  订单号
+ * @param $uid  用户ID
+ * @param $username 用户名
+ * @param $money  钱(原有)
+ * @param $point  积分(原有)
+ * @param $separate_by 类型
+ * @param int $teacher_integral 汇积分
+ * @param $direct_point     因为学生购买获得积分
+ * @param $indirect_point   因为推荐获得积分
+ */
+
+function write_separate_log($oid, $uid, $username, $money, $point, $separate_by, $teacher_integral = 0, $direct_point = 0, $indirect_point = 0)
 {
     if(!$oid){
         return;
@@ -6691,7 +6706,9 @@ function write_separate_log($oid, $uid, $username, $money, $point, $separate_by,
             "point = $point," .
             "separate_type = $separate_by, " .
             "user_name = '$username', " .
-            "teacher_integral = $teacher_integral " .
+            "teacher_integral = $teacher_integral, " .
+            "direct_point = $direct_point, " .
+            "indirect_point = $indirect_point " .
             "where order_id = $oid AND user_id = $uid AND separate_type < 0";
         $GLOBALS['db']->query($sql);
 
@@ -6711,13 +6728,15 @@ function write_separate_log($oid, $uid, $username, $money, $point, $separate_by,
             " SET money = money + $money, " .
             "point = point + $point," .
             "teacher_integral = teacher_integral + $teacher_integral " .
+            "direct_point = direct_point + $direct_point" .
+            "indirect_point = indirect_point + $indirect_point" .
             "where order_id = $oid AND user_id = $uid AND (separate_type > 0 or separate_type = 0)";
         $GLOBALS['db']->query($sql);
         return ;
     }
 
-    $sql = "INSERT INTO " . $GLOBALS['ecs']->table('affiliate_log') . "( order_id, user_id, user_name, time, money, point, separate_type, teacher_integral)".
-        " VALUES ( '$oid', '$uid', '$username', '$time', '$money', '$point', $separate_by, $teacher_integral)";
+    $sql = "INSERT INTO " . $GLOBALS['ecs']->table('affiliate_log') . "( order_id, user_id, user_name, time, money, point, separate_type, teacher_integral, direct_point, indirect_point )".
+        " VALUES ( '$oid', '$uid', '$username', '$time', '$money', '$point', $separate_by, $teacher_integral, $direct_point, $indirect_point)";
     $GLOBALS['db']->query($sql);
 
     //置为已分成状态
@@ -6725,7 +6744,6 @@ function write_separate_log($oid, $uid, $username, $money, $point, $separate_by,
         " SET is_separate = 1" .
         " WHERE order_id = '$oid'";
     $GLOBALS['db']->query($sql);
-
 }
 
 //撤销分成记录

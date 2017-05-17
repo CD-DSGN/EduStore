@@ -35,8 +35,9 @@ if ($res) {
     $data['recommanded_teacher_num'] = $res;  //获得推荐教师数目
 }
 
-$affiliate_change_type = ACT_SUBSCRIPTION_TEACHER_INTEGRAL;
-$sql = 'select sum(`teacher_integral`) from ' . $ecs->table('account_log').  " where `user_id` = '$user_id' and  `change_type` = $affiliate_change_type";
+//$affiliate_change_type = ACT_SUBSCRIPTION_TEACHER_INTEGRAL;
+$sql = 'select sum(`direct_point`) from ' . $ecs->table('affiliate_log').  " as a 
+where `user_id` = '$user_id' and   a.direct_point > 0 and  separate_type>=0 ";
 //putString($sql);
 $res = $db->getOne($sql);
 
@@ -48,7 +49,7 @@ if ($res) {
 
 
 if (isset($data['teacher_integral']) && isset($data['points_from_subscription'])) {
-    $data['points_from_affiliate'] = $data['teacher_integral'] - $data['points_from_subscription'];
+    $data['points_from_affiliate'] = max($data['teacher_integral'] - $data['points_from_subscription'], 0);
 }
 
 //读数据库，获得自身邀请码

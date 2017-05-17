@@ -261,21 +261,23 @@ span{
 	width:730px;
 	float:left;
 	margin:5px;
+	//height:600px;
+	//background:#fff;
 }
 .leftdiv dl{
 	display:block;
 	border-bottom:1px solid #eee;
 	padding-bottom: 6px;
-	height:60px;
+	height:48px;
 	//overflow:hidden;
 }
 .leftdiv dl .qq{
 	display:block;
 	float:left;
 	width:170px;
-	height:60px;
+	height:48px;
 
-	line-height:60px;
+	line-height:48px;
 	padding-right: 6px;
 	//margin-top:-13px;
 	//background:red;
@@ -291,7 +293,7 @@ span{
 .leftdiv .ww{
 	width: 500px;
 	float: left;
-	height:60px;
+	height:48px;
 	overflow: hidden;
 }
 .leftdiv dl dd{
@@ -313,7 +315,7 @@ span{
 .leftdiv .ee{
 	width: 50px;
 	float: left;
-	height:60px;
+	height:48px;
 }
 .rightdiv{
 	width:270px;

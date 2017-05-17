@@ -1513,6 +1513,8 @@ CREATE TABLE  `ecs_affiliate_log` (
  `point` INT(10) NOT NULL DEFAULT '0',
  `separate_type` TINYINT(1) NOT NULL DEFAULT '0',
   `teacher_integral` int NOT NULL default '0',
+  `direct_point` int NOT NULL DEFAULT '0',
+  `indirect_point` int NOT NULL DEFAULT '0',
   PRIMARY KEY ( `log_id` )
 ) ENGINE = MYISAM;
 
