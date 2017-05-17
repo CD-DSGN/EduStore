@@ -759,11 +759,12 @@ function user_list()
             if ($filter['city']) {
                 $region_where .= " AND `city` = " .$filter['city'];
             }
-            if ($filter['town']) {
-                $region_where .= " AND 'district' = " .$filter['town'];
+            if ($filter['district']) {
+                $region_where .= " AND `district` = " .$filter['district'];
             }
             $ex_where .= " AND `user_id` in (SELECT user_id FROM ". $GLOBALS['ecs']->table('teachers') . $region_where .")";
         }
+
         /*end*/
         /*增加电话号码查询用户*/
         if ($filter['mobilePhone']) {
@@ -774,7 +775,7 @@ function user_list()
 
         /* 分页大小 */
         $filter = page_and_size($filter);
-        $sql = "SELECT user_id, user_name, email, is_validated, teacher_integral, user_money, frozen_money, rank_points, pay_points, reg_time, mobile_phone ".
+        $sql = "SELECT user_id, user_name, email, is_validated, teacher_integral, user_money, frozen_money, rank_points, pay_points, reg_time, mobile_phone, is_teacher, nickname ".
                 " FROM " . $GLOBALS['ecs']->table('users') . $ex_where .
                 " ORDER by " . $filter['sort_by'] . ' ' . $filter['sort_order'] .
                 " LIMIT " . $filter['start'] . ',' . $filter['page_size'];
@@ -787,13 +788,79 @@ function user_list()
         $sql    = $result['sql'];
         $filter = $result['filter'];
     }
-
+    // var_dump($sql);
     $user_list = $GLOBALS['db']->getAll($sql);
 
     $count = count($user_list);
     for ($i=0; $i<$count; $i++)
     {
         $user_list[$i]['reg_time'] = local_date($GLOBALS['_CFG']['date_format'], $user_list[$i]['reg_time']);
+    }
+
+    // 根据查询到的用户id，再来查询我们所需要的其他数据
+    for ($i=0; $i<$count; $i++) 
+    {
+        if ($user_list[$i]['is_teacher'] == 1) {
+
+            $sql = "SELECT * FROM ". $GLOBALS['ecs']->table('teacher_class_info') ." WHERE `user_id` = '". $user_list[$i]['user_id'] ."'";
+            $teacher_class_list = $GLOBALS['db']->getAll($sql);
+            for ($j = 0; $j < count($teacher_class_list); $j++)
+            {
+                $user_list[$i]['school_id'] = $teacher_class_list[$j]['school_id'];
+                $user_list[$i]['course'] = $teacher_class_list[$j]['course'];
+                $user_list[$i]['grade'][$j] = $teacher_class_list[$j]['grade'];
+                $user_list[$i]['class'][$j] = $teacher_class_list[$j]['class'];
+            }
+
+            $sql = "SELECT * FROM ". $GLOBALS['ecs']->table('teachers') ." WHERE `user_id` = '". $user_list[$i]['user_id'] ."'";
+            $teacher_region_info = $GLOBALS['db']->getAll($sql);
+            for ($j = 0; $j < count($teacher_region_info); $j++)
+            {
+                $user_list[$i]['province'] = $teacher_region_info[$j]['province'];
+                $user_list[$i]['city'] = $teacher_region_info[$j]['city'];
+                $user_list[$i]['district'] = $teacher_region_info[$j]['district'];
+                $user_list[$i]['real_name'] = $teacher_region_info[$j]['real_name'];
+            }
+        } else {
+
+            $sql = "SELECT * FROM ". $GLOBALS['ecs']->table('student_class_info') ." WHERE `user_id` = '". $user_list[$i]['user_id'] ."'";
+            $student_class_list = $GLOBALS['db']->getAll($sql);
+            $user_list[$i]['school_id'] = $student_class_list[0]['school_id'];
+            $user_list[$i]['grade'][0] = $student_class_list[0]['grade'];
+            $user_list[$i]['class'][0] = $student_class_list[0]['class'];
+        }
+    }
+
+    // 将查询到的id（省市县、学校、课程、年级）等等，与数据库对应，转化为文字
+    for ($i=0; $i<$count; $i++) 
+    {
+        // 省
+        $sql = "SELECT region_name FROM ". $GLOBALS['ecs']->table('region') ." WHERE `region_id` = '". $user_list[$i]['province'] ."'";
+        $province_name = $GLOBALS['db']->getAll($sql);
+        $user_list[$i]['province'] = $province_name[0]['region_name'];
+        // 市
+        $sql = "SELECT region_name FROM ". $GLOBALS['ecs']->table('region') ." WHERE `region_id` = '". $user_list[$i]['city'] ."'";
+        $city_name = $GLOBALS['db']->getAll($sql);
+        $user_list[$i]['city'] = $city_name[0]['region_name'];
+        // 县
+        $sql = "SELECT region_name FROM ". $GLOBALS['ecs']->table('region') ." WHERE `region_id` = '". $user_list[$i]['district'] ."'";
+        $district_name = $GLOBALS['db']->getAll($sql);
+        $user_list[$i]['district'] = $district_name[0]['region_name'];
+        // 学校
+        $sql = "SELECT school_name FROM ". $GLOBALS['ecs']->table('schools') ." WHERE `school_id` = '". $user_list[$i]['school_id'] ."'";
+        $school_name = $GLOBALS['db']->getAll($sql);
+        $user_list[$i]['school_id'] = $school_name[0]['school_name'];
+        // 课程
+        $sql = "SELECT course_name FROM ". $GLOBALS['ecs']->table('courses') ." WHERE `course_id` = '". $user_list[$i]['course'] ."'";
+        $course_name = $GLOBALS['db']->getAll($sql);
+        $user_list[$i]['course'] = $course_name[0]['course_name'];
+        // 年级
+        for ($j = 0; $j < count($user_list[$i]['grade']); $j++) 
+        {
+            $sql = "SELECT grade FROM ". $GLOBALS['ecs']->table('school_grade') ." WHERE `grade_id` = '". $user_list[$i]['grade'][$j] ."'";
+            $grade_name = $GLOBALS['db']->getAll($sql);
+            $user_list[$i]['grade'][$j] = $grade_name[0]['grade'];
+        }
     }
 
     $arr = array('user_list' => $user_list, 'filter' => $filter,
