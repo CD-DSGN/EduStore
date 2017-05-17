@@ -73,7 +73,8 @@
           <tr>
           	<td class="label">商品所属科目：</td>
             <td><select name="course_select">
-            <option value="0">请选择图书对应科目（必选）</option>{$course_list}</select></td>
+            <option value="0">请选择图书对应科目（必选）</option>
+            {html_options options=$course_list selected=$goods.course_id}</select></td>
           </tr>
           
           <!--是否预售-->

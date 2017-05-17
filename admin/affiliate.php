@@ -44,9 +44,9 @@ elseif ($_REQUEST['act'] == 'query')
 /*------------------------------------------------------ */
 elseif ($_REQUEST['act'] == 'add')
 {
-    if (count($config['item']) < 5)
+    if (count($config['item']) < 2)
     {
-        //下线不能超过5层
+        //下线不能超过2层
         $_POST['level_point'] = (float)$_POST['level_point'];
         $_POST['level_money'] = (float)$_POST['level_money'];
         $maxpoint = $maxmoney = 100;

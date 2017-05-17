@@ -10,7 +10,7 @@ require(EC_PATH . '/includes/init.php');
 include_once(EC_PATH . '/includes/lib_order.php');
 include_once(EC_PATH . '/includes/lib_passport.php');
 
-$username = _POST('name');
+$username = _POST('mobile_phone');
 $password = _POST('password');
 $email = _POST('email');
 // $fileld = _POST('fileld', array());
@@ -112,7 +112,7 @@ if( isset($_POST['mobile_phone'])) {
 }
 /*邀请码推荐处理*added by chenggaoyuan*/
 $affiliate  = unserialize($GLOBALS['_CFG']['affiliate']);
-if($teacher_info['invite_code'] !=0){
+if(isset($teacher_info['invite_code'])){
     if (isset($affiliate['on']) && $affiliate['on'] == 1)
     {
         $up_uid = get_user_id_from_recommend_code($teacher_info['invite_code']);

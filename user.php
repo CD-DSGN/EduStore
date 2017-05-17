@@ -40,7 +40,7 @@ $back_act='';
 $not_login_arr =array('login','act_login','register','act_register','act_edit_password','get_password','send_pwd_email',
 'password', 'signin', 'add_tag', 'collect', 'return_to_cart', 'logout', 'email_list', 'validate_email', 'send_hash_mail', 
 'order_query', 'is_registered', 'check_email','clear_history','qpassword_name', 'get_passwd_question', 'check_answer', 
-'register_teacher', 'phoneAndMessageCode','sendPhoneAndIdentifyCode','get_course','get_province', 'get_city','get_town','check_mobile_phone', 'check_identifyCode', 'check_invite_code');
+'register_teacher', 'phoneAndMessageCode','sendPhoneAndIdentifyCode','get_course','get_province', 'get_city','get_town','check_mobile_phone', 'check_identifyCode', 'check_invite_code', 'get_school', 'get_grade');
 
 /* 显示页面的action列表 */
 //Todo 有可能需要增加，看界面的情况
@@ -369,6 +369,39 @@ elseif($action == 'get_course')
     }
     // $course = implode('@', $course_id);
     echo json_encode($course);
+    exit();
+}
+elseif($action == 'get_grade') 
+{
+    $sql = 'SELECT * FROM '. $ecs->table('school_grade') . 'ORDER BY `grade_id`';
+    $grade_info = $db->getAll($sql);
+    $grade = array();
+    foreach ($grade_info as $item) {
+        
+        $grade[$item['grade_id']]['grade_id'] = $item['grade_id'];
+        $grade[$item['grade_id']]['grade_name'] = $item['grade'];
+    }
+    echo json_encode($grade);
+    exit();
+}
+elseif($action == 'get_school')
+{
+    $school_regin = isset($_POST['district']) ? $_POST['district'] : '0';
+    $sql = "SELECT * FROM " . $ecs->table('schools') . "WHERE `school_regin` = '" . $school_regin ."' ORDER BY `school_id`";
+    $school = $db->getAll($sql);
+    $school_name_array = array();
+    $school_id_array = array();
+    foreach ($school as $item) {
+        
+        $school_name_array[$item['school_id']] = $item['school_name'];
+        $school_id_array[$item['school_id']] = $item['school_id'];
+    }
+
+    $school_name = implode('@', $school_name_array);
+    $school_id = implode('@', $school_id_array);
+
+    echo "{\"school_name\":\"$school_name\", \"school_id\" : \"$school_id\"}";
+    exit();
 }
 //end 那奂捷
 /* 注册会员的处理 */
@@ -385,7 +418,8 @@ elseif ($action == 'act_register')
     {
         include_once(ROOT_PATH . 'includes/lib_passport.php');
 
-        $username = isset($_POST['username']) ? trim($_POST['username']) : '';
+        //无论教师还是学生，都以手机号作为用户名
+        $username = isset($_POST['mobile_phone_register']) ? trim($_POST['mobile_phone_register']) : '';
         $password = isset($_POST['password']) ? trim($_POST['password']) : '';
         $email    = isset($_POST['email']) ? trim($_POST['email']) : '';
         $other['msn'] = isset($_POST['extend_field1']) ? $_POST['extend_field1'] : '';
@@ -394,8 +428,17 @@ elseif ($action == 'act_register')
         $other['home_phone'] = isset($_POST['extend_field4']) ? $_POST['extend_field4'] : '';
         //$other['mobile_phone'] = isset($_POST['extend_field5']) ? $_POST['extend_field5'] : '';
         $other['mobile_phone'] = isset($_POST['mobile_phone_register']) ? $_POST['mobile_phone_register'] : '';
+
+        //增加昵称
+        $other['nickname']    = isset($_POST['nickname']) ? trim($_POST['nickname']) : '';
+
         $sel_question = empty($_POST['sel_question']) ? '' : compile_str($_POST['sel_question']);
         $passwd_answer = isset($_POST['passwd_answer']) ? compile_str(trim($_POST['passwd_answer'])) : '';
+
+        //added by chenggaoyuan
+        $student_school = isset($_POST['student_school'])? trim($_POST['student_school']) : '';
+        $student_grade = isset($_POST['student_grade'])? trim($_POST['student_grade']) : '';
+        $student_class = isset($_POST['student_class'])? trim($_POST['student_class']) : '';
 
         //begin zhangmengqi，增加教师信息,手机信息
         $is_teacher = isset($_POST['is_teacher']) ? $_POST['is_teacher'] : '0';
@@ -407,6 +450,13 @@ elseif ($action == 'act_register')
         $teacher_info['city'] = isset($_POST['city']) ? trim($_POST['city']):'';
         $teacher_info['district'] = isset($_POST['district']) ? trim($_POST['district']):'';
         $teacher_info['invite_code'] = isset($_POST['invite_code']) ? trim($_POST['invite_code']):'';
+        //added by chenggaoyuan
+        $teacher_school = isset($_POST['teacher_school'])? trim($_POST['teacher_school']) : '';
+        $teacher_grade = isset($_POST['teacher_grade'])? trim($_POST['teacher_grade']) : '';
+        $teacher_class = isset($_POST['teacher_class'])? trim($_POST['teacher_class']) : '';
+
+        // var_dump(json_decode($_POST['teacher_grade']));
+        // var_dump(json_decode($_POST['teacher_class']));
         //防止sql注入
         $teacher_info['real_name'] = addslashes($teacher_info['real_name']);
         $teacher_info['school'] = addslashes($teacher_info['school']);
@@ -419,6 +469,8 @@ elseif ($action == 'act_register')
         //end zhangmengqi
         
         $invite_code = $teacher_info['invite_code'];
+
+        $grade = $_POST['grade'];
 
         $back_act = isset($_POST['back_act']) ? trim($_POST['back_act']) : '';
 
@@ -442,6 +494,7 @@ elseif ($action == 'act_register')
         }
 
         /* 验证码检查 */
+        
         if ((intval($_CFG['captcha']) & CAPTCHA_REGISTER) && gd_version() > 0)
         {
             if (empty($_POST['captcha']))
@@ -482,6 +535,7 @@ elseif ($action == 'act_register')
             show_message("手机验证码不能为空。");
         }
         //end nahuanjie
+      
 
         if (register($username, $password, $email, $other, $invite_code) !== false)
         {
@@ -510,6 +564,47 @@ elseif ($action == 'act_register')
                 $db->query($sql);
                 $sql = 'UPDATE ' . $ecs->table('users') . " SET `is_teacher`='$is_teacher' WHERE `user_id`='" . $_SESSION['user_id'] . "'";
                 $db->query($sql);
+
+                //begin added by chenggaoyuan 写入教师学校年级班级信息
+                $tch_values =array();
+                $tch_values = $_SESSION['user_id'];
+                $tch_values = $teacher_school;
+                $tch_values = $teacher_grade;
+                $tch_values = $teacher_class;
+                $tch_values = $teacher_info['course_id'];
+
+                $sql = 'INSERT INTO ' . $ecs->table('teacher_class_info') . ' (`user_id`, `school_id`, `grade` , `class`, `course`)'. " VALUES ('" . implode("', '", $tch_values) . "')";
+                $db->query($sql);
+
+
+            }else{
+                //begin added by chenggaoyuan
+                $stu_values = array();
+                $stu_values[] = $_SESSION['user_id'];
+                $stu_values[] = $student_school;
+                $stu_values[] = $student_grade;
+                $stu_values[] = $student_class;
+
+                $sql = 'INSERT INTO ' . $ecs->table('student_class_info') . ' (`user_id`, `school_id`, `grade` , `class`)'. " VALUES ('" . implode("', '", $stu_values) . "')";
+                if($db->query($sql) != false){
+                    $sql = 'SELECT user_id, course FROM ' .$ecs->table('teacher_class_info').
+                    " WHERE school_id = $student_school AND grade = $student_grade AND class = $student_class";
+
+                    $find_teacher = $db->getAll($sql);
+                    if($find_teacher != false){
+                        foreach ($find_teacher AS $key => $value){
+                            $user_id = $value[$key]['user_id'];
+                            $course = $value[$key]['course'];
+                            $sql = 'INSERT INTO '. $ecs->table('subscription') . ' (`teacher_user_id` , `students_user_id`, `course_id`)'.
+                                " VALUES ($user_id, $stu_values[0], $course)";
+                            $db->query($sql);
+                        }
+                    }
+
+                }
+
+
+
             }
             //end zhangmengqi
 
@@ -552,6 +647,7 @@ elseif ($action == 'act_register')
                 $sql = 'UPDATE '. $ecs->table('users') . "SET `mobile_phone` = '$mobile_phone' WHERE `user_id`='" . $_SESSION['user_id'] . "'";
                 $db->query($sql);
             }
+
             $ucdata = empty($user->ucdata)? "" : $user->ucdata;
             show_message(sprintf($_LANG['register_success'], $username . $ucdata), array($_LANG['back_up_page'], $_LANG['profile_lnk']), array($back_act, 'user.php'), 'info');
         }

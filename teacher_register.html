@@ -33,13 +33,7 @@
 			<div id="register_form">
 				<form action="./user.php" method="post" name="formTeacher" style="white-space:nowrap;" id="formTeacher" onsubmit="return register();" >
 					<!-- 第一步，创建账户 -->
-					<div id="create_account" style="display:">
-						<div>
-							<label for="username" class="register_info">用户名</label>
-							<input name="username" type="text" id="username" class="register_input" onblur="checkUsername();" onfocus="focusTips(this.id , '支持中文、英文、数字，3-20个字符');" />
-							<span class="correct_input" id="username_correct"><img src="./data/images/register/success.png" width="18px" height="18px" alt="correct" /></span>
-							<span class="input_tip" id="username_tips"></span>
-						</div>
+					<div id="create_account" style="display:block">
 						<div>
 							<label for="mobileNumber" class="register_info">手机号码</label>
 							<input name="mobile_phone_register" type="text" id="mobileNumber" class="register_input" oninput="checkMobileNumber();" onfocus="focusTips(this.id, '请输入手机号码');" onblur="checkMobileNumber();" />
@@ -53,58 +47,6 @@
 							<button class="get_identifyCode" onclick="getIdentifyCode(); return false;">点击获取</button>
 							<span class="correct_input_identifyCode" id="identifyCode_correct"><img src="./data/images/register/success.png" width="18px" height="18px" /></span>
 							<span class="input_tip" id="identifyCode_tips"></span>
-						</div>
-						<div style="margin-left:322px; line-height:50px;">
-							<input type="checkbox" name="agreement" id="agreement" checked="checked" value="1" onblur="checkAgreement();">
-							<span>我已看过并接受<a href="" style="color:green;">《用户协议》</a></span>
-							<span class="agreement_tip" id="agreement_tips"></span>
-						</div>
-						<div>
-							<button class="next_step" id="next" onclick="nextStep(); return false;">
-								下一步
-							</button>
-						</div>
-					</div>
-					<!-- 第二步，完善信息 -->
-					<div id="improve_info" style="display:none">
-						<div>
-							<label for="real_name" class="register_info">教师姓名</label>
-							<input type="text" class="register_input" id="real_name" name="real_name" onblur="checkRealName();" onfocus="focusTips(this.id, '请输入您的姓名')" />
-							<span class="correct_input" id="real_name_correct"><img src="./data/images/register/success.png" width="18px" height="18px" alt="correct" /></span>
-							<span class="input_tip" id="real_name_tips"></span>
-						</div>
-						<div>
-								<label class="register_info"style="margin-right:22px;">所在区域</label>
-									<select name="province" id="province" class="select_button1" onblur="checkAddressName();" onmouseup="checkAddressName();">
-										<option value="0">请选择省</option>
-									</select>
-									<select name="city" id="city" class="select_button1" onblur="checkAddressName();" onmouseup="checkAddressName();">
-										<option value="0">请选择市</option>
-									</select>
-									<select name="district" id="town" class="select_button1" onblur="checkAddressName();" onmouseup="checkAddressName();">
-										<option value="0">请选择县/区</option>
-									</select>
-									<!-- modify nhj, 选择地区成功不显示 -->
-<!-- 								<span class="correct_select" id="address_correct"><img src="./data/images/register/success.png" width="18px" height="18px" alt="correct" /></span> -->
-								<span class="input_tip" id="address_notice"></span>
-						</div>
-						<div>
-							<label for="school" class="register_info">学校</label>
-							<input type="text" class="register_input" id="school" name="school" onblur="checkSchool();" onfocus="focusTips(this.id, '请输入您的学校')" />
-							<span class="correct_input" id="school_correct"><img src="./data/images/register/success.png" width="18px" height="18px" alt="correct" /></span>
-							<span class="input_tip" id="school_tips"></span>
-						</div>
-						<div>
-							<label for="course_name" class="register_info">任课课程</label>
-							<div id="select_background" style=" position: absolute; width: 140px; height: 42px; display: inline-block; left: 125px; background: url('./data/images/register/select.png') no-repeat 110px; border: 2px solid #d3d3d3; border-radius: 6px; background-color: #efeeed; ">
-							<div id="select_hide" style=" position: absolute; width: 110px; height: 35px; display: inline-block; top: 2px; overflow: hidden;  ">
-							<select name="course_name" id="course_name" class="select_button" onblur="checkCourseName();" onmouseup="checkCourseName();" >
-								<option value="0">请选择课程</option>
-							</select>
-							</div>
-							</div>
-							<span class="correct_select1" id="select_correct"><img src="./data/images/register/success.png" width="18px" height="18px" alt="correct" /></span>
-							<span class="input_tip" id="course_name_tips"></span>
 						</div>
 						<div>
 							<label for="password" class="register_info">密码</label>
@@ -123,6 +65,72 @@
 							<input type="text" class="register_input" id="invite_code" name="invite_code" onblur="check_invite_code();" onfocus="focusTips(this.id, '请输入邀请码')"/>
 							<span class="correct_input" id="invite_code_correct"><img src="./data/images/register/success.png" width="18px" height="18px" alt="correct" /></span>
 							<span class="input_tip" id="invite_code_tips"></span>
+						</div>
+						<div style="margin-left:322px; line-height:50px;">
+							<input type="checkbox" name="agreement" id="agreement" checked="checked" value="1" onblur="checkAgreement();">
+							<span>我已看过并接受<a href="" style="color:green;">《用户协议》</a></span>
+							<span class="agreement_tip" id="agreement_tips"></span>
+						</div>
+						<div>
+							<button class="next_step" id="next" onclick="nextStep(); return false;">
+								下一步
+							</button>
+						</div>
+					</div>
+					<!-- 第二步，完善信息 -->
+					<div id="improve_info" style="display: none;">
+						<div>
+							<label for="real_name" class="register_info">教师姓名</label>
+							<input type="text" class="register_input" id="real_name" name="real_name" onblur="checkRealName();" onfocus="focusTips(this.id, '请输入您的姓名')" />
+							<span class="correct_input" id="real_name_correct"><img src="./data/images/register/success.png" width="18px" height="18px" alt="correct" /></span>
+							<span class="input_tip" id="real_name_tips"></span>
+						</div>
+						<div>
+								<label class="register_info" style="margin-right:22px;">所在区域</label>
+									<select name="province" id="province" class="select_button1" onblur="checkAddressName();" onmouseup="checkAddressName();">
+										<option value="0">请选择省</option>
+									</select>
+									<select name="city" id="city" class="select_button1" onblur="checkAddressName();" onmouseup="checkAddressName();">
+										<option value="0">请选择市</option>
+									</select>
+									<select name="district" id="town" class="select_button1" onblur="checkAddressName();" onmouseup="checkAddressName();">
+										<option value="0">请选择县/区</option>
+									</select>
+									<!-- modify nhj, 选择地区成功不显示 -->
+<!-- 								<span class="correct_select" id="address_correct"><img src="./data/images/register/success.png" width="18px" height="18px" alt="correct" /></span> -->
+								<span class="input_tip" id="address_notice"></span>
+						</div>
+						<div>
+							<label for="school" class="register_info" style="margin-right: 22px;">学校</label>
+							<!-- <input type="text" class="register_input" id="school" name="school" onblur="checkSchool();" onfocus="focusTips(this.id, '请输入您的学校')" /> -->
+							<select name="teacher_school" id="school" class="select_button1" style="width: 250px; font-size: 14px;" onblur="checkSchool()" onmouseup="checkSchool()">
+								<option value="0">请选择学校</option>
+							</select>
+							<span class="correct_input" id="school_correct"><img src="./data/images/register/success.png" width="18px" height="18px" alt="correct" /></span>
+							<span class="input_tip" id="school_tips"></span>
+						</div>
+						<div>
+							<label for="course_name" class="register_info">任课课程</label>
+							<div class="select_background" style=" position: absolute; width: 140px; height: 42px; display: inline-block; left: 115px; background: url('./data/images/register/select.png') no-repeat 110px; border: 2px solid #d3d3d3; border-radius: 6px; background-color: #efeeed; ">
+							<div id="select_hide" style=" position: absolute; width: 110px; height: 35px; display: inline-block; top: 2px; overflow: hidden;  ">
+							<select name="course_name" id="course_name" class="select_button" onblur="checkCourseName();" onmouseup="checkCourseName();" >
+								<option value="0">请选择课程</option>
+							</select>
+							</div>
+							</div>
+							<span class="correct_select1" id="select_correct"><img src="./data/images/register/success.png" width="18px" height="18px" alt="correct" /></span>
+							<span class="input_tip" id="course_name_tips"></span>
+						</div>
+						<div class="gradeAndClass">
+							<label for="grade" class="register_info" style="margin-right: 22px;">年级</label>
+							<select name="" id="" class="select_button1 grade" style="width: 120px; font-size: 14px;" onblur="checkGradeClass()" onmouseup="checkGradeClass()">
+								<option value="0">请选择年级</option>
+							</select>
+							<label for="school_class" class="register_info" style="width: 50px;">班级</label>
+							<input type="text" class="register_input school_class" style="width: 60px; font-size: 14px;" id="" name="" onblur="checkGradeClass()" oninput="checkGradeClass()" onfocus="" />
+							<span class="class_span">班</span>
+							<span class="more_button" onclick="appendGradeAndClass();"><img src="./data/images/register/more_button.png" alt="" width="30px" height="30px" /></span>
+							<span class="input_tip grade_class_tips" id=""></span>
 						</div>
 						<div>
 							<input type="hidden" name="is_teacher" value="1">
@@ -150,12 +158,14 @@
 		</div>
 	</div>
 	<!-- 商城底部 -->
-	<div style="width:1920px; height: 150px; background-color: #f9f9f9;"></div>
+	<div class="foot_blank" style="width:1920px; height: 150px; background-color: #f9f9f9;"></div>
 	<div id="foot">
 		<p>©Copyright 2016 汇师网 All Right Reserved 成都大术光年信息技术有限公司</p>
 	</div>
 </body>
 <script type="text/javascript">
+	// 定义全局变量，保存所有的年级信息
+	var grade; 
 	$(document).ready(function() {
 		$("#next").hover(function() {
 						$(this).css({'background-color' : '#e65d22', 'border' : '2px solid #e65d22'});
@@ -188,7 +198,38 @@
 					}
 				},"json"
 			);
-		$("#province").change(function(){
+        // ajax 查询课程，并增加到option中
+        $.post('./user.php?act=get_course',
+        		{},
+        		function(data) {
+        			var dataObj = eval("("+data+")");
+        			$.each(dataObj, function(name, item)
+        			{
+        				$("#course_name").append('<option value='+item.course_id+'>'+item.course_name+'</option>');
+        			});
+        			// var course_info = data.split('@');
+        			// for (var i = 0; i < course_info.length; i++) {
+        			// 	var temp = i + 1;
+        			// 	$("#course_name").append('<option value='+temp+'>'+course_info[i]+'</option>');
+        			// }
+        		}
+        );
+        // ajax 查询所有的年级
+        $.post('./user.php?act=get_grade',
+        		{},
+        		function(data) {
+        			var dataObj = eval("("+data+")");
+        			// console.log(dataObj);
+        			grade = dataObj;
+        			$.each(dataObj, function(name, item)
+        			{
+        				$(".grade").append('<option value='+item.grade_id+'>'+item.grade_name+'</option>');
+        			});
+        		}
+        );
+	});
+
+	$("#province").change(function(){
 			var province = $("#province").val();
 			$("#city").empty("option");
 			$("#city").prepend("<option value='0'>请选择市</option>");
@@ -236,93 +277,147 @@
 				$("#town").append("<option value='0'>请选择县/区</option>");
 			}
 		});
-        // ajax 查询课程，并增加到option中
-        $.post('./user.php?act=get_course',
-        		{},
-        		function(data) {
-        			var dataObj = eval("("+data+")");
-        			$.each(dataObj, function(name, item)
-        			{
-        				$("#course_name").append('<option value='+item.course_id+'>'+item.course_name+'</option>');
-        			});
-        			// var course_info = data.split('@');
-        			// for (var i = 0; i < course_info.length; i++) {
-        			// 	var temp = i + 1;
-        			// 	$("#course_name").append('<option value='+temp+'>'+course_info[i]+'</option>');
-        			// }
-        		}
-        );
-	});
+		$("#town").change(function() {
+
+				$("#school").empty("option");
+				$("#school").append("<option value='0'>请选择学校</option>");
+				var district = $("#town").val();
+				if (district != 0) {
+
+					// ajax 获取学校信息
+					$.ajax({
+						type : "POST",
+						url : "user.php?act=get_school",
+						data : "district=" + district,
+						dataType : "json",
+						success : function(msg) {
+
+							console.log(msg);
+							var school_name = msg.school_name.split('@');
+							var school_id = msg.school_id.split('@');
+							console.log(school_name);
+							for (var i = 0; i < school_name.length; i++) {
+
+								$("#school").append('<option value='+school_id[i]+'>'+school_name[i]+'</option>');
+							}
+						}
+					});
+				} else {
+
+					$("#school").empty("option");
+					$("#school").append("<option value='0'>请选择学校</option>");
+				}
+			}
+		);
 </script>
 <script type="text/javascript">
 	function register() {
-	if( realName_status != 1) {
-		$("#real_name").focus().select();
-		$("#real_name_correct").css({'display':'none'});
-		$("#real_name_tips").html(error_info + '教师姓名不能为空');
-		return false;
-	}else if(address_status !=1){
-		$("#province").focus().select();
-		$("#address_notice").html("请选择所在地");
-		return false;
-	}else if( school_status != 1) {
-		$("#school").focus().select();
-		$("#school_correct").css({'display':'none'});
-		$("#school_tips").html(error_info + '学校不能为空');
-		return false;
-	}else if(course_status != 1) {
-		$("#course_name").focus().select();
-		$("#select_correct").css({'display':'none'});
-		$("#course_name_tips").html(error_info + '请选择课程');
-		return false;
-	}else if(password_status != 1) {
-		$("#password").focus().select();
-		if(password_status == 0 || password_status == 3) {
-			$("#password_correct").css({'display' : 'none'});
-			$("#password_tips").html(error_info + '密码长度过短');
-		} else if(password_status == 2) {
-			$("#confirm_password_correct").css({'display' : 'none'});
-			$("#confirm_password_tips").html(error_info + '两次密码不一致');
+		if( realName_status != 1) {
+			$("#real_name").focus().select();
+			$("#real_name_correct").css({'display':'none'});
+			$("#real_name_tips").html(error_info + '教师姓名不能为空');
+			return false;
+		}else if(address_status !=1){
+			$("#province").focus().select();
+			$("#address_notice").html(error_info + "请选择所在地");
+			return false;
+		}else if( school_status != 1) {
+			$("#school").focus().select();
+			$("#school_correct").css({'display':'none'});
+			$("#school_tips").html(error_info + '学校不能为空');
+			return false;
+		}else if(course_status != 1) {
+			$("#course_name").focus().select();
+			$("#select_correct").css({'display':'none'});
+			$("#course_name_tips").html(error_info + '请选择课程');
+			return false;
+		}else if(grade_class_status != 1) {
+			var gradeClassTips = $(".grade_class_tips");
+			for (var i = 0; i < gradeClassTips.length; i++) {
+				$(gradeClassTips[i]).html('');
+			}
+			$(gradeClassTips[gradeClassTips.length - 1]).html(error_info + '年级与班级不能同时为空');
+			return false;
+		}else {
+			var teacher_grade = gradeArray.join('@');
+			var teacher_class = classArray.join('@');
+			// var teacher_grade = JSON.stringify(gradeArray);
+			// var teacher_class = JSON.stringify(classArray);
+			$("#formTeacher").ajaxSubmit({
+				type : 'post',
+				url : 'user.php?act=act_register',
+				data : {'teacher_grade' : teacher_grade,
+						'teacher_class' : teacher_class},
+				traditional : true,
+	    		success : function() {
+	    			$(".step_two").css({'color' : '#666'});
+					$("#img_step_two").attr({'src' : './data/images/register/icon_gray2.png'});
+					$(".step_three").css({'color' : '#65bf92'});
+					$("#img_step_three").attr({'src' : './data/images/register/icon3.png'});
+					$("#register_success").css({'display' : ''});
+					$("#improve_info").css({'display' : 'none'});
+					var count = 2;
+					var countDownIndex = setInterval(function() {
+						$("#goIndex").html(count);
+						count--;
+						if(count == -1) {
+							clearInterval(countDownIndex);
+							//最后修改为网站首页域名
+							window.location.href = './';
+						}
+					}, 1000) 
+	    		},
+	    		error : function() {
+	    			alert("网络连接失败，请检查网络。");
+	    		},
+	    		timeout : 5000
+	    	});
 		}
 		return false;
-	}else if(confirmPassword_status != 1) {
-		$("#password").focus().select();
-		$("#confirm_password_correct").css({'display' : 'none'});
-		$("#confirm_password_tips").html(error_info + '两次密码不一致');
-		return false;
-	}else if(code_status != 1) {
-		$("invite_code").focus().select();
-		$("#invite_code_correct").css({'display' : 'none'});
-		$("#invite_code_tips").html(error_info + '邀请码有误，请重新输入!');
-		return false;
-	}else {
-		$("#formTeacher").ajaxSubmit({
-    		success : function() {
-    			$(".step_two").css({'color' : '#666'});
-				$("#img_step_two").attr({'src' : './data/images/register/icon_gray2.png'});
-				$(".step_three").css({'color' : '#65bf92'});
-				$("#img_step_three").attr({'src' : './data/images/register/icon3.png'});
-				$("#register_success").css({'display' : ''});
-				$("#improve_info").css({'display' : 'none'});
-				var count = 2;
-				var countDownIndex = setInterval(function() {
-					$("#goIndex").html(count);
-					count--;
-					if(count == -1) {
-						clearInterval(countDownIndex);
-						//最后修改为网站首页域名
-						window.location.href = './';
-					}
-				}, 1000) 
-    		},
-    		error : function() {
-    			alert("网络连接失败，请检查网络。");
-    		},
-    		timeout : 5000
-    	});
-	}
-	return false;
 }
+
+function appendGradeAndClass()
+{
+	// 动态增加的html文件
+	var content = "<div class=\"gradeAndClass\">" + 
+							"<label for=\"grade\" class=\"register_info\" style=\"margin-right: 26px;\">年级</label>" +
+							"<select name=\"\" class=\"select_button1 grade\" style=\"width: 120px; font-size: 14px\" onblur=\"checkGradeClass()\" onmouseup=\"checkGradeClass()\">" +
+								"<option value=\"0\">请选择年级</option>" +
+							"</select>" +
+							"<label for=\"school_class\" class=\"register_info\" style=\"width: 54px;\">班级</label>" +
+							"<input type=\"text\" class=\"register_input school_class\" style=\"width: 60px; font-size: 14px; margin-left: 24px;\" name=\"\" onblur=\"checkGradeClass()\" oninput=\"checkGradeClass()\" onfocus=\"\" />" +
+							"<span class=\"class_span\" style=\"left: -16px;\">班</span>" +
+							"<span class=\"more_button\" style=\"left: 8px;\" onclick=\"appendGradeAndClass();\"><img src=\"./data/images/register/more_button.png\" alt=\"\" width=\"30px\" height=\"30px\" /></span>" +
+							"<span class=\"input_tip grade_class_tips\" id=\"\"></span>" +
+						"</div>";
+	// 增加html文件
+	var gradeAndClass = $(".gradeAndClass");
+	gradeAndClass = gradeAndClass[gradeAndClass.length - 1];
+	$(gradeAndClass).after(content);
+	// 为增加的select赋值
+	var gradeClass = $(".grade");
+	gradeClass = gradeClass[gradeClass.length - 1];
+	$.each(grade, function(name, item)
+    {
+        $(gradeClass).append('<option value='+item.grade_id+'>'+item.grade_name+'</option>');
+    });
+    // 只保留最后一个more_button按钮
+    var moreButtonClass = $(".more_button");
+    if (moreButtonClass.length == 5) {
+    	$(moreButtonClass[moreButtonClass.length - 2]).css({'display' : 'none'});
+    	$(moreButtonClass[moreButtonClass.length - 1]).css({'display' : 'none'});
+    } else {
+    	$(moreButtonClass[moreButtonClass.length - 2]).css({'display' : 'none'});
+    }
+    // 调整背景及所涉及内容的高度
+    if (moreButtonClass.length > 3) {
+    	var foot_blank_height = 150 + parseInt(80 * (moreButtonClass.length - 3));
+	    $(".foot_blank").css({'height' : foot_blank_height + 'px',});
+	    var teacher_register_height = 800 + parseInt(80 * (moreButtonClass.length - 3));
+	    $("#teacher_register").css({'height' : teacher_register_height + 'px'});
+    }
+}
+
 </script>
 </html>
 

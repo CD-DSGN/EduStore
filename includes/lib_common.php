@@ -398,6 +398,24 @@ function get_course_option(){
     }
     return $select;
 }
+
+
+function get_course_data(){
+    $sql = 'SELECT course_id, course_name FROM ' . $GLOBALS['ecs']->table('courses') . ' ORDER BY course_id ASC';
+    $res = $GLOBALS['db']->getAll($sql);
+
+    $course_list = array();
+    foreach ($res AS $row)
+    {
+        $course_list[$row['course_id']] = addslashes($row['course_name']);
+    }
+
+    return $course_list;
+}
+
+
+
+
 /**
  * 过滤和排序所有分类，返回一个带有缩进级别的数组
  *

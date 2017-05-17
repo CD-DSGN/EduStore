@@ -31,7 +31,8 @@ require(EC_PATH . '/includes/init.php');
 include_once(EC_PATH . '/includes/lib_order.php');
 include_once(EC_PATH . '/includes/lib_passport.php');
 
-$username = _POST('name');
+
+
 $password = _POST('password');
 $email = _POST('email');
 // $fileld = _POST('fileld', array());
@@ -53,6 +54,10 @@ $other['qq'] = isset($filelds[2]) ? $filelds[2] : '';
 $other['office_phone'] = isset($filelds[3]) ? $filelds[3] : '';
 $other['home_phone'] = isset($filelds[4]) ? $filelds[4] : '';
 $other['mobile_phone'] = isset($filelds[5]) ? $filelds[5] : '';
+//此处获取的应该是昵称
+$other['nickname'] = _POST('name');
+
+$username = $_POST['phoneNumber'];
 
 if (register($username, $password, $email, $other) === false) {
 	GZ_Api::outPut(11);
