@@ -262,7 +262,7 @@ a,img{border:0;}
 		                             								</dd>
 		                             							</div>
 		                             							<div class="ee">
-		                             								<a href="{$second_title.url}" style="float: right;margin-top: 29px;font-size: 9pt;color: #ff6825">更多</a>
+		                             								<a href="{$second_title.url}" style="float: right;margin-top: 15px;font-size: 9pt;color: #ff6825">更多</a>
 		                             							</div>
 		                             						</dl>
 		                             			{/foreach}
@@ -273,11 +273,11 @@ a,img{border:0;}
                              				<!-- 一级分类 -->
 		                             		{if $category_index eq 'parent'}
 		                             				</div>
-		                             				<div class="rightdiv">
+		                             				<!-- <div class="rightdiv">
 		                                            	<dl>
 		                                             		<dd><a href="#"><img width="310px" height="430px" src="images/gg.jpg"></a></dd>
 		                                            	</dl>
-		                                         	</div>
+		                                         	</div> -->
 		                             			</div>
 		                             		</li>
 		                             		{/if}
@@ -457,12 +457,12 @@ $(function() {
 			  <div class="white_content_top"><a href = "javascript:void(0)" onclick = "document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">点这里关闭本窗口</a>
 			  </div>
 				  <div class="white_content_left">
-				  	<a target="_self" href="http://wpa.qq.com/msgrd?v=1&uin=3072896803&site=qq&menu=yes"><img class="logon" src="images/QQ1.jpg" style="margin-top: 30px;margin-left: 35px;border: 2px solid #D8D6D6;border-radius: 5px;"></a>
+				  <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=2054224875&site=qq&menu=yes"><img class="logon" src="images/QQ1.jpg" style="margin-top: 30px;margin-left: 35px;border: 2px solid #D8D6D6;border-radius: 5px;"/></a>
 				  	<P style="margin-top:20px;margin-left: 45px;color: #92cffc">账号登录</P>
 				  </div>
 				  <div class="white_content_right">
-				  	<a target="_self" href="http://wpa.qq.com/msgrd?v=1&uin=1245441817&site=qq&menu=yes"><img  class="logup" src="images/QQ.jpg" style="CURSOR: pointer;margin-top: 30px;margin-left: 35px;border: 2px solid #D8D6D6;border-radius: 5px;"></a>
-				  	<P style="margin-top:20px ;margin-left: 45px; color:#92cffc;">匿名聊天</P>
+				  	<a target="_self" href="https://connect.qq.com/widget/wpa/chat.html?tuin=2054224875&sigT=67f6a4b8ea36320cb36a6c2b8b1285c8989200cae903389cea73d5577a42e0e6e24f83f67c4ad973680bc862a6ef6b8b&sigU=2ad18b3ec572e85cda8a6ad0672e4db5591d1509af49bbd95ec252f2087d3a81807e11b0aa884889"><img  class="logup" src="images/QQ.jpg" style="CURSOR: pointer;margin-top: 30px;margin-left: 35px;border: 2px solid #D8D6D6;border-radius: 5px;"></a>
+				  	<P style="margin-top:20px ;margin-left: 45px; color:#92cffc;">网页聊天</P>
 				  </div> 
 			   <div class="white_content_bottom" style="margin-top:210px;margin-left: 390px;"><a target="_blank" href="http://im.qq.com/">安装QQ</a></div>
 	</div>
