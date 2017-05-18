@@ -178,15 +178,22 @@ function get_teacher_publish_comments($news_id){
     $comment_info = $GLOBALS['db']->getAll($sql);
     $comments = array();
     foreach ($comment_info as $key =>$value){
-        $target_username = get_username_by_user_id(get_user_id_by_comment_id($value['target_comment_id']));
+        $uid = get_user_id_by_comment_id($value['target_comment_id']);
+        $target_username = get_username_by_user_id($uid);
         if($target_username == null){
             $target_username = '';
         }
+
+        $show_target_name = get_showname_by_user_id($uid);
+        $show_name = get_showname_by_user_id($value['user_id']);
+
         $comments[] = array(
             'comment_id' => $value['comment_id'],
             'username' => get_username_by_user_id($value['user_id']),
             'target_username' => $target_username,
-            'comment_content' => $value['comment_content'] );
+            'comment_content' => $value['comment_content'],
+            'show_name' =>  $show_name,
+            'show_target_name' =>$show_target_name);
     }
     return $comments;
 }
@@ -221,4 +228,24 @@ function get_teacher_name_by_user_id($uid){
     return $teacher_name;
 }
 
+
+function get_nickname_by_user_id($uid)
+{
+    $sql = "SELECT nickname FROM ". $GLOBALS['ecs']->table('users') ."WHERE `user_id` = '". $uid ."'";
+    $res = $GLOBALS['db']->getone($sql);
+    return $res;
+}
+
+
+
+function get_showname_by_user_id($uid)
+{
+    $is_teacher = judge_user_status($uid);
+    if ($is_teacher) {
+        $name = get_teacher_name_by_user_id($uid);
+    }else{
+        $name = get_nickname_by_user_id($uid);
+    }
+    return $name;
+}
 
