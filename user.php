@@ -444,14 +444,14 @@ elseif ($action == 'act_register')
         $is_teacher = isset($_POST['is_teacher']) ? $_POST['is_teacher'] : '0';
         $teacher_info = array();
         $teacher_info['real_name'] = isset($_POST['real_name']) ? trim($_POST['real_name']): '';
-        $teacher_info['school'] = isset($_POST['school']) ? trim($_POST['school']): '';
+        $teacher_info['teacher_school'] = isset($_POST['teacher_school']) ? trim($_POST['teacher_school']): '';
         $teacher_info['course_id'] = isset($_POST['course_name']) ? $_POST['course_name'] : '';
         $teacher_info['province'] = isset($_POST['province']) ? trim($_POST['province']):'';
         $teacher_info['city'] = isset($_POST['city']) ? trim($_POST['city']):'';
         $teacher_info['district'] = isset($_POST['district']) ? trim($_POST['district']):'';
         $teacher_info['invite_code'] = isset($_POST['invite_code']) ? trim($_POST['invite_code']):'';
         //added by chenggaoyuan
-        $teacher_school = isset($_POST['teacher_school'])? trim($_POST['teacher_school']) : '';
+        //$teacher_school = isset($_POST['teacher_school'])? trim($_POST['teacher_school']) : '';
         $teacher_grade = isset($_POST['teacher_grade'])? trim($_POST['teacher_grade']) : '';
         $teacher_class = isset($_POST['teacher_class'])? trim($_POST['teacher_class']) : '';
 
@@ -459,7 +459,7 @@ elseif ($action == 'act_register')
         // var_dump(json_decode($_POST['teacher_class']));
         //防止sql注入
         $teacher_info['real_name'] = addslashes($teacher_info['real_name']);
-        $teacher_info['school'] = addslashes($teacher_info['school']);
+        $teacher_info['teacher_school'] = addslashes($teacher_info['teacher_school']);
         $teacher_info['course_id'] = addslashes($teacher_info['course_id']);
         $teacher_info['province'] = addslashes($_POST['province']) ? trim($_POST['province']):'';
         $teacher_info['city'] = addslashes($_POST['city']) ? trim($_POST['city']):'';
@@ -551,7 +551,7 @@ elseif ($action == 'act_register')
                 $values[] = $_SESSION['user_id'];
                 $values[] = $teacher_info['course_id'];
                 $values[] = $teacher_info['real_name'];
-                $values[] = $teacher_info['school'];
+                $values[] = $teacher_info['teacher_school'];
                 $values[] = $teacher_info['province'];
                 $values[] = $teacher_info['city'];
                 $values[] = $teacher_info['district'];
@@ -566,16 +566,41 @@ elseif ($action == 'act_register')
                 $db->query($sql);
 
                 //begin added by chenggaoyuan 写入教师学校年级班级信息
-                $tch_values =array();
-                $tch_values = $_SESSION['user_id'];
-                $tch_values = $teacher_school;
-                $tch_values = $teacher_grade;
-                $tch_values = $teacher_class;
-                $tch_values = $teacher_info['course_id'];
+                $teacher_user_id = $_SESSION['user_id'];
+                $teacher_school = $teacher_info['teacher_school'];
+                $teacher_course = $teacher_info['course_id'];
+                $teacher_grade = explode('@',$teacher_grade);
+                $teacher_class = explode('@',$teacher_class);
 
-                $sql = 'INSERT INTO ' . $ecs->table('teacher_class_info') . ' (`user_id`, `school_id`, `grade` , `class`, `course`)'. " VALUES ('" . implode("', '", $tch_values) . "')";
-                $db->query($sql);
+                //输入年纪班级信息对称
+                if(count($teacher_grade) == count($teacher_class)){
+                    $count_flag = 0;
+                    for ($i=0; $i<count($teacher_grade); $i++){
+                        $sql = 'INSERT INTO ' . $ecs->table('teacher_class_info') . ' (`user_id`, `school_id`, `grade` , `class`, `course`)'. " VALUES
+                        ($teacher_user_id, $teacher_school, $teacher_grade[$i], $teacher_class[$i], $teacher_course )";
+                        if($db->query($sql)){
+                            $count_flag++;
+                        }
+                    }
+                    //每个年纪班级信息写入数据库成功
+                    if($count_flag == count($teacher_grade)){
+                        for ($i=0; $i<count($teacher_grade); $i++){
+                            $sql = 'SELECT user_id FROM ' .$ecs->table('student_class_info').
+                                " WHERE school_id = $teacher_school AND grade = $teacher_grade[$i] AND class = $teacher_class[$i]";
+                            $find_student = $db->getAll($sql);
+                            //如果找到注册过的学生 写入教师学生关注表
+                            if($find_student != false){
+                                foreach ($find_student AS $key => $value){
+                                    $student_user_id = $value['user_id'];
+                                    $sql = 'INSERT INTO '. $ecs->table('subscription') . ' (`teacher_user_id` , `students_user_id`, `course_id`)'.
+                                        " VALUES ($teacher_user_id, $student_user_id, $teacher_course)";
+                                    $db->query($sql);
+                                }
+                            }
+                        }
 
+                    }
+                }
 
             }else{
                 //begin added by chenggaoyuan
@@ -591,10 +616,11 @@ elseif ($action == 'act_register')
                     " WHERE school_id = $student_school AND grade = $student_grade AND class = $student_class";
 
                     $find_teacher = $db->getAll($sql);
+                    //如果找到注册过的教师 写入教师学生关注表
                     if($find_teacher != false){
                         foreach ($find_teacher AS $key => $value){
-                            $user_id = $value[$key]['user_id'];
-                            $course = $value[$key]['course'];
+                            $user_id = $value['user_id'];
+                            $course = $value['course'];
                             $sql = 'INSERT INTO '. $ecs->table('subscription') . ' (`teacher_user_id` , `students_user_id`, `course_id`)'.
                                 " VALUES ($user_id, $stu_values[0], $course)";
                             $db->query($sql);
