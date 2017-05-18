@@ -97,9 +97,13 @@ function get_followed_teacher($user_id)
 function get_teacher_info($teacher_user_id)
 {
 	// 获取用户真名
-	$sql = "SELECT real_name FROM ". $GLOBALS['ecs']->table('teachers') ."WHERE `user_id` = '". $teacher_user_id ."'";
+	$sql = "SELECT real_name, course_id FROM ". $GLOBALS['ecs']->table('teachers') ."WHERE `user_id` = '". $teacher_user_id ."'";
 	$res = $GLOBALS['db']->getRow($sql);
 	$teacher_info['real_name'] = $res['real_name'];
+
+    $sql = "SELECT course_name FROM ". $GLOBALS['ecs']->table('courses') ." WHERE `course_id` = '". $res['course_id'] ."'";
+    $res = $GLOBALS['db']->getRow($sql);
+    $teacher_info['course_name'] = $res['course_name'];
 
 	$sql = "SELECT avatar FROM ". $GLOBALS['ecs']->table('users') ."WHERE `user_id` = '". $teacher_user_id ."'";
 	$res = $GLOBALS['db']->getRow($sql);
