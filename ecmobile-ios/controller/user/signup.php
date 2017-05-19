@@ -31,7 +31,8 @@ require(EC_PATH . '/includes/init.php');
 include_once(EC_PATH . '/includes/lib_order.php');
 include_once(EC_PATH . '/includes/lib_passport.php');
 
-$username = _POST('name');
+$username = _POST('mobilePhone');
+$nickname = _POST('nickname');
 $password = _POST('password');
 $mobilePhone = _POST('mobilePhone');
 $email = '';
@@ -39,6 +40,9 @@ $country = _POST('country');
 $province_name = _POST('provinceName');
 $city_name = _POST('cityName');
 $town_name = _POST('townName');
+$student_school = _POST('studentSchool');
+$student_grade = _POST('studentGrade');
+$student_class = _POST('studentClass');
 //$email = _POST('email');
 // $fileld = _POST('fileld', array());
 $fileld = isset($_POST['field'])?$_POST['field']:array();
@@ -46,6 +50,8 @@ $teacher_info = array();
 $teacher_info['real_name'] = _POST('realname');
 $teacher_info['school'] = _POST('school');
 $teacher_info['course_id'] = _POST('course');
+$teacher_info['grade'] = explode("@", _POST('teacherGrade'));
+$teacher_info['class'] = explode("@", _POST('teacherClass'));
 $is_teacher = _POST('isTeacher');
 $invite_user_id = _POST('invite_user_id');      // 邀请者的user_id，不存在为0
 
@@ -107,6 +113,25 @@ if($is_teacher == '1') {
     
     // 更新users表：is_teacher字段和parent_id字段
     $sql = 'UPDATE ' . $ecs->table('users') . " SET `is_teacher`='$is_teacher' WHERE `user_id`='" . $_SESSION['user_id'] . "'";
+    $db->query($sql);
+
+    // 插入教师年级、班级表
+    for ($i = 0; $i < count($teacher_info['grade']); $i++)
+    {
+        // 不为0时才当做有填写值来处理
+        if ($teacher_info['grade'][$i] != 0) {
+
+            $sql = "INSERT INTO ". $ecs->table('teacher_class_info') ." (`user_id`, `school_id`, `grade`, `class`, `course`) VALUES ('". $_SESSION['user_id'] ."', '". $teacher_info['school'] ."', '". $teacher_info['grade'][$i] ."', '". $teacher_info['class'][$i] ."', '". $teacher_info['course_id'] ."')";
+            $db->query($sql);
+        }
+    }
+} else {
+    // 对于学生用户来说，将年级、班级信息插入至student_class_info表
+    $sql = "INSERT INTO ". $ecs->table('student_class_info') ." (`user_id`, `school_id`, `grade`, `class`) VALUES ('". $_SESSION['user_id'] ."', '". $student_school ."', '". $student_grade ."', '". $student_class ."')";
+    $db->query($sql);
+
+    // 更新学生的昵称nickname
+    $sql = "UPDATE ". $ecs->table('users') ." SET `nickname` = '$nickname' WHERE `user_id`='" . $_SESSION['user_id'] . "'";
     $db->query($sql);
 }
 
