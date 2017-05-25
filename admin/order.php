@@ -6726,11 +6726,11 @@ function write_separate_log($oid, $uid, $username, $money, $point, $separate_by,
     if($res > 0){
         $sql = "UPDATE " . $GLOBALS['ecs']->table('affiliate_log') .
             " SET money = money + $money, " .
-            "point = point + $point," .
-            "teacher_integral = teacher_integral + $teacher_integral " .
-            "direct_point = direct_point + $direct_point" .
-            "indirect_point = indirect_point + $indirect_point" .
-            "where order_id = $oid AND user_id = $uid AND (separate_type > 0 or separate_type = 0)";
+            " point = point + $point," .
+            " teacher_integral = teacher_integral + $teacher_integral, " .
+            " direct_point = direct_point + $direct_point, " .
+            " indirect_point = indirect_point + $indirect_point" .
+            " where order_id = $oid AND user_id = $uid AND (separate_type > 0 or separate_type = 0)";
         $GLOBALS['db']->query($sql);
         return ;
     }
