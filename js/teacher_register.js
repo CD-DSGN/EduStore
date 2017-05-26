@@ -11,6 +11,7 @@ var agreement_status = 1;				// 0表示为空，1表示正确
 var address_status = 0;					// 0表示为空，1表示正确
 var grade_class_status = 0;
 var code_status = 1;
+var pp="";
 // 年级、班级的全局变量，传参时用
 var gradeArray = Array();
 var classArray = Array();
@@ -349,6 +350,7 @@ function checkSchool() {
 		$("#school_tips").html("");
 		school_status = 1;
 	}
+
 }
 function checkAddressName(){
 	var province = document.getElementById("province").value;
@@ -501,7 +503,7 @@ function checkGradeClass() {
 				gradeArray[i] = $(grade[i]).val();
 				classArray[i] = $(school_class[i]).val();
 			}
-		} else if ($(grade[i]).val() == 0 &&  $(school_class[i]).val() == 0) {
+		} else if ($(grade[i]).val() == 0 && $(school_class[i]).val() == 0) {
 			gradeArray[i] = 0;
 			classArray[i] = 0;
 		} else {
@@ -516,7 +518,7 @@ function checkGradeClass() {
 	if (isComplete) {
 		grade_class_status = 1;
 	} else {
-		$(gradeClassTips[gradeClassTips.length - 1]).html(error_info + '年级与班级不能同时为空');
+		$(gradeClassTips[gradeClassTips.length - 1]).html(error_info + '年级与班级不能为空');
 		grade_class_status = 0;
 	}
 
@@ -564,4 +566,41 @@ function focusTips( id, message ) {
 
 function jumpToIndex() {
 	window.location.href = "./index.php";
+}
+
+
+
+function showAll(){
+	var rr=$('#school').val();
+	var tt=$('#course_name').val(); 
+    $(".gradeAndClass").each(function(index) {
+ //    	pp=$(this);
+ //    	pp.css('background','red');
+ //          if (pp.find(".grade").val()!=0 && pp.find(".school_class").val()!="" && rr!=0 && tt!=0) {
+ //            console.log("grade="+pp.find(".grade").val()+"class="+pp.find(".school_class").val() +"school="+ rr+"course="+ tt);
+ // }
+ //    	})
+    	//console.log(this);
+    //$(this).css('background','red');
+    if ($(this).find(".grade").val()!=0 && $(this).find(".school_class").val()!="" && rr!=0 && tt!=0) {
+    	 var request = new XMLHttpRequest();
+          request.open("post","user.php?act=check_mobile_phone");
+	      request.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=UTF-8");
+          request.send("grade="+$(this).find(".grade").val()+"class="+$(this).find(".school_class").val() +"school="+ rr+"course="+ tt);
+	      request.onreadystatechange=function(){
+	      if(request.readyState===4){
+	      if(request.status===200){
+	 		   if(request.responseText==1) {
+		 	    alert("注册信息重复，请重新填写");
+		 	 }else{
+		 	 	return true;
+		 	 }
+	//console.log("grade="+$(this).find(".grade").val()+"class="+$(this).find(".school_class").val() +"school="+ rr+"course="+ tt);
+};
+}
+}
+}
+
+
+})
 }
