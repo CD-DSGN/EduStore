@@ -516,7 +516,7 @@ function checkGradeClass() {
 			isComplete = 0;
 		}
 	}
-	console.log('isComplete->' + isComplete + ', classIsNum->' + classIsNum + ', hasGradeAndClass->' + hasGradeAndClass);
+	//console.log('isComplete->' + isComplete + ', classIsNum->' + classIsNum + ', hasGradeAndClass->' + hasGradeAndClass);
 	
 	// 错误消息的提示与去除
 	var gradeClassTips = $(".grade_class_tips");
@@ -604,25 +604,25 @@ function showAll(){
  //    	})
     	//console.log(this);
     //$(this).css('background','red');
-    if ($(this).find(".grade").val()!=0 && $(this).find(".school_class").val()!="" && rr!=0 && tt!=0) {
-    	 var request = new XMLHttpRequest();
-          request.open("post","user.php?act=check_teacher_grade_class");
+     if ($(this).find(".grade").val()!=0 && $(this).find(".school_class").val()!="" && rr!=0 && tt!=0) {
+     	 var request = new XMLHttpRequest();
+           request.open("post","user.php?act=check_teacher_grade_class");
 	      request.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=UTF-8");
-          request.send("grade="+$(this).find(".grade").val()+"class="+$(this).find(".school_class").val() +"school="+ rr+"course="+ tt);
-	      request.onreadystatechange=function(){
-	      if(request.readyState===4){
+           request.send("grade="+$(this).find(".grade").val()+"class="+$(this).find(".school_class").val() +"school="+ rr+"course="+ tt);
+ 	      request.onreadystatechange=function(){
+ 	      if(request.readyState===4){
 	      if(request.status===200){
 	 		   if(request.responseText==1) {
 		 	    alert("注册信息重复，请重新填写");
 		 	 }else{
 		 	 	return true;
 		 	 }
-	console.log("grade="+$(this).find(".grade").val()+"class="+$(this).find(".school_class").val() +"school="+ rr+"course="+ tt);
-};
-}
-}
+	    
+ }
+ }
 }
 
-
+//console.log("grade="+$(this).find(".grade").val()+"class="+$(this).find(".school_class").val() +"school="+ rr+"course="+ tt);
+}
 })
 }
