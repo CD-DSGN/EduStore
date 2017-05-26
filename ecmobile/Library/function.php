@@ -34,7 +34,7 @@ function GZ_user_info($user_id)
     $user_info = user_info($user_id);
 
     if ($user_info['is_teacher']) {
-        $show_name = get_teacher_name_by_user_id($user_id);
+        $show_name = get_teacher_name_by_user_id1($user_id);
     }else{
         $show_name = $user_info['nickname'];
     }
@@ -459,7 +459,7 @@ function ecmobile_url() {
 }
 
 
-function get_teacher_name_by_user_id($uid){
+function get_teacher_name_by_user_id1($uid){
     $sql = "SELECT real_name FROM ". $GLOBALS['ecs']->table('teachers') ."WHERE `user_id` = '". $uid ."'";
     $res = $GLOBALS['db']->getRow($sql);
     $teacher_name = $res['real_name'];
