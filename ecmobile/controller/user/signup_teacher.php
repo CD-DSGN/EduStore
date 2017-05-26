@@ -72,8 +72,7 @@ $values[] = $teacher_info['district'];
 $teacher_grade = explode('@',_POST('teacher_grade'));
 $teacher_class = explode('@',_POST('teacher_class'));
 
-$recommend_code = generate_recommend_code($values[0]);
-$values[] = $recommend_code;
+
 
 $teacher_school = $teacher_info['teacher_school'];
 $teacher_course = $teacher_info['course_id'];
@@ -91,6 +90,12 @@ for ($i=0; $i<count($teacher_grade); $i++){
 if (register($username, $password, $email, $other) === false) {
 	GZ_Api::outPut(11);
 }
+
+//注册之后才能获得真正的user_id
+$values[0] = $_SESSION['user_id'];
+$recommend_code = generate_recommend_code($values[0]);
+$values[] = $recommend_code;
+
 
 /*把新注册用户的扩展信息插入数据库*/
 $sql = 'SELECT id FROM ' . $ecs->table('reg_fields') . ' WHERE type = 0 AND display = 1 ORDER BY dis_order, id';   //读出所有自定义扩展字段的id
@@ -113,6 +118,7 @@ if ($extend_field_str)      //插入注册扩展数据
     $sql = 'INSERT INTO '. $ecs->table('reg_extend_info') . ' (`user_id`, `reg_field_id`, `content`) VALUES' . $extend_field_str;
     $db->query($sql);
 }
+
 
 
 
