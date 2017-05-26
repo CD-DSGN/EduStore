@@ -128,7 +128,7 @@
 								<option value="0">请选择年级</option>
 							</select>
 							<label for="school_class" class="register_info" style="width: 50px;">班级</label>
-							<input type="text" class="register_input school_class" style="width: 60px; font-size: 14px;" id="" name="" onblur="checkGradeClass()" oninput="checkGradeClass();showAll()" onfocus="" onchange="showAll()" />
+							<input type="text" class="register_input school_class" style="width: 60px; font-size: 14px;" id="" name="" onblur="checkGradeClass()" oninput="checkGradeClass()" onfocus="showAll()" />
                             <span class="class_span">班</span>
 							<span class="more_button" id="more" onclick="appendGradeAndClass();"><img src="./data/images/register/more_button.png" alt="" width="30px" height="30px" /></span>
 							<!-- 用來提示的字 -->
@@ -401,7 +401,7 @@ function appendGradeAndClass()
 								"<option value=\"0\">请选择年级</option>" +
 							"</select>" +
 							"<label for=\"school_class\" class=\"register_info\" style=\"width: 54px;\">班级</label>" +
-							"<input type=\"text\" class=\"register_input school_class\" style=\"width: 60px; font-size: 14px; margin-left: 24px;\" name=\"\" onblur=\"checkGradeClass()\" oninput=\"checkGradeClass();showAll()\" onfocus=\"\" />" +
+							"<input type=\"text\" class=\"register_input school_class\" style=\"width: 60px; font-size: 14px; margin-left: 24px;\" name=\"\" onblur=\"checkGradeClass()\" oninput=\"checkGradeClass()\" onfocus=\"showAll()\" />" +
 							"<span class=\"class_span\" style=\"left: -16px;\">班</span>" +
 							"<span class=\"more_button\" style=\"left: 8px;\" onclick=\"appendGradeAndClass();\"><img src=\"./data/images/register/more_button.png\" alt=\"\" width=\"30px\" height=\"30px\" /></span>" +
 							"<span class=\"input_tip grade_class_tips\" id=\"\"></span>" +
