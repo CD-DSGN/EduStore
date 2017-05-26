@@ -569,7 +569,7 @@ function jumpToIndex() {
 }
 
 
-
+/*pj ajax判断*/
 function showAll(){
 	var rr=$('#school').val();
 	var tt=$('#course_name').val(); 
@@ -584,7 +584,7 @@ function showAll(){
     //$(this).css('background','red');
     if ($(this).find(".grade").val()!=0 && $(this).find(".school_class").val()!="" && rr!=0 && tt!=0) {
     	 var request = new XMLHttpRequest();
-          request.open("post","user.php?act=check_mobile_phone");
+          request.open("post","user.php?act=check_teacher_grade_class");
 	      request.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=UTF-8");
           request.send("grade="+$(this).find(".grade").val()+"class="+$(this).find(".school_class").val() +"school="+ rr+"course="+ tt);
 	      request.onreadystatechange=function(){
@@ -595,7 +595,7 @@ function showAll(){
 		 	 }else{
 		 	 	return true;
 		 	 }
-	//console.log("grade="+$(this).find(".grade").val()+"class="+$(this).find(".school_class").val() +"school="+ rr+"course="+ tt);
+	console.log("grade="+$(this).find(".grade").val()+"class="+$(this).find(".school_class").val() +"school="+ rr+"course="+ tt);
 };
 }
 }
