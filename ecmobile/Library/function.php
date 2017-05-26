@@ -33,6 +33,12 @@ function GZ_user_info($user_id)
 
     $user_info = user_info($user_id);
 
+    if ($user_info['is_teacher']) {
+        $show_name = get_teacher_name_by_user_id($user_id);
+    }else{
+        $show_name = $user_info['nickname'];
+    }
+
     $collection_num = $db->getOne("SELECT COUNT(*) FROM " .$ecs->table('collect_goods')." WHERE user_id='$user_id' ORDER BY add_time DESC");
 
     $await_pay = $db->getOne("SELECT COUNT(*) FROM " .$ecs->table('order_info'). " WHERE user_id = '$user_id'". GZ_order_query_sql('await_pay'));
@@ -81,7 +87,8 @@ function GZ_user_info($user_id)
             'shipped' => $shipped,
             'finished' =>$finished
         ),
-        "is_teacher" => $user_info['is_teacher']
+        "is_teacher" => $user_info['is_teacher'],
+        "show_name"  => $show_name
     );
 }
 /**
@@ -449,4 +456,12 @@ function ecmobile_url() {
     }
 
     return $protocol . $host . dirname(PHP_SELF);
+}
+
+
+function get_teacher_name_by_user_id($uid){
+    $sql = "SELECT real_name FROM ". $GLOBALS['ecs']->table('teachers') ."WHERE `user_id` = '". $uid ."'";
+    $res = $GLOBALS['db']->getRow($sql);
+    $teacher_name = $res['real_name'];
+    return $teacher_name;
 }
