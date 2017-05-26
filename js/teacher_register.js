@@ -9,7 +9,7 @@ var password_status = 0;				// 0表示为空，1表示正确，2表示两次密�
 var confirmPassword_status = 0;			// 0表示为空，1表示正确，2表示两次密码不一致
 var agreement_status = 1;				// 0表示为空，1表示正确
 var address_status = 0;					// 0表示为空，1表示正确
-var grade_class_status = 0;
+var grade_class_status = 0;				// 0表示为空（请至少填写一组年级和班级），1表示正确，2表示班级有数字，3表示信息不完善（要么都填、要么都空）
 var code_status = 1;
 var pp="";
 // 年级、班级的全局变量，传参时用
@@ -491,42 +491,64 @@ function checkGradeClass() {
 
 	var grade = $(".grade");
 	var school_class = $(".school_class");
-	var isComplete = 1;
-	var classIsNum = 1;
+	var isComplete = 1;			// 判断每一行要么都填、要么都不填的状态；当某一行填写不完全时为0
+	var classIsNum = 1;			// 班级只能填写数字的状态；班级不为数字时为0
+	var hasGradeAndClass = 0;	// 至少得有一组年级或班级的状态值；有一组值之后置1
 	for (var i = 0; i < grade.length; i++) {
-		if ($(grade[i]).val() != 0 &&  $(school_class[i]).val() != 0) {
+		if ($(grade[i]).val() != 0 &&  $(school_class[i]).val() != '') {	// 不为0与空的状态
+			hasGradeAndClass = 1;
 			if (isNaN($(school_class[i]).val())) {
 				// 不是数字
 				classIsNum = 0;
 			} else {
 				// 是数字
+				classIsNum = 1;
 				gradeArray[i] = $(grade[i]).val();
 				classArray[i] = $(school_class[i]).val();
 			}
+
 		} else if ($(grade[i]).val() == 0 && $(school_class[i]).val() == 0) {
+
+		} else if ($(grade[i]).val() == 0 &&  $(school_class[i]).val() == '') {  	// 同时为0或空的状态
 			gradeArray[i] = 0;
 			classArray[i] = 0;
-		} else {
+		} else {									// 一项有值，一项没值得状态
 			isComplete = 0;
 		}
 	}
+	console.log('isComplete->' + isComplete + ', classIsNum->' + classIsNum + ', hasGradeAndClass->' + hasGradeAndClass);
+	
 	// 错误消息的提示与去除
 	var gradeClassTips = $(".grade_class_tips");
 	for (var i = 0; i < gradeClassTips.length; i++) {
 		$(gradeClassTips[i]).html('');
 	}
+	/*
+	* 判断的过程
+	* 1、要么都填，要么都不填的判断isComplete
+	* 2、填写的班级只能为数字
+	* 3、至少得有一组班级和年级，应付数据全为空的状态
+	*/
 	if (isComplete) {
 		grade_class_status = 1;
 	} else {
 		$(gradeClassTips[gradeClassTips.length - 1]).html(error_info + '年级与班级不能为空');
 		grade_class_status = 0;
+		$(gradeClassTips[gradeClassTips.length - 1]).html(error_info + '年级和班级要么都填，要么都不填');
+		grade_class_status = 3;
+		return;
 	}
-
 	if (classIsNum) {
 		grade_class_status = 1;
 	} else {
 		$(gradeClassTips[gradeClassTips.length - 1]).html(error_info + '班级只能填写数字');
+		grade_class_status = 2;
+		return;
+	}
+	if (!hasGradeAndClass) {
+		$(gradeClassTips[gradeClassTips.length - 1]).html(error_info + '请至少填写一组年级和班级');
 		grade_class_status = 0;
+		return;
 	}
 }
 
