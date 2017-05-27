@@ -60,7 +60,6 @@ abstract class GZ_Api
         704  =>'找不到汇师圈内容',
         705  =>'删除失败',
         706  =>'打开图片目录失败',
-		800  =>'所在学校年纪班级科目已经被注册',
         20000  =>'退货申请参数错误',
         20001 =>'退货申请提交失败，请稍后再试'
     );
@@ -96,15 +95,14 @@ abstract class GZ_Api
 		}
     }
 
-    public static function outPut($data, $pager = NULL, $message = NULL)
+    public static function outPut($data, $pager = NULL)
     {
         if (!is_array($data)) {
             $status = array(
                 'status' => array(
                     'succeed' => 0,
                     'error_code' => $data,
-                    'error_desc' => self::$error[$data],
-                    'error_message' => $message
+                    'error_desc' => self::$error[$data]
                 )
             );
             die(json_encode($status));

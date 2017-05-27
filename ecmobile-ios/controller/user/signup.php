@@ -73,6 +73,7 @@ $other['home_phone'] = isset($filelds[4]) ? $filelds[4] : '';
 //$other['mobile_phone'] = isset($filelds[5]) ? $filelds[5] : '';
 $other['mobile_phone'] = $mobilePhone;
 
+
 $teacher_school = $teacher_info['school'];
 $teacher_course = $teacher_info['course_id'];
 $teacher_grade = $teacher_info['grade'];
@@ -90,7 +91,6 @@ if ($is_teacher == '1') {
         }
     }
 }
-
 
 if (register($username, $password, $email, $other) === false) {
 	GZ_Api::outPut(11);
@@ -134,81 +134,20 @@ if($is_teacher == '1') {
     $sql = 'UPDATE ' . $ecs->table('users') . " SET `is_teacher`='$is_teacher' WHERE `user_id`='" . $_SESSION['user_id'] . "'";
     $db->query($sql);
 
-    $teacher_user_id = $_SESSION['user_id'];
-
-
-    //输入年纪班级信息对称
-    if(count($teacher_grade) == count($teacher_class)){
-        $count_flag = 0;
-        for ($i=0; $i<count($teacher_grade); $i++){
-
-            $sql = 'INSERT INTO ' . $ecs->table('teacher_class_info') . ' (`user_id`, `school_id`, `grade` , `class`, `course`)'. " VALUES
-                        ($teacher_user_id, $teacher_school, $teacher_grade[$i], $teacher_class[$i], $teacher_course )";
-            if($db->query($sql)){
-                $count_flag++;
-            }
-        }
-        //每个年纪班级信息写入数据库成功
-        if($count_flag == count($teacher_grade)){
-            for ($i=0; $i<count($teacher_grade); $i++){
-                $sql = 'SELECT user_id FROM ' .$ecs->table('student_class_info').
-                    " WHERE school_id = $teacher_school AND grade = $teacher_grade[$i] AND class = $teacher_class[$i]";
-                $find_student = $db->getAll($sql);
-                //如果找到注册过的学生 写入教师学生关注表
-                if($find_student != false){
-                    foreach ($find_student AS $key => $value){
-                        $student_user_id = $value['user_id'];
-                        $sql = 'INSERT INTO '. $ecs->table('subscription') . ' (`teacher_user_id` , `students_user_id`, `course_id`)'.
-                            " VALUES ($teacher_user_id, $student_user_id, $teacher_course)";
-                        $db->query($sql);
-                    }
-                }
-            }
-
-        }
-    }
-
-
     // 插入教师年级、班级表
-//    for ($i = 0; $i < count($teacher_info['grade']); $i++)
-//    {
-//        // 不为0时才当做有填写值来处理
-//        if ($teacher_info['grade'][$i] != 0) {
-//
-//            $sql = "INSERT INTO ". $ecs->table('teacher_class_info') ." (`user_id`, `school_id`, `grade`, `class`, `course`) VALUES ('". $_SESSION['user_id'] ."', '". $teacher_info['school'] ."', '". $teacher_info['grade'][$i] ."', '". $teacher_info['class'][$i] ."', '". $teacher_info['course_id'] ."')";
-//            $db->query($sql);
-//        }
-//    }
-} else {
+    for ($i = 0; $i < count($teacher_info['grade']); $i++)
+    {
+        // 不为0时才当做有填写值来处理
+        if ($teacher_info['grade'][$i] != 0) {
 
-    //begin added by chenggaoyuan
-    $stu_values = array();
-    $stu_values[] = $_SESSION['user_id'];
-    $stu_values[] = $student_school;
-    $stu_values[] = $student_grade;
-    $stu_values[] = $student_class;
-
-    $sql = 'INSERT INTO ' . $ecs->table('student_class_info') . ' (`user_id`, `school_id`, `grade` , `class`)'. " VALUES ('" . implode("', '", $stu_values) . "')";
-    if($db->query($sql) != false){
-        $sql = 'SELECT user_id, course FROM ' .$ecs->table('teacher_class_info').
-            " WHERE school_id = $student_school AND grade = $student_grade AND class = $student_class";
-
-        $find_teacher = $db->getAll($sql);
-        //如果找到注册过的教师 写入教师学生关注表
-        if($find_teacher != false){
-            foreach ($find_teacher AS $key => $value){
-                $user_id = $value['user_id'];
-                $course = $value['course'];
-                $sql = 'INSERT INTO '. $ecs->table('subscription') . ' (`teacher_user_id` , `students_user_id`, `course_id`)'.
-                    " VALUES ($user_id, $stu_values[0], $course)";
-                $db->query($sql);
-            }
+            $sql = "INSERT INTO ". $ecs->table('teacher_class_info') ." (`user_id`, `school_id`, `grade`, `class`, `course`) VALUES ('". $_SESSION['user_id'] ."', '". $teacher_info['school'] ."', '". $teacher_info['grade'][$i] ."', '". $teacher_info['class'][$i] ."', '". $teacher_info['course_id'] ."')";
+            $db->query($sql);
         }
-
     }
-//    // 对于学生用户来说，将年级、班级信息插入至student_class_info表
-//    $sql = "INSERT INTO ". $ecs->table('student_class_info') ." (`user_id`, `school_id`, `grade`, `class`) VALUES ('". $_SESSION['user_id'] ."', '". $student_school ."', '". $student_grade ."', '". $student_class ."')";
-//    $db->query($sql);
+} else {
+    // 对于学生用户来说，将年级、班级信息插入至student_class_info表
+    $sql = "INSERT INTO ". $ecs->table('student_class_info') ." (`user_id`, `school_id`, `grade`, `class`) VALUES ('". $_SESSION['user_id'] ."', '". $student_school ."', '". $student_grade ."', '". $student_class ."')";
+    $db->query($sql);
 
     // 更新学生的昵称nickname
     $sql = "UPDATE ". $ecs->table('users') ." SET `nickname` = '$nickname' WHERE `user_id`='" . $_SESSION['user_id'] . "'";

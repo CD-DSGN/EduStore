@@ -56,10 +56,6 @@ $other['home_phone'] = isset($filelds[4]) ? $filelds[4] : '';
 $other['mobile_phone'] = isset($filelds[5]) ? $filelds[5] : '';
 //此处获取的应该是昵称
 $other['nickname'] = _POST('name');
-//学生学校信息
-$student_school = _POST('student_school');
-$student_grade = _POST('student_grade');
-$student_class = _POST('student_class');
 
 $username = $_POST['phoneNumber'];
 
@@ -92,34 +88,6 @@ if ($extend_field_str)      //插入注册扩展数据
 {
     $sql = 'INSERT INTO '. $ecs->table('reg_extend_info') . ' (`user_id`, `reg_field_id`, `content`) VALUES' . $extend_field_str;
     $db->query($sql);
-}
-
-//学生注册自动匹配
-if(isset($student_school) && isset($student_grade) && isset($student_class)){
-    $stu_values = array();
-    $stu_values[] = $_SESSION['user_id'];
-    $stu_values[] = $student_school;
-    $stu_values[] = $student_grade;
-    $stu_values[] = $student_class;
-
-    $sql = 'INSERT INTO ' . $ecs->table('student_class_info') . ' (`user_id`, `school_id`, `grade` , `class`)'. " VALUES ('" . implode("', '", $stu_values) . "')";
-    if($db->query($sql) != false){
-        $sql = 'SELECT user_id, course FROM ' .$ecs->table('teacher_class_info').
-            " WHERE school_id = $student_school AND grade = $student_grade AND class = $student_class";
-
-        $find_teacher = $db->getAll($sql);
-        //如果找到注册过的教师 写入教师学生关注表
-        if($find_teacher != false){
-            foreach ($find_teacher AS $key => $value){
-                $user_id = $value['user_id'];
-                $course = $value['course'];
-                $sql = 'INSERT INTO '. $ecs->table('subscription') . ' (`teacher_user_id` , `students_user_id`, `course_id`)'.
-                    " VALUES ($user_id, $stu_values[0], $course)";
-                $db->query($sql);
-            }
-        }
-
-    }
 }
 
 $user_info = GZ_user_info($_SESSION['user_id']);

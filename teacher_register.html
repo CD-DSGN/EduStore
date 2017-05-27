@@ -33,7 +33,7 @@
 			<div id="register_form">
 				<form action="./user.php" method="post" name="formTeacher" style="white-space:nowrap;" id="formTeacher" onsubmit="return register();" >
 					<!-- 第一步，创建账户 -->
-					<div id="create_account" style="display:block">
+					<div id="create_account" style="display:none">
 						<div>
 							<label for="mobileNumber" class="register_info">手机号码</label>
 							<input name="mobile_phone_register" type="text" id="mobileNumber" class="register_input" oninput="checkMobileNumber();" onfocus="focusTips(this.id, '请输入手机号码');" onblur="checkMobileNumber();" />
@@ -78,7 +78,7 @@
 						</div>
 					</div>
 					<!-- 第二步，完善信息 -->
-					<div id="improve_info" style="display: none;">
+					<div id="improve_info" style="display:block;">
 						<div>
 							<label for="real_name" class="register_info">教师姓名</label>
 							<input type="text" class="register_input" id="real_name" name="real_name" onblur="checkRealName();" onfocus="focusTips(this.id, '请输入您的姓名')" />
@@ -87,13 +87,13 @@
 						</div>
 						<div>
 								<label class="register_info" style="margin-right:22px;">所在区域</label>
-									<select name="province" id="province" class="select_button1" onblur="checkAddressName();" onmouseup="checkAddressName();">
+									<select name="province" id="province" class="select_button1" onblur="checkAddressName();" onmouseup="checkAddressName();" style="background-color:#fff ">
 										<option value="0">请选择省</option>
 									</select>
-									<select name="city" id="city" class="select_button1" onblur="checkAddressName();" onmouseup="checkAddressName();">
+									<select name="city" id="city" class="select_button1" onblur="checkAddressName();" onmouseup="checkAddressName();" style="background-color:#fff ">
 										<option value="0">请选择市</option>
 									</select>
-									<select name="district" id="town" class="select_button1" onblur="checkAddressName();" onmouseup="checkAddressName();">
+									<select name="district" id="town" class="select_button1" onblur="checkAddressName();" onmouseup="checkAddressName();" style="background-color:#fff ">
 										<option value="0">请选择县/区</option>
 									</select>
 									<!-- modify nhj, 选择地区成功不显示 -->
@@ -103,7 +103,7 @@
 						<div>
 							<label for="school" class="register_info" style="margin-right: 22px;">学校</label>
 							<!-- <input type="text" class="register_input" id="school" name="school" onblur="checkSchool();" onfocus="focusTips(this.id, '请输入您的学校')" /> -->
-							<select name="teacher_school" id="school" class="select_button1" style="width: 250px; font-size: 14px;" onblur="checkSchool()" onmouseup="checkSchool()">
+							<select name="teacher_school" id="school" class="select_button1" style="width: 250px; font-size: 14px;background-color:#fff " onblur="checkSchool()" onmouseup="checkSchool();showAll()">
 								<option value="0">请选择学校</option>
 							</select>
 							<span class="correct_input" id="school_correct"><img src="./data/images/register/success.png" width="18px" height="18px" alt="correct" /></span>
@@ -111,9 +111,9 @@
 						</div>
 						<div>
 							<label for="course_name" class="register_info">任课课程</label>
-							<div class="select_background" style=" position: absolute; width: 140px; height: 42px; display: inline-block; left: 115px; background: url('./data/images/register/select.png') no-repeat 110px; border: 2px solid #d3d3d3; border-radius: 6px; background-color: #efeeed; ">
+							<div class="select_background" style=" position: absolute; width: 140px; height: 42px; display: inline-block; left: 115px; background: url('./data/images/register/select.png') no-repeat 110px; border: 2px solid #d3d3d3; border-radius: 6px;">
 							<div id="select_hide" style=" position: absolute; width: 110px; height: 35px; display: inline-block; top: 2px; overflow: hidden;  ">
-							<select name="course_name" id="course_name" class="select_button" onblur="checkCourseName();" onmouseup="checkCourseName();" >
+							<select name="course_name" id="course_name" class="select_button" onblur="checkCourseName()" onmouseup="checkCourseName();showAll()" style="background-color:#fff ">
 								<option value="0">请选择课程</option>
 							</select>
 							</div>
@@ -123,19 +123,21 @@
 						</div>
 						<div class="gradeAndClass">
 							<label for="grade" class="register_info" style="margin-right: 22px;">年级</label>
-							<select name="" id="" class="select_button1 grade" style="width: 120px; font-size: 14px;" onblur="checkGradeClass();" onmouseup="checkGradeClass();">
+
+							<select name="" id="" class="select_button1 grade" style="width: 120px; font-size: 14px;background-color: #fff;" onblur="checkGradeClass()" onmouseup="checkGradeClass();showAll()">
 								<option value="0">请选择年级</option>
 							</select>
 							<label for="school_class" class="register_info" style="width: 50px;">班级</label>
-							<input type="text" class="register_input school_class" style="width: 60px; font-size: 14px;" id="" name="" onblur="checkGradeClass();" oninput="checkGradeClass();" onfocus="" />
-							<span class="class_span">班</span>
-							<span class="more_button" onclick="appendGradeAndClass();"><img src="./data/images/register/more_button.png" alt="" width="30px" height="30px" /></span>
-							<span class="input_tip grade_class_tips" id=""></span>
+							<input type="text" class="register_input school_class" style="width: 60px; font-size: 14px;" id="" name="" onblur="checkGradeClass();showAll()" oninput="checkGradeClass()" onfocus="" />
+                            <span class="class_span">班</span>
+							<span class="more_button" id="more" onclick="appendGradeAndClass();"><img src="./data/images/register/more_button.png" alt="" width="30px" height="30px" /></span>
+							<!-- 用來提示的字 -->
+							<span class="input_tip grade_class_tips" id=""></span> 
 						</div>
 						<div>
 							<input type="hidden" name="is_teacher" value="1">
 							<input name="act" type="hidden" value="act_register" >
-							<input type="submit" name="" value="会员注册" class="register" id="submit">
+							<input type="submit" name="" value="会员注册" class="register" id="submit" >
 						</div>
 					</div>
 					<!-- 第三步，注册成功 -->
@@ -337,6 +339,9 @@
 			for (var i = 0; i < gradeClassTips.length; i++) {
 				$(gradeClassTips[i]).html('');
 			}
+
+			$(gradeClassTips[gradeClassTips.length - 1]).html(error_info + '年级与班级不能为空');
+
 			$(grade[grade.length - 1]).focus().select();
 			// 注意顺序，体验好
 			if (grade_class_status == 0) {
@@ -375,6 +380,8 @@
 							window.location.href = './';
 						}
 					}, 1000) 
+
+
 	    		},
 	    		error : function() {
 	    			alert("网络连接失败，请检查网络。");
@@ -390,11 +397,11 @@ function appendGradeAndClass()
 	// 动态增加的html文件
 	var content = "<div class=\"gradeAndClass\">" + 
 							"<label for=\"grade\" class=\"register_info\" style=\"margin-right: 26px;\">年级</label>" +
-							"<select name=\"\" class=\"select_button1 grade\" style=\"width: 120px; font-size: 14px\" onblur=\"checkGradeClass()\" onmouseup=\"checkGradeClass()\">" +
+							"<select name=\"\"  class=\"select_button1 grade\" style=\"width: 120px; font-size: 14px\" onblur=\"checkGradeClass()\" onmouseup=\"checkGradeClass();showAll()\">" +
 								"<option value=\"0\">请选择年级</option>" +
 							"</select>" +
 							"<label for=\"school_class\" class=\"register_info\" style=\"width: 54px;\">班级</label>" +
-							"<input type=\"text\" class=\"register_input school_class\" style=\"width: 60px; font-size: 14px; margin-left: 24px;\" name=\"\" onblur=\"checkGradeClass()\" oninput=\"checkGradeClass()\" onfocus=\"\" />" +
+							"<input type=\"text\" class=\"register_input school_class\" style=\"width: 60px; font-size: 14px; margin-left: 24px;\" name=\"\" onblur=\"checkGradeClass();showAll()\" oninput=\"checkGradeClass()\" onfocus=\"\" />" +
 							"<span class=\"class_span\" style=\"left: -16px;\">班</span>" +
 							"<span class=\"more_button\" style=\"left: 8px;\" onclick=\"appendGradeAndClass();\"><img src=\"./data/images/register/more_button.png\" alt=\"\" width=\"30px\" height=\"30px\" /></span>" +
 							"<span class=\"input_tip grade_class_tips\" id=\"\"></span>" +
@@ -426,6 +433,7 @@ function appendGradeAndClass()
 	    $("#teacher_register").css({'height' : teacher_register_height + 'px'});
     }
 }
+
 
 </script>
 </html>

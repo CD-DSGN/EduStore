@@ -221,6 +221,27 @@ elseif($action == 'check_mobile_phone')
    }
 }
 //end nahuanjie
+//begin chenggaoyuan
+elseif($action == 'check_teacher_grade_class'){
+
+    if(isset($_POST['grade']) && isset($_POST['class']) && isset($_POST['school']) && isset($_POST['course'])){
+        $school = $_POST['school'];
+        $grade = $_POST['grade'];
+        $class = $_POST['class'];
+        $course = $_POST['course'];
+        $sql = "SELECT info_id FROM ". $ecs->table('teacher_class_info')
+            ." WHERE school_id = $school AND grade = $grade AND class = $class AND course = $course";
+        $res = mysql_num_rows($db->query($sql));
+        if($res == 0){
+            echo "0";
+            exit();
+        }else{
+            echo "1";
+            exit();
+        }
+
+    }
+}
 //begin nahuanjie, AJAX 处理，判断当前手机验证码是否正确
 elseif($action == 'check_identifyCode')
 {

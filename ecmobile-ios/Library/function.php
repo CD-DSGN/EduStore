@@ -72,23 +72,18 @@ function GZ_user_info($user_id)
 
     $sql = 'SELECT * FROM ' . $GLOBALS['ecs']->table('user_rank') . " WHERE special_rank = '0' AND min_points = '0'";
     $row = $GLOBALS['db']->getRow($sql);
+
     if ($user_info['user_rank_name'] == $row['rank_name']) {
     	$level = 0;
     } else {
     	$level = 1;
     }
 
-    $sql = "SELECT * FROM ". $ecs->table('teachers') ."WHERE `user_id` = '". $user_id ."'";
-    $row = $GLOBALS['db']->getRow($sql);
-    $teacher_name = $row['real_name'];
-
 	return array(
 		'id' => $user_info['user_id'],
 		'name'=>$user_info['user_name'],
 		'rank_name'=>$user_info['user_rank_name'],
 		'is_teacher'=>$is_teacher,
-		'nickname'=>$user_info['nickname'],
-		'teacher_name'=>$teacher_name,
 		'rank_level' => $level,
 		'collection_num' => $collection_num,
         'email' => $user_info['email'],

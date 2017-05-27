@@ -1888,11 +1888,10 @@ CREATE TABLE `ecs_teacher_publish`(
 
 DROP TABLE IF EXISTS `ecs_teacher_publish_images`;
 CREATE TABLE `ecs_teacher_publish_images`(
-  `id` int(10) unsigned NOT NULL auto_increment,
   `news_id` int(10) unsigned NOT NULL,
   `image` varchar(255) NULL,
   `image_thumb` varchar(255) NULL,
-  PRIMARY KEY  (`id`)
+  PRIMARY KEY  (`news_id`)
 ) ENGINE=MyISAM;
 
 DROP TABLE IF EXISTS `ecs_huishi_circle_comment`;

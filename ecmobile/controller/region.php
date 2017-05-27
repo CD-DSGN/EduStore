@@ -47,7 +47,7 @@ foreach ($result as $val) {
     );
 }
 $out = array(
-    'more' => intval(!empty($out)),		// 鏈�鍚庝竴椤圭殑鍒ゆ柇锛岀渷甯傦紙鍘匡級
+    'more' => intval(!empty($out)),		// 最后一项的判断，省市（县）
     'regions' => $out
 );
 GZ_Api::outPut($out);
