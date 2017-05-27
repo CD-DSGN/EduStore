@@ -11,7 +11,6 @@ var agreement_status = 1;				// 0表示为空，1表示正确
 var address_status = 0;					// 0表示为空，1表示正确
 var grade_class_status = 0;				// 0表示为空（请至少填写一组年级和班级），1表示正确，2表示班级有数字，3表示信息不完善（要么都填、要么都空）
 var code_status = 1;
-var pp="";
 // 年级、班级的全局变量，传参时用
 var gradeArray = Array();
 var classArray = Array();

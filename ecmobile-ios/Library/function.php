@@ -79,11 +79,17 @@ function GZ_user_info($user_id)
     	$level = 1;
     }
 
-	return array(
+    $sql = "SELECT * FROM ". $ecs->table('teachers') ."WHERE `user_id` = '". $user_id ."'";
+    $row = $GLOBALS['db']->getRow($sql);
+    $teacher_name = $row['real_name'];
+
+    return array(
 		'id' => $user_info['user_id'],
 		'name'=>$user_info['user_name'],
 		'rank_name'=>$user_info['user_rank_name'],
 		'is_teacher'=>$is_teacher,
+        'nickname'=>$user_info['nickname'],
+        'teacher_name'=>$teacher_name,
 		'rank_level' => $level,
 		'collection_num' => $collection_num,
         'email' => $user_info['email'],
