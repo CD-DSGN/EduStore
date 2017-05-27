@@ -622,7 +622,7 @@ function showAll(){
  }
 }
 
-//console.log("grade="+$(this).find(".grade").val()+"class="+$(this).find(".school_class").val() +"school="+ rr+"course="+ tt);
+console.log("grade="+$(this).find(".grade").val()+"class="+$(this).find(".school_class").val() +"school="+ rr+"course="+ tt);
 }
 })
 }
