@@ -33,6 +33,12 @@ function GZ_user_info($user_id)
 
     $user_info = user_info($user_id);
 
+    if ($user_info['is_teacher']) {
+        $show_name = get_teacher_name_by_user_id($user_id);
+    }else{
+        $show_name = $user_info['nickname'];
+    }
+
     $collection_num = $db->getOne("SELECT COUNT(*) FROM " .$ecs->table('collect_goods')." WHERE user_id='$user_id' ORDER BY add_time DESC");
 
     $await_pay = $db->getOne("SELECT COUNT(*) FROM " .$ecs->table('order_info'). " WHERE user_id = '$user_id'". GZ_order_query_sql('await_pay'));
@@ -81,7 +87,8 @@ function GZ_user_info($user_id)
             'shipped' => $shipped,
             'finished' =>$finished
         ),
-        "is_teacher" => $user_info['is_teacher']
+        "is_teacher" => $user_info['is_teacher'],
+        "show_name"  => $show_name
     );
 }
 /**
@@ -96,24 +103,24 @@ function GZ_order_query_sql($type = 'finished', $alias = '')
     if ($type == 'finished')
     {
         return " AND {$alias}order_status " . db_create_in(array(OS_CONFIRMED, OS_SPLITED)) .
-               " AND {$alias}shipping_status " . db_create_in(array(SS_SHIPPED, SS_RECEIVED)) .
-               " AND {$alias}pay_status " . db_create_in(array(PS_PAYED, PS_PAYING)) . " ";
+            " AND {$alias}shipping_status " . db_create_in(array(SS_SHIPPED, SS_RECEIVED)) .
+            " AND {$alias}pay_status " . db_create_in(array(PS_PAYED, PS_PAYING)) . " ";
     }
     /* 待发货订单 */
     elseif ($type == 'await_ship')
     {
         return " AND   {$alias}order_status " .
-                 db_create_in(array(OS_CONFIRMED, OS_SPLITED, OS_SPLITING_PART)) .
-               " AND   {$alias}shipping_status " .
-                 db_create_in(array(SS_UNSHIPPED, SS_PREPARING, SS_SHIPPED_ING)) .
-               " AND ( {$alias}pay_status " . db_create_in(array(PS_PAYED, PS_PAYING)) . " OR {$alias}pay_id " . db_create_in(payment_id_list(true)) . ") ";
+            db_create_in(array(OS_CONFIRMED, OS_SPLITED, OS_SPLITING_PART)) .
+            " AND   {$alias}shipping_status " .
+            db_create_in(array(SS_UNSHIPPED, SS_PREPARING, SS_SHIPPED_ING)) .
+            " AND ( {$alias}pay_status " . db_create_in(array(PS_PAYED, PS_PAYING)) . " OR {$alias}pay_id " . db_create_in(payment_id_list(true)) . ") ";
     }
     /* 待付款订单 */
     elseif ($type == 'await_pay')
     {
         return " AND   {$alias}order_status " . db_create_in(array(OS_CONFIRMED, OS_SPLITED, OS_UNCONFIRMED)) .
-               " AND   {$alias}pay_status = '" . PS_UNPAYED . "'" .
-               " AND ( {$alias}shipping_status " . db_create_in(array(SS_SHIPPED, SS_RECEIVED)) . " OR {$alias}pay_id " . db_create_in(payment_id_list(false)) . ") ";
+            " AND   {$alias}pay_status = '" . PS_UNPAYED . "'" .
+            " AND ( {$alias}shipping_status " . db_create_in(array(SS_SHIPPED, SS_RECEIVED)) . " OR {$alias}pay_id " . db_create_in(payment_id_list(false)) . ") ";
     }
     /* 未确认订单 */
     elseif ($type == 'unconfirmed')
@@ -124,15 +131,15 @@ function GZ_order_query_sql($type = 'finished', $alias = '')
     elseif ($type == 'unprocessed')
     {
         return " AND {$alias}order_status " . db_create_in(array(OS_UNCONFIRMED, OS_CONFIRMED)) .
-               " AND {$alias}shipping_status = '" . SS_UNSHIPPED . "'" .
-               " AND {$alias}pay_status = '" . PS_UNPAYED . "' ";
+            " AND {$alias}shipping_status = '" . SS_UNSHIPPED . "'" .
+            " AND {$alias}pay_status = '" . PS_UNPAYED . "' ";
     }
     /* 未付款未发货订单：管理员可操作 */
     elseif ($type == 'unpay_unship')
     {
         return " AND {$alias}order_status " . db_create_in(array(OS_UNCONFIRMED, OS_CONFIRMED)) .
-               " AND {$alias}shipping_status " . db_create_in(array(SS_UNSHIPPED, SS_PREPARING)) .
-               " AND {$alias}pay_status = '" . PS_UNPAYED . "' ";
+            " AND {$alias}shipping_status " . db_create_in(array(SS_UNSHIPPED, SS_PREPARING)) .
+            " AND {$alias}pay_status = '" . PS_UNPAYED . "' ";
     }
     /* 已发货订单：不论是否付款 */
     elseif ($type == 'shipped')
@@ -231,179 +238,179 @@ function getImage($img)
 }
 
 function formatTime($Time)
-{	
-	if (strlen($Time) == strlen(intval($Time))) {
-		if ($Time == 0) {
-			return '';
-		}
-		$unixTime = $Time;
-	} else {
-		$unixTime = strtotime($Time);
-	}
-	return date('Y/m/d H:i:s O', $unixTime);
+{
+    if (strlen($Time) == strlen(intval($Time))) {
+        if ($Time == 0) {
+            return '';
+        }
+        $unixTime = $Time;
+    } else {
+        $unixTime = strtotime($Time);
+    }
+    return date('Y/m/d H:i:s O', $unixTime);
 }
 
 function bjTime($Time)
 {
-	// $unixTime = $Time + 8*3600;
-	// return date('Y/m/d H:i:s O', $unixTime);
-	
-	return local_date('Y/m/d H:i:s O', $Time);
+    // $unixTime = $Time + 8*3600;
+    // return date('Y/m/d H:i:s O', $unixTime);
+
+    return local_date('Y/m/d H:i:s O', $Time);
 }
 
 function API_DATA($type, $readData)
 {
-	$outData = array();
-	if (empty($readData)) {
-		return $outData;
-	}
-	if (is_array($readData)) {
-		$first = current($readData);
-		if ($first && is_array($first)) {
-			foreach ($readData as $key => $value) {
-				$outData[] = API_DATA($type, $value);
-			}
-			return array_filter($outData);
-		}
-	}
+    $outData = array();
+    if (empty($readData)) {
+        return $outData;
+    }
+    if (is_array($readData)) {
+        $first = current($readData);
+        if ($first && is_array($first)) {
+            foreach ($readData as $key => $value) {
+                $outData[] = API_DATA($type, $value);
+            }
+            return array_filter($outData);
+        }
+    }
 
-	switch ($type) {
-		case 'PHOTO':
+    switch ($type) {
+        case 'PHOTO':
             $outData = getImage($readData);
-			break;
-		case 'SIMPLEGOODS':
-			$outData = array(
-			  "goods_id" => $readData['goods_id'],
-			  "name" => $readData['goods_name'],
-			  "market_price" => $readData['market_price'],
-			  "shop_price" => $readData['shop_price'],
-			  "promote_price" => $readData['promote_price'],
-			  "img" => array(
-				'thumb'=>API_DATA('PHOTO', $readData['goods_img']),
-				'url' => API_DATA('PHOTO', $readData['original_img']),
-                'small' => API_DATA('PHOTO', $readData['goods_thumb'])
-				)
-			);
-			break;
+            break;
+        case 'SIMPLEGOODS':
+            $outData = array(
+                "goods_id" => $readData['goods_id'],
+                "name" => $readData['goods_name'],
+                "market_price" => $readData['market_price'],
+                "shop_price" => $readData['shop_price'],
+                "promote_price" => $readData['promote_price'],
+                "img" => array(
+                    'thumb'=>API_DATA('PHOTO', $readData['goods_img']),
+                    'url' => API_DATA('PHOTO', $readData['original_img']),
+                    'small' => API_DATA('PHOTO', $readData['goods_thumb'])
+                )
+            );
+            break;
 
-		case 'ADDRESS':
-			$outData = array(
-				"id"       => 15,
-				"consignee"  => "联系人姓名",
-				"email"    => "联系人email",
-				"country"  => "国家id",
-				"province" => "省id",
-				"city"     => "城市id",
-				"district" => "地区id",
-				"address"  => "详细地址",
-				"zipcode"  => "邮政编码",
-				"tel"      => "联系电话",
-				"mobile"   => "手机",
-				"sign_building" => "标志建筑",
-				"best_time" => "最佳送货时间"	
-			);
-			break;
-		case 'SIGNUPFIELDS':
-			$outData = array(
-				"id"  => 12,
-			  	"name"  => "说明",
-			  	"need"  => 0
-			);
-			break;
-		case 'CONFIG':
-			$outData = array(
-				"shop_closed" => 0,
-			  	"close_comment" => "关闭原因"
-			);
-			break;
-		case 'CATEGORY':
-			$outData = array(
-				"id"    => 12,
-			  	"name"  => "分类名称",
-			  	"children"  => array(
-			  		'id'   =>  13,
-					'name' => 'ssss'
-			  	)
-			);
-			break;
-		case 'SIMPLEORDER':
-			$outData = array(
-			  "id" => $readData['order_id'],
-			  "order_sn" => $readData['order_sn'],
-			  "order_time" => $readData['order_time'],
-			  "order_status" => $readData['order_status'],
-			  "total_fee" => $readData['total_fee'],
-			);
-			break;
-		case 'GOODS':
+        case 'ADDRESS':
+            $outData = array(
+                "id"       => 15,
+                "consignee"  => "联系人姓名",
+                "email"    => "联系人email",
+                "country"  => "国家id",
+                "province" => "省id",
+                "city"     => "城市id",
+                "district" => "地区id",
+                "address"  => "详细地址",
+                "zipcode"  => "邮政编码",
+                "tel"      => "联系电话",
+                "mobile"   => "手机",
+                "sign_building" => "标志建筑",
+                "best_time" => "最佳送货时间"
+            );
+            break;
+        case 'SIGNUPFIELDS':
+            $outData = array(
+                "id"  => 12,
+                "name"  => "说明",
+                "need"  => 0
+            );
+            break;
+        case 'CONFIG':
+            $outData = array(
+                "shop_closed" => 0,
+                "close_comment" => "关闭原因"
+            );
+            break;
+        case 'CATEGORY':
+            $outData = array(
+                "id"    => 12,
+                "name"  => "分类名称",
+                "children"  => array(
+                    'id'   =>  13,
+                    'name' => 'ssss'
+                )
+            );
+            break;
+        case 'SIMPLEORDER':
+            $outData = array(
+                "id" => $readData['order_id'],
+                "order_sn" => $readData['order_sn'],
+                "order_time" => $readData['order_time'],
+                "order_status" => $readData['order_status'],
+                "total_fee" => $readData['total_fee'],
+            );
+            break;
+        case 'GOODS':
             $readData['original_img'] || $readData['original_img'] = $readData['goods_thumb'];
-			$outData = array(
-				"id"  =>  $readData['goods_id'],
-				"cat_id" => $readData['cat_id'],
-				"goods_sn" => $readData['goods_sn'],
-				"goods_name" => $readData['goods_name'],
-				// "goods_desc"=>$readData['goods_desc'],
+            $outData = array(
+                "id"  =>  $readData['goods_id'],
+                "cat_id" => $readData['cat_id'],
+                "goods_sn" => $readData['goods_sn'],
+                "goods_name" => $readData['goods_name'],
+                // "goods_desc"=>$readData['goods_desc'],
                 "collected" => $readData['collected'],
-				"market_price" => $readData['market_price'],
-				"shop_price" => price_format($readData['shop_price'], false),
-				"integral" => $readData['integral'],
-				"click_count" => $readData['click_count'],
-				"brand_id" => $readData['brand_id'],
+                "market_price" => $readData['market_price'],
+                "shop_price" => price_format($readData['shop_price'], false),
+                "integral" => $readData['integral'],
+                "click_count" => $readData['click_count'],
+                "brand_id" => $readData['brand_id'],
                 // fix 没有goods_number值
-				"goods_number" => is_numeric($readData['goods_number']) ? $readData['goods_number'] : 65535,
-				"goods_weight" =>  $readData['goods_weight'],
-				"promote_price" => $readData['promote_price_org'],
-				"formated_promote_price" => price_format($readData['promote_price_org'], false),//$readData['promote_price'],
-				"promote_start_date" => bjTime($readData['promote_start_date']),
-				"promote_end_date"  => bjTime($readData['promote_end_date']),
-				"is_shipping" => $readData['is_shipping'],
-				"img" => array(
-					'thumb'=>API_DATA('PHOTO', $readData['goods_img']),
-					'url' => API_DATA('PHOTO', $readData['original_img']),
-					'small'=>API_DATA('PHOTO', $readData['goods_thumb'])
-				 ),
-				"rank_prices" => array(),
-				"pictures" => array(),
-				"properties" => array(),
-				"specification" => array(),
-				"is_presell"	=> $readData['is_presell'],
-				"presell_shipping_time" 	=> $readData['presell_shipping_time']
-			);
-			foreach ($readData['rank_prices'] as $key => $value) {
-				$outData['rank_prices'][] = array(
-					"id"   =>  $key,
-					"rank_name" => $value['rank_name'],
-					"price" => $value['price']
-				);
-			}
+                "goods_number" => is_numeric($readData['goods_number']) ? $readData['goods_number'] : 65535,
+                "goods_weight" =>  $readData['goods_weight'],
+                "promote_price" => $readData['promote_price_org'],
+                "formated_promote_price" => price_format($readData['promote_price_org'], false),//$readData['promote_price'],
+                "promote_start_date" => bjTime($readData['promote_start_date']),
+                "promote_end_date"  => bjTime($readData['promote_end_date']),
+                "is_shipping" => $readData['is_shipping'],
+                "img" => array(
+                    'thumb'=>API_DATA('PHOTO', $readData['goods_img']),
+                    'url' => API_DATA('PHOTO', $readData['original_img']),
+                    'small'=>API_DATA('PHOTO', $readData['goods_thumb'])
+                ),
+                "rank_prices" => array(),
+                "pictures" => array(),
+                "properties" => array(),
+                "specification" => array(),
+                "is_presell"	=> $readData['is_presell'],
+                "presell_shipping_time" 	=> $readData['presell_shipping_time']
+            );
+            foreach ($readData['rank_prices'] as $key => $value) {
+                $outData['rank_prices'][] = array(
+                    "id"   =>  $key,
+                    "rank_name" => $value['rank_name'],
+                    "price" => $value['price']
+                );
+            }
 
-			foreach ($readData['pictures'] as $key => $value) {
-				$outData['pictures'][] = array(
-					"small"=>API_DATA('PHOTO', $value['thumb_url']),
-					"thumb"=>API_DATA('PHOTO', $value['thumb_url']),
-					"url"=>API_DATA('PHOTO', $value['img_url'])
-				);
-			}
+            foreach ($readData['pictures'] as $key => $value) {
+                $outData['pictures'][] = array(
+                    "small"=>API_DATA('PHOTO', $value['thumb_url']),
+                    "thumb"=>API_DATA('PHOTO', $value['thumb_url']),
+                    "url"=>API_DATA('PHOTO', $value['img_url'])
+                );
+            }
 
             if (!empty($readData['properties'])) {
                 // $readData['properties'] = current($readData['properties']);
-    			foreach ($readData['properties'] as $key => $value) {
+                foreach ($readData['properties'] as $key => $value) {
                     // 处理分组
                     foreach ($value as $k => $v) {
                         $v['value'] = strip_tags($v['value']);
-        				$outData['properties'][] = $v;
+                        $outData['properties'][] = $v;
                     }
-    			}
+                }
             }
 
-			foreach ($readData['specification'] as $key => $value) {
-				if (!empty($value['values'])) {
-					$value['value'] = $value['values'];
-					unset($value['values']);	
-				}
-				$outData['specification'][] = $value;
-			}
-			break;
+            foreach ($readData['specification'] as $key => $value) {
+                if (!empty($value['values'])) {
+                    $value['value'] = $value['values'];
+                    unset($value['values']);
+                }
+                $outData['specification'][] = $value;
+            }
+            break;
         default:
             break;
     }
@@ -449,4 +456,12 @@ function ecmobile_url() {
     }
 
     return $protocol . $host . dirname(PHP_SELF);
+}
+
+
+function get_teacher_name_by_user_id($uid){
+    $sql = "SELECT real_name FROM ". $GLOBALS['ecs']->table('teachers') ."WHERE `user_id` = '". $uid ."'";
+    $res = $GLOBALS['db']->getRow($sql);
+    $teacher_name = $res['real_name'];
+    return $teacher_name;
 }
