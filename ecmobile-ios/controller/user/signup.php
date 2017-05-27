@@ -78,15 +78,20 @@ $teacher_course = $teacher_info['course_id'];
 $teacher_grade = $teacher_info['grade'];
 $teacher_class = $teacher_info['class'];
 
-for ($i=0; $i<count($teacher_grade); $i++){
+if ($is_teacher == '1') {
 
-    $sql = 'SELECT * FROM ' . $ecs->table('teacher_class_info') .
-        " WHERE school_id = $teacher_school AND grade = $teacher_grade[$i] AND class = $teacher_class[$i] AND course = $teacher_course";
-    if($db->getAll($sql) != false){
-        //返回重复的年级班级信息编号
-        GZ_Api::outPut(800,NULL,[$i+1]);
+    for ($i=0; $i<count($teacher_grade); $i++){
+
+        $sql = 'SELECT * FROM ' . $ecs->table('teacher_class_info') .
+            " WHERE school_id = $teacher_school AND grade = $teacher_grade[$i] AND class = $teacher_class[$i] AND course = $teacher_course";
+        if($db->getAll($sql) != false){
+            //返回重复的年级班级信息编号
+            GZ_Api::outPut(800,NULL,[$i+1]);
+        }
     }
 }
+
+
 if (register($username, $password, $email, $other) === false) {
 	GZ_Api::outPut(11);
 }
