@@ -200,7 +200,9 @@ function get_teacher_publish_comments($news_id){
             'target_username' => $target_username,
             'comment_content' => $value['comment_content'],
             'show_name' =>  $show_name,
-            'show_target_name' =>$show_target_name);
+            'show_target_name' =>$show_target_name,
+            // add nhj, 在这里同时返回news_id
+            'news_id' => $news_id);
     }
     return $comments;
 }

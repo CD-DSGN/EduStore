@@ -84,7 +84,9 @@
     <!-- 年级和班级存的是数组 -->
     <td>
     {foreach from=$user.grade item=grade key=index}
-      {$user.grade[$index]}{$user.class[$index]}班、
+      {if $user.class[$index] neq '0'}
+        {$user.grade[$index]}{$user.class[$index]}班、
+      {/if}
     {/foreach}
     </td>
     
