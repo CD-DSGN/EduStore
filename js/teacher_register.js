@@ -607,7 +607,7 @@ function showAll(){
      	 var request = new XMLHttpRequest();
            request.open("post","user.php?act=check_teacher_grade_class");
 	      request.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=UTF-8");
-           request.send("grade="+$(this).find(".grade").val()+"class="+$(this).find(".school_class").val() +"school="+ rr+"course="+ tt);
+           request.send("grade="+$(this).find(".grade").val()+"&class="+$(this).find(".school_class").val() +"&school="+ rr+"&course="+ tt);
  	      request.onreadystatechange=function(){
  	      if(request.readyState===4){
 	      if(request.status===200){
