@@ -35,8 +35,10 @@ function GZ_user_info($user_id)
 
     if ($user_info['is_teacher']) {
         $show_name = get_teacher_name_by_user_id_original($user_id);
+        $teacher_course = get_teacher_course_name_by_user_id($user_id);
     }else{
         $show_name = $user_info['nickname'];
+        $teacher_course = '';
     }
 
     $collection_num = $db->getOne("SELECT COUNT(*) FROM " .$ecs->table('collect_goods')." WHERE user_id='$user_id' ORDER BY add_time DESC");
@@ -88,7 +90,8 @@ function GZ_user_info($user_id)
             'finished' =>$finished
         ),
         "is_teacher" => $user_info['is_teacher'],
-        "show_name"  => $show_name
+        "show_name"  => $show_name,
+        "teacher_course" => $teacher_course
     );
 }
 /**
@@ -464,4 +467,14 @@ function get_teacher_name_by_user_id_original($uid){
     $res = $GLOBALS['db']->getRow($sql);
     $teacher_name = $res['real_name'];
     return $teacher_name;
+}
+
+function get_teacher_course_name_by_user_id($uid){
+    $sql = "SELECT course_id FROM ". $GLOBALS['ecs']->table('teachers') ."WHERE `user_id` = '". $uid ."'";
+    $res = $GLOBALS['db']->getRow($sql);
+    $teacher_course_id = $res['course_id'];
+    $sql = "SELECT course_name FROM ". $GLOBALS['ecs']->table('courses') ."WHERE `course_id` = '". $teacher_course_id ."'";
+    $res = $GLOBALS['db']->getRow($sql);
+    $teacher_course_name = $res['course_name'];
+    return $teacher_course_name;
 }

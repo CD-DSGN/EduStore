@@ -11,6 +11,8 @@ var agreement_status = 1;				// 0表示为空，1表示正确
 var address_status = 0;					// 0表示为空，1表示正确
 var grade_class_status = 0;				// 0表示为空（请至少填写一组年级和班级），1表示正确，2表示班级有数字，3表示信息不完善（要么都填、要么都空）
 var code_status = 1;
+
+var four_status = 0;                     //0表示注册信息没有重复的，1表示注册信息有重复的，不能注册
 // 年级、班级的全局变量，传参时用
 var gradeArray = Array();
 var classArray = Array();
@@ -592,16 +594,11 @@ function jumpToIndex() {
 
 /*pj ajax判断*/
 function showAll(){
+	var gradeClassTips = $(".grade_class_tips");
 	var rr=$('#school').val();
 	var tt=$('#course_name').val(); 
     $(".gradeAndClass").each(function(index) {
- //    	pp=$(this);
- //    	pp.css('background','red');
- //          if (pp.find(".grade").val()!=0 && pp.find(".school_class").val()!="" && rr!=0 && tt!=0) {
- //            console.log("grade="+pp.find(".grade").val()+"class="+pp.find(".school_class").val() +"school="+ rr+"course="+ tt);
- // }
- //    	})
-    	//console.log(this);
+    	//console.log($($(".grade_class_tips")[$(".grade_class_tips") - 1]).html(error_info + '注册信息重复，请重新填写'));
     //$(this).css('background','red');
      if ($(this).find(".grade").val()!=0 && $(this).find(".school_class").val()!="" && rr!=0 && tt!=0) {
      	 var request = new XMLHttpRequest();
@@ -612,16 +609,19 @@ function showAll(){
  	      if(request.readyState===4){
 	      if(request.status===200){
 	 		   if(request.responseText==1) {
-		 	    alert("注册信息重复，请重新填写");
+		 	    //alert("注册信息重复，请重新填写");
+		 	    $(gradeClassTips[gradeClassTips.length - 1]).html(error_info + '注册信息重复，请重新填写');
+		 	    four_status=1;
+                
 		 	 }else{
-		 	 	return true;
+		 	 	four_status = 0;
 		 	 }
 	    
  }
  }
 }
 
-console.log("grade="+$(this).find(".grade").val()+"class="+$(this).find(".school_class").val() +"school="+ rr+"course="+ tt);
+//console.log("grade="+$(this).find(".grade").val()+"class="+$(this).find(".school_class").val() +"school="+ rr+"course="+ tt);
 }
 })
 }

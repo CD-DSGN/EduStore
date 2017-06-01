@@ -51,6 +51,11 @@ function GZ_user_info($user_id)
 		$avatar = dirname($GLOBALS['ecs']->url()) . "/" . $avatar;
 	}
 
+	if($is_teacher){
+	    $teacher_course_name = get_teacher_course_name_by_user_id($user_id);
+    }else{
+        $teacher_course_name = '';
+    }
 	// include_once(ROOT_PATH .'includes/lib_clips.php');
 	// $rank = get_rank_info();
 	// print_r($rank);exit;
@@ -90,6 +95,7 @@ function GZ_user_info($user_id)
 		'is_teacher'=>$is_teacher,
         'nickname'=>$user_info['nickname'],
         'teacher_name'=>$teacher_name,
+        'teacher_course'=>$teacher_course_name,
 		'rank_level' => $level,
 		'collection_num' => $collection_num,
         'email' => $user_info['email'],
@@ -470,4 +476,14 @@ function ecmobile_url() {
     }
 
     return $protocol . $host . dirname(PHP_SELF);
+}
+
+function get_teacher_course_name_by_user_id($uid){
+    $sql = "SELECT course_id FROM ". $GLOBALS['ecs']->table('teachers') ."WHERE `user_id` = '". $uid ."'";
+    $res = $GLOBALS['db']->getRow($sql);
+    $teacher_course_id = $res['course_id'];
+    $sql = "SELECT course_name FROM ". $GLOBALS['ecs']->table('courses') ."WHERE `course_id` = '". $teacher_course_id ."'";
+    $res = $GLOBALS['db']->getRow($sql);
+    $teacher_course_name = $res['course_name'];
+    return $teacher_course_name;
 }
