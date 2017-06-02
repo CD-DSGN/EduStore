@@ -178,7 +178,7 @@ elseif ($_REQUEST['act'] == 'insert' || $_REQUEST['act'] == 'update')
             else if (!empty($_REQUEST['url']))
             {
                 /* 来自互联网图片 不可以是服务器地址 */
-                if(strstr($_REQUEST['url'], 'http') && !strstr($_REQUEST['url'], $_SERVER['SERVER_NAME']))
+                if(strstr($_REQUEST['url'], 'http') && !strstr($_REQUEST['url'], $_SERVER["HTTP_HOST"]))
                 {
                     /* 取互联网图片至本地 */
                     $topic_img = get_url_image($_REQUEST['url']);
@@ -230,7 +230,7 @@ elseif ($_REQUEST['act'] == 'insert' || $_REQUEST['act'] == 'update')
     else if (!empty($_REQUEST['title_url']))
     {
         /* 来自互联网图片 不可以是服务器地址 */
-        if(strstr($_REQUEST['title_url'], 'http') && !strstr($_REQUEST['title_url'], $_SERVER['SERVER_NAME']))
+        if(strstr($_REQUEST['title_url'], 'http') && !strstr($_REQUEST['title_url'], $_SERVER["HTTP_HOST"]))
         {
             /* 取互联网图片至本地 */
             $title_pic = get_url_image($_REQUEST['title_url']);

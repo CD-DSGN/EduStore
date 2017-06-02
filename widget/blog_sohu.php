@@ -27,7 +27,7 @@ if ($num <= 0 || $num > 10)
 $json = new JSON;
 $result = $db->getAll("SELECT goods_id, goods_name, shop_price, promote_price, promote_start_date, promote_end_date, goods_brief, goods_thumb FROM " . $ecs->table('goods') . " WHERE is_on_sale = 1 AND is_alone_sale = 1 AND is_delete = 0 ORDER BY rand() LIMIT 0, $num");
 $idx = 0;
-$content['domain'] = 'http://' . $_SERVER['SERVER_NAME'];
+$content['domain'] = 'http://' . $_SERVER["HTTP_HOST"];
 $goods = array();
 foreach ($result as $row)
 {

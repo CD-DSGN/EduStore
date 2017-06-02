@@ -896,7 +896,7 @@ function utf82u2($str)
  */
 function image_path_format($content)
 {
-    $prefix = 'http://' . $_SERVER['SERVER_NAME'];
+    $prefix = 'http://' . $_SERVER["HTTP_HOST"];
     $pattern = '/(background|src)=[\'|\"]((?!http:\/\/).*?)[\'|\"]/i';
     $replace = "$1='" . $prefix . "$2'";
     return preg_replace($pattern, $replace, $content);

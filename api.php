@@ -249,7 +249,7 @@ function search_site_info()
 
     $siteinfo['data_info'] = $GLOBALS['db']->getRow($sql);
 
-    $siteinfo['data_info']['site_address'] = $_SERVER['SERVER_NAME'];
+    $siteinfo['data_info']['site_address'] = $_SERVER["HTTP_HOST"];
 
     data_back($siteinfo, '', RETURN_TYPE);  //返回数据
 }
