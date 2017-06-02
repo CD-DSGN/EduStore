@@ -30,7 +30,7 @@ if (__FILE__ == '')
 define('ROOT_PATH', str_replace('wap/includes/init.php', '', str_replace('\\', '/', __FILE__)));
 
 /* 初始化设置 */
-@ini_set('memory_limit',          '64M');
+@ini_set('memory_limit',          '-1M');
 @ini_set('session.cache_expire',  180);
 @ini_set('session.use_cookies',   1);
 @ini_set('session.auto_start',    0);

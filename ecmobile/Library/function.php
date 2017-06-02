@@ -32,7 +32,13 @@ function GZ_user_info($user_id)
     global $db,$ecs;
 
     $user_info = user_info($user_id);
+    $avatar = $user_info['avatar'];
 
+	if ($avatar) {
+        $avatar = dirname($GLOBALS['ecs']->url()) . "/" . $avatar;
+    }else{
+        $avatar='';
+    }
     if ($user_info['is_teacher']) {
         $show_name = get_teacher_name_by_user_id_original($user_id);
         $teacher_course = get_teacher_course_name_by_user_id($user_id);
@@ -78,6 +84,7 @@ function GZ_user_info($user_id)
 
     return array(
         'id' => $user_info['user_id'],
+        'avatar' => $avatar,
         'name'=>$user_info['user_name'],
         'rank_name'=>$user_info['user_rank_name'],
         'rank_level' => $level,

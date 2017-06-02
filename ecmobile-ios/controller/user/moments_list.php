@@ -173,8 +173,16 @@ function get_publish_image($news_id)
     $photo = array();
 
     foreach ($photo_info as $key => $value) {
-        $photo[] = array('img' 		=>    "http://". $_SERVER['HTTP_HOST'] ."/".$value['image'],
-            'img_thumb'		=>    "http://". $_SERVER['HTTP_HOST'] ."/".$value['image_thumb']);
+
+        $image_size=getimagesize("http://". $_SERVER['HTTP_HOST'] ."/".$value['image_thumb']);
+        $width = $image_size["0"];////获取图片的宽
+        $height = $image_size["1"];///获取图片的高
+
+        $photo[] = array(
+            'img' 		    =>    "http://". $_SERVER['HTTP_HOST'] ."/".$value['image'],
+            'img_thumb'		=>    "http://". $_SERVER['HTTP_HOST'] ."/".$value['image_thumb'],
+            'thumb_width'   =>    $width,
+            'thumb_height'  =>    $height);
 	}
 
     return $photo;

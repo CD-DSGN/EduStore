@@ -29,7 +29,7 @@ if (__FILE__ == '')
 define('ROOT_PATH', str_replace('api', '', str_replace('\\', '/', dirname(__FILE__))));
 
 /* 初始化设置 */
-@ini_set('memory_limit',          '16M');
+@ini_set('memory_limit',          '-1M');
 @ini_set('session.cache_expire',  180);
 @ini_set('session.use_trans_sid', 0);
 @ini_set('session.use_cookies',   1);

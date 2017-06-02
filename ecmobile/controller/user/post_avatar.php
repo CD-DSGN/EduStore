@@ -37,6 +37,7 @@ $avatar_binary_data = base64_decode($avatar);
 if ($fp = @fopen($img_name, "wb"))
 {
 	@fwrite($fp, $avatar_binary_data);
+	@flush();
 	@fclose($fp);
 	
 	// 修改数据库所存储的值
@@ -92,7 +93,8 @@ function extend_user_id($user_id)
 		default:
 			break;
 	}
-	$img_name = $img_name .".jpeg";
+	$time =time();
+	$img_name = $img_name .'_' .$time .".jpeg";
 	return $img_name;
 }
 
