@@ -535,14 +535,14 @@ function checkGradeClass() {
 	} else {
 		$(gradeClassTips[gradeClassTips.length - 1]).html(error_info + '年级与班级不能为空');
 		grade_class_status = 0;
-		$(gradeClassTips[gradeClassTips.length - 1]).html(error_info + '年级和班级要么都填，要么都不填');
+		$(gradeClassTips[gradeClassTips.length - 1]).html(error_info + '请填写完整的年级和班级信息');
 		grade_class_status = 3;
 		return;
 	}
 	if (classIsNum) {
 		grade_class_status = 1;
 	} else {
-		$(gradeClassTips[gradeClassTips.length - 1]).html(error_info + '班级只能填写数字');
+		$(gradeClassTips[gradeClassTips.length - 1]).html(error_info + '班级信息请填写阿拉伯数字');
 		grade_class_status = 2;
 		return;
 	}
