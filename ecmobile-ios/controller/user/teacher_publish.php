@@ -42,8 +42,8 @@ if(count($images_array) == 0 || $images_array == null){
             GZ_Api::outPut(700);// 创建/打开目录失败，无权限
         }
     }
-    $thumb_width  = 180;
-    $thumb_height = 180;
+    $thumb_width  = 150;
+    $thumb_height = 150;
 
     $images_result = array();
 
@@ -68,6 +68,11 @@ if(count($images_array) == 0 || $images_array == null){
                 @fclose($fp);
             }
 
+            $image_size=getimagesize($image_file_path);
+            $weight = $image_size["0"];////获取图片的宽
+            $height = $image_size["1"];///获取图片的高
+            $rate = $height/$weight;//宽高比
+            $thumb_height = (int)ceil($thumb_width * $rate);
             $image = new cls_image($_CFG['bgcolor']);
             $image_thumb = $image->make_huishi_circle_thumb($key, $time, $image_file_path, $thumb_width,  $thumb_height, $dir);
             if ($image_thumb != false )

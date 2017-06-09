@@ -33,7 +33,7 @@
 			<div id="register_form">
 				<form action="./user.php" method="post" name="formTeacher" style="white-space:nowrap;" id="formTeacher" onsubmit="return register();" >
 					<!-- 第一步，创建账户 -->
-					<div id="create_account" style="display:block">
+					<div id="create_account" style="display:block;">
 						<div>
 							<label for="mobileNumber" class="register_info">手机号码</label>
 							<input name="mobile_phone_register" type="text" id="mobileNumber" class="register_input" oninput="checkMobileNumber();" onfocus="focusTips(this.id, '请输入手机号码');" onblur="checkMobileNumber();" />
@@ -347,12 +347,17 @@
 			if (grade_class_status == 0) {
 				$(gradeClassTips[gradeClassTips.length - 1]).html(error_info + '请至少填写一组年级和班级');
 			} else if (grade_class_status == 3) {
-				$(gradeClassTips[gradeClassTips.length - 1]).html(error_info + '年级和班级要么都填，要么都不填');
+				$(gradeClassTips[gradeClassTips.length - 1]).html(error_info + '请填写完整的年级和班级');
 			} else if (grade_class_status == 2) {
-				$(gradeClassTips[gradeClassTips.length - 1]).html(error_info + '班级只能填写数字');
+				$(gradeClassTips[gradeClassTips.length - 1]).html(error_info + '班级请直接填写阿拉伯数字');
 			}
 			return false;
-		}else {
+		}else if(four_status!=0){
+            var gradeClassTips = $(".grade_class_tips");
+            $(gradeClassTips[gradeClassTips.length - 1]).html(error_info + '注册信息重复，请重新填写');
+            return false;
+		}
+		else {
 			var teacher_grade = gradeArray.join('@');
 			var teacher_class = classArray.join('@');
 			// var teacher_grade = JSON.stringify(gradeArray);

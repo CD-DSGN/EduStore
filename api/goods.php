@@ -51,8 +51,8 @@ switch ($action)
         $record_count = 0;
         while ($goods = $db->fetch_array($query))
         {
-            $goods['goods_thumb'] = (!empty($goods['goods_thumb']))? 'http://' . $_SERVER['SERVER_NAME'] . '/' . $goods['goods_thumb']:'';
-            $goods['goods_img'] = (!empty($goods['goods_img']))? 'http://' . $_SERVER['SERVER_NAME'] . '/' . $goods['goods_img']:'';
+            $goods['goods_thumb'] = (!empty($goods['goods_thumb']))? 'http://' . $_SERVER["HTTP_HOST"] . '/' . $goods['goods_thumb']:'';
+            $goods['goods_img'] = (!empty($goods['goods_img']))? 'http://' . $_SERVER["HTTP_HOST"] . '/' . $goods['goods_img']:'';
             $results['data'][] = $goods;
             $record_count++;
         }
@@ -81,7 +81,7 @@ switch ($action)
         $results['data'] = array
         (
             'shop_name' => $shop_name,
-            'domain' => 'http://' . $_SERVER['SERVER_NAME'] . '/',
+            'domain' => 'http://' . $_SERVER["HTTP_HOST"] . '/',
             'shop_region' => $shop_region[0]['region_name'] . ' ' . $shop_region[1]['region_name'] . ' ' . $shop_region[2]['region_name'],
             'currency_format' => $currency_format
         );

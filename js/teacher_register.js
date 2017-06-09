@@ -11,6 +11,8 @@ var agreement_status = 1;				// 0表示为空，1表示正确
 var address_status = 0;					// 0表示为空，1表示正确
 var grade_class_status = 0;				// 0表示为空（请至少填写一组年级和班级），1表示正确，2表示班级有数字，3表示信息不完善（要么都填、要么都空）
 var code_status = 1;
+
+var four_status = 0;                     //0表示注册信息没有重复的，1表示注册信息有重复的，不能注册
 // 年级、班级的全局变量，传参时用
 var gradeArray = Array();
 var classArray = Array();
@@ -533,14 +535,14 @@ function checkGradeClass() {
 	} else {
 		$(gradeClassTips[gradeClassTips.length - 1]).html(error_info + '年级与班级不能为空');
 		grade_class_status = 0;
-		$(gradeClassTips[gradeClassTips.length - 1]).html(error_info + '年级和班级要么都填，要么都不填');
+		$(gradeClassTips[gradeClassTips.length - 1]).html(error_info + '请填写完整的年级和班级信息');
 		grade_class_status = 3;
 		return;
 	}
 	if (classIsNum) {
 		grade_class_status = 1;
 	} else {
-		$(gradeClassTips[gradeClassTips.length - 1]).html(error_info + '班级只能填写数字');
+		$(gradeClassTips[gradeClassTips.length - 1]).html(error_info + '班级信息请填写阿拉伯数字');
 		grade_class_status = 2;
 		return;
 	}
@@ -592,36 +594,34 @@ function jumpToIndex() {
 
 /*pj ajax判断*/
 function showAll(){
+	var gradeClassTips = $(".grade_class_tips");
 	var rr=$('#school').val();
 	var tt=$('#course_name').val(); 
     $(".gradeAndClass").each(function(index) {
- //    	pp=$(this);
- //    	pp.css('background','red');
- //          if (pp.find(".grade").val()!=0 && pp.find(".school_class").val()!="" && rr!=0 && tt!=0) {
- //            console.log("grade="+pp.find(".grade").val()+"class="+pp.find(".school_class").val() +"school="+ rr+"course="+ tt);
- // }
- //    	})
-    	//console.log(this);
+    	//console.log($($(".grade_class_tips")[$(".grade_class_tips") - 1]).html(error_info + '注册信息重复，请重新填写'));
     //$(this).css('background','red');
      if ($(this).find(".grade").val()!=0 && $(this).find(".school_class").val()!="" && rr!=0 && tt!=0) {
      	 var request = new XMLHttpRequest();
            request.open("post","user.php?act=check_teacher_grade_class");
 	      request.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=UTF-8");
-           request.send("grade="+$(this).find(".grade").val()+"class="+$(this).find(".school_class").val() +"school="+ rr+"course="+ tt);
+           request.send("grade="+$(this).find(".grade").val()+"&class="+$(this).find(".school_class").val() +"&school="+ rr+"&course="+ tt);
  	      request.onreadystatechange=function(){
  	      if(request.readyState===4){
 	      if(request.status===200){
 	 		   if(request.responseText==1) {
-		 	    alert("注册信息重复，请重新填写");
+		 	    //alert("注册信息重复，请重新填写");
+		 	    $(gradeClassTips[gradeClassTips.length - 1]).html(error_info + '注册信息重复，请重新填写');
+		 	    four_status=1;
+                
 		 	 }else{
-		 	 	return true;
+		 	 	four_status = 0;
 		 	 }
 	    
  }
  }
 }
 
-console.log("grade="+$(this).find(".grade").val()+"class="+$(this).find(".school_class").val() +"school="+ rr+"course="+ tt);
+//console.log("grade="+$(this).find(".grade").val()+"class="+$(this).find(".school_class").val() +"school="+ rr+"course="+ tt);
 }
 })
 }

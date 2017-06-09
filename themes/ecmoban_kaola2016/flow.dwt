@@ -645,7 +645,7 @@
         <!-- {/if} 是否使用贺卡 -->
 
 <!-- 注释掉的其他信息 -->
-      <!-- <div class="flowBox">
+       <div class="flowBox">
           <h6><span>{$lang.other_info}</span></h6>
       <table width="99%" align="center" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd">
             {if $allow_use_surplus} 是否使用余额
@@ -655,7 +655,7 @@
               {$lang.your_surplus}{$your_surplus|default:0} <span id="ECS_SURPLUS_NOTICE" class="notice"></span></td>
             </tr>
             {/if} 是否使用余额
-            {if $allow_use_integral} 是否使用积分
+            <!-- {if $allow_use_integral} 是否使用积分
             <tr>
               <td bgcolor="#ffffff"><strong>{$lang.use_integral}</strong></td>
               <td bgcolor="#ffffff"><input name="integral" type="text" class="input" id="ECS_INTEGRAL" onblur="changeIntegral(this.value)" value="{$order.integral|default:0}" size="10" />
@@ -673,10 +673,10 @@
                   <option value="{$bonus.bonus_id}" {if $order.bonus_id eq $bonus.bonus_id}selected{/if}>{$bonus.type_name}[{$bonus.bonus_money_formated}]</option>
                   {/foreach}
                 </select>
-      
+                  
                 {$lang.input_bonus_no}
                <input name="bonus_sn" type="text" class="inputBg" size="15" value="{$order.bonus_sn}"/> 
-      
+                  
                 <input name="validate_bonus" type="button" class="bnt_blue_1" value="{$lang.validate_bonus}" onclick="validateBonus(document.forms['theForm'].elements['bonus_sn'].value)" style=" " />
               </td>
             </tr>
@@ -696,9 +696,9 @@
                 <input name="inv_payee" type="text"  class="input" id="ECS_INVPAYEE" size="20" {if !$order.need_inv}disabled="true"{/if} value="{$order.inv_payee}" onblur="changeNeedInv()" />
                 {$lang.invoice_content}
               <select name="inv_content" id="ECS_INVCONTENT" {if $order.need_inv neq 1}disabled="true"{/if}  onchange="changeNeedInv()" style="border:1px solid #ccc;">
-      
+                  
                 {html_options values=$inv_content_list output=$inv_content_list selected=$order.inv_content}
-      
+                  
                 </select></td>
             </tr>
             {/if}
@@ -716,9 +716,9 @@
                 {/foreach}
               </td>
             </tr>
-            {/if} 缺货处理结束
+            {/if} 缺货处理结束 -->
         </table>
-          </div> -->
+          </div> 
 
 
 

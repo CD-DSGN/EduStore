@@ -3195,7 +3195,7 @@ function generate_wx_qrcode($order)
     $input->SetTime_expire(date("YmdHis", time() + 60)); //失效时间定为一分钟，参照京东
     //商品标牌
     $input->SetGoods_tag("test");
-    $notify_url = 'http://' . $_SERVER['SERVER_NAME'] . '/wx_respond.php';
+    $notify_url = 'http://' . $_SERVER['HTTP_HOST'] . '/wx_respond.php';
     $input->SetNotify_url("$notify_url");
     //native方式，第二种模式
     $input->SetTrade_type("NATIVE");

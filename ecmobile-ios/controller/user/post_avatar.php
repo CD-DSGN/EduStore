@@ -92,8 +92,9 @@ function extend_user_id($user_id)
 		default:
 			break;
 	}
-	$img_name = $img_name .".jpeg";
-	return $img_name;
+    $time =time();
+    $img_name = $img_name .'_' .$time .".jpeg";
+    return $img_name;
 }
 
 

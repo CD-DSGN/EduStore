@@ -1290,9 +1290,9 @@ function save_integrate_config ($code, $cfg)
     }
     else
     {
-        if (isset($_SERVER['SERVER_NAME']))
+        if (isset($_SERVER["HTTP_HOST"]))
         {
-            $cur_domain = $_SERVER['SERVER_NAME'];
+            $cur_domain = $_SERVER["HTTP_HOST"];
         }
         elseif (isset($_SERVER['SERVER_ADDR']))
         {

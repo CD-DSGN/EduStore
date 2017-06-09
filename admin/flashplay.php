@@ -144,7 +144,7 @@ elseif ($_REQUEST['act'] == 'add')
                 sys_msg($_LANG['invalid_type']);
             }
             $src = $_POST['img_src'];
-            if(strstr($src, 'http') && !strstr($src, $_SERVER['SERVER_NAME']))
+            if(strstr($src, 'http') && !strstr($src, $_SERVER["HTTP_HOST"]))
             {
                 $src = get_url_image($src);
             }
@@ -254,7 +254,7 @@ elseif ($_REQUEST['act'] == 'edit')
             {
                 sys_msg($_LANG['invalid_type']);
             }
-            if(strstr($src, 'http') && !strstr($src, $_SERVER['SERVER_NAME']))
+            if(strstr($src, 'http') && !strstr($src, $_SERVER["HTTP_HOST"]))
             {
                 $src = get_url_image($src);
             }
@@ -464,7 +464,7 @@ elseif ($_REQUEST['act'] == 'custom_insert')
     else if (!empty($filter['content']['url']))
     {
         /* 来自互联网图片 不可以是服务器地址 */
-        if(strstr($filter['content']['url'], 'http') && !strstr($filter['content']['url'], $_SERVER['SERVER_NAME']))
+        if(strstr($filter['content']['url'], 'http') && !strstr($filter['content']['url'], $_SERVER["HTTP_HOST"]))
         {
             /* 取互联网图片至本地 */
             $src = get_url_image($filter['content']['url']);
@@ -692,7 +692,7 @@ elseif ($_REQUEST['act'] == 'custom_update')
     else if (!empty($filter['content']['url']))
     {
         /* 来自互联网图片 不可以是服务器地址 */
-        if(strstr($filter['content']['url'], 'http') && !strstr($filter['content']['url'], $_SERVER['SERVER_NAME']))
+        if(strstr($filter['content']['url'], 'http') && !strstr($filter['content']['url'], $_SERVER["HTTP_HOST"]))
         {
             /* 取互联网图片至本地 */
             $src = get_url_image($filter['content']['url']);

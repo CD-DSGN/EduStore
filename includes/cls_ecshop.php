@@ -105,9 +105,9 @@ class ECS
                 $port = '';
             }
 
-            if (isset($_SERVER['SERVER_NAME']))
+            if (isset($_SERVER["HTTP_HOST"]))
             {
-                $host = $_SERVER['SERVER_NAME'] . $port;
+                $host = $_SERVER["HTTP_HOST"];
             }
             elseif (isset($_SERVER['SERVER_ADDR']))
             {
