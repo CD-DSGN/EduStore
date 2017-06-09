@@ -26,41 +26,42 @@ $sql = 'INSERT INTO ' .$ecs->table('huishi_circle_comment') ." SET
         publish_time = $time"
         .$sql_target_comment_id;
 $res = $db->query($sql);
+
 if($res == true){
     
-	$comment = get_teacher_publish_comments($news_id);
-	// var_dump($comment);
-    GZ_Api::outPut(array('commentInfo' => $comment));
+    $last_insert_id = mysql_insert_id();
+	if ($last_insert_id != 0) {
+    	$sql = "SELECT * FROM ". $GLOBALS['ecs']->table('huishi_circle_comment') ." WHERE `comment_id` = $last_insert_id";
+	    $comment_info = $GLOBALS['db']->getRow($sql);
+	    $comment = array();
+	    $uid = get_user_id_by_comment_id($comment_info['target_comment_id']);
+	    $target_username = get_username_by_user_id($uid);
+	    if($target_username == null){
+	        $target_username = '';
+	    }
 
+	    $show_target_name = get_showname_by_user_id($uid);
+	    $show_name = get_showname_by_user_id($comment_info['user_id']);
+
+	    $comment = array(
+	        'comment_id' => $comment_info['comment_id'],
+	        'username' => get_username_by_user_id($comment_info['user_id']),
+	        'target_username' => $target_username,
+	        'comment_content' => $comment_info['comment_content'],
+	        'show_name' =>  $show_name,
+	        'show_target_name' =>$show_target_name,
+	        // add nhj, 在这里同时返回news_id
+	        'news_id' => $news_id);
+
+		// var_dump($comment);
+	    GZ_Api::outPut(array('commentInfo' => $comment));
+    } else {
+
+    	// 评论成功，但读取数据失败
+    	GZ_Api::outPut(array('commentInfo' => ''));
+    }
 }else{
     GZ_Api::outPut(708);
-}
-
-function get_teacher_publish_comments($news_id){
-    $sql = "SELECT * FROM ". $GLOBALS['ecs']->table('huishi_circle_comment') ." WHERE `news_id` = $news_id ORDER BY publish_time ASC";
-    $comment_info = $GLOBALS['db']->getAll($sql);
-    $comments = array();
-    foreach ($comment_info as $key =>$value){
-        $uid = get_user_id_by_comment_id($value['target_comment_id']);
-        $target_username = get_username_by_user_id($uid);
-        if($target_username == null){
-            $target_username = '';
-        }
-
-        $show_target_name = get_showname_by_user_id($uid);
-        $show_name = get_showname_by_user_id($value['user_id']);
-
-        $comments[] = array(
-            'comment_id' => $value['comment_id'],
-            'username' => get_username_by_user_id($value['user_id']),
-            'target_username' => $target_username,
-            'comment_content' => $value['comment_content'],
-            'show_name' =>  $show_name,
-            'show_target_name' =>$show_target_name,
-            // add nhj, 在这里同时返回news_id
-            'news_id' => $news_id);
-    }
-    return $comments;
 }
 
 function get_username_by_user_id($uid){
