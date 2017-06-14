@@ -76,7 +76,6 @@ a {
 .login_c .button{ background:#4d90fe url(images/login_sub.png) right 0 no-repeat; padding:0 38px 0 14px; color:#fff; height:34px; line-height:34px; border:0; outline:0; margin:0;}
 .login_c .button:hover{ background:#326dfe url(images/login_sub.png) right -34px no-repeat;}
 .jizhu_label{ position:relative; float:left; color:#7a7a7a; line-height:19px; font-family:Microsoft Yahei,'微软雅黑'; overflow:hidden;}
-#remember{ color:#7a7a7a; line-height:19px; font-family:Microsoft Yahei,'微软雅黑'; overflow:hidden;line-height: 19px;padding: 2px;}
 .jizhu_label span{ width:19px; height:19px; background:url(images/login_checkbox.png) no-repeat; float:left; margin-right:5px; float:left;}
 .jizhu_label span.checkbox{ background-position:-19px 0;}
 .jizhu_label input{margin-left:-50px; float:left;}
@@ -128,15 +127,11 @@ a {
           {/if}
           <tr>
             <td height="34" colspan="1" align="left" style="padding-top:18px;">
-                <label for="jizhu_label" id="remember">
-                    <input type="checkbox" id="jizhu_label" name="remember" value="1" checked=""/>{$lang.remember}
-                </label>
-
-            	<!--<div class="jizhu_label">-->
-                    <!--<span></span>-->
-                    <!--<input type="checkbox" value="1" name="remember" id="jizhu_label"/>-->
-                    <!--<label for="jizhu_label">{$lang.remember}</label>-->
-                <!--</div>-->
+            	<div class="jizhu_label">
+                    <span></span>
+                    <input type="checkbox" value="1" name="remember" id="jizhu_label"/>
+                    <label for="jizhu_label">{$lang.remember}</label>
+                </div>
             </td>
             <td height="34" align="right" style="padding-top:18px;"><input type="submit" value="{$lang.signin_now}" class="button"/></td>
           </tr>
@@ -173,17 +168,17 @@ a {
   }
   {/literal}
 //-->
-//$(function(){
-//	function checked(){
-//		var jizhu_label=$('.jizhu_label')
-//		if(jizhu_label.find('input').is(':checked')){
-//			jizhu_label.find('span').addClass('checkbox');
-//		}else{
-//			jizhu_label.find('span').removeClass('checkbox');
-//		}
-//	}
-//	checked()
-//	$('.jizhu_label').click(checked)
-//})
+$(function(){
+	function checked(){
+		var jizhu_label=$('.jizhu_label')
+		if(jizhu_label.find('input').is(':checked')){
+			jizhu_label.find('span').addClass('checkbox');
+		}else{
+			jizhu_label.find('span').removeClass('checkbox');
+		}
+	}
+	checked()
+	$('.jizhu_label').click(checked)
+})
 </script>
 </body>
