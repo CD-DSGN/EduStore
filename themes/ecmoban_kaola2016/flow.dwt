@@ -645,7 +645,7 @@
         <!-- {/if} 是否使用贺卡 -->
 
 <!-- 注释掉的其他信息 -->
-       <div class="flowBox">
+      <!--  <div class="flowBox">
           <h6><span>{$lang.other_info}</span></h6>
       <table width="99%" align="center" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd">
             {if $allow_use_surplus} 是否使用余额
@@ -655,7 +655,7 @@
               {$lang.your_surplus}{$your_surplus|default:0} <span id="ECS_SURPLUS_NOTICE" class="notice"></span></td>
             </tr>
             {/if} 是否使用余额
-            <!-- {if $allow_use_integral} 是否使用积分
+            {if $allow_use_integral} 是否使用积分
             <tr>
               <td bgcolor="#ffffff"><strong>{$lang.use_integral}</strong></td>
               <td bgcolor="#ffffff"><input name="integral" type="text" class="input" id="ECS_INTEGRAL" onblur="changeIntegral(this.value)" value="{$order.integral|default:0}" size="10" />
@@ -716,9 +716,9 @@
                 {/foreach}
               </td>
             </tr>
-            {/if} 缺货处理结束 -->
+            {/if} 缺货处理结束 
         </table>
-          </div> 
+          </div> -->
 
 
 
