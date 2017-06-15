@@ -1,21 +1,21 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <div class="userMenu" style="background:#fff;height:600px;">
-<a href="user.php" {if $action eq 'default'}class="curs"{/if}><img src="../images/u1.gif"> {$lang.label_welcome}</a><!--欢迎页-->
-<a href="user.php?act=profile"{if $action eq 'profile'}class="curs"{/if}><img src="../images/u2.gif"> {$lang.label_profile}</a><!--用户信息-->
+<a href="user.php" {if $action eq 'default'}class="curs"{/if}><img src="../images/欢迎页.png" width="18px" height="18px" > {$lang.label_welcome}</a><!--欢迎页-->
+<a href="user.php?act=profile"{if $action eq 'profile'}class="curs"{/if}><img src="../images/用户信息.png" width="18px" height="18px"> {$lang.label_profile}</a><!--用户信息-->
 <!-- {if $teacher_or_not eq 0} -->
-<a href="user.php?act=teacher_subscription"{if $action eq 'teacher_subscription'}class="curs"{/if}><img src="../images/shoucang1.gif"> {$lang.label_teacher_connection}</a><!--关注教师-->
+<!--<a href="user.php?act=teacher_subscription"{if $action eq 'teacher_subscription'}class="curs"{/if}><img src="../images/shoucang1.gif"> {$lang.label_teacher_connection}</a>--><!--关注教师-->
 <!--{/if}-->
-<a href="user.php?act=order_list"{if $action eq 'order_list'|| $action eq 'order_detail'}class="curs"{/if}><img src="../images/u3.gif"> {$lang.label_order}</a><!--我的订单-->
-<a href="user.php?act=address_list"{if $action eq 'address_list'}class="curs"{/if}><img src="../images/u4.gif"> {$lang.label_address}</a><!--收货地址-->
-<a href="user.php?act=collection_list"{if $action eq 'collection_list'}class="curs"{/if}><img src="../images/u5.gif"> {$lang.label_collection}</a><!--我的收藏-->
-<a href="user.php?act=message_list"{if $action eq 'message_list'}class="curs"{/if}><img src="../images/u6.gif"> {$lang.label_message}</a><!--我的留言-->
+<a href="user.php?act=order_list"{if $action eq 'order_list'|| $action eq 'order_detail'}class="curs"{/if}><img src="../images/订单.png" width="18px" height="18px"> {$lang.label_order}</a><!--我的订单-->
+<a href="user.php?act=address_list"{if $action eq 'address_list'}class="curs"{/if}><img src="../images/地址.png" width="16px" height="20px"> {$lang.label_address}</a><!--收货地址-->
+<a href="user.php?act=collection_list"{if $action eq 'collection_list'}class="curs"{/if}><img src="../images/收藏.png" width="18px" height="18px"> {$lang.label_collection}</a><!--我的收藏-->
+<a href="user.php?act=message_list"{if $action eq 'message_list'}class="curs"{/if}><img src="../images/留言.png" width="18px" height="18px"> {$lang.label_message}</a><!--我的留言-->
 <!--<a href="user.php?act=tag_list"{if $action eq 'tag_list'}class="curs"{/if}><img src="../images/u7.gif"> {$lang.label_tag}</a>--><!--我的标签-->
 <!--<a href="user.php?act=booking_list"{if $action eq 'booking_list'}class="curs"{/if}><img src="../images/u8.gif"> {$lang.label_booking}</a>--><!--缺货登记-->
 <!--<a href="user.php?act=bonus"{if $action eq 'bonus'}class="curs"{/if}><img src="../images/u9.gif"> {$lang.label_bonus}</a>--><!--我的红包-->
 <!-- {if $affiliate.on eq 1} -->
-<a href="user.php?act=affiliate"{if $action eq 'affiliate'}class="curs"{/if}><img src="../images/u10.gif"> {$lang.label_affiliate}</a><!--我的推荐-->
+<a href="user.php?act=affiliate"{if $action eq 'affiliate'}class="curs"{/if}><img src="../images/推荐.png" width="15px" height="18px"> {$lang.label_affiliate}</a><!--我的推荐-->
 <!-- {/if} -->
-<a href="user.php?act=comment_list"{if $action eq 'comment_list'}class="curs"{/if}><img src="../images/u11.gif"> {$lang.label_comment}</a><!--我的评论-->
+<a href="user.php?act=comment_list"{if $action eq 'comment_list'}class="curs"{/if}><img src="../images/评论.png" width="18px" height="18px"> {$lang.label_comment}</a><!--我的评论-->
 <!--<a href="user.php?act=group_buy">{$lang.label_group_buy}</a>-->
 <!--<a href="user.php?act=track_packages"{if $action eq 'track_packages'}class="curs"{/if}><img src="../images/u12.gif"> {$lang.label_track_packages}</a>--><!--跟踪包裹-->
 <!--<a href="user.php?act=account_log"{if $action eq 'account_log'}class="curs"{/if}><img src="../images/u13.gif"> {$lang.label_user_surplus}</a>--><!--资金管理-->

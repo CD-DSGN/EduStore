@@ -471,22 +471,25 @@
        <tr>
               <td bgcolor="#ffffff">{$lang.consignee_name}:</td>
               <td bgcolor="#ffffff">{$consignee.consignee|escape}</td>
-              <td bgcolor="#ffffff">{$lang.email_address}:</td>
-              <td bgcolor="#ffffff">{$consignee.email|escape}</td>
+              <!-- 注释掉电子邮箱 -->
+              <!-- <td bgcolor="#ffffff">{$lang.email_address}:</td>
+              <td bgcolor="#ffffff">{$consignee.email|escape}</td> -->
             </tr>
             <!-- {if $total.real_goods_count gt 0} -->
             <tr>
               <td bgcolor="#ffffff">{$lang.detailed_address}:</td>
               <td bgcolor="#ffffff">{$consignee.address|escape} </td>
-              <td bgcolor="#ffffff">{$lang.postalcode}:</td>
-              <td bgcolor="#ffffff">{$consignee.zipcode|escape}</td>
+              <!-- 注释掉邮政编码 -->
+              <!-- <td bgcolor="#ffffff">{$lang.postalcode}:</td>
+              <td bgcolor="#ffffff">{$consignee.zipcode|escape}</td> -->
             </tr>
             <!-- {/if} -->
             <tr>
               <td bgcolor="#ffffff">{$lang.phone}:</td>
               <td bgcolor="#ffffff">{$consignee.tel} </td>
-              <td bgcolor="#ffffff">{$lang.backup_phone}:</td>
-              <td bgcolor="#ffffff">{$consignee.mobile|escape}</td>
+              <!-- 注释掉手机 -->
+              <!-- <td bgcolor="#ffffff">{$lang.backup_phone}:</td>
+              <td bgcolor="#ffffff">{$consignee.mobile|escape}</td> -->
             </tr>
              <!-- {if $total.real_goods_count gt 0} -->
              <!--注释掉最佳收货时间和标志性建筑-->
