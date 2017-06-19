@@ -32,5 +32,4 @@ define('OLD_AUTH_KEY', '');
 
 define('API_TIME', '2017-03-03 18:20:15');
 
-
 ?>
