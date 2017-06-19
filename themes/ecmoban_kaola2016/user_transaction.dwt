@@ -597,24 +597,27 @@
                 <td width="15%" align="right" bgcolor="#ffffff">{$lang.consignee_name}： </td>
                 <td width="35%" align="left" bgcolor="#ffffff"><input name="consignee" type="text"  class="inputBg" value="{$order.consignee|escape}" size="25">
                 </td>
-                <td width="15%" align="right" bgcolor="#ffffff">{$lang.email_address}： </td>
+                <!-- 注释掉的电子邮箱 -->
+                <!-- <td width="15%" align="right" bgcolor="#ffffff">{$lang.email_address}： </td>
                 <td width="35%" align="left" bgcolor="#ffffff"><input name="" type="text"  class="inputBg" value="{$order.email|escape}" size="25" />
-                </td>
+                </td> -->
               </tr>
               <!-- {if $order.exist_real_goods} -->
               <!-- 只有虚拟商品处理-->
               <tr>
                 <td align="right" bgcolor="#ffffff">{$lang.detailed_address}： </td>
                 <td align="left" bgcolor="#ffffff"><input name="address" type="text" class="inputBg" value="{$order.address|escape} " size="25" /></td>
-                <td align="right" bgcolor="#ffffff">{$lang.postalcode}：</td>
-                <td align="left" bgcolor="#ffffff"><input name="zipcode" type="text"  class="inputBg" value="{$order.zipcode|escape}" size="25" /></td>
+                <!-- 注释掉的邮政编码 -->
+                <!-- <td align="right" bgcolor="#ffffff">{$lang.postalcode}：</td>
+                <td align="left" bgcolor="#ffffff"><input name="zipcode" type="text"  class="inputBg" value="{$order.zipcode|escape}" size="25" /></td> -->
               </tr>
               <!--{/if}-->
               <tr>
                 <td align="right" bgcolor="#ffffff">{$lang.phone}：</td>
                 <td align="left" bgcolor="#ffffff"><input name="tel" type="text" class="inputBg" value="{$order.tel|escape}" size="25" /></td>
-                <td align="right" bgcolor="#ffffff">{$lang.backup_phone}：</td>
-                <td align="left" bgcolor="#ffffff"><input name="mobile" type="text"  class="inputBg" value="{$order.mobile|escape}" size="25" /></td>
+                <!-- 注释掉的手机 -->
+                <!-- <td align="right" bgcolor="#ffffff">{$lang.backup_phone}：</td>
+                <td align="left" bgcolor="#ffffff"><input name="mobile" type="text"  class="inputBg" value="{$order.mobile|escape}" size="25" /></td> -->
               </tr>
               <!-- {if $order.exist_real_goods} -->
               <!-- 只有虚拟商品处理--><!--注释掉的标志性建筑-->
